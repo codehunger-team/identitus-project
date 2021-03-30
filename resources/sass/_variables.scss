@@ -1,19 +1,24 @@
-// Body
-$body-bg: #f8fafc;
-
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: // Safari for OS X and iOS (San Francisco)
+    "Poppins", -apple-system, blinkmacsystemfont, "Segoe UI", "Roboto", "Helvetica Neue", arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+// Body
+$body-bg: #f8fafc;
+
+$theme-colors: (
+    "primary": #32094e,
+    "secondary": #9804b6,
+    "success": #8ec969,
+    "warning": #FF7D32,
+    "danger": #ff4136,
+    "light": #F8F9FA
+);
+
+$navbar-dark-toggler-icon-bg: none;
+$navbar-light-toggler-icon-bg: none;
+$enable-shadows: true;
+$link-decoration: none;
+
+

@@ -1,4 +1,24 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/images/adopt-spaceman.svg": "/images/adopt-spaceman.svg",
+    "/images/ajax.gif": "/images/ajax.gif",
+    "/images/cart.png": "/images/cart.png",
+    "/images/christopher-gower-m_HRfLhgABo-unsplash.jpg": "/images/christopher-gower-m_HRfLhgABo-unsplash.jpg",
+    "/images/clouds.svg": "/images/clouds.svg",
+    "/images/coding-spaceman.svg": "/images/coding-spaceman.svg",
+    "/images/dev-astro.eps": "/images/dev-astro.eps",
+    "/images/dev-astro.svg": "/images/dev-astro.svg",
+    "/images/emile-perron-xrVDYZRGdw4-unsplash.jpg": "/images/emile-perron-xrVDYZRGdw4-unsplash.jpg",
+    "/images/header.jpg": "/images/header.jpg",
+    "/images/leasing-spaceman.eps": "/images/leasing-spaceman.eps",
+    "/images/leasing-spaceman.svg": "/images/leasing-spaceman.svg",
+    "/images/loader.gif": "/images/loader.gif",
+    "/images/multi-dimension-card-blue.png": "/images/multi-dimension-card-blue.png",
+    "/images/multi-dimension-card-orange.png": "/images/multi-dimension-card-orange.png",
+    "/images/pencil-spaceman.eps": "/images/pencil-spaceman.eps",
+    "/images/pencil-spaceman.svg": "/images/pencil-spaceman.svg",
+    "/images/rocket-launching.svg": "/images/rocket-launching.svg",
+    "/images/rocket.svg": "/images/rocket.svg",
+    "/images/standing-spaceman.svg": "/images/standing-spaceman.svg"
 }
