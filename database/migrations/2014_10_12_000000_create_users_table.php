@@ -15,10 +15,30 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('email')->unique();
+
+            $table->integer('admin')->comment('if admin value = 1 else value = 0')->nullable();
+
+            $table->string('street_1')->nullable();
+            $table->string('street_2')->nullable();
+
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+
+            $table->string('zip')->nullable();
+
+            $table->string('country')->nullable();
+
+            $table->string('company')->nullable();
+            $table->string('phone')->nullable();
+
+            $table->enum('is_vendor', ['no', 'yes','pending']);
             $table->timestamp('email_verified_at')->nullable();
+
             $table->string('password');
+
             $table->rememberToken();
             $table->timestamps();
         });
