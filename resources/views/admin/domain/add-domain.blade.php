@@ -42,9 +42,9 @@
 
 <div class="col-xs-12 col-md-6">
 	<label>Registrar</label><br />
-		<select name="registrar" class="form-control"><br />
+		<select name="registrar_id" class="form-control"><br />
 			@foreach ($registrars as $registrar)
-				<option value="{{$registrar->registrar_id}}" @if($registrar->registrar_id == old('registrar')) selected @endif>{{$registrar->registrar}}</option>
+				<option value="{{$registrar->id}}" @if($registrar->id == old('registrar')) selected @endif>{{$registrar->registrar}}</option>
 			@endforeach
 		</select>
 	<br />
@@ -61,7 +61,7 @@
 		<option value="">Please add some categories first</option>
 	@endif
 	@foreach($categories as $c)
-		<option value="{{ $c['catID'] }}">{{ stripslashes($c['catname']) }}</option>
+		<option value="{{ $c['id'] }}">{{ stripslashes($c['catname']) }}</option>
 	@endforeach
 </select>
 </div>

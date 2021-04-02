@@ -4,9 +4,8 @@
 	<strong>Set commission</strong>
 @endsection
 
-@section('section_body')
-<a class="btn btn-primary" href="/admin/set-domain-commission">Set Domain Commission</a>
-<a class="btn btn-primary" href="/admin/set-contract-commission">Set Contract Commission</a>
+@section('section_body')			
+	<a class="btn btn-primary" href="{{route('set.domain.commission')}}">Set Domain Commission</a>
+	<a class="btn btn-primary" href="{{route('set.contract.commission')}}">Set Contract Commission</a>
 <hr />
-
 @endsection

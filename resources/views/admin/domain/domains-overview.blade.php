@@ -6,7 +6,7 @@
 
 @section('section_body')
 
-<a class="btn btn-primary" href="/admin/add-domain">Add New Domain</a>
+<a class="btn btn-primary" href="{{route('admin.add.domain')}}">Add New Domain</a>
 <hr />
 
 @if($domains)
@@ -28,7 +28,7 @@
 				{{ $d->domain }}
 			</td>
 			@foreach($registrars as $registrar)
-				@if($d->registrar == $registrar->registrar_id)
+				@if($d->registrar_id == $registrar->id)
 					<td>
 						{{ $registrar->registrar }}
 					</td>
@@ -36,22 +36,22 @@
 			@endforeach
 			
 			<td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->pricing, 0) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->pricing, 0) }}
 
 			</td>
 			<td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->discount) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->discount) }}
 			</td>
 			<td>
 				{{ $d->domain_status }}
 			</td>
 			<td>
 				 <div class="btn-group">
-						<a class="btn btn-success btn-xs" href="/admin/set-terms/{{$d->domain}}">
+						<a class="btn btn-success btn-xs" href="{{url('/admin/set-terms',$d->domain)}}">
 							{{ $d->domain_status != 'LEASE' ? 'Set Terms' : 'View Terms' }}
 						</a>
-					@if($d->domain_status != 'LEASE')
-						<a class="btn btn-primary btn-xs" href="/admin/manage-domain/{!! $d->id !!}">
+					@if($d->domain_status != 'LEASE')					
+						<a class="btn btn-primary btn-xs" href="{{url('/admin/manage-domain',$d->id)}}">
 							<i class="glyphicon glyphicon-pencil"></i>
 						</a>
 						<a href="/admin/domains?remove={!! $d->id !!}" onclick="return confirm('Are you sure you want to remove this domain from database?');" class="btn btn-danger btn-xs">

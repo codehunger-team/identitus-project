@@ -3,12 +3,12 @@
 @section('section_title')
 <strong>Manage Domain: {{ $d->domain }}</strong>
 <br /><br />
-<a href="/admin/domains" class="btn btn-default btn-xs">Back to Domains Overview</a>
+<a href="{{route('admin.domain')}}" class="btn btn-default btn-xs">Back to Domains Overview</a>
 @endsection
 
 @section('section_body')
-<form method="POST" enctype="multipart/form-data">
-{{ csrf_field() }}
+<form method="POST" action="{{route('admin.manage.domain.update',$d->domain)}}" enctype="multipart/form-data">
+@csrf
 
 <div class="col-xs-12 col-md-8">
 <label>Domain Name</label><br />
@@ -61,10 +61,10 @@
 		<option value="">Please add some categories first</option>
 	@endif
 	@foreach($categories as $c)
-		@if( $c[ 'catID' ] == $d->category )
-			<option value="{{ $c['catID'] }}" selected>{{ stripslashes($c['catname']) }}</option>
+		@if( $c[ 'id' ] == $d->category )
+			<option value="{{ $c['id'] }}" selected>{{ stripslashes($c['catname']) }}</option>
 		@else
-			<option value="{{ $c['catID'] }}">{{ stripslashes($c['catname']) }}</option>
+			<option value="{{ $c['id'] }}">{{ stripslashes($c['catname']) }}</option>
 		@endif
 	@endforeach
 </select>
