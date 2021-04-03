@@ -119,15 +119,15 @@
                         <a href="{{route('admin.domain')}}"><i class="fa fa-globe"></i> <span>Domains</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='active-lease' )) class="active" @endif>
-                        <a href="/admin/active-lease"><i class="fa fa-money" aria-hidden="true"></i> <span>Active
+                        <a href="{{route('admin.active.lease')}}"><i class="fa fa-money" aria-hidden="true"></i> <span>Active
                                 Lease</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='inactive-lease' )) class="active" @endif>
-                        <a href="/admin/inactive-lease"><i class="fa fa-ban" aria-hidden="true"></i> <span>Inactive
+                        <a href="{{route('admin.inactive.lease')}}"><i class="fa fa-ban" aria-hidden="true"></i> <span>Inactive
                                 Lease</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='categories' )) class="active" @endif>
-                        <a href="/admin/categories"><i class="fa fa-list" aria-hidden="true"></i>
+                        <a href="{{route('admin.category')}}"><i class="fa fa-list" aria-hidden="true"></i>
                             <span>Categories</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='period' )) class="active" @endif>

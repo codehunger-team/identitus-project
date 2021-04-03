@@ -9,9 +9,9 @@
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 		@if( empty( $catname ) )
-		<form method="POST" action="/admin/add_category">
+		<form method="POST" action="{{route('admin.add.category')}}">
 		@else
-		<form method="POST" action="/admin/update_category">
+		<form method="POST" action="{{route('admin.update.category')}}">
 		<input type="hidden" name="catID" value="{{ $catID }}">
 		Category Name:
 		@endif
@@ -39,17 +39,17 @@
 		@foreach( $categories as $c )
 		<tr>
 			<td>
-				{!! $c->catID !!}
+				{!! $c->id !!}
 			</td>
 			<td>
 				{{ $c->catname }}
 			</td>
 			<td>
 				 <div class="btn-group">
-				 	<a class="btn btn-primary btn-xs" href="/admin/categories?update={!! $c->catID !!}">
+				 	<a class="btn btn-primary btn-xs" href="{{url('/')}}/admin/categories?update={!! $c->id !!}">
 				 		<i class="glyphicon glyphicon-pencil"></i>
 				 	</a>
-    				<a href="/admin/categories?remove={!! $c->catID !!}" onclick="return confirm('Are you sure you want to remove this category from database?');" class="btn btn-danger btn-xs">
+    				<a href="/admin/categories?remove={!! $c->id !!}" onclick="return confirm('Are you sure you want to remove this category from database?');" class="btn btn-danger btn-xs">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</div>

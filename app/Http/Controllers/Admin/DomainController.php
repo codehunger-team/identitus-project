@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Registrar;
 use App\Models\Domain;
 use App\Models\Category;
+use App\Models\Contract;
+use App\Models\GracePeriod;
+use App\Models\PeriodType;
+use App\Models\OptionExpiration;
 
 class DomainController extends Controller
 {
@@ -42,7 +46,6 @@ class DomainController extends Controller
     // add domain name listing
     public function add_domain()
     {
-
         $categories = Category::all()->toArray();
         $registrars = Registrar::get();
         return view('admin.domain.add-domain', compact('registrars', 'categories'));
@@ -57,26 +60,19 @@ class DomainController extends Controller
     // bulk upload processing
     public function bulk_upload_process(Request $r)
     {
-
         // Get current data from domain table
         $domainsArray = Domain::select('domain')->pluck('domain')->toArray();
-
         // validate file
         $this->validate($r, ['csv' => 'required|file']);
-
         // process the csv
         $csv_file = $r->file('csv')->getPathname();
         $handle = fopen($csv_file, 'r');
-
         $row = 1;
-
         // insert array
         $insert = [];
-
         while (($data = fgetcsv($handle, 0, ",")) !== false) {
             // get lines count
             $num = count($data);
-
             // increase rows
             $row++;
             // setup fields
@@ -108,9 +104,7 @@ class DomainController extends Controller
         foreach ($insert as $data) {
 
             try {
-
                 $convertedDate = date('Y-m-d', strtotime(str_replace('-', '/', $data['reg_date'])));
-
                 //creating domain collection
                 $domain['domain'] = $data['domain'];
                 $domain['pricing'] = $data['pricing'];
@@ -146,9 +140,9 @@ class DomainController extends Controller
                 $contract['lease_total'] = $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']);
 
                 if (isset($updatedColumnDomainId)) {
-                    Contracts::where('domain_id', $updatedColumnDomainId)->update($contract);
+                    contracts::where('domain_id', $updatedColumnDomainId)->update($contract);
                 } else {
-                    Contracts::create($contract);
+                    contracts::create($contract);
                 }
 
             } catch (Exception $e) {
@@ -282,4 +276,48 @@ class DomainController extends Controller
 
     }
 
+    //set terms
+    public function set_terms($domainName) {
+        
+        $graces = GracePeriod::all();
+        $periods = PeriodType::all();
+        $options = OptionExpiration::all();
+        $domainId = Domain::where('domain',$domainName)->first()->id;
+        $contracts = Contract::where('domain_id',$domainId)->first();
+        $isLease = Domain::where('domain',$domainName)->first()->domain_status;
+
+        if(empty($contracts)) {
+            $contracts = [];
+        }
+        return view('admin.domain.set-terms',compact('graces','periods','options','domainId','contracts','domainName','isLease'));
+    }
+
+    // add terms
+    public function add_terms(Request $request) {
+
+        $data = [
+            'period_payment' => $request->period_payment,
+            'period_type_id' => $request->period_type_id,
+            'number_of_periods' => $request->number_of_periods,
+            'option_price' => $request->option_price,
+            'option_expiration' => 6,
+            'grace_period_id' => 4,
+            'domain_id' => $request->domain_id,
+            'lessor_id' => 1,
+            'first_payment' => $request->first_payment,
+            'auto_change_rate' => 0,
+            'accrual_rate' => 0,
+            'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment)
+        ];
+        
+        $contractData = Contract::where('domain_id',$request->domain_id)->first();
+
+        if($contractData) {
+            $contractData->update($data);
+            return redirect('admin/set-terms/'.$request->domain)->with('msg', 'Successfully updated');
+        } else {
+            Contract::create($data);
+            return redirect('admin/set-terms/'.$request->domain)->with('msg', 'Successfully Added');
+        }
+    }
 }
