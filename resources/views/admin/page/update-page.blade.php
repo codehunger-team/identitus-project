@@ -3,7 +3,7 @@
 @section('section_title')
 	<strong>Pages Manager - Page Update</strong>
 	<br/>
-	<a href="{!! route('admin-cms') !!}">Pages Overview</a>
+	<a href="{!! route('admin.cms') !!}">Pages Overview</a>
 @endsection
 
 @section('section_body')

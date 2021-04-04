@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\Category;
+use App\Models\Navi;
+use App\Models\Option;
+use App\Models\Order;
+use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -121,5 +125,152 @@ class AdminController extends Controller
 
         return redirect('admin/categories')->with('msg', 'Category successfully updated.');
 
+    }
+
+    // pages controller
+    public function pages()
+    {
+        // get existent pages
+        $pages = Page::all();
+        return view('admin.page.pages')->with('pages', $pages)
+            ->with('active', 'pages');
+    }
+
+    // create a page
+    public function create_page(Request $r)
+    {
+        // validate form entries
+        $this->validate($r, ['page_title' => 'unique:pages|required']);
+        // save page
+        $page = new Page;
+        $page->page_title = $r->page_title;
+        $page->page_slug = Str::slug($r->page_title);
+        $page->page_content = $r->page_content;
+        $page->save();
+
+        return redirect()->route('admin.cms')->with('msg', 'Page successfully created');
+
+    }
+
+    //edit page
+    public function edit_page($id)
+    {
+        $page = Page::findOrFail($id);
+        return view('admin.page.update-page')->with('p', $page)->with('active', 'pages');
+    }
+
+    //update page
+    public function update_page($id)
+    {
+        $page = Page::findOrFail($id);
+        $page->page_title = \Request::get('page_title');
+        $page->page_content = \Request::get('page_content');
+        $page->save();
+        return redirect('admin/cms-edit/' . $id)->with('msg', 'Page successfully created');
+    }
+
+    //delete page
+    public function delete_page($id)
+    {
+        if ($id != 1) {
+            Page::destroy($id);
+            $msg = 'Page successfully removed';
+        } else {
+            $msg = 'You cannot remove homepage sorry.';
+        }
+        return redirect()->route('admin.cms')->with('msg', $msg);
+    }
+
+    // navigation controller
+    public function navigation()
+    {
+        // get existent menu items
+        $navi_order = Option::get_option('navi_order');
+
+        if ($navi_order && !empty($navi_order)) {
+            $navi = Navi::orderByRaw("FIELD(id, $navi_order)")->get();
+        } else {
+            $navi = Navi::all();
+        }
+
+        return view('admin.navigation.navigation')->with('navi', $navi)
+            ->with('active', 'navi');
+
+    }
+
+    // create navigation item
+    public function navigation_save(Request $r)
+    {
+        // save and redirect
+        Navi::create($r->except('sb_navi', '_token'));
+        return redirect('admin/navigation')->with('msg', 'Item successfully added to navigation');
+
+    }
+
+    //edit navigation
+    public function navigation_edit($id)
+    {
+        $nav_item = Navi::findOrFail($id);
+        return view('admin.navigation.navigation-edit')->with('n', $nav_item);
+    }
+
+    //update navigation
+    public function navigation_update($id)
+    {
+        $nav_item = Navi::findOrFail($id);
+        $nav_item->title = request('title');
+        $nav_item->url = request('url');
+        $nav_item->target = request('target');
+        $nav_item->save();
+        return redirect('admin/navigation')->with('msg', 'Menu item successfully saved');
+    }
+
+    //delete navigation
+    public function navigation_delete()
+    {
+        Navi::destroy($id);
+        return redirect('admin/navigation')->with('msg', 'Menu item successfully removed');
+    }
+
+    //ajax sort
+    public function navigation_ajax_sort()
+    {
+        $navi_order = implode(',', request('navi_order'));
+        Option::update_option('navi_order', $navi_order);
+        return "Order successfully saved";
+    }
+
+    //configuration overview
+    public function configuration_overview()
+    {
+        return view('admin.configuration.configuration')->with('active', 'config');
+    }
+
+    //configuration show
+    public function configuration_show()
+    {
+        $options = request()->except('_token', 'sb_settings');
+        // save options
+        foreach ($options as $name => $value) {
+            Option::update_option($name, $value);
+        }
+
+        // logo updated?
+        $headImage = '';
+        if (request()->hasFile('homepage_header_image')) {
+            $ext = request()->file('homepage_header_image')->getClientOriginalExtension();
+            $destinationPath = base_path() . '/resources/assets/images/';
+            $fileName = uniqid(rand()) . '.' . $ext;
+            request()->file('homepage_header_image')->move($destinationPath, $fileName);
+            $headImage = Option::update_option('homepage_header_image', '/resources/assets/images/' . $fileName);
+        }
+
+        return redirect('admin/configuration')->with('msg', 'Configuration settings successfully saved!');
+    }
+
+    public function logout()
+    {
+        \Session::flush();
+        return redirect('/login');
     }
 }

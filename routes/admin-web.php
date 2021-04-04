@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\DomainController;
-use App\Http\Controllers\Admin\LeaseController;
-use App\Http\Controllers\Admin\PeriodController;
-use App\Http\Controllers\Admin\OptionExpirationController;
 use App\Http\Controllers\Admin\GracePeriodController;
-
+use App\Http\Controllers\Admin\LeaseController;
+use App\Http\Controllers\Admin\OptionExpirationController;
+use App\Http\Controllers\Admin\PeriodController;
+use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,20 +19,20 @@ use App\Http\Controllers\Admin\GracePeriodController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::prefix('admin')->middleware('auth')->group(function() {
+Route::prefix('admin')->middleware('auth')->group(function () {
     //Dashboard Route
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     //Commission Route
-    Route::get('set-commission/{id}',[CommissionController::class, 'setCommission'])->name('admin.set.commission');
-    Route::get('add-commission/',[CommissionController::class, 'addCommission'])->name('admin.add.commission');
-    Route::get('set-domain-commission',[CommissionController::class, 'setDomainCommission'])->name('set.domain.commission');
-    Route::post('store-domain-commission',[CommissionController::class, 'storeDomainCommission'])->name('store.domain.commission');
-    Route::get('set-contract-commission',[CommissionController::class, 'setContractCommission'])->name('set.contract.commission');
-    Route::post('store-contract-commission',[CommissionController::class, 'storeContractCommission'])->name('store.contract.commission');
-    Route::get('remove-domain-commission',[CommissionController::class, 'removeDomainCommission'])->name('domain.commission.remove');
+    Route::get('set-commission/{id}', [CommissionController::class, 'setCommission'])->name('admin.set.commission');
+    Route::get('add-commission/', [CommissionController::class, 'addCommission'])->name('admin.add.commission');
+    Route::get('set-domain-commission', [CommissionController::class, 'setDomainCommission'])->name('set.domain.commission');
+    Route::post('store-domain-commission', [CommissionController::class, 'storeDomainCommission'])->name('store.domain.commission');
+    Route::get('set-contract-commission', [CommissionController::class, 'setContractCommission'])->name('set.contract.commission');
+    Route::post('store-contract-commission', [CommissionController::class, 'storeContractCommission'])->name('store.contract.commission');
+    Route::get('remove-domain-commission', [CommissionController::class, 'removeDomainCommission'])->name('domain.commission.remove');
 
     //domain Route
     Route::get('domains', [DomainController::class, 'domains_overview'])->name('admin.domain');
@@ -45,10 +45,10 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 
     //Terms per domain
     Route::get('set-terms/{id}', [DomainController::class, 'set_terms'])->name('admin.set.terms');
-    Route::post('add-terms',[DomainController::class, 'add_terms'])->name('admin.add.terms');
+    Route::post('add-terms', [DomainController::class, 'add_terms'])->name('admin.add.terms');
 
-     //Active and Inactive lease
-    Route::get('active-lease',[LeaseController::class, 'activeLease'])->name('admin.active.lease');
+    //Active and Inactive lease
+    Route::get('active-lease', [LeaseController::class, 'activeLease'])->name('admin.active.lease');
     Route::get('inactive-lease', [LeaseController::class, 'inActiveLease'])->name('admin.inactive.lease');
 
     // Category Related
@@ -57,25 +57,52 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::post('update_category', [AdminController::class, 'update_category'])->name('admin.update.category');
 
     // Period Related
-    Route::get('admin/period-types', 'Admin@period_overview');
-    Route::post('admin/add-period', 'Admin@add_period');
-    Route::get('admin/edit-period/{id}', 'Admin@edit_period');
-    Route::any('admin/remove-period/{id}', 'Admin@remove_period');
-    Route::post('admin/update-period', 'Admin@update_period');
-
+    Route::get('period-types', [PeriodController::class, 'period_overview'])->name('admin.period');
+    Route::post('add-period', [PeriodController::class, 'add_period'])->name('admin.add.period');
+    Route::get('edit-period/{id}', [PeriodController::class, 'edit_period'])->name('admin.edit.period');
+    Route::any('remove-period/{id}', [PeriodController::class, 'remove_period'])->name('admin.remove.period');
+    Route::post('update-period', [PeriodController::class, 'update_period'])->name('admin.update.period');
 
     // Option Expiration
-    Route::get('admin/option-expiration', 'Admin@option_overview');
-    Route::post('admin/add-option', 'Admin@add_option');
-    Route::get('admin/edit-option/{id}', 'Admin@edit_option');
-    Route::any('admin/remove-option/{id}', 'Admin@remove_option');
-    Route::post('admin/update-option', 'Admin@update_option');
+    Route::get('option-expiration', [OptionExpirationController::class, 'option_overview'])->name('admin.option');
+    Route::post('add-option', [OptionExpirationController::class, 'add_option'])->name('admin.add.option');
+    Route::get('edit-option/{id}', [OptionExpirationController::class, 'edit_option'])->name('admin.edit.option');
+    Route::any('remove-option/{id}', [OptionExpirationController::class, 'remove_option'])->name('admin.remove.option');
+    Route::post('update-option', [OptionExpirationController::class, 'update_option'])->name('admin.update.option');
 
     // Grace Period
-    Route::get('admin/grace-period', 'Admin@grace_overview');
-    Route::post('admin/add-grace', 'Admin@add_grace');
-    Route::get('admin/edit-grace/{id}', 'Admin@edit_grace');
-    Route::any('admin/remove-grace/{id}', 'Admin@remove_grace');
-    Route::post('admin/update-grace', 'Admin@update_grace');
+    Route::get('grace-period', [GracePeriodController::class, 'grace_overview'])->name('admin.grace');
+    Route::post('add-grace', [GracePeriodController::class, 'add_grace'])->name('admin.add.grace');
+    Route::get('edit-grace/{id}', [GracePeriodController::class, 'edit_grace'])->name('admin.edit.grace');
+    Route::any('remove-grace/{id}', [GracePeriodController::class, 'remove_grace'])->name('admin.remove.grace');
+    Route::post('update-grace', [GracePeriodController::class, 'update_grace'])->name('admin.update.grace');
 
+    // CMS
+    Route::get('cms', [AdminController::class, 'pages'])->name('admin.cms');
+    Route::post('cms', [AdminController::class, 'create_page'])->name('admin.create.page');
+    Route::get('cms-edit/{id}', [AdminController::class, 'edit_page'])->name('admin.edit.page');
+    Route::post('cms-edit/{id}', [AdminController::class, 'update_page'])->name('admin.update.page');
+    Route::delete('cms-delete/{id}', [AdminController::class, 'delete_page'])->name('admin.delete.page');
+
+    // navigation
+    Route::get('navigation', [AdminController::class, 'navigation'])->name('admin.navigation');
+    Route::post('navigation', [AdminController::class, 'navigation_save'])->name('admin.add.navigation');
+    Route::get('navigation/edit/{id}', [AdminController::class, 'navigation_edit'])->name('admin.edit.navigation');
+    Route::post('navigation/edit/{id}', [AdminController::class, 'navigation_update'])->name('admin.update.navigation');
+    Route::delete('navigation/delete/{id}', [AdminController::class, 'navigation_delete'])->name('admin.delete.navigation');
+    Route::get('navigation-ajax-sort', [AdminController::class, 'navigation_ajax_sort'])->name('admin.ajax.sort.navigation');
+
+    //admin user route
+    Route::get('users',[UserController::class, 'registered_user_list'])->name('admin.users');
+    Route::get('remove-user/{id}',[UserController::class, 'remove_users'])->name('admin.remove.user');
+    Route::get('approve-user-vendor/{id}',[UserController::class, 'approve_user_vendor'])->name('admin.approval.vendor');
+    Route::post('vendor-approval',[UserController::class, 'vendor_approval'])->name('admin.vendor.approval');
+
+    //configuration route
+    Route::get('configuration', [AdminController::class, 'configuration_overview'])->name('admin.configuration');
+    Route::post('configuration', [AdminController::class, 'configuration_show'])->name('admin.show.configuration');
+    
+    //logout
+    Route::any('logout', [AdminController::class, 'logout'])->name('admin.logout');
+   
 });

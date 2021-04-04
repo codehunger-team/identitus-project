@@ -13,12 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {   
-        // $this->call(CategorySeeder::class);
-        // $this->call(RegistrarSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(RegistrarSeeder::class);
         $this->call(OptionSeeder::class);
+        $this->call(NaviSeeder::class);
         // \App\Models\User::factory(10)->create();
 
-        // Use it via tinker
+        // Use it via tinker to create admin credential
         // User::Create([
         //     'name' => 'admin',
         //     'email' => 'admin@identitius.com',

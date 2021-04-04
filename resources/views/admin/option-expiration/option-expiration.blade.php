@@ -9,9 +9,9 @@
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 		@if( empty( $o ) )
-		<form method="POST" action="/admin/add-option">
+		<form method="POST" action="{{route('admin.add.option')}}">
 		@else
-		<form method="POST" action="/admin/update-option">
+		<form method="POST" action="{{route('admin.update.option')}}">
 		<input type="hidden" name="optionId" value="{{ $o->id }}">
 		Option Expiration:
 		@endif
@@ -45,11 +45,11 @@
 				{{ $o->option_expiration }}
 			</td>
 			<td>
-				 <div class="btn-group">
-				 	<a class="btn btn-primary btn-xs" href="/admin/edit-option/{!! $o->id !!}">
+				 <div class="btn-group">					
+				 	<a class="btn btn-primary btn-xs" href="{{route('admin.edit.option',$o->id)}}">
 				 		<i class="glyphicon glyphicon-pencil"></i>
-				 	</a>
-    				<a href="/admin/remove-option/{!! $o->id !!}" onclick="return confirm('Are you sure you want to remove this option from the database?');" class="btn btn-danger btn-xs">
+				 	</a>	
+    				<a href="{{route('admin.remove.option',$o->id)}}" onclick="return confirm('Are you sure you want to remove this option from the database?');" class="btn btn-danger btn-xs">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</div>

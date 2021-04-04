@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PeriodType;
 
 class PeriodController extends Controller
 {
@@ -11,9 +12,9 @@ class PeriodController extends Controller
     public function period_overview()
     {
 
-        $periods = PeriodTypes::orderBy('period_type', 'ASC')->get();
+        $periods = PeriodType::orderBy('period_type', 'ASC')->get();
 
-        return view('admin.period-type')
+        return view('admin.period.period-type')
             ->with('active', 'period')
             ->with('periods', $periods);
     }
@@ -24,7 +25,7 @@ class PeriodController extends Controller
 
         $this->validate($r, ['period_type' => 'required']);
 
-        $p = new PeriodTypes;
+        $p = new PeriodType;
         $p->period_type = $r->period_type;
         $p->save();
 
@@ -36,11 +37,11 @@ class PeriodController extends Controller
     public function edit_period($periodID)
     {
 
-        $p = PeriodTypes::FindOrFail($periodID);
+        $p = PeriodType::FindOrFail($periodID);
 
-        $periods = PeriodTypes::orderBy('period_type', 'ASC')->get();
+        $periods = PeriodType::orderBy('period_type', 'ASC')->get();
 
-        return view('admin.period-type', compact('periods', 'p'));
+        return view('admin.period.period-type', compact('periods', 'p'));
     }
 
     // update period
@@ -49,7 +50,7 @@ class PeriodController extends Controller
 
         $this->validate($r, ['period_type' => 'required']);
 
-        $p = PeriodTypes::findOrFail($r->periodId);
+        $p = PeriodType::findOrFail($r->periodId);
         $p->period_type = $r->period_type;
         $p->save();
 
@@ -62,7 +63,7 @@ class PeriodController extends Controller
     public function remove_period($periodID)
     {
 
-        $d = PeriodTypes::findOrFail($periodID);
+        $d = PeriodType::findOrFail($periodID);
         $d->delete();
         return redirect('admin/period-types')->with('msg', 'Successfully removed category "' . $d->period_type . '"');
     }

@@ -53,9 +53,11 @@ You can drag items to sort the order
 <td><a href="javascript:void(0);"><i class="glyphicon glyphicon-list-alt"></i></a></td>
 <td>{{ $m->title }}</td>
 <td><a href="{{ $m->url }}" target="{{ $m->target }}">{{ $m->url }}</a></td>
-<td>
-	<a href="/admin/navigation/edit/{{ $m->id }}"><i class="glyphicon glyphicon-edit"></i></a> 
-	<a href="/admin/navigation/delete/{{ $m->id }}" data-method="delete" data-confirm="Are you sure?"><i class="glyphicon glyphicon-remove"></i></a> 
+<td>	
+	
+	
+	<a href="{{route('admin.edit.navigation',$m->id)}}"><i class="glyphicon glyphicon-edit"></i></a> 
+	<a href="{{route('admin.delete.navigation',$m->id)}}" data-method="delete" data-confirm="Are you sure?"><i class="glyphicon glyphicon-remove"></i></a> 
 </td>
 </tr>
 @endforeach

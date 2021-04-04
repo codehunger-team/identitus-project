@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\GracePeriod;
 
 class GracePeriodController extends Controller
 {
@@ -11,9 +12,9 @@ class GracePeriodController extends Controller
     public function grace_overview()
     {
 
-        $grace = GracePeriods::orderBy('id', 'DESC')->get();
+        $grace = GracePeriod::orderBy('id', 'DESC')->get();
 
-        return view('admin.grace-period')
+        return view('admin.grace-period.grace-period')
             ->with('active', 'grace-period')
             ->with('grace', $grace);
     }
@@ -24,7 +25,7 @@ class GracePeriodController extends Controller
 
         $this->validate($r, ['grace_period' => 'required']);
 
-        $g = new GracePeriods;
+        $g = new GracePeriod;
         $g->grace_period = $r->grace_period;
         $g->save();
 
@@ -36,9 +37,9 @@ class GracePeriodController extends Controller
     public function edit_grace($graceId)
     {
 
-        $g = GracePeriods::FindOrFail($graceId);
-        $grace = GracePeriods::orderBy('id', 'DESC')->get();
-        return view('admin.grace-period', compact('grace', 'g'));
+        $g = GracePeriod::FindOrFail($graceId);
+        $grace = GracePeriod::orderBy('id', 'DESC')->get();
+        return view('admin.grace-period.grace-period', compact('grace', 'g'));
     }
 
     // update period
@@ -46,7 +47,7 @@ class GracePeriodController extends Controller
     {
         $this->validate($r, ['grace_period' => 'required']);
 
-        $g = GracePeriods::findOrFail($r->graceId);
+        $g = GracePeriod::findOrFail($r->graceId);
         $g->grace_period = $r->grace_period;
         $g->save();
 
@@ -58,7 +59,7 @@ class GracePeriodController extends Controller
     public function remove_grace($optionID)
     {
 
-        $d = GracePeriods::findOrFail($optionID);
+        $d = GracePeriod::findOrFail($optionID);
         $d->delete();
         return redirect('admin/grace-period')->with('msg', 'Successfully removed category "' . $d->grace_period . '"');
     }

@@ -8,10 +8,11 @@
 
 <div class="row">
 	<div class="col-xs-12 col-md-6">
-		@if( empty( $g ) )
-		<form method="POST" action="/admin/add-grace">
-		@else
-		<form method="POST" action="/admin/update-grace">
+		@if( empty( $g ) )	
+		
+		<form method="POST" action="{{route('admin.add.grace')}}">
+		@else			
+		<form method="POST" action="{{route('admin.update.grace')}}">
 		<input type="hidden" name="graceId" value="{{ $g->id }}">
 		Grace Period:
 		@endif
@@ -45,11 +46,12 @@
 				{{ $g->grace_period }}
 			</td>
 			<td>
-				 <div class="btn-group">
-				 	<a class="btn btn-primary btn-xs" href="/admin/edit-grace/{!! $g->id !!}">
+				 <div class="btn-group">					
+				 	<a class="btn btn-primary btn-xs" href="{{route('admin.edit.grace',$g->id)}}">
 				 		<i class="glyphicon glyphicon-pencil"></i>
 				 	</a>
-    				<a href="/admin/remove-grace/{!! $g->id !!}" onclick="return confirm('Are you sure you want to remove this grace period from the database?');" class="btn btn-danger btn-xs">
+					 
+    				<a href="{{route('admin.remove.grace',$g->id)}}" onclick="return confirm('Are you sure you want to remove this grace period from the database?');" class="btn btn-danger btn-xs">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</div>

@@ -9,9 +9,9 @@
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 		@if( empty( $p ) )
-		<form method="POST" action="/admin/add-period">
+		<form method="POST" action="{{route('admin.add.period')}}">
 		@else
-		<form method="POST" action="/admin/update-period">
+		<form method="POST" action="{{route('admin.update.period')}}">
 		<input type="hidden" name="periodId" value="{{ $p->id }}">
 		Period Type:
 		@endif
@@ -46,10 +46,10 @@
 			</td>
 			<td>
 				 <div class="btn-group">
-				 	<a class="btn btn-primary btn-xs" href="/admin/edit-period/{!! $p->id !!}">
+				 	<a class="btn btn-primary btn-xs" href="{{route('admin.edit.period',$p->id)}}">
 				 		<i class="glyphicon glyphicon-pencil"></i>
 				 	</a>
-    				<a href="/admin/remove-period/{!! $p->id !!}" onclick="return confirm('Are you sure you want to remove this period from the database?');" class="btn btn-danger btn-xs">
+    				<a href="{{route('admin.remove.period',$p->id)}}" onclick="return confirm('Are you sure you want to remove this period from the database?');" class="btn btn-danger btn-xs">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</div>

@@ -131,35 +131,35 @@
                             <span>Categories</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='period' )) class="active" @endif>
-                        <a href="/admin/period-types"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Period
+                        <a href="{{route('admin.period')}}"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Period
                                 Types</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='option' )) class="active" @endif>
-                        <a href="/admin/option-expiration"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <a href="{{route('admin.option')}}"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                             <span>Option Expiration</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='grace-period' )) class="active" @endif>
-                        <a href="/admin/grace-period"><i class="fa fa-calendar" aria-hidden="true"></i><span>Grace
+                        <a href="{{route('admin.grace')}}"><i class="fa fa-calendar" aria-hidden="true"></i><span>Grace
                                 Period</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='bulk' )) class="active" @endif>
-                        <a href="/admin/bulk-domains"><i class="fa fa-upload"></i> <span>Bulk Upload</span></a>
+                        <a href="{{route('admin.bulk.upload')}}"><i class="fa fa-upload"></i> <span>Bulk Upload</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='pages' )) class="active" @endif>
-                        <a href="/admin/cms"><i class="fa fa-sticky-note-o"></i> <span>Pages</span></a>
+                        <a href="{{route('admin.cms')}}"><i class="fa fa-sticky-note-o"></i> <span>Pages</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='navi' )) class="active" @endif>
-                        <a href="/admin/navigation"><i class="fa fa-unsorted"></i> <span>Navigation</span></a>
+                        <a href="{{route('admin.navigation')}}"><i class="fa fa-unsorted"></i> <span>Navigation</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
-                        <a href="/admin/users"><i class="fa fa-user"></i> <span>Users</span></a>
+                        <a href="{{route('admin.users')}}"><i class="fa fa-user"></i> <span>Users</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='config' )) class="active" @endif>
-                        <a href="/admin/configuration"><i class="fa fa-cog"></i> <span>Configuration</span></a>
+                        <a href="{{route('admin.configuration')}}"><i class="fa fa-cog"></i> <span>Configuration</span></a>
                     </li>
                     </li>
                     <li>
-                        <a href="/admin/logout"><i class="fa fa-power-off"></i> <span>Log Out</span></a>
+                        <a href="{{route('admin.logout')}}"><i class="fa fa-power-off"></i> <span>Log Out</span></a>
                     </li>
                 </ul>
                 <!-- /.sidebar-menu -->

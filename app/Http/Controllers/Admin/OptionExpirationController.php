@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\OptionExpiration;
 
 class OptionExpirationController extends Controller
 {
@@ -11,9 +12,9 @@ class OptionExpirationController extends Controller
     public function option_overview()
     {
 
-        $options = OptionExpirations::orderBy('id', 'DESC')->get();
+        $options = OptionExpiration::orderBy('id', 'DESC')->get();
 
-        return view('admin.option-expiration')
+        return view('admin.option-expiration.option-expiration')
             ->with('active', 'option')
             ->with('options', $options);
     }
@@ -24,7 +25,7 @@ class OptionExpirationController extends Controller
 
         $this->validate($r, ['option_expiration' => 'required']);
 
-        $o = new OptionExpirations;
+        $o = new OptionExpiration;
         $o->option_expiration = $r->option_expiration;
         $o->save();
 
@@ -36,11 +37,11 @@ class OptionExpirationController extends Controller
     public function edit_option($optionID)
     {
 
-        $o = OptionExpirations::FindOrFail($optionID);
+        $o = OptionExpiration::FindOrFail($optionID);
 
-        $options = OptionExpirations::orderBy('id', 'DESC')->get();
+        $options = OptionExpiration::orderBy('id', 'DESC')->get();
 
-        return view('admin.option-expiration', compact('options', 'o'));
+        return view('admin.option-expiration.option-expiration', compact('options', 'o'));
     }
 
     // update period
@@ -49,7 +50,7 @@ class OptionExpirationController extends Controller
 
         $this->validate($r, ['option_expiration' => 'required']);
 
-        $p = OptionExpirations::findOrFail($r->optionId);
+        $p = OptionExpiration::findOrFail($r->optionId);
         $p->option_expiration = $r->option_expiration;
         $p->save();
 
@@ -61,7 +62,7 @@ class OptionExpirationController extends Controller
     public function remove_option($optionID)
     {
 
-        $d = OptionExpirations::findOrFail($optionID);
+        $d = OptionExpiration::findOrFail($optionID);
         $d->delete();
         return redirect('admin/option-expiration')->with('msg', 'Successfully removed category "' . $d->option_expiration . '"');
     }

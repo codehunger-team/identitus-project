@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionExpirationsTable extends Migration
+class CreateNavisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,12 @@ class CreateOptionExpirationsTable extends Migration
      * @return void
      */
     public function up()
-    {   
-        Schema::create('option_expirations', function (Blueprint $table) {
+    {
+        Schema::create('navis', function (Blueprint $table) {
             $table->id();
-            $table->string('option_expiration');
+            $table->string('title')->nullable();
+            $table->string('url')->nullable();
+            $table->string('target')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateOptionExpirationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_expirations');
+        Schema::dropIfExists('navis');
     }
 }
