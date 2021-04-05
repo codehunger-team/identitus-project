@@ -116,13 +116,13 @@ class AdminController extends Controller
 
     // update category
     public function update_category(Request $r)
-    {
+    {   
         $this->validate($r, ['catname' => 'required']);
 
-        $c = Category::findOrFail($r->id);
+        $c = Category::findOrFail($r->catID);
         $c->catname = $r->catname;
         $c->save();
-
+        
         return redirect('admin/categories')->with('msg', 'Category successfully updated.');
 
     }

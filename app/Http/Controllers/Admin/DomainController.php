@@ -79,7 +79,7 @@ class DomainController extends Controller
             $i['domain'] = $data[0];
             $i['pricing'] = intval($data[1]);
             $i['discount'] = intval($data[2]);
-            $i['registrar'] = $data[3];
+            $i['registrar_id'] = $data[3];
             $i['category'] = $data[4];
             $i['user_id'] = $data[5];
             $i['status'] = $data[6];
@@ -108,7 +108,7 @@ class DomainController extends Controller
                 //creating domain collection
                 $domain['domain'] = $data['domain'];
                 $domain['pricing'] = $data['pricing'];
-                $domain['registrar'] = $data['registrar'];
+                $domain['registrar_id'] = $data['registrar_id'];
                 $domain['reg_date'] = $convertedDate;
                 $domain['short_description'] = $data['short_description'];
                 $domain['description'] = $data['full_description'];
@@ -118,7 +118,7 @@ class DomainController extends Controller
                 $domain['discount'] = $data['discount'];
                 $domain['category'] = $data['category'];
                 $domain['user_id'] = $data['user_id'];
-
+                
                 //check for domain already present or not
                 if (in_array($data['domain'], $domainsArray)) {
                     Domain::where('domain', $data['domain'])->update($domain);
@@ -140,9 +140,9 @@ class DomainController extends Controller
                 $contract['lease_total'] = $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']);
 
                 if (isset($updatedColumnDomainId)) {
-                    contracts::where('domain_id', $updatedColumnDomainId)->update($contract);
+                    contract::where('domain_id', $updatedColumnDomainId)->update($contract);
                 } else {
-                    contracts::create($contract);
+                    contract::create($contract);
                 }
 
             } catch (Exception $e) {
@@ -227,11 +227,14 @@ class DomainController extends Controller
 
     }
 
-    public function manage_domain_update(\App\Models\Domain $domain, Request $r, $domainId)
+    public function manage_domain_update(Request $r, $domainName)
     {   
+        $domain = New Domain;
+        $domainID = $domain->where('domain',$domainName)->pluck('id')->first();
+        // dd($domainID);
         // validate min fields
         $this->validate($r, [
-            'domain' => 'required|unique:domains,domain,' . $domainId,
+            'domain' => 'required|unique:domains,domain,'.$domainID,
             'pricing' => 'required|numeric',
             'discount' => 'numeric',
         ]);
@@ -269,10 +272,10 @@ class DomainController extends Controller
 
         }
         // update db
-        Domain::where('id', $domainId)->update($r->except(['sb', '_token', '_wysihtml5_mode']));
+        Domain::where('id', $domainID)->update($r->except(['sb', '_token', '_wysihtml5_mode']));
         // redirect with message
-        return redirect('admin/manage-domain/' . $domainId)
-            ->with('msg', 'Domain details successfully saved.');
+        return redirect('admin/manage-domain/' . $domainID)
+            ->with('msg', 'Domain details successfully Updated.');
 
     }
 

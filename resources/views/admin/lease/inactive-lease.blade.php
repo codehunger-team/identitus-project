@@ -33,19 +33,19 @@
             </td>
 
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->pricing, 0) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->pricing, 0) }}
             </td>
             
 			<td>
                 @if (!empty($d->option_price))
-                {{ App\Options::get_option( 'currency_symbol' ) . number_format($d->option_price, 0) }}
+                {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->option_price, 0) }}
                 @else
-                {{ App\Options::get_option( 'currency_symbol' ) . 0 }}
+                {{ App\Models\Option::get_option( 'currency_symbol' ) . 0 }}
                 @endif
 
             </td>
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->lease_total, 0) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->lease_total, 0) }}
 
             </td>
             
@@ -63,11 +63,11 @@
             @endforeach
 
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->first_payment) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->first_payment) }}
             </td>
 
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->period_payment) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->period_payment) }}
             </td>
 
             @foreach($periodTypes as $periodValue)
@@ -90,10 +90,10 @@
                 @endif
             @endforeach
             <td>
-                <div class="btn-group">
-                <a class="btn btn-primary btn-xs" href="/admin/set-terms/{{$d->domain}}">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                   </a>
+                <div class="btn-group">                     
+                    <a class="btn btn-primary btn-xs" href="{{url('/admin/set-terms',$d->domain)}}">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
                </div>
            </td>
 		</tr>

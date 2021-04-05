@@ -11,7 +11,7 @@
 	domain name, pricing (integer only no currency), registrar, registration date ( day-month-year ), short description, full description, logo image url ( optional )
 	<br/>
 	<strong>Example CSV File</strong><br/>
-	<a href="/DOCUMENTATION/example.csv" target="_blank">Download</a>
+	<a href="{{ asset('downloads/example.csv') }}" >Download</a>
 </div><!-- /.alert alert-info -->
 
 <form method="POST" enctype="multipart/form-data" class="form-horizontal">
