@@ -1,8 +1,13 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import "common/global";
+@import "common/overrides";
+@import "components/navbar";
+@import "components/hero";
+@import "components/howworks";
+@import "components/pricing";
