@@ -41,7 +41,7 @@
                 <div class="col">
                     <label for="periodPayments">Period Type</label>
                     <div class="input-group mb-2">
-                        <select class="custom-select" id="periodPayments" disabled>
+                        <select class="form-control" id="periodPayments" disabled>
                             @if(count($periods))
                             @foreach($periods as $p)
                             <option value="{{$p->id}}" @if($contracts->period_type_id == $p->id) selected
@@ -72,7 +72,7 @@
                     {{-- Date Field, can be dropdown, must include time. (full timestamp)--}}
                     <label for="optionPurchasePrice">Option Expiration</label>
                     <div class="input-group mb-2">
-                        <select class="custom-select" id="periodPayments" disabled>
+                        <select class="form-control" id="periodPayments" disabled>
                             @if(count($options))
                             @foreach($options as $o)
                             <option value={{$o->id}} @if($contracts->option_expiration == $o->id) selected
@@ -111,13 +111,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="form-group row">
-                {{--            Number Percentage--}}
-                <label for="annualIncrease">Annual Increase (%)</label>
-                <div class="input-group mb-2">
-                <input type="text" class="form-control" id="annualIncrease" placeholder="3%" readonly value="{{$contracts->auto_change_rate ?? ''}}">
-                </div>
-        </div>-->
             <div class="form-group row">
                 <div class="col">
                     {{--            Number Percentage--}}
@@ -130,7 +123,7 @@
                 <div class="col">
                     <label for="gracePeriod">Grace Period</label>
                     <div class="input-group mb-2">
-                        <select class="custom-select" id="periodPayments" disabled>
+                        <select class="form-control" id="periodPayments" disabled>
                             @if(count($graces))
                             @foreach($graces as $g)
                             <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected
@@ -147,10 +140,10 @@
                 negotiate these terms with the Lessor, <a href="#">you may attempt to do so here</a>, but please be
                 aware that the Lessor may withdraw their original offer to lease.</p>
             @if(Auth::check())
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Review
-                Lease</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#profileUpdateModal">Review Lease</button>
             @else
-            <a href="{{route('login')}}" class="btn btn-success"> Login to Lease</a>
+            <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
             @endif
             @include('front.components.review-term-modal')
         </form>
@@ -158,28 +151,22 @@
 </div>
 
 @if(auth::user())
-<div id="contract"></div>
 
 
 <!-- SMH- This page is designed to be the final reviewed contract to be signed. 
 It can be in PDF format or not. Ideally, for the lease, 
 this would eventually be a Docusign-type document.-->
 
-<div class="container">
-    <br />
-    <br />
-    <br />
+<div class="container" id="contract">
     <br />
     <br />
     <br />
 
-    <h1>
-        <center>Domain name lease</center>
-        <center>and option to purchase</center>
-        <center><b>{{$domainName ?? ''}}.</b></center>
+    <h1 class="text-center display-5">
+        Domain name lease and option to purchase
+        <b>{{$domainName ?? ''}}</b>
     </h1>
-    </br>
-
+    <br />
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
         and time of <b>{{$getCurrentDateTime ?? ''}}</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
@@ -274,7 +261,7 @@ this would eventually be a Docusign-type document.-->
         this Lease:
         <li>(i) if the Lessee fails to pay any Payment payable under this Lease on the due date for payment, subject to
             a
-            <select class="custom-select" id="periodPayments" disabled>
+            <select class="form-control" id="periodPayments" disabled>
                 @if(count($graces))
                 @foreach($graces as $g)
                 <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected @endif>{{$g->grace_period}}

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\AjaxController;
-use App\Http\Controllers\Auth\RegisterController;
 
 
 
@@ -39,6 +38,6 @@ Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review
 Route::get('ajax/add-to-cart/buy/{domain}',[AjaxController::class, 'add_to_cart_buy'])->name('ajax.add-to-cart.buy');
 
 //user
-Route::get('user/review/update',[RegisterController::class, 'user_update'])->name('user.review.update');
+Route::post('user/review/update',[FrontController::class, 'user_update'])->name('user.review.update');
 
 

@@ -71,35 +71,4 @@ class RegisterController extends Controller
         ]);
     }
 
-
-    /**
-     * Update User.
-     *
-     */
-    public function user_update(Request $request)
-    {   
-        $validator = Validator::make($request->data, [
-            'phone' => 'required|numeric|digits:10',
-            'country' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'street_1' => 'required',
-            'zip' => 'required|numeric',
-        ]);
-
-        if ($validator->errors()->count() > 0) {
-			return response()->json(
-                ['error'=>$validator->errors()->all(),
-                'error_length' => $validator->errors()->count()]);
-        }
-
-        $user = Auth::user();
-        $profile = User::find($user->id);
-        $profile->email_verified_at = Carbon::now()->toDateTimeString();
-        $user->update($request->data);
-        Session::flash('success', 'User has been updated successfully!');
-        return response()->json(
-            ['action' => 'success',
-            'error_length' => 0]);
-    }
 }
