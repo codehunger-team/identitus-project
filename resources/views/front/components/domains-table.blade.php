@@ -29,16 +29,16 @@
             </td>
             <td>
                 <div class="dropdown">
-                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Get
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <ul class="dropdown-menu" aria-labelledby="buy">
                         @if (isset($d->period_payment))
-                        <li><a href="review-terms/{!! $d->domain !!}" class="dropdown-item">Lease Now</a></li>
-                        @endif
-                        <li><a href="/ajax/add-to-cart/buy/{!! $d->domain !!}" class="dropdown-item">Buy Now</a></li>
-                        <li><a href="{{ $d->domain }}" class="dropdown-item">Counter</a></li>
+                            <li><a href="{{route('review.terms',$d->domain)}}" class="dropdown-item">Lease Now</a></li>
+                        @endif 
+                            <li><a href="{{route('ajax.add-to-cart.buy',$d->domain)}}" class="dropdown-item">Buy Now</a></li>
+                            <li><a href="{{ $d->domain }}" class="dropdown-item">Counter</a></li>
                     </ul>
                 </div>
             </td>

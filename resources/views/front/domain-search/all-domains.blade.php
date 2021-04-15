@@ -172,9 +172,7 @@
 {{--    Table--}}
 <div class="container container-white my-4">
     <div class="row">
-        <div class="table-responsive">
-            @include('front.components.domains-table')
-        </div>
+        @include('front.components.domains-table')
     </div>
 </div>
 @push('scripts')
