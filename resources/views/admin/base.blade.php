@@ -98,7 +98,7 @@
             </nav>
         </header>
         {{--  Left side column. contains the logo and sidebar  --}}
-        <aside class="main-sidebar">
+        <aside class="d-flex flex-column p-3 text-white bg-dark" style="width: 280px;">
             {{--  sidebar: style can be found in sidebar.less  --}}
             <section class="sidebar">
                 {{--  Sidebar Menu  --}}
@@ -106,10 +106,10 @@
                     <li class="header">ADMIN MENU</li>
                     {{--  Optionally, you can add icons to the links  --}}
                     <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
-                        <a href="{{route('admin.dashboard')}}"><i class="fa fa-link"></i> <span>Dashboard</span></a>
+                        <a href="{{route('admin.dashboard')}}"><i class="fas fa-columns"></i><span>Dashboard</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='add-commission' )) class="active" @endif>
-                        <a href="{{route('admin.add.commission')}}"><i class="fa fa-globe"></i> <span>Add Commission</span></a>
+                        <a href="{{route('admin.add.commission')}}"><i class="fas fa-calculator"></i> <span>Add Commission</span></a>
                     </li>
                     <li @if(isset($active) AND ($active=='domains' )) class="active" @endif>
                         <a href="{{route('admin.domain')}}"><i class="fa fa-globe"></i> <span>Domains</span></a>
@@ -196,7 +196,7 @@
             {{--  /.content  --}}
         </div>
         {{--  /.content-wrapper  --}}
-    </div>
+    </aside>
     {{--  ./wrapper  --}}
     {{--  REQUIRED JS SCRIPTS  --}}
     {{--  jQuery UI  --}}
@@ -278,5 +278,6 @@
 
     </script>
 </body>
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 </html>

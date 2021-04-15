@@ -7,32 +7,29 @@
 @section('extra_top')
     <div class="row">
         <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="card text-white bg-warning mb-3">
+            <div class="card text-white bg-warning mb-3 shadow">
                 <div class="card-body">
                     <h3>{{ $mtd_count }}</h3>
                     <p>Month to Date Orders</p>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="fas fa-chart-pie"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="card text-white bg-danger mb-3">
+            <div class="card text-white bg-danger mb-3 shadow">
                 <div class="card-body">
                     <h3>${{ number_format( $earnings_mtd, 0) }}</h3>
                     <p>Month to Date Earnings</p>
                     <div class="icon">
-                        <i class="fa fa-money"></i>
+                        <i class="fas fa-money-bill-wave"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="card text-white bg-secondary mb-3">
+            <div class="card text-white bg-secondary mb-3 shadow">
                 <div class="card-body">
                     <h3>{{ $all_time_sales }}</h3>
                     <p>Total Orders</p>
@@ -43,13 +40,12 @@
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="card text-white bg-success mb-3">
+            <div class="card text-white bg-success mb-3 shadow">
                 <div class="card-body">
                     <h3>${{ number_format( $all_time_earnings ,0) }}</h3>
                     <p>Total Earnings</p>
                     <div class="icon">
-                        <i class="fa fa-money"></i>
+                        <i class="fas fa-hand-holding-usd"></i>
                     </div>
                 </div>
             </div>
