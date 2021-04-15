@@ -6,48 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="token" content="{!! csrf_token() !!}">
     <title>@yield('seo_title', 'Domain.Trader')</title>
-    <!-- Tell the browser to be responsive to screen width -->
+    {{--  Tell the browser to be responsive to screen width  --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.5 -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <!-- Font Awesome -->
+    {{--  Bootstrap 3.3.5  --}}
+    <link rel="stylesheet" href="{{ asset('../resources/assets/admin/bootstrap/css/bootstrap.min.css') }}">
+    {{--  Font Awesome  --}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
+    {{--  Ionicons  --}}
     {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
-    <!-- Theme style -->
+    {{--  Theme style  --}}
     <link rel="stylesheet" href="{{ asset('../resources/assets/admin/css/AdminLTE.min.css') }}">
-    <!-- WYSIWYG -->
+    {{--  WYSIWYG  --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('../resources/assets/admin/css/skins/skin-black.min.css') }}">
-    <!-- iCheck -->
+    {{--  iCheck  --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('../resources/assets/admin/plugins/iCheck/flat/blue.css') }}">
-    <!-- dataTables -->
+    {{--  dataTables  --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('../resources/assets/admin/plugins/datatables/dataTables.bootstrap.css') }}">
-    <!--- datetime picker --->
+    {{-- - datetime picker  --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.css') }}">
-    <!-- colorPicker -->
+    {{--  colorPicker  --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
-    <!-- select2 -->
+    {{--  select2  --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('../resources/assets/admin/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <!-- blueimp Gallery styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--  blueimp Gallery styles  --}}
     <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('../resources/assets/admin/css/style.css') }}">
-    <!-- jQuery JS 2.1.4 -->
+    {{--  jQuery JS 2.1.4  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-    <!-- morris.js -->
+    {{--  morris.js  --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    <!-- country list -->
+    {{--  country list  --}}
     <script src="{{ asset('../resources/assets/admin/js/countries.js') }}"></script>
-    <!-- select2 -->
+    {{--  select2  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/select2/select2.min.js') }}"></script>
-    <!---Date time picker--->
+    {{-- -Date time picker --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.js') }}">
     </script>
@@ -68,42 +69,42 @@
         });
 
     </script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    {{--  HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries  --}}
+    {{--  WARNING: Respond.js doesn't work if you view the page via file://  --}}
+    {{-- [if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
+      <![endif] --}}
 </head>
 
 <body class="hold-transition skin-black sidebar-mini">
     <div class="wrapper">
-        <!-- Main Header -->
+        {{--  Main Header  --}}
         <header class="main-header">
-            <!-- Logo -->
+            {{--  Logo  --}}
             <a href="/" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
+                {{--  mini logo for sidebar mini 50x50 pixels  --}}
                 <span class="logo-mini"><b>I</b></span>
-                <!-- logo for regular state and mobile devices -->
+                {{--  logo for regular state and mobile devices  --}}
                 <span class="logo-lg"><b>Identitius</b></span>
             </a>
-            <!-- Header Navbar -->
+            {{--  Header Navbar  --}}
             <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
+                {{--  Sidebar toggle button --}}
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-                <!-- Navbar Right Menu -->
+                {{--  Navbar Right Menu  --}}
             </nav>
         </header>
-        <!-- Left side column. contains the logo and sidebar -->
+        {{--  Left side column. contains the logo and sidebar  --}}
         <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
+            {{--  sidebar: style can be found in sidebar.less  --}}
             <section class="sidebar">
-                <!-- Sidebar Menu -->
+                {{--  Sidebar Menu  --}}
                 <ul class="sidebar-menu">
                     <li class="header">ADMIN MENU</li>
-                    <!-- Optionally, you can add icons to the links -->
+                    {{--  Optionally, you can add icons to the links  --}}
                     <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
                         <a href="{{route('admin.dashboard')}}"><i class="fa fa-link"></i> <span>Dashboard</span></a>
                     </li>
@@ -157,13 +158,13 @@
                         <a href="{{route('admin.logout')}}"><i class="fa fa-power-off"></i> <span>Log Out</span></a>
                     </li>
                 </ul>
-                <!-- /.sidebar-menu -->
+                {{--  /.sidebar-menu  --}}
             </section>
-            <!-- /.sidebar -->
+            {{--  /.sidebar  --}}
         </aside>
-        <!-- Content Wrapper. Contains page content -->
+        {{--  Content Wrapper. Contains page content  --}}
         <div class="content-wrapper">
-            <!-- Main content -->
+            {{--  Main content  --}}
             <section class="content">
                 <hr />
                 @if( session('msg') )
@@ -192,29 +193,29 @@
                 </div>
                 @yield('extra_bottom')
             </section>
-            <!-- /.content -->
+            {{--  /.content  --}}
         </div>
-        <!-- /.content-wrapper -->
+        {{--  /.content-wrapper  --}}
     </div>
-    <!-- ./wrapper -->
-    <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery UI -->
+    {{--  ./wrapper  --}}
+    {{--  REQUIRED JS SCRIPTS  --}}
+    {{--  jQuery UI  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/jQueryUI/jquery-ui.min.js') }}"></script>
-    <!-- Bootstrap 3.3.5 -->
+    {{--  Bootstrap 3.3.5  --}}
     <script src="{{ asset('../resources/assets/admin/bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- wysiwyg -->
+    {{--  wysiwyg  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}">
     </script>
-    <!-- iCheck -->
+    {{--  iCheck  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/iCheck/icheck.min.js') }}"></script>
-    <!-- dataTables -->
+    {{--  dataTables  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('../resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <!-- AdminLTE App -->
+    {{--  AdminLTE App  --}}
     <script src="{{ asset('../resources/assets/admin/js/app.min.js') }}"></script>
-    <!-- laravel.js -->
+    {{--  laravel.js  --}}
     <script src="{{ asset('../resources/assets/js/laravel.js') }}"></script>
-    <!-- colorPicker -->
+    {{--  colorPicker  --}}
     <script src="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
     <script>
         jQuery(document).ready(function ($) {
