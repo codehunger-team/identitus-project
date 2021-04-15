@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="">About</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Domains</a></li>
+                    <a class="nav-link" href="{{route('domains')}}">Domains</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Checkout</a></li>
                 <li class="nav-item" href="">

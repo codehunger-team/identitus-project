@@ -55,19 +55,14 @@
         $(function () {
 
             $(".js-example-basic-multiple").select2({
-
                 multiple: true,
-
                 tags: true,
-
             });
 
 
 
             $('#datetimepicker').datetimepicker({
-
                 format: 'YYYY-MM-DD',
-
             });
 
         });
@@ -253,19 +248,12 @@
 
 
         $(document).ready(function () {
-
             var periodPayments = parseInt($('#periodPayments').val());
-
             var periods = parseInt($('#periods').val());
-
             var firstPayment = parseInt($('#firstPayment').val());
-
             var leaseTotal = firstPayment + periods * periodPayments;
-
             $('#leaseTotal').val(leaseTotal);
-
         });
-
 
 
         $(document).on('keyup', '#firstPayment,#periods,#periodPayments', function (event) {
@@ -278,16 +266,13 @@
                 var periods = parseInt(this.value);
                 var firstPayment = parseInt($('#firstPayment').val());
                 var periodPayments = parseInt($('#periodPayments').val());
-
             } else {
                 var periodPayments = parseInt(this.value);
                 var periods = parseInt($('#periods').val());
                 var firstPayment = parseInt($('#firstPayment').val());
-
             }
             var leaseTotal = firstPayment + periods * periodPayments;
             $('#leaseTotal').val(leaseTotal);
-
         });
 
     </script>

@@ -20,8 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PeriodTypeSeeder::class);
         $this->call(GracePeriodSeeder::class);
         $this->call(NaviSeeder::class);
-        // \App\Models\User::factory(10)->create();
-
+        
         // Use it via tinker to create admin credential
         // User::Create([
         //     'name' => 'admin',
