@@ -3,7 +3,7 @@
 @include('admin.partials.header')
 <body>
 <div id="app">
-    <main>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="container-fluid">
             @if( session('msg') )
                 <div class="alert alert-info alert-dismissible">
