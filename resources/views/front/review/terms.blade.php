@@ -6,7 +6,7 @@
 @section('content')
 <div class="container">
     @if( session()->has('message') AND session()->has('message_type') )
-    @include('components.sweet-alert')
+    {{-- @include('components.sweet-alert') --}}
     @endif
     <div class="section-title">
 
@@ -34,14 +34,14 @@
                     {{--            Currency field--}}
                     <label for="periodPayments">Period Payments ($)</label>
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="periodPayments" placeholder="$500" readonly
+                        <input type="text" class="form-control" placeholder="$500" readonly
                             value="{{$contracts->period_payment ?? ''}}">
                     </div>
                 </div>
                 <div class="col">
                     <label for="periodPayments">Period Type</label>
                     <div class="input-group mb-2">
-                        <select class="form-control" id="periodPayments" disabled>
+                        <select class="form-control" disabled>
                             @if(count($periods))
                             @foreach($periods as $p)
                             <option value="{{$p->id}}" @if($contracts->period_type_id == $p->id) selected
@@ -72,7 +72,7 @@
                     {{-- Date Field, can be dropdown, must include time. (full timestamp)--}}
                     <label for="optionPurchasePrice">Option Expiration</label>
                     <div class="input-group mb-2">
-                        <select class="form-control" id="periodPayments" disabled>
+                        <select class="form-control" disabled>
                             @if(count($options))
                             @foreach($options as $o)
                             <option value={{$o->id}} @if($contracts->option_expiration == $o->id) selected
@@ -123,7 +123,7 @@
                 <div class="col">
                     <label for="gracePeriod">Grace Period</label>
                     <div class="input-group mb-2">
-                        <select class="form-control" id="periodPayments" disabled>
+                        <select class="form-control" disabled>
                             @if(count($graces))
                             @foreach($graces as $g)
                             <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected
@@ -261,7 +261,7 @@ this would eventually be a Docusign-type document.-->
         this Lease:
         <li>(i) if the Lessee fails to pay any Payment payable under this Lease on the due date for payment, subject to
             a
-            <select class="form-control" id="periodPayments" disabled>
+            <select class="form-control" disabled>
                 @if(count($graces))
                 @foreach($graces as $g)
                 <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected @endif>{{$g->grace_period}}
@@ -384,8 +384,7 @@ this would eventually be a Docusign-type document.-->
         <p>Name:{{$lessor->name ?? ''}} Name:{{Auth::user()->name ?? ''}} </p>
         <p>Title: Title:</p>
 
-        <a class="btn btn-success btn-block text-center" href="/ajax/add-to-cart/{!! $domainName !!}"
-            style="margin-bottom:4%; width:30%;margin:top:10%">Lease Now</a>
+        <a class="btn btn-primary btn-block text-center mb-4 mt-5 w-30" href="{{route('ajax.add.to.cart',$domainName)}}">Lease Now</a>
 </div>
 @endif
 @endsection

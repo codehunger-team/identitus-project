@@ -13,5 +13,6 @@
     @stack('scripts')
     @include('front.components.sweet-alert')
     @include('front.components.cart-popup')
+    @include('partials.global-js')
 </body>
 </html>

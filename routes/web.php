@@ -35,7 +35,10 @@ Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
 
 //Add to Cart
+Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');
 Route::get('ajax/add-to-cart/buy/{domain}',[AjaxController::class, 'add_to_cart_buy'])->name('ajax.add-to-cart.buy');
+Route::get('ajax/add-to-cart/{domain}',[AjaxController::class, 'add_to_cart'])->name('ajax.add.to.cart');
+Route::get('/cart/remove/particular-item/{id}',[AjaxController::class, 'cart_remove_item'])->name('ajax.remove.to.cart');
 
 //user
 Route::post('user/review/update',[FrontController::class, 'user_update'])->name('user.review.update');

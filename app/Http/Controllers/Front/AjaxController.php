@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Contract;
 use App\Models\Domain;
-Use Session;
+use Illuminate\Http\Request;
+use Session;
 
 class AjaxController extends Controller
-{   
-   
+{
+
     // add to cart
     public function add_to_cart($domain, Request $request)
     {
         $dataOfDoamin = Domain::Where('domain', $domain)->first();
-        $LeasePricing = Contracts::where('domain_id', $dataOfDoamin->id)->firstOrFail()->first_payment;
+        $LeasePricing = Contract::where('domain_id', $dataOfDoamin->id)->firstOrFail()->first_payment;
 
         //check for the duplicate items in cart
         $items = \Cart::getContent();
@@ -86,7 +87,7 @@ class AjaxController extends Controller
 
         $cart = \Cart::getContent(true);
 
-        return view('cart')->with('cart', $cart);
+        return view('front.cart')->with('cart', $cart);
     }
 
     // remove from cart
@@ -113,5 +114,27 @@ class AjaxController extends Controller
             ->with('message', $r['message'])
             ->with('message_type', $r['message_type']);
 
+    }
+
+    //remove from cart by post method
+    public function cart_remove_item($id)
+    {
+
+        // try removing
+        try {
+
+            \Cart::remove($id);
+
+            $r = ['message' => 'Domain removed from cart.',
+                'message_type' => 'success'];
+
+        } catch (\Exception $e) {
+
+            $r = ['message' => $e->getMessage(),
+                'message_type' => 'warning'];
+        }
+
+        $total = \App\Models\Option::get_option('currency_symbol') . number_format(\Cart::getTotal(), 0);
+        return response()->json(['data' => $r, 'total' => $total]);
     }
 }

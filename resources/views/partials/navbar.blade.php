@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary" shadow-sm">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Identitius') }}
@@ -14,7 +14,7 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="">About</a></li>
                 <li class="nav-item">

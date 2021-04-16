@@ -32,9 +32,8 @@
                 </span>
             </li>
             <li class="list-group-item" style="float: right;">
-                <a href="/checkout" class="btn btn-success">Checkout</a>
+                <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
             </li>
-        </ul>
-        
+        </ul>  
     </div>
 @endif
