@@ -13,33 +13,33 @@
 	<dl>
 		<dt>Enable Domain Logos?</dt>
 		<dd>
-			<input type="radio" name="enable_logos" value="No" @if('No' == App\Models\Option::get_option('enable_logos')) checked @endif> No 
-			<input type="radio" name="enable_logos" value="Yes" @if('Yes' == App\Models\Option::get_option('enable_logos')) checked @endif> Yes 
+			<input type="radio" name="enable_logos" value="No" @if('No' == App\Models\Option::get_option('enable_logos')) checked @endif> No
+			<input type="radio" name="enable_logos" value="Yes" @if('Yes' == App\Models\Option::get_option('enable_logos')) checked @endif> Yes
 		</dd>
 		<dt>Enable Short Description?</dt>
 		<dd>
-			<input type="radio" name="enable_shortdesc" value="No" @if('No' == App\Models\Option::get_option('enable_shortdesc')) checked @endif> No 
-			<input type="radio" name="enable_shortdesc" value="Yes" @if('Yes' == App\Models\Option::get_option('enable_shortdesc')) checked @endif> Yes 
+			<input type="radio" name="enable_shortdesc" value="No" @if('No' == App\Models\Option::get_option('enable_shortdesc')) checked @endif> No
+			<input type="radio" name="enable_shortdesc" value="Yes" @if('Yes' == App\Models\Option::get_option('enable_shortdesc')) checked @endif> Yes
 		</dd>
 		<dt>Enable Financing Form?</dt>
 		<dd>
-			<input type="radio" name="financingEnable" value="No" @if('No' == App\Models\Option::get_option('financingEnable')) checked @endif> No 
-			<input type="radio" name="financingEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('financingEnable')) checked @endif> Yes 
+			<input type="radio" name="financingEnable" value="No" @if('No' == App\Models\Option::get_option('financingEnable')) checked @endif> No
+			<input type="radio" name="financingEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('financingEnable')) checked @endif> Yes
 		</dd>
 		<dt>Enable PayPal?</dt>
 		<dd>
-			<input type="radio" name="paypalEnable" value="No" @if('No' == App\Models\Option::get_option('paypalEnable')) checked @endif> No 
-			<input type="radio" name="paypalEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('paypalEnable')) checked @endif> Yes 
+			<input type="radio" name="paypalEnable" value="No" @if('No' == App\Models\Option::get_option('paypalEnable')) checked @endif> No
+			<input type="radio" name="paypalEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('paypalEnable')) checked @endif> Yes
 		</dd>
 		<dt>Enable Stripe?</dt>
 		<dd>
-			<input type="radio" name="stripeEnable" value="No" @if('No' == App\Models\Option::get_option('stripeEnable')) checked @endif> No 
-			<input type="radio" name="stripeEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('stripeEnable')) checked @endif> Yes 
+			<input type="radio" name="stripeEnable" value="No" @if('No' == App\Models\Option::get_option('stripeEnable')) checked @endif> No
+			<input type="radio" name="stripeEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('stripeEnable')) checked @endif> Yes
 		</dd>
 		<dt>Enable Escrow?</dt>
 		<dd>
-			<input type="radio" name="escrowEnable" value="No" @if('No' == App\Models\Option::get_option('escrowEnable')) checked @endif> No 
-			<input type="radio" name="escrowEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('escrowEnable')) checked @endif> Yes 
+			<input type="radio" name="escrowEnable" value="No" @if('No' == App\Models\Option::get_option('escrowEnable')) checked @endif> No
+			<input type="radio" name="escrowEnable" value="Yes" @if('Yes' == App\Models\Option::get_option('escrowEnable')) checked @endif> Yes
 		</dd>
 	</dl>
 	</div>
@@ -49,7 +49,7 @@
 		<dd>
 			<input type="text" name="contact_email" value="{{ App\Models\Option::get_option('contact_email') }}" class="form-control">
 		</dd>
-		
+
 		<dt>Admin Email</dt>
 		<dd>
 			<input type="text" name="admin_email" value="{{ App\Models\Option::get_option('admin_email') }}" class="form-control">
@@ -68,7 +68,7 @@
 	</dl>
 	</div>
 </div>
-	
+
 @endsection
 
 @section('extra_bottom')
@@ -179,14 +179,14 @@
 				<dd>
 					<input type="text" name="stripe_key" value="{{ App\Models\Option::get_option('stripe_key') }}" class="form-control">
 				</dd>
-				
+
 				<dt>Stripe Secret</dt>
 				<dd>
-					<input type="text" name="stripe_secret" class="form-control" value="{!! App\Models\Option::get_option('stripe_secret') !!}">	
+					<input type="text" name="stripe_secret" class="form-control" value="{!! App\Models\Option::get_option('stripe_secret') !!}">
 				</dd>
 				<dt>Stripe Client ID</dt>
 				<dd>
-					<input type="text" name="stripe_client_id" class="form-control" value="{!! App\Models\Option::get_option('stripe_client_id') !!}">	
+					<input type="text" name="stripe_client_id" class="form-control" value="{!! App\Models\Option::get_option('stripe_client_id') !!}">
 				</dd>
 			</div><!-- BODY FONT_COLOR -->
 		</div>
@@ -199,10 +199,10 @@
 				<dd>
 					<input type="text" name="paypal_client_id" value="{{ App\Models\Option::get_option('paypal_client_id') }}" class="form-control">
 				</dd>
-				
+
 				<dt>Paypal Secret</dt>
 				<dd>
-					<input type="text" name="paypal_secret" class="form-control" value="{!! App\Models\Option::get_option('paypal_secret') !!}">	
+					<input type="text" name="paypal_secret" class="form-control" value="{!! App\Models\Option::get_option('paypal_secret') !!}">
 				</dd>
 			</dl>
 			</div><!-- BODY FONT_COLOR -->
@@ -244,9 +244,9 @@
 			</div>
 		</div><!-- color setup -->
 
-	
+
 	<div class="col-xs-6">
-		<input type="submit" name="sb_settings" value="Save" class="btn btn-block btn-primary">	
+		<input type="submit" name="sb_settings" value="Save" class="btn btn-block btn-primary">
 	</div>
 
 	</form>
