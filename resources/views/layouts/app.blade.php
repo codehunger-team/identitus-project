@@ -11,5 +11,7 @@
         </main>
     </div>
     @stack('scripts')
+    @include('front.components.sweet-alert')
+    @include('front.components.cart-popup')
 </body>
 </html>

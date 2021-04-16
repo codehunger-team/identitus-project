@@ -93,8 +93,6 @@
 <script>
     $(document).ready(function() {
         $('#update_btn').click(function(e) {
-            this.value = 'processing...';
-            this.disabled = true;
             e.preventDefault();
         var formData = {
                 phone:    $('input[name=phone]').val(),

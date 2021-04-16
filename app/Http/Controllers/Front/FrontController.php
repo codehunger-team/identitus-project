@@ -13,7 +13,12 @@ use Carbon\Carbon;
 use Session;
 
 class FrontController extends Controller
-{
+{   
+    public function __construct() 
+    { 
+        $this->middleware('preventBackHistory');
+    }
+    
     // all domains
     public function all_domains(Request $request) 
     {

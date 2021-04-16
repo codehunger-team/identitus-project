@@ -20,7 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('domains')}}">Domains</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Checkout</a></li>
+                    <a class="nav-link cart_items" href="javascript:void(0)" target="_self">Checkout</a>
                 <li class="nav-item" href="">
                     <a class="nav-link" href="">Q&As</a>
                 </li>
