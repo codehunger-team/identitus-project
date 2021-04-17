@@ -47,7 +47,7 @@ class Domain extends Model
      */
     public static function getCharacterEndswith($keyword) {
 
-        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->get();
+        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->where('domain_status','AVAILABLE')->get();
 
         $domainID = [];
 
@@ -72,7 +72,7 @@ class Domain extends Model
      */
     public static function getStringWithNoNumerals($keyword) {
 
-        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->get();
+        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->where('domain_status','AVAILABLE')->get();
 
         $domainID = [];
 
@@ -99,7 +99,7 @@ class Domain extends Model
 
         $seperateNumberString = preg_replace("/[^0-9]{1,4}/", '', $keyword);
 
-        $domainfilters = self::where('domain', 'like', '%' . $seperateNumberString . '%' )->get();
+        $domainfilters = self::where('domain', 'like', '%' . $seperateNumberString . '%' )->where('domain_status','AVAILABLE')->get();
 
         foreach($domainfilters as $key => $domainfilter) {
 
@@ -123,7 +123,7 @@ class Domain extends Model
 
         $domainID = [];
 
-        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->get();
+        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->where('domain_status','AVAILABLE')->get();
 
         foreach($domainfilters as $key => $domainfilter) {
 
@@ -149,7 +149,7 @@ class Domain extends Model
 
         $domainID = [];
 
-        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->get();
+        $domainfilters = self::where('domain', 'like', '%' . $keyword . '%' )->where('domain_status','AVAILABLE')->get();
 
         foreach($domainfilters as $key => $domainfilter) {
             $removeDelimiter = strtoupper(strtok($domainfilter->domain, '.'));
@@ -202,8 +202,7 @@ class Domain extends Model
         $query->leftJoin('contracts', function($join) {
             $join->on('domains.id', '=', 'contracts.domain_id');
           })->select('domains.pricing','domains.domain_status','domains.domain','domains.discount', 'contracts.period_payment')
-          ->where('domain_status', '!=', 'SOLD')
-          ->where('domain_status', '!=', 'LEASE')
+          ->where('domain_status','AVAILABLE')
           ->where('user_id', '!=', $userId)
           ->orderby('id','DESC');
     }

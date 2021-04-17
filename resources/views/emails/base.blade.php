@@ -279,7 +279,7 @@
 															<table border="0" cellpadding="30" cellspacing="0" width="100%">
 																<tr>
 																	<td align="center" valign="top" class="textContent">
-																		<h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;">{{ \App\Options::get_option('site_title') }}</h1>
+																		<h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;">{{ \App\Models\Option::get_option('site_title') }}</h1>
 																		<div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#FFFFFF;line-height:135%;">@yield('email_title', 'Email Title')</div>
 																	</td>
 																</tr>
@@ -366,7 +366,7 @@
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
 																				<td valign="top" class="textContent">
-																					<div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;margin-top:3px;color:#5F5F5F;line-height:135%;">{{ \App\Options::get_option('site_title') }}</div>
+																					<div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;margin-top:3px;color:#5F5F5F;line-height:135%;">{{ \App\Models\Option::get_option('site_title') }}</div>
 																				</td>
 																			</tr>
 																		</table>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\AjaxController;
+use App\Http\Controllers\Front\CheckoutController;
 
 
 
@@ -42,5 +43,10 @@ Route::get('/cart/remove/particular-item/{id}',[AjaxController::class, 'cart_rem
 
 //user
 Route::post('user/review/update',[FrontController::class, 'user_update'])->name('user.review.update');
+
+//checkout
+Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->name('checkout.credit.card');
+Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
+Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 

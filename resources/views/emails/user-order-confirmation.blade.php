@@ -56,7 +56,7 @@ Hi {{ $order->customer }}, thanks for buying with us!
 											<table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="350" style="max-width:100%;">
 												<tr>
 													<td align="left" class="textContent">
-														<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">{{ App\Options::get_option( 'currency_symbol' ) . number_format($domain->price)}}</h3>
+														<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->price)}}</h3>
 														<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">Domain: {{ $domain->name }}</div>
 													</td>
 												</tr>
@@ -104,7 +104,7 @@ Hi {{ $order->customer }}, thanks for buying with us!
 															http://kb.mailchimp.com/templates/code/create-editable-content-areas-with-mailchimps-template-language
 														-->
 														<h3 mc:edit="header" style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">
-															Order Total: {{ App\Options::get_option( 'currency_symbol' ) . number_format(\Cart::getTotal(), 0)}}
+															Order Total: {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format(\Cart::getTotal(), 0)}}
 														</h3>
 													</td>
 												</tr>

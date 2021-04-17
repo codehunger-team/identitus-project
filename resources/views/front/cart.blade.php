@@ -1,25 +1,25 @@
 @extends('layouts.app')
 @section('seo_title') Cart - {!! \App\Models\Option::get_option('seo_title') !!} @endsection
 @section('content')
-<div class="container-white">
-    <div class="row">
+<div class="container">
+    <div class="row" style="margin-top:8%">
         <div class="col-8-lg col-8-md col-8-sm mx-auto main-top ">
             <div class="text-center">
                 <h1>Checkout</h1>
             </div>
             @if(Session::has('msg'))
-            <div class="alert alert-danger alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{ Session::get('msg') }}
-            </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    {{ Session::get('msg') }}
+                </div>
             @endif
             @if( session()->has('message') AND session()->has('message_type') )
-            @include('components.sweet-alert')
+                @include('components.sweet-alert')
             @endif
         </div>
     </div>
     <div class="row">
-        <div class="col-12-sm mx-auto mb-4 mt-5">
+        <div class="col-12-sm mx-auto mb-4 mt-4">
             <div class="card shadow-sm p-3 mx-auto mb-5 bg-white rounded" style="width: 26rem;">
                 <div class="card-body">
                     <h6>Check your shopping cart and choose a type of payment.</h6>
@@ -66,25 +66,14 @@
                                 </tr>
                                 <tr>
                                     <td class="align-end" colspan="2">
-                                        <a href="/domains" class="btn btn-primary"> Continue Shopping</a>
+                                        <a href="{{route('domains')}}" class="btn btn-primary"> Continue Shopping</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <h4>Checkout</h4>
                                         @if( 'Yes' == \App\Models\Option::get_option( 'stripeEnable' ) )
-                                        <a href="/checkout/credit-card" class="btn btn-primary"><i
-                                                class="fa fa-credit-card payment-icons"></i> Credit Card</a>
-                                        @endif
-                                        @if( 'Yes' == \App\Models\Option::get_option( 'paypalEnable' ) )
-                                        <a href="/checkout/paypal" class="btn btn-warning paypalSubmit">
-                                            <i class="fa fa-paypal payment-icons"></i> PayPal
-                                        </a>
-                                        @endif
-                                        @if( 'Yes' == \App\Models\Option::get_option( 'escrowEnable' ) )
-                                        <a href="/checkout/escrow" class="btn btn-navi">
-                                            <i class="fa fa-shield payment-icons"></i> Escrow
-                                        </a>
+                                        <a href="{{route('checkout.credit.card.processing')}}" class="btn btn-primary">Credit Card</a>
                                         @endif
                                     </td>
                                 </tr>

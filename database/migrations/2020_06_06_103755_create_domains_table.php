@@ -41,7 +41,7 @@ class CreateDomainsTable extends Migration
 
             $table->string('domain_logo')->nullable();
 
-            $table->enum('domain_status', ['AVAILABLE', 'SOLD']);
+            $table->enum('domain_status', ['AVAILABLE', 'SOLD','LEASE']);
 
             $table->integer('discount')->nullable();
 
