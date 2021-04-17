@@ -4042,7 +4042,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #777;
 }
 .nav > li.disabled > a:hover,
-.nav > li.disabled > a:focus {
+.extnav > li.disabled > a:focus {
   color: #777;
   text-decoration: none;
   cursor: not-allowed;
