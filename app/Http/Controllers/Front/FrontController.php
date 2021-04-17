@@ -148,7 +148,7 @@ class FrontController extends Controller
             $d = [];
         }
         if( !count( $d ) )
-            return '<h3 class="text-center"><i class="fa fa-alert"></i> No domains matching the selected criteria</h3><br/><br/>';
+            return '<h3 class="text-center"> No domains matching the selected criteria</h3><br/><br/>';
 
         
         return view('front.components.domains-table')->with( 'domains', $d );

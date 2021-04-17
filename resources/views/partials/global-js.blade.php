@@ -17,7 +17,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/ajax/domain_filtering',
+                url: "{{route('ajax.domainfiltering')}}",
                 data: formData,
                 cache: false,
                 beforeSend: function () {
