@@ -41,29 +41,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <!-- Button to Open the Modal -->
-        
-        <!-- The Modal -->
-        <div class="modal fade" id="myModal">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Payment is processing ...</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
- 
-              <!-- Modal body -->
-              <div class="modal-body">
-                Please Don't Refresh or Close your browser until payment has been made
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
       
     <script src="https://js.stripe.com/v3/"></script>
     <script>
@@ -110,7 +87,8 @@
     
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-    
+            $('.submit-btn').attr('disabled','disabled');
+            $("#card-button").text('processing...');
         stripe.handleCardPayment(clientSecret, cardElement, {
                 payment_method_data: {
                     //billing_details: { name: cardHolderName.value }
@@ -118,13 +96,12 @@
             })
             .then(function(result) {
                 if (result.error) {
+                    $('.submit-btn').prop("disabled", false); // Element(s) are now enabled.
+                    $("#card-button").text('pay');
                     // Inform the user if there was an error.
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
                 } else {
-                    $('.submit-btn').attr('disabled','disabled');
-                    $('#myModal').modal('show');
-                    $(".modal-btn").trigger("click");
                     form.submit();
                 }
             });
