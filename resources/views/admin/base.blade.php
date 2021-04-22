@@ -25,7 +25,6 @@
                 @include('admin.partials.admin-nav')
                 <div class="col m-4">
                     <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
-
                     @yield('section_body', 'Body')
                     @yield('extra_bottom')
                 </div>

@@ -11,12 +11,12 @@
     {{--  iCheck  --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('../resources/assets/admin/plugins/iCheck/flat/blue.css') }}">
     {{--  dataTables  --}}
-    {{--    <link rel="stylesheet" type="text/css"--}}
-    {{--        href="{{ asset('../resources/assets/admin/plugins/datatables/dataTables.bootstrap.css') }}">--}}
+       <link rel="stylesheet" type="text/css"
+           href="{{ asset('../resources/assets/admin/plugins/datatables/dataTables.bootstrap.css') }}">
     {{-- - datetime picker  --}}
-    {{--    <link rel="stylesheet" type="text/css"--}}
-    {{--        href="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.css') }}">--}}
-    {{--  colorPicker  --}}
+       <link rel="stylesheet" type="text/css"
+           href="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.css') }}">
+     {{-- colorPicker  --}}
     <link rel="stylesheet" type="text/css"
           href="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
     {{--  select2  --}}
