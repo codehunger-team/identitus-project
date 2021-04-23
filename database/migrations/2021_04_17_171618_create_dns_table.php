@@ -16,7 +16,7 @@ class CreateDnsTable extends Migration
         Schema::create('dns', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('domain_id')->unsigned()->comment('Refers to domain.');;
+            $table->bigInteger('domain_id')->unsigned()->comment('Refers to domain.')->nullable();
             $table->foreign('domain_id')->references('id')->on('domains')->onDelete('cascade');
 
             $table->bigInteger('user_id')->unsigned();

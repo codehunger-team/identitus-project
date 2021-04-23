@@ -12,6 +12,8 @@ use App\Models\OptionExpiration;
 use App\Models\Contract;
 use App\Models\Dns;
 use App\Models\User;
+use App\Models\Domain;
+use Hash;
 
 class UserSettingController extends Controller
 {   
@@ -27,8 +29,8 @@ class UserSettingController extends Controller
 
         if ($userData['is_vendor']) {
             \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
-                $m->from('noreply@identitus.com', \App\Options::get_option('site_title'));
-                $m->to(\App\Options::get_option('admin_email'))->subject('Applied for vendor');
+                $m->from('noreply@identitus.com', \App\Models\Option::get_option('site_title'));
+                $m->to(\App\Models\Option::get_option('admin_email'))->subject('Applied for vendor');
             });
 
             $userData['is_vendor'] = 'pending';
@@ -158,7 +160,7 @@ class UserSettingController extends Controller
         $data['user_id'] = Auth::id();
 
         $isDomain = Dns::where('domain_id', $request->domain_id)->first();
-
+        
         if (isset($isDomain)) {
             Dns::where('domain_id', $request->domain_id)->update($data);
             return back()->with('msg', 'Dns updated successfully');
@@ -210,4 +212,13 @@ class UserSettingController extends Controller
 
     }
 
+    /**
+     *  Logout User
+     * 
+    */
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/');
+    }
 }

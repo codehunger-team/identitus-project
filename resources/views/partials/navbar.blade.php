@@ -51,6 +51,8 @@
                             </a>
                             @if(Auth::user()->admin == 1)
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                            @else 
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
                             @endif
                         </div>
                     </li>

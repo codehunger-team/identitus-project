@@ -127,17 +127,13 @@
                 <a href="{{route('user.inactive.lease')}}">
                   <i class="fa fa-ban" aria-hidden="true"></i> <span>Inactive Lease</span></a>
               </li>
-              {{-- <li @if(isset($active) AND ($active == 'bank-details')) class="active" @endif>
-                <a href="{{route('user.bank-details')}}">
-                  <i class="fa fa-university" aria-hidden="true"></i> <span>Bank Details</span></a>
-              </li> --}}
               <li @if(isset($active) AND ($active == 'bank-details')) class="active" @endif>
                 <a href="{{route('user.stripe-connect')}}">
                   <i class="fa fa-university" aria-hidden="true"></i> <span>Connect Stripe</span></a>
               </li>
             @endif
             <li>
-              <a href="{{route('logout')}}"><i class="fa fa-power-off"></i> <span>Log Out</span></a>
+              <a href="{{route('user.logout')}}"><i class="fa fa-power-off"></i> <span>Log Out</span></a>
             </li>
           </ul><!-- /.sidebar-menu -->
         </section>
@@ -147,42 +143,41 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Main content -->
-        <section class="content">
+        <div class="container">
         <hr />
         
 
-        @if( session('msg') )
-        <div class="alert alert-info alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-info"></i> Alert!</h4>
-        {!! session('msg') !!}
-        </div>
-        @endif
-
-        @if (count($errors) > 0)
-        <div class="alert alert-danger alert-dismissible">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-
-        @yield('extra_top') 
-
-        <div class="box">
-          <div class="box-header with-border">@yield('section_title', 'Section Title')</div>
-          <div class="box-body">
-          @yield('section_body', 'Body')
+          @if( session('msg') )
+          <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-info"></i> Alert!</h4>
+          {!! session('msg') !!}
           </div>
-          <div class="box-footer"></div>
-        </div>
+          @endif
 
-        @yield('extra_bottom') 
+          @if (count($errors) > 0)
+          <div class="alert alert-danger alert-dismissible">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
+
+          @yield('extra_top') 
+
+          <div class="box">
+            <div class="box-header with-border">@yield('section_title', 'Section Title')</div>
+            <div class="box-body">
+            @yield('section_body', 'Body')
+            </div>
+            <div class="box-footer"></div>
+          </div>
+
+          @yield('extra_bottom') 
         
-        
-        </section><!-- /.content -->
+        </div><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
     </div><!-- ./wrapper -->

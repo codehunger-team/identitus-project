@@ -23,5 +23,6 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('set-dns/{id}', [UserSettingController::class, 'addDns'])->name('user.add.dns');
     Route::post('nameserver-route', [UserSettingController::class, 'storeDns'])->name('nameserver.store');
     Route::get('view-order/{domain}', [UserSettingController::class, 'view_order'])->name('view.order');
-    Route::get('set-terms/{id}', [UserSettingController::class, 'set_terms'])->name('set-terms');
+    Route::get('set-terms/{id}', [UserSettingController::class, 'set_terms'])->name('set.terms');
+    Route::get('logout', [UserSettingController::class, 'logout'])->name('user.logout');
 });

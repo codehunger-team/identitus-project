@@ -68,11 +68,11 @@
                 {{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->payment_due_date)}} 
             </td>
 			<td>
-				 <div class="btn-group">
-				 	<a class="btn btn-danger btn-xs" style="margin-right:5px;" data-toggle="tooltip" title="Set DNS" href="/user/set-dns/{{$d->id}}">
+				 <div class="btn-group">  																			
+				 	<a class="btn btn-danger btn-xs" style="margin-right:5px;" data-toggle="tooltip" title="Set DNS" href="{{route('user.add.dns',$d->id)}}">
 						<i class="fa fa-pencil" aria-hidden="true"></i>
-					</a>
-					<a class="btn btn-success btn-xs" data-toggle="tooltip" title="View Terms" href="/user/set-terms/{{$d->domain}}">
+					</a>																				
+					<a class="btn btn-success btn-xs" data-toggle="tooltip" title="View Terms" href="{{route('set.terms',$d->domain)}}">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 				</div>
