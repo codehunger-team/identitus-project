@@ -7,9 +7,7 @@ use Auth;
 
 class Domain extends Model
 {
-    // no timestamps
-//    public $timestamps = false;
-
+ 
     // fillable
     protected $fillable = [ 'domain', 'pricing', 'registrar_id', 'reg_date', 'exp_date',
     						'domain_age', 'description', 'short_description', 'discount',

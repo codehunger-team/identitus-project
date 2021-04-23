@@ -36,7 +36,7 @@
                             <tbody>@foreach( $cart as $domain )
                                 <tr>
                                     <td class="text-primary align-middle">
-                                        <a href="/cart/remove/{!! $domain->id !!}" type="link"><svg
+                                        <a href="{{route('ajax.remove.to.cart',$domain->id)}}" type="link"><svg
                                                 class="bi bi-x-circle-fill" width="1em" height="1em" viewBox="0 0 16 16"
                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"

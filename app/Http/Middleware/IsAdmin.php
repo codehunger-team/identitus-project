@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 
-class VendorApproval
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class VendorApproval
         if (Auth::check()) {
             $userId = Auth::id(); 
             $user = User::where('id',$userId)->first();
-            if($user->is_vendor == 'yes'){
+            if($user->admin == 1){
                 return $next($request);
             }
         }
