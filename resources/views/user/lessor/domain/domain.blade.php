@@ -34,7 +34,7 @@ Want us to help with bulk domains? Send us an email at <a href="mailto:info@iden
 				{{ $d->domain }}
 			</td>
 			@foreach($registrars as $registrar)
-				@if($d->registrar == $registrar->registrar_id)
+				@if($d->registrar_id == $registrar->id)
 					<td>
 						{{ $registrar->registrar }}
 					</td>

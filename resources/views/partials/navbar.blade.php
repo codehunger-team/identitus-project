@@ -16,13 +16,13 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">About</a></li>
+                    <a class="nav-link" href="{{route('about')}}">About</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('domains')}}">Domains</a></li>
                 <li class="nav-item">
                     <a class="nav-link cart_items" href="javascript:void(0)" target="_self">Checkout</a>
                 <li class="nav-item" href="">
-                    <a class="nav-link" href="">Q&As</a>
+                    <a class="nav-link" href="{{route('qa')}}">Q&As</a>
                 </li>
 
                 <!-- Authentication Links -->

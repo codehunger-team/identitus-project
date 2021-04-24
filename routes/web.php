@@ -48,4 +48,7 @@ Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->n
 Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
 Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
+Route::get('about',[FrontController::class, 'about'])->name('about');
+Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
+
 

@@ -13,8 +13,8 @@
         <?php $i++; ?>
         <tr>
             <td><a href="{{ $d->domain }}">{{ $d->domain }} </a></td>
-            @if (isset($d->period_payment))
-            <td>{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->period_payment, 0) }}</td>
+            @if (isset($d->contract->period_payment))
+            <td>{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->contract->period_payment, 0) }}</td>
             @else
             <td><strong>Unavailable</strong></td>
             @endif
@@ -34,7 +34,7 @@
                         Get
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="buy">
-                        @if (isset($d->period_payment))
+                        @if (isset($d->contract->period_payment))
                             <li><a href="{{route('review.terms',$d->domain)}}" class="dropdown-item">Lease Now</a></li>
                         @endif 
                             <li><a href="{{route('ajax.add-to-cart.buy',$d->domain)}}" class="dropdown-item">Buy Now</a></li>
