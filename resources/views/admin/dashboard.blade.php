@@ -4,7 +4,7 @@
     <strong>Orders Overview</strong>
 @endsection
 
-@section('extra_top')
+@section('extra_bottom')
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <div class="card text-white bg-warning mb-3 shadow">

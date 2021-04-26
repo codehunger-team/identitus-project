@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\AjaxController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Front\CheckoutController;
 
 
 
@@ -26,7 +26,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('set-commission/{id}', [CommissionController::class, 'setCommission'])->name('admin.set.commission');
 
 //domain Filter
 Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
@@ -36,9 +35,20 @@ Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
 
 //Add to Cart
+Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');
 Route::get('ajax/add-to-cart/buy/{domain}',[AjaxController::class, 'add_to_cart_buy'])->name('ajax.add-to-cart.buy');
+Route::get('ajax/add-to-cart/{domain}',[AjaxController::class, 'add_to_cart'])->name('ajax.add.to.cart');
+Route::get('/cart/remove/particular-item/{id}',[AjaxController::class, 'cart_remove_item'])->name('ajax.remove.to.cart');
 
 //user
-Route::get('user/review/update',[RegisterController::class, 'user_update'])->name('user.review.update');
+Route::post('user/review/update',[FrontController::class, 'user_update'])->name('user.review.update');
+
+//checkout
+Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->name('checkout.credit.card');
+Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
+Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
+
+Route::get('about',[FrontController::class, 'about'])->name('about');
+Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
 
 

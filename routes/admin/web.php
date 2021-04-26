@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\LeaseController;
 use App\Http\Controllers\Admin\OptionExpirationController;
 use App\Http\Controllers\Admin\PeriodController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DnsController;
+use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     //Dashboard Route
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -104,5 +106,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     
     //logout
     Route::any('logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    //set Dns admin.nameserver.store
+    Route::get('admin/set-dns/{id}',[DnsController::class, 'set_dns'])->name('admin.nameserver.set');
+    Route::get('admin/view-dns/{id}',[DnsController::class, 'view_dns'])->name('admin.nameserver.view');
+    Route::post('admin/store-dns',[DnsController::class, 'store_dns'])->name('admin.nameserver.store');
+
+    // Release Lessor Payment
+    Route::get('/admin/release-payment/{id}',[PaymentController::class, 'release_payment'])->name('admin.release.payment');
    
 });

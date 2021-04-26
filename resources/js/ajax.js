@@ -1,158 +1,158 @@
-$(function() {	
+// $(function() {	
 
-	// add to cart buttons ( home + inner )
-	$('.add-to-cart, .add-to-cart-inner').on('click',function(ev) {
+// 	// add to cart buttons ( home + inner )
+// 	$('.add-to-cart, .add-to-cart-inner').on('click',function(ev) {
 
-		ev.preventDefault();
+// 		ev.preventDefault();
 
-		var uri = $(this).attr('href');
+// 		var uri = $(this).attr('href');
 
-		$.get( uri, function( r ) {
+// 		$.get( uri, function( r ) {
 
-			swal({
-				title: "Domain added to cart!",   
-				text: r + "You can Checkout or Continue Shopping",   
-				showCancelButton: true,   
-				confirmButtonColor: "#DD6B55",   
-				confirmButtonText: "Checkout",   
-				cancelButtonText: "Continue Shopping",  
-				timer:2000, 
-				closeOnConfirm: true,   
-				closeOnCancel: true, 
-				imageUrl: '/resources/assets/images/cart.png' ,
-				html: true
-			}, function(isConfirm) {   
-				if (isConfirm) {     
-					document.location.href = '/checkout';
-				} 
-			});
+// 			swal({
+// 				title: "Domain added to cart!",   
+// 				text: r + "You can Checkout or Continue Shopping",   
+// 				showCancelButton: true,   
+// 				confirmButtonColor: "#DD6B55",   
+// 				confirmButtonText: "Checkout",   
+// 				cancelButtonText: "Continue Shopping",  
+// 				timer:2000, 
+// 				closeOnConfirm: true,   
+// 				closeOnCancel: true, 
+// 				imageUrl: '/resources/assets/images/cart.png' ,
+// 				html: true
+// 			}, function(isConfirm) {   
+// 				if (isConfirm) {     
+// 					document.location.href = '/checkout';
+// 				} 
+// 			});
 
-		}).fail(function(xhr, status, error) {
-		    swal({ title: 'woops', text: error, type: "warning",  }); // or whatever
-		});
+// 		}).fail(function(xhr, status, error) {
+// 		    swal({ title: 'woops', text: error, type: "warning",  }); // or whatever
+// 		});
 
-		return false;
+// 		return false;
 
-	});
-
-
-	// remove from cart
-	$('.cart-remove').on('click',function(ev) {
-		ev.preventDefault();
-
-		var removeUri = $(this).attr('href');
-
-		swal({ 
-			title: "Are you sure?", 
-			type: "warning",   
-			showCancelButton: true,   
-			confirmButtonColor: "#DD6B55",   
-			confirmButtonText: "Yes, remove it!",
-			timer:2000,   
-			closeOnConfirm: false 
-		}, function(){   
-			document.location.href = removeUri;
-		});
-
-		return false;
-	});
+// 	});
 
 
-	$('.paypalSubmit').on('click',function() {
-		swal({   
-			title: "Redirecting you to PayPal...", 
-			text: 'It takes just a few seconds.',
-			timer: 10000,   
-			showConfirmButton: false, 
-			imageUrl: '/resources/assets/images/ajax.gif'
-		});
-	});
+// 	// remove from cart
+// 	$('.cart-remove').on('click',function(ev) {
+// 		ev.preventDefault();
 
-	$( '#make-offer' ).submit(function( ev ) {
-		ev.preventDefault();
+// 		var removeUri = $(this).attr('href');
 
-		var formData = $( this ).serialize();
+// 		swal({ 
+// 			title: "Are you sure?", 
+// 			type: "warning",   
+// 			showCancelButton: true,   
+// 			confirmButtonColor: "#DD6B55",   
+// 			confirmButtonText: "Yes, remove it!",
+// 			timer:2000,   
+// 			closeOnConfirm: false 
+// 		}, function(){   
+// 			document.location.href = removeUri;
+// 		});
 
-		$.ajax({
-	      type: 'post',
-	      url: '/make-offer',
-	      data: formData,
-	      dataType: 'json',
-	      success: function(data){
-	        $( '.make-offer-result' ).html( data.message );
-	      },
-	      error: function(data) {
+// 		return false;
+// 	});
 
-	        var errors = data.responseJSON;
-	        errorsHtml = '<br /><div class="alert alert-danger"><ul>';
 
-	        $.each( errors, function( key, value ) {
-	            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
-	        });
+// 	$('.paypalSubmit').on('click',function() {
+// 		swal({   
+// 			title: "Redirecting you to PayPal...", 
+// 			text: 'It takes just a few seconds.',
+// 			timer: 10000,   
+// 			showConfirmButton: false, 
+// 			imageUrl: '/resources/assets/images/ajax.gif'
+// 		});
+// 	});
 
-	        errorsHtml += '</ul></div>';
+// 	$( '#make-offer' ).submit(function( ev ) {
+// 		ev.preventDefault();
+
+// 		var formData = $( this ).serialize();
+
+// 		$.ajax({
+// 	      type: 'post',
+// 	      url: '/make-offer',
+// 	      data: formData,
+// 	      dataType: 'json',
+// 	      success: function(data){
+// 	        $( '.make-offer-result' ).html( data.message );
+// 	      },
+// 	      error: function(data) {
+
+// 	        var errors = data.responseJSON;
+// 	        errorsHtml = '<br /><div class="alert alert-danger"><ul>';
+
+// 	        $.each( errors, function( key, value ) {
+// 	            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+// 	        });
+
+// 	        errorsHtml += '</ul></div>';
 	            
-	        $( '.make-offer-result' ).html( errorsHtml );
+// 	        $( '.make-offer-result' ).html( errorsHtml );
 
-	      }
-	    });
+// 	      }
+// 	    });
 
-		return false;
-	});
+// 		return false;
+// 	});
 	
-	$( '#make-financing' ).submit(function( ev ) {
-		ev.preventDefault();
+// 	$( '#make-financing' ).submit(function( ev ) {
+// 		ev.preventDefault();
 
-		var formData = $( this ).serialize();
+// 		var formData = $( this ).serialize();
 
-		$.ajax({
-	      type: 'post',
-	      url: '/make-financing',
-	      data: formData,
-	      dataType: 'json',
-	      success: function(data){
-	        $( '.make-financing-result' ).html( data.message );
-	      },
-	      error: function(data) {
+// 		$.ajax({
+// 	      type: 'post',
+// 	      url: '/make-financing',
+// 	      data: formData,
+// 	      dataType: 'json',
+// 	      success: function(data){
+// 	        $( '.make-financing-result' ).html( data.message );
+// 	      },
+// 	      error: function(data) {
 
-	        var errors = data.responseJSON;
-	        errorsHtml = '<br /><div class="alert alert-danger"><ul>';
+// 	        var errors = data.responseJSON;
+// 	        errorsHtml = '<br /><div class="alert alert-danger"><ul>';
 
-	        $.each( errors, function( key, value ) {
-	            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
-	        });
+// 	        $.each( errors, function( key, value ) {
+// 	            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+// 	        });
 
-	        errorsHtml += '</ul></div>';
+// 	        errorsHtml += '</ul></div>';
 	            
-	        $( '.make-financing-result' ).html( errorsHtml );
+// 	        $( '.make-financing-result' ).html( errorsHtml );
 
-	      }
-	    });
+// 	      }
+// 	    });
 
-		return false;
-	});
+// 		return false;
+// 	});
 
 
-	//cart click action
-	$('.cart_items').on('click', function (e) {
-		$("#openModal").slideToggle('show');
-	});
+// 	// cart click action
+// 	$('.cart_items').on('click', function (e) {
+// 		$("#openModal").slideToggle('show');
+// 	});
 
-	//delete item from cart
-	$('.delete_from_cart').on('click', function() {
-		var cartId = $(this).children().attr('value');
-		$('#cart_div_'+cartId).remove();
-		$.ajax({
-			type: "GET",
-			url: "/cart/remove/particular-item/" + cartId,
-			success: function (response) {
-				if (response) {
-					$('#cart_total_price').html("");
-					$('#cart_total_price').append('<b>' + response.total + '</b>');
-					sweetAlert("", response.data.message, response.data.message_type);
-				}
-			},
-		});
-	});
+// 	//delete item from cart
+// 	$('.delete_from_cart').on('click', function() {
+// 		var cartId = $(this).children().attr('value');
+// 		$('#cart_div_'+cartId).remove();
+// 		$.ajax({
+// 			type: "GET",
+// 			url: "/cart/remove/particular-item/" + cartId,
+// 			success: function (response) {
+// 				if (response) {
+// 					$('#cart_total_price').html("");
+// 					$('#cart_total_price').append('<b>' + response.total + '</b>');
+// 					sweetAlert("", response.data.message, response.data.message_type);
+// 				}
+// 			},
+// 		});
+// 	});
 
-});
+// });

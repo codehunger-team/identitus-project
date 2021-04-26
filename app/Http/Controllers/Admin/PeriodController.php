@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -62,7 +62,6 @@ class PeriodController extends Controller
 
     public function remove_period($periodID)
     {
-
         $d = PeriodType::findOrFail($periodID);
         $d->delete();
         return redirect('admin/period-types')->with('msg', 'Successfully removed category "' . $d->period_type . '"');

@@ -9,7 +9,7 @@ body {
 }
 
 .mt-6 {
-    margin-top: 6%;
+    margin-top: 6% !important;
 }
 
 h1, h2, h3, h4, h5 {
@@ -429,7 +429,7 @@ nav h1.brand {
     margin-left: 66%;
     z-index: 10;
     position: fixed;
-    top:70px;
+    top: 13%;
     max-height:300px;
     overflow-y:scroll;
     
@@ -476,3 +476,10 @@ body.loading .overlay{
         margin-left: -72% !important;
     }
 }
+
+.w-30 {
+    width: 30%;
+}
+
+
+

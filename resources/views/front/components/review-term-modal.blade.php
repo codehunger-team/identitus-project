@@ -1,10 +1,9 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="profileUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Update Detail</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </button>
         </div>
         <form id="user_update" name="userUpdate">
@@ -85,7 +84,7 @@
             </div>
             <div class="modal-footer">
                 <input type="button" value="enter / update" class="btn btn-primary" id="update_btn">
-                <button type="button" class="btn btn-secondary" id="update" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" id="update" data-bs-dismiss="modal">Close</button>
             </div>
         </form>
       </div>
@@ -95,7 +94,6 @@
     $(document).ready(function() {
         $('#update_btn').click(function(e) {
             e.preventDefault();
-        
         var formData = {
                 phone:    $('input[name=phone]').val(),
                 country:  $('input[name=country]').val(),
@@ -117,7 +115,6 @@
                 dataType: 'json',
                 success: function(data) {
                     if (data.error_length == 0 && data.action == 'success') {
-                        $("#exampleModal .close").click();
                         $('#main').show(1000, function () {
                             setTimeout(function () {
                                 $('#main').html(function () {
@@ -126,6 +123,7 @@
                                     }, 0);
                                 });
                             }, 2500);
+                            $('#profileUpdateModal').modal('hide');
                             window.location.href = "#contract";
                         });
                         }else{

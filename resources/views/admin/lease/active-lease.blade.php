@@ -43,7 +43,7 @@
 				@endif
 			</td>
 			<td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format((float)$d->option_price, 0) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format((float)$d->option_price, 0) }}
 
             </td>
 			@foreach($optionExpiration as $optionData)
@@ -60,10 +60,10 @@
                 @endif
             @endforeach
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->first_payment) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->first_payment) }}
             </td>
             <td>
-				{{ App\Options::get_option( 'currency_symbol' ) . number_format($d->period_payment) }}
+				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->period_payment) }}
             </td>
             @foreach($periodTypes as $periodValue)
                 @if($periodValue->id == $d->period_type_id)
@@ -92,12 +92,12 @@
 				{{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->payment_due_date)}} 
             </td>
 			<td>
-				 <div class="btn-group">
-				 	<a data-toggle="tooltip" title="View DNS" class="btn btn-success btn-xs" href="/admin/view-dns/{{$d->id}}">
+				 <div class="btn-group">																	
+				 	<a data-toggle="tooltip" title="View DNS" class="btn btn-success btn-xs" href="{{route('admin.nameserver.view',$d->id)}}">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 					@if($d->payment_made != $d->payment_release)
-						<a data-toggle="tooltip" title="Release Payment" class="btn btn-danger btn-xs" href="/admin/release-payment/{{$d->id}}">
+						<a data-toggle="tooltip" title="Release Payment" class="btn btn-danger btn-xs" href="{{route('admin.release.payment',$d->id)}}">
 							<i class="fa fa-usd" aria-hidden="true"></i>
 						</a>
 					@endif

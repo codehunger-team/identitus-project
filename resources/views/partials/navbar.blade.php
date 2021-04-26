@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary" shadow-sm">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Identitius') }}
@@ -14,15 +14,15 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">About</a></li>
+                    <a class="nav-link" href="{{route('about')}}">About</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('domains')}}">Domains</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Checkout</a></li>
+                    <a class="nav-link cart_items" href="javascript:void(0)" target="_self">Checkout</a>
                 <li class="nav-item" href="">
-                    <a class="nav-link" href="">Q&As</a>
+                    <a class="nav-link" href="{{route('qa')}}">Q&As</a>
                 </li>
 
                 <!-- Authentication Links -->
@@ -43,17 +43,20 @@
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
-
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                               @csrf
                             </form>
+                            @if(Auth::user()->admin == 1)
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                            @else 
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                            @endif
                         </div>
                     </li>
                 @endguest
