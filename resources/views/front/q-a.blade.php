@@ -83,8 +83,8 @@
                                 traffic? How does this impact SEO?
                             </button>
                         </h2>
-                        <div id="flush-collapseFive" class="accordion-collapse collapse"
-                             aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseFour" class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <p>Free traffic is usually a good thing. We’ll leave it up to
                                     you how you want to handle traffic who’s looking for the prior tenant.</p>
