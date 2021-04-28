@@ -12,7 +12,7 @@
 {{--  AdminLTE App  --}}
 <script src="{{ asset('../resources/assets/admin/js/app.min.js') }}"></script>
 {{--  laravel.js  --}}
-<script src="{{ asset('../resources/assets/js/laravel.js') }}"></script>
+{{-- <script src="{{ asset('../resources/assets/js/laravel.js') }}"></script> --}}
 {{--  colorPicker  --}}
 <script src="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
 <script>
@@ -76,4 +76,4 @@
 
 </script>
 
-<script src="{{ asset('js/app.js') }}" defer></script>
+{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}

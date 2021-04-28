@@ -4,7 +4,7 @@
 <body>
 <div id="app">
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="container-fluid">
+        <div class="container-fluid" id="content">
             @if( session('msg') )
                 <div class="alert alert-info alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

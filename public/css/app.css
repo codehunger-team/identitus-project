@@ -9,6 +9,7 @@ body {
   background: #EEEEF2;
   color: var(--blue);
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .mt-6 {

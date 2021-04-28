@@ -9,10 +9,11 @@
         box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     }
 </style>
-<div class="col-md-3 col-lg-2 d-md-block bg-primary sidebar collapse p-4 vh-100" style="width: 280px;">
-    <a href="{{url('/')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">Identitius</span>
+<div class="col-md-3 col-lg-2 d-md-block bg-primary sidebar collapse p-4 vh-100 wrapper">
+    <a href="javascript:void(0)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4">Identitius</span> <i class="fas fa-bars float-right"></i>
     </a>
+    
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="header text-white">ADMIN MENU</li>
