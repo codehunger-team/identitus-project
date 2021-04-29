@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     //Dashboard Route
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    
+    //order route
+    Route::get('admin/view-order/{order}', [AdminController::class, 'view_order'])->name('admin.view.order');
 
     //Commission Route
     Route::get('set-commission/{id}', [CommissionController::class, 'setCommission'])->name('admin.set.commission');

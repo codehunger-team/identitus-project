@@ -268,6 +268,20 @@ class AdminController extends Controller
         return redirect('admin/configuration')->with('msg', 'Configuration settings successfully saved!');
     }
 
+    // view order info
+    public function view_order($id ) {
+        $order = Order::where('id',$id)->first();
+        // order contents unserialize
+        $order_content = json_decode( $order->order_contents );
+
+        // return view 
+        return view('admin.order.view')
+                    ->with( 'active', 'dashboard' )
+                    ->with( 'order', $order )
+                    ->with( 'order_content', $order_content );
+        
+    }
+
     public function logout()
     {
         \Session::flush();

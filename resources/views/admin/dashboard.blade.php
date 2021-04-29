@@ -132,14 +132,14 @@
                             <small><em>via</em> {{ $o->payment_type }}</small>
                         </td>
                         <td>
-                            <div class="btn-group">
-                                <a class="btn btn-warning btn-xs" href="/admin/view-order/{!! $o->id !!}">
-                                    <i class="fa fa-edit"></i>
+                            <div class="btn-group">                     
+                                <a class="btn btn-warning btn-xs mr-5" href="{{route('admin.view.order',$o->id)}}">
+                                    <i class="fa fa-eye text-white"></i>
                                 </a>
                                 <a href="/admin?remove={!! $o->id !!}"
                                 onclick="return confirm('Are you sure you want to remove this order from database?');"
                                 class="btn btn-danger btn-xs">
-                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <i class="fa fa-trash text-white" ></i>
                                 </a>
                             </div>
                         </td>

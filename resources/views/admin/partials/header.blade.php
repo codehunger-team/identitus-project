@@ -6,17 +6,15 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('../resources/assets/admin/plugins/iCheck/flat/blue.css') }}">
-       <link rel="stylesheet" type="text/css"
-           href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+       
        <link rel="stylesheet" type="text/css"
            href="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.css') }}">
     <link rel="stylesheet" type="text/css"
           href="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('../resources/assets/admin/plugins/select2/select2.min.css') }}">
+     <link rel="stylesheet" type="text/css"
+          href="{{ asset('../resources/assets/admin/plugins/select2/select2.min.css') }}"> 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     
@@ -27,24 +25,4 @@
     <script src="{{ asset('../resources/assets/admin/js/countries.js') }}"></script>
     <script src="{{ asset('../resources/assets/admin/plugins/select2/select2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-datetimepicker/datetimepicker.min.js') }}">
-    </script>
-    <script>
-        $(function () {
-
-            // $(".js-example-basic-multiple").select2({
-            //     multiple: true,
-            //     tags: true,
-            // });
-
-
-
-            // $('#datetimepicker').datetimepicker({
-            //     format: 'YYYY-MM-DD',
-            // });
-
-        });
-
-    </script>
-    <style></style>
 </head>

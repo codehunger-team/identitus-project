@@ -25,7 +25,12 @@
                 @include('admin.partials.admin-nav')
                 <div class="col m-4">
                     <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
-                    @yield('section_body', 'Body')
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            @yield('section_body', 'Body')
+                        </div>
+                    </div>
+                   
                     @yield('extra_bottom')
                 </div>
             </div>
