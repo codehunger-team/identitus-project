@@ -1,6 +1,7 @@
 require('./bootstrap');
 require('./ajax');
 import {library, dom} from '@fortawesome/fontawesome-svg-core';
+
 import 'sweetalert';
 import {faFacebook, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import {

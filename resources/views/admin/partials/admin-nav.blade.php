@@ -1,14 +1,3 @@
-<style>
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-        padding: 48px 0 0;
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    }
-</style>
 <div class="col-md-3 col-lg-2 d-md-block bg-primary sidebar collapse p-4 vh-100 wrapper">
     <a href="javascript:void(0)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-4">Identitius</span> <i class="fas fa-bars float-right"></i>
@@ -18,12 +7,12 @@
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="header text-white">ADMIN MENU</li>
         <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
-            <a href="{{route('admin.dashboard')}}" class="nav-link text-white"><i class="fas fa-columns"></i>
+            <a href="{{route('admin.dashboard')}}" class="nav-link text-white"><i class="fa fa-columns"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='add-commission' )) class="active" @endif>
-            <a href="{{route('admin.add.commission')}}" class="nav-link text-white"><i class="fas fa-calculator"></i>
+            <a href="{{route('admin.add.commission')}}" class="nav-link text-white"><i class="fa fa-calculator"></i>
                 <span>Add Commission</span>
             </a>
         </li>
