@@ -46,11 +46,11 @@
 			</td>
 			<td>
 				 <div class="btn-group">					
-				 	<a class="btn btn-primary btn-xs" href="{{route('admin.edit.option',$o->id)}}">
-				 		<i class="glyphicon glyphicon-pencil"></i>
+				 	<a class="btn btn-primary btn-xs mr-5" href="{{route('admin.edit.option',$o->id)}}">
+				 		<i class="fa fa-edit"></i>
 				 	</a>	
     				<a href="{{route('admin.remove.option',$o->id)}}" onclick="return confirm('Are you sure you want to remove this option from the database?');" class="btn btn-danger btn-xs">
-						<i class="glyphicon glyphicon-remove"></i>
+						<i class="fa fa-trash text-white"></i>
 					</a>
 				</div>
 			</td>

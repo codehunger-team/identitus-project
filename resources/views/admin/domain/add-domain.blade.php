@@ -68,14 +68,14 @@
 			<select class="form-control js-example-basic-multiple" required name="tags[]" multiple="multiple" ></select>
 		</div>
 	
-		<div class="col-xs-12 col-md-12">
+		<div class="col-xs-12 col-md-12 mt-3">
 			<label>Short description (Required for seo)</label><br />
 			<textarea name="short_description" class="form-control" rows="4">{{ old('short_description') }}</textarea><br />
 		</div>
 	
 		<div class="col-xs-12 col-md-12">
 			<label>Full description</label><br />
-			<textarea name="description" class="form-control textarea" rows="8">{{ old('description') }}</textarea>
+			<textarea name="description" id="editor" class="form-control" rows="8">{{ old('description') }}</textarea>
 			<br />
 		</div>
 	

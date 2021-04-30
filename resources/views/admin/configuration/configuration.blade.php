@@ -68,15 +68,10 @@
 	</dl>
 	</div>
 </div>
-
-@endsection
-
-@section('extra_bottom')
 <div class="row">
 	{!! csrf_field() !!}
 	<div class="col-xs-12 col-md-6">
 		<div class="box">
-			<div class="box-header with-border"><strong>SEO</strong></div>
 			<div class="box-body">
 			<dl>
 			<dt>SEO Title Tag</dt>
@@ -133,7 +128,6 @@
 
 	<div class="col-xs-12 col-md-6">
 		<div class="box">
-			<div class="box-header with-border"><strong>Homepage Headlines</strong></div>
 			<div class="box-body">
 			<dl>
 				<dt>Homepage Headline</dt>
@@ -253,3 +247,4 @@
 
 </div><!-- ./row -->
 @endsection
+

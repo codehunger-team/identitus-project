@@ -47,12 +47,12 @@
 			</td>
 			<td>
 				 <div class="btn-group">					
-				 	<a class="btn btn-primary btn-xs" href="{{route('admin.edit.grace',$g->id)}}">
-				 		<i class="glyphicon glyphicon-pencil"></i>
+				 	<a class="btn btn-primary btn-xs mr-5" href="{{route('admin.edit.grace',$g->id)}}">
+				 		<i class="fa fa-edit"></i>
 				 	</a>
 					 
     				<a href="{{route('admin.remove.grace',$g->id)}}" onclick="return confirm('Are you sure you want to remove this grace period from the database?');" class="btn btn-danger btn-xs">
-						<i class="glyphicon glyphicon-remove"></i>
+						<i class="fa fa-trash text-white"></i>
 					</a>
 				</div>
 			</td>

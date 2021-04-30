@@ -2,8 +2,6 @@
 {{--  Bootstrap 3.3.5  --}}
 {{-- <script src="{{ asset('../resources/assets/admin/bootstrap/js/bootstrap.min.js') }}"></script> --}}
 {{--  wysiwyg  --}}
-{{-- <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}">
-</script> --}}
 {{--  iCheck  --}}
 {{-- <script src="{{ asset('../resources/assets/admin/plugins/iCheck/icheck.min.js') }}"></script> --}}
 {{--  dataTables  --}}
@@ -16,11 +14,12 @@
 {{--  colorPicker  --}}
 {{-- <script src="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script> --}}
 <script src="{{ asset('js/app.js') }}"></script>
+{{-- <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}">
+</script> --}}
 
 <script>
     $(document).ready(function ($) {
         // alert('hello');
-        // $(".textarea").wysihtml5();
         // $(".sortableUI tbody").sortable({
         //     update: function () {
         //         var order = $(".sortableUI tbody").sortable('toArray');
@@ -38,19 +37,6 @@
         //     radioClass: 'icheckbox_flat-blue',
         //     increaseArea: '20%' // optional
         // });
-        $('#datetimepicker').datetimepicker({
-         format: 'YYYY-MM-DD',
-        });    
-        
-        $('.dataTable').DataTable();
-        
-        $(".js-example-basic-multiple").select2({
-         multiple: true,
-         tags:true,
-        });
-        // $('.my-colorpicker2').colorpicker();
-
-
 
     });
 

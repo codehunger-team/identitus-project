@@ -54,11 +54,11 @@
 			@endif
  			<td>
 				<div class="btn-group">
-					<a data-toggle="tooltip" title="View Details" href="{{url('admin/approve-user-vendor',$user->id)}}"  class="btn btn-primary btn-xs">
+					<a data-toggle="tooltip" title="View Details" href="{{url('admin/approve-user-vendor',$user->id)}}"  class="btn btn-primary btn-xs mr-5">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>																	
-    				<a style="margin-left:3px" data-toggle="tooltip" title="Delete User" href="{{url('admin/remove-user/',$user->id)}}" onclick="return confirm('Are you sure you want to remove this user from the database ?');" class="btn btn-danger btn-xs">
-						<i class="glyphicon glyphicon-remove"></i>
+    				<a data-toggle="tooltip" title="Delete User" href="{{url('admin/remove-user/',$user->id)}}" onclick="return confirm('Are you sure you want to remove this user from the database ?');" class="btn btn-danger btn-xs">
+						<i class="fa fa-trash text-white"></i>
 					</a>
 				</div>
 			</td>
