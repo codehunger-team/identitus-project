@@ -13,12 +13,14 @@
 {{-- <script src="{{ asset('../resources/assets/js/laravel.js') }}"></script> --}}
 {{--  colorPicker  --}}
 {{-- <script src="{{ asset('../resources/assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script> --}}
-<script src="{{ asset('js/app.js') }}"></script>
+{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 {{-- <script src="{{ asset('../resources/assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}">
 </script> --}}
-
+{{-- <script src="http://folio.codehunger.in/resources/assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+      <script src="http://folio.codehunger.in/resources/assets/admin/plugins/datatables/dataTables.bootstrap.min.js"></script> --}}
 <script>
     $(document).ready(function ($) {
+        $('.dataTable').dataTable();
         // alert('hello');
         // $(".sortableUI tbody").sortable({
         //     update: function () {
@@ -37,6 +39,8 @@
         //     radioClass: 'icheckbox_flat-blue',
         //     increaseArea: '20%' // optional
         // });
+      
+
 
     });
 

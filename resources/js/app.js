@@ -1,20 +1,9 @@
 require('./bootstrap');
-require('datatables.net');
+require('./datatable');
 require('moment');
 require('./datetimepicker');
 require('select2');
-
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-ClassicEditor
-    .create(document.querySelector('#editor'))
-    .then(editor => {
-        window.editor = editor;
-        editor.ui.view.editable.element.style.height = '200px';
-    })
-    .catch(error => {
-        console.error('There was a problem initializing the editor.', error);
-    });
+require('./morris');
 
 import 'select2/dist/css/select2.css';
 import {
@@ -82,4 +71,16 @@ $('.dataTable').DataTable( {
 $(".js-example-basic-multiple").select2({
     multiple: true,
     tags: true,
+});
+
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+ClassicEditor
+.create(document.querySelector('#editor'))
+.then(editor => {
+    window.editor = editor;
+    editor.ui.view.editable.element.style.height = '200px';
+})
+.catch(error => {
+    console.error('There was a problem initializing the editor.', error);
 });
