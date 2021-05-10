@@ -2,40 +2,33 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('admin.partials.header')
 <body>
-<div id="app">
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="container-fluid" id="content">
-            @if( session('msg') )
-                <div class="alert alert-info alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-info"></i> Alert!</h4>
-                    {!! session('msg') !!}
-                </div>
-            @endif
-            @if (count($errors) > 0)
-                <div class="alert alert-danger alert-dismissible">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="row vh-50">
-                @include('admin.partials.admin-nav')
-                <div class="col m-4">
-                    <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            @yield('section_body', 'Body')
+<div class="wrapper">
+    <!-- Sidebar  -->
+    @include('admin.partials.admin-nav')
+    <!-- Page Content  -->
+    <div id="content">
+        @if(session('msg'))
+            <div id="message">
+                <div style="padding: 5px;">
+                    <div id="inner-message" class="alert alert-error">
+                        <div class="alert alert-primary alert-dismissible  float-end notify" role="alert">
+                            {!! session('msg') !!}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
-                   
-                    @yield('extra_bottom')
                 </div>
             </div>
+        @endif
+        <div class="col m-4">
+            <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
+            <div class="card mt-4">
+                <div class="card-body">
+                    @yield('section_body', 'Body')
+                </div>
+            </div>
+            @yield('extra_bottom')
         </div>
-    </main>
+    </div>
 </div>
 @include('admin.partials.footer')
 </body>

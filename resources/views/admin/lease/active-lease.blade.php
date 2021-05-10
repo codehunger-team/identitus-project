@@ -94,11 +94,11 @@
 			<td>
 				 <div class="btn-group">																	
 				 	<a data-toggle="tooltip" title="View DNS" class="btn btn-success btn-xs" href="{{route('admin.nameserver.view',$d->id)}}">
-						<i class="fa fa-eye text-white" aria-hidden="true"></i>
+						<i class="fa fa-eye text-white mr-5" aria-hidden="true"></i>
 					</a>
 					@if($d->payment_made != $d->payment_release)
 						<a data-toggle="tooltip" title="Release Payment" class="btn btn-danger btn-xs" href="{{route('admin.release.payment',$d->id)}}">
-							<i class="fa fa-usd" aria-hidden="true"></i>
+							<i class="fa fa-rocket text-white" aria-hidden="true"></i>
 						</a>
 					@endif
 				</div>

@@ -7,5 +7,4 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script> --}}
 </head>

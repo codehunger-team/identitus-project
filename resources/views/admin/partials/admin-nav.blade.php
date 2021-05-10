@@ -1,11 +1,19 @@
-<div class="col-md-3 col-lg-2 d-md-block bg-primary sidebar collapse p-4 vh-100 wrapper">
-    <a href="javascript:void(0)" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">Identitius</span> <i class="fas fa-bars float-right"></i>
-    </a>
-    
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="header text-white">ADMIN MENU</li>
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="{{url('/')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <h3>Identitius</h3>
+                    <strong>I</strong>
+                </a>
+            </div>
+            <div class="col-sm-2 mt-2">
+                <a href="javascript:void(0)"><i id="sidebarCollapse" class="fas fa-bars float-right text-white"></i></a>
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled components">
+        <li class="text-white">ADMIN MENU</li>
         <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
             <a href="{{route('admin.dashboard')}}" class="nav-link text-white"><i class="fa fa-columns"></i>
                 <span>Dashboard</span>
@@ -61,18 +69,6 @@
                 <span>Bulk Upload</span>
             </a>
         </li>
-        <li @if(isset($active) AND ($active=='pages' )) class="active" @endif>
-            <a href="{{route('admin.cms')}}" class="nav-link text-white">
-                <i class="fas fa-sticky-note"></i>
-                <span>Pages</span>
-            </a>
-        </li>
-        <li @if(isset($active) AND ($active=='navi' )) class="active" @endif>
-            <a href="{{route('admin.navigation')}}" class="nav-link text-white">
-                <i class="fas fa-compass"></i>
-                <span>Navigation</span>
-            </a>
-        </li>
         <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
             <a href="{{route('admin.users')}}" class="nav-link text-white">
                 <i class="fas fa-users"></i>
@@ -91,4 +87,4 @@
             </a>
         </li>
     </ul>
-</div>
+</nav>

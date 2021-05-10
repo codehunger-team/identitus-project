@@ -116,13 +116,13 @@ class AdminController extends Controller
 
     // update category
     public function update_category(Request $r)
-    {   
+    {
         $this->validate($r, ['catname' => 'required']);
 
         $c = Category::findOrFail($r->catID);
         $c->catname = $r->catname;
         $c->save();
-        
+
         return redirect('admin/categories')->with('msg', 'Category successfully updated.');
 
     }
@@ -269,17 +269,25 @@ class AdminController extends Controller
     }
 
     // view order info
-    public function view_order($id ) {
-        $order = Order::where('id',$id)->first();
+    public function view_order($id)
+    {
+        $order = Order::where('id', $id)->first();
         // order contents unserialize
-        $order_content = json_decode( $order->order_contents );
+        $order_content = json_decode($order->order_contents);
 
-        // return view 
+        // return view
         return view('admin.order.view')
-                    ->with( 'active', 'dashboard' )
-                    ->with( 'order', $order )
-                    ->with( 'order_content', $order_content );
-        
+            ->with('active', 'dashboard')
+            ->with('order', $order)
+            ->with('order_content', $order_content);
+
+    }
+
+    //delete order
+    public function delete_order($id)
+    {
+        Order::where('id', $id)->delete();
+        return redirect()->back()->with('msg', 'Order successfully deleted!');
     }
 
     public function logout()

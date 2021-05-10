@@ -29,6 +29,7 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     
     //order route
     Route::get('admin/view-order/{order}', [AdminController::class, 'view_order'])->name('admin.view.order');
+    Route::get('admin/delete-order/{order}', [AdminController::class, 'delete_order'])->name('admin.delete.order');
 
     //Commission Route
     Route::get('set-commission/{id}', [CommissionController::class, 'setCommission'])->name('admin.set.commission');

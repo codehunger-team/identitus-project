@@ -302,3 +302,17 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
     white-space: nowrap;
     margin: 0.1em 0
 }
+
+.notify {
+    box-shadow: 0 3px 5px #aaa;
+    width:40%
+}
+#message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+#inner-message {
+    margin: 0 auto;
+}
