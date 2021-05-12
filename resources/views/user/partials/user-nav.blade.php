@@ -28,7 +28,8 @@
           <li @if(isset($active) AND ($active == 'rental-agreement')) class="active" @endif>
             <a href="{{route('user.rental.agreement')}}"><i class="fa fa-credit-card" aria-hidden="true"></i> <span>Rental Agreements</span></a>
           </li>
-  
+          
+          <hr>
         <!-- Functions as Lessor/Seller -->
         @if (Auth::user()->is_vendor == 'yes')
         <li class="header">Seller + Lessor Tools</li>
@@ -41,7 +42,7 @@
             <a href="{{route('user.domains')}}"><i class="fa fa-globe"></i> <span>Owned Domains</span></a>
           </li>
           <li @if(isset($active) AND ($active == 'active-lease')) class="active" @endif>
-            <a href="{{route('user.active.lease')}}"><i class="fa fa-money" aria-hidden="true"></i> <span>Active Lease</span></a>
+            <a href="{{route('user.active.lease')}}"><i class="fa fa-dollar-sign" aria-hidden="true"></i> <span>Active Lease</span></a>
           </li>
           <li @if(isset($active) AND ($active == 'inactive-lease')) class="active" @endif>
             <a href="{{route('user.inactive.lease')}}">
