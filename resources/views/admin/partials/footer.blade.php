@@ -1,8 +1,5 @@
-{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 <script>
     $(function() {
-       
-        
         $('.dataTable').dataTable();
 
         $(".js-example-basic-multiple").select2({
@@ -47,5 +44,12 @@
         $('#leaseTotal').val(leaseTotal);
     });
 
+     //Js for password confirmation
+     $('#new_password, #confirm_new_password').on('keyup', function () {
+      if ($('#new_password').val() == $('#confirm_new_password').val()) {
+        $('#message').html('Matched').css('color', 'green');
+      } else 
+        $('#message').html('Not Matched').css('color', 'red');
+    });
 </script>
 

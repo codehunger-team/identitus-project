@@ -36,7 +36,7 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary btn-xs" href="{{route('view.order',$order->id)}}">
-                        <i class="glyphicon glyphicon-eye-open"></i>
+                        <i class="fa fa-eye"></i>
 				 	</a>
 				</div>
 			</td>

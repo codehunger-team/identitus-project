@@ -1,7 +1,8 @@
 @extends('user.base')
 
 @section('section_title')
-	<strong>Order Content <a href="{{url('user/orders')}}" class="btn btn-default btn-xs">Back to Dashboard</a></strong>
+	<strong>Order Content </strong>
+	<a href="{{url('user/orders')}}" class="btn btn-primary btn-xs float-end">Back to Orders</a>
 @endsection
 
 @section('extra_top')
