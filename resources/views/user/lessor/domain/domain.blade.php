@@ -52,15 +52,15 @@ Want us to help with bulk domains? Send us an email at <a href="mailto:info@iden
 			</td>
 			<td>
 				 <div class="btn-group">					
-				 	<a class="btn btn-success btn-xs" href="{{route('set.terms',$d->domain)}}">
+				 	<a class="btn btn-success btn-xs mr-5" href="{{route('set.terms',$d->domain)}}">
 						{{ $d->domain_status != 'LEASE' ? 'Set Terms' : 'View Terms' }}
 					</a>
 				@if($d->domain_status != 'LEASE')			
-				 	<a class="btn btn-primary btn-xs" href="{{route('manage.domain',$d->id)}}">
-				 		<i class="glyphicon glyphicon-pencil"></i>
+				 	<a class="btn btn-primary btn-xs mr-5" href="{{route('manage.domain',$d->id)}}">
+				 		<i class="fa fa-edit"></i>
 				 	</a>
 					<a href="{{route('domain.delete',$d->id)}}" onclick="return confirm('Are you sure you want to remove this domain from database?');" class="btn btn-danger btn-xs">
-						<i class="glyphicon glyphicon-remove"></i>
+						<i class="fa fa-trash text-white"></i>
 					</a>
 				 @endif
 				</div>

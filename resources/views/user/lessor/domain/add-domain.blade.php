@@ -2,8 +2,7 @@
 
 @section('section_title')
 <strong>Add New Domain</strong>
-<br /><br />
-<a href="{{route('user.domains')}}" class="btn btn-default btn-xs">Back to Domains Overview</a>
+<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back to Domains Overview</a>
 @endsection
 
 @section('section_body')
@@ -81,7 +80,7 @@
 	
 	<div class="col-xs-12 col-md-12">
 		<label>Full description</label><br />
-		<textarea name="description" class="form-control textarea" rows="8">{{ old('description') }}</textarea>
+		<textarea id="editor" name="description" class="form-control textarea" rows="8">{{ old('description') }}</textarea>
 		<br />
 	</div>
 	
@@ -90,4 +89,14 @@
 	</div>
 </div>
 </form>
+<script>
+	ClassicEditor.create(document.querySelector('#editor')) 
+	   .then(editor => {
+		   window.editor = editor;
+		   editor.ui.view.editable.element.style.height = '200px';
+	   })
+	   .catch(error => {
+		   console.error('There was a problem initializing the editor.', error);
+	   });
+</script>
 @endsection
