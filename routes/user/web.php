@@ -50,8 +50,8 @@ Route::prefix('user')->middleware('auth','vendorApproval')->group(function () {
 
     Route::get('seller/orders', [OrderController::class, 'userSellerOrders'])->name('user.seller.orders');
     Route::get('seller-view-orders/{id}', [OrderController::class, 'userSellerViewOrders'])->name('user.view.orders');
+    Route::get('destroy-order/{id}', [OrderController::class, 'destroyOrder'])->name('user.destroy.order');
 
-    
     Route::get('stripe-connect', [StripeController::class, 'stripeConnect'])->name('user.stripe-connect');
     Route::get('stripe-connect/redirect', [StripeController::class, 'stripeConnectRedirect'])->name('user.stripe-connect.redirect');
     Route::get('stripe-connect/revoke', [StripeController::class, 'revokeStripe'])->name('user.revoke.stripe');

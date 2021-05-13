@@ -145,4 +145,15 @@ class OrderController extends Controller
         }
         return view('user.lessor.order.view', compact('sellerOrders', 'order'));
     }
+
+    /**
+     * Destroy Order
+     * 
+     */
+    public function destroyOrder($id)
+    {
+        Order::destroy($id);
+
+        return redirect()->back()->with('msg','Order successfully deleted');
+    }
 }

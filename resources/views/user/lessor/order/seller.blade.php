@@ -137,12 +137,10 @@
                             <a class="btn btn-warning btn-xs mr-5" href="{{route('user.view.orders',$o['order_id'])}}">
                                 <i class="fa fa-eye text-white"></i>
                             </a>
-
-                            <a href="/admin?remove={!! $o['order_id'] !!}"
+                            <a href="{{route('user.destroy.order',$o['order_id'])}}"
                                 onclick="return confirm('Are you sure you want to remove this order from database?');"
                                 class="btn btn-danger btn-xs">
                                 <i class="fa fa-trash text-white"></i>
-
                             </a>
                         </div>
                     </td>
