@@ -20,7 +20,7 @@ use App\Http\Controllers\User\Lessor\OrderController;
  */
 
 //lessee routes
-Route::prefix('user')->middleware('auth')->group(function () {
+Route::prefix('user')->middleware('auth','verified')->group(function () {
     Route::post('update', [UserSettingController::class, 'userUpdate'])->name('user.update');
     Route::get('settings', [UserSettingController::class, 'index'])->name('user.settings');
     Route::get('profile', [UserSettingController::class, 'userProfile'])->name('user.profile');
@@ -35,7 +35,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
 
 //lessor routes
-Route::prefix('user')->middleware('auth','vendorApproval')->group(function () {
+Route::prefix('user')->middleware('auth','vendorApproval','verified')->group(function () {
     Route::get('view-dns/{id}', [LessorController::class, 'viewDns'])->name('view.dns');
     Route::get('active-lease', [LeaseController::class, 'activeLease'])->name('user.active.lease');
     Route::get('inactive-lease', [LeaseController::class, 'inactiveLease'])->name('user.inactive.lease');
