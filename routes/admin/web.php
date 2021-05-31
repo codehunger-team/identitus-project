@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DnsController;
 use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DocusignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,11 +113,15 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::any('logout', [AdminController::class, 'logout'])->name('admin.logout');
 
     //set Dns admin.nameserver.store
-    Route::get('admin/set-dns/{id}',[DnsController::class, 'set_dns'])->name('admin.nameserver.set');
-    Route::get('admin/view-dns/{id}',[DnsController::class, 'view_dns'])->name('admin.nameserver.view');
-    Route::post('admin/store-dns',[DnsController::class, 'store_dns'])->name('admin.nameserver.store');
+    Route::get('set-dns/{id}',[DnsController::class, 'set_dns'])->name('admin.nameserver.set');
+    Route::get('view-dns/{id}',[DnsController::class, 'view_dns'])->name('admin.nameserver.view');
+    Route::post('store-dns',[DnsController::class, 'store_dns'])->name('admin.nameserver.store');
 
     // Release Lessor Payment
-    Route::get('/admin/release-payment/{id}',[PaymentController::class, 'release_payment'])->name('admin.release.payment');
-   
+    Route::get('/release-payment/{id}',[PaymentController::class, 'release_payment'])->name('admin.release.payment');
+
+    //Docusign
+    Route::get('docusign',[DocusignController::class,'index'])->name('admin.docusign');
+    Route::get('docusign/connect',[DocusignController::class,'connect'])->name('admin.connect.docusign');
+    Route::get('docusign/callback',[DocusignController::class,'callback'])->name('admin.docusign.callback');
 });

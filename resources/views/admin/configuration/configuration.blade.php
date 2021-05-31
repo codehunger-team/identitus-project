@@ -186,17 +186,12 @@
 		</div>
 
 		<div class="box">
-			<div class="box-header with-border"><strong>Paypal Configurations</strong></div>
+			<div class="box-header with-border"><strong>Docusign Configurations</strong></div>
 			<div class="box-body">
 
-				<dt>Paypal ClientId</dt>
+				<dt>Docusign Integration ID</dt>
 				<dd>
-					<input type="text" name="paypal_client_id" value="{{ App\Models\Option::get_option('paypal_client_id') }}" class="form-control">
-				</dd>
-
-				<dt>Paypal Secret</dt>
-				<dd>
-					<input type="text" name="paypal_secret" class="form-control" value="{!! App\Models\Option::get_option('paypal_secret') !!}">
+					<input type="text" name="docusign_client_id" value="{{ App\Models\Option::get_option('docusign_client_id') }}" class="form-control">
 				</dd>
 			</dl>
 			</div><!-- BODY FONT_COLOR -->

@@ -167,6 +167,7 @@ this would eventually be a Docusign-type document.-->
         <b>{{$domainName ?? ''}}</b>
     </h1>
     <br />
+    {{-- @dd(Auth::user()) --}}
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
         and time of <b>{{$getCurrentDateTime ?? ''}}</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
@@ -384,7 +385,9 @@ this would eventually be a Docusign-type document.-->
         <p>Name:{{$lessor->name ?? ''}} Name:{{Auth::user()->name ?? ''}} </p>
         <p>Title: Title:</p>
 
-        <a class="btn btn-primary btn-block text-center mb-4 mt-5 w-30" href="{{route('ajax.add.to.cart',$domainName)}}">Lease Now</a>
+        {{-- <a class="btn btn-primary btn-block text-center mb-4 mt-5 w-30" href="{{route('ajax.add.to.cart',$domainName)}}">Lease Now</a> --}}
+
+        <a class="btn btn-primary btn-block text-center mb-4 mt-5 w-30" href="{{route('sign.document',$domainName)}}">Lease Now</a>
 </div>
 @endif
 @endsection

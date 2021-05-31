@@ -5,7 +5,7 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\AjaxController;
 use App\Http\Controllers\Front\CheckoutController;
-
+use App\Http\Controllers\Front\DocusignController;
 
 
 /*
@@ -51,4 +51,9 @@ Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->nam
 Route::get('about',[FrontController::class, 'about'])->name('about');
 Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
 
+//Docusign
+Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
+Route::get('docusign/callback',[DocusignController::class,'callback'])->name('docusign.redirect');
+
+Route::get('sign/document/{domain}',[DocusignController::class,'signDocument'])->name('sign.document');
 

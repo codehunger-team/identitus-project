@@ -75,6 +75,12 @@
                 <span>Users</span>
             </a>
         </li>
+        <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
+            <a href="{{route('admin.docusign')}}" class="nav-link text-white">
+                <i class="fas fa-plug"></i>
+                <span>Connect Docusign</span>
+            </a>
+        </li>
         <li @if(isset($active) AND ($active=='config' )) class="active" @endif>
             <a href="{{route('admin.configuration')}}" class="nav-link text-white">
                 <i class="fa fa-cog"></i>
