@@ -6,11 +6,15 @@
 
 @section('section_body')
     @if(!empty(App\Models\Option::get_option('docusign_auth_code')))
-        <a class="btn btn-primary text-white" href="javascript:void(0)">Connected</a>
-    @elseif (empty(App\Models\Option::get_option('docusign_client_id')))
-	    <a class="btn btn-danger text-white" href="{{route('admin.configuration')}}">Please Set Client ID From Configuration</a>
+        <a class="btn btn-danger text-white" href="{{route('admin.revoke.docusign')}}">Revoke Access</a>
     @else
-        <a class="btn btn-primary" href="{{route('admin.connect.docusign')}}">Connect Docusign</a>
+        <button class="btn btn-primary connect-doc"><a class="" href="{{route('admin.connect.docusign')}}">Connect Docusign</a></button>
     @endif
 <hr />
+<script>
+    $(document).on('click','.connect-doc',function(){
+        $('.connect-doc').attr('disabled',true)
+        $(this).text('connecting...');
+    });
+</script>
 @endsection

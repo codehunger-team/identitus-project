@@ -12,6 +12,7 @@ use App\Models\OptionExpiration;
 use Carbon\Carbon;
 use App\Traits\CalculatePeriodTrait;
 use App\Models\User;
+use PDF;
 
 class ReviewController extends Controller
 {   
@@ -39,8 +40,19 @@ class ReviewController extends Controller
         $mytime = Carbon::now();
         $getCurrentDateTime =  $mytime->toDateTimeString(); 
         
+        $this->createPdf($domainName,$domain,$lessor,$contracts,$periods,$periodType,$options,$leasetotal,$getCurrentDateTime,$graces,$endOfLease);
+
         return view('front.review.terms',compact('graces','periods','options','domain','contracts','domainName',
         'leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
     
+    }
+
+
+    private function createPdf($domainName,$domain,$lessor,$contracts,$periods,$periodType,$options,$leasetotal,$getCurrentDateTime,$graces,$endOfLease)
+    {   
+        $pdf = PDF::loadView('front.review.pdf-terms', compact('graces','periods','options','domain','contracts','domainName',
+        'leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
+        $filename = 'contract_'.$lessor->id.'.pdf';
+        $pdf->save('doc/'.$filename);
     }
 }

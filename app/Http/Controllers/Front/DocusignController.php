@@ -10,7 +10,8 @@ use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Client\ApiClient;
 use App\Models\Option;
-// use Auth;
+use Auth;
+use App\Models\Domain;
 
 class DocusignController extends Controller
 {   
@@ -18,45 +19,33 @@ class DocusignController extends Controller
     /** signatureClientService */
     private $clientService;
 
+     /** signatureClientService */
+     private $config;
+
     private $signer_client_id = 1000; # Used to indicate that the signer will use embedded
 
     /** Specific template arguments */
     private $args;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->args = $this->getTemplateArgs();
-        $config = new Configuration();
-        $config->setHost($this->args['base_path']);
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $this->args['ds_access_token']);    
-        $this->apiClient = new ApiClient($config);
-    }
 
     public function signDocument($domain)
     {   
-        dd(\Auth::user());
-        $this->worker($this->args);
-    }
+        $this->args = $this->getTemplateArgs($domain);
 
-    public function worker(array $args)
-    {
+        $lessorID = Domain::where('domain',$domain)->pluck('user_id')->first();
+
+        $args = $this->args;
+
         $envelope_args = $args["envelope_args"];
 
         # Create the envelope request object
-        $envelope_definition = $this->make_envelope($args["envelope_args"]);
+        $envelope_definition = $this->make_envelope($args["envelope_args"],$lessorID);
         $envelope_api = $this->getEnvelopeApi();
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
-        $config = new \DocuSign\eSign\Configuration();
-        $config->setHost($args['base_path']);
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
+       
 
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\client\ApiClient($this->config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
         $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $results->getEnvelopeId();
@@ -69,19 +58,21 @@ class DocusignController extends Controller
             'client_user_id' => $envelope_args['signer_client_id'],
             'recipient_id' => '1',
             'return_url' => $envelope_args['ds_return_url'],
-            'user_name' => $envelope_args['signer_name'], 'email' => $envelope_args['signer_email']
+            'user_name' => Auth::user()->name, 'email' => Auth::user()->email
         ]);
 
         $results = $envelope_api->createRecipientView($args['account_id'], $envelope_id,$recipient_view_request);
-        
+
         return redirect()->to($results['url']);
-        
     }
 
-    private function make_envelope($args)
+
+    private function make_envelope($args,$lessorID)
     {   
         
-        $demo_docs_path = asset('doc/World_Wide_Corp_lorem.pdf');
+        $filename = 'contract_'.$lessorID.'.pdf';
+
+        $demo_docs_path = asset('doc/'.$filename);
         // print_r($demo_docs_path); die;
         $content_bytes = file_get_contents($demo_docs_path);
         $base64_file_content = base64_encode($content_bytes);
@@ -94,7 +85,7 @@ class DocusignController extends Controller
         ]);
         # Create the signer recipient model
         $signer = new \DocuSign\eSign\Model\Signer([# The signer
-        'email' => $args['signer_email'], 'name' => $args['signer_name'],
+        'email' => Auth::user()->email, 'name' => Auth::user()->name,
             'recipient_id' => "1", 'routing_order' => "1",
             # Setting the client_user_id marks the signer as embedded
             'client_user_id' => $args['signer_client_id'],
@@ -109,7 +100,7 @@ class DocusignController extends Controller
         $signer->settabs(new \DocuSign\eSign\Model\Tabs(['sign_here_tabs' => [$sign_here]]));
         # Next, create the top level envelope definition and populate it.
         $envelope_definition = new \DocuSign\eSign\Model\EnvelopeDefinition([
-            'email_subject' => "Please sign this document sent from the PHP SDK",
+            'email_subject' => "Please sign this document sent from the IDENTITUS",
             'documents' => [$document],
             # The Recipients object wants arrays for each recipient type
             'recipients' => new \DocuSign\eSign\Model\Recipients(['signers' => [$signer]]),
@@ -122,7 +113,12 @@ class DocusignController extends Controller
      * Getter for the EnvelopesApi
      */
     public function getEnvelopeApi(): EnvelopesApi
-    {
+    {   
+        $this->config = new Configuration();
+        $this->config->setHost($this->args['base_path']);
+        $this->config->addDefaultHeader('Authorization', 'Bearer ' . $this->args['ds_access_token']);    
+        $this->apiClient = new ApiClient($this->config);
+
         return new EnvelopesApi($this->apiClient);
     }
 
@@ -131,24 +127,20 @@ class DocusignController extends Controller
      *
      * @return array
      */
-    private function getTemplateArgs()
+    private function getTemplateArgs($domainName)
     {   
-        dd(\Auth::user());
-        $signer_name = Auth::user()->name;
-        $signer_email = Auth::user()->email;
         $envelope_args = [
-            'signer_email' => $signer_email,
-            'signer_name' => $signer_name,
             'signer_client_id' => $this->signer_client_id,
-            'ds_return_url' => url('/'),
+            'ds_return_url' => route('ajax.add.to.cart',$domainName),
         ];
         $args = [
-            'account_id' => Option::get_option('docusign_client_id'),
-            'base_path' => 'https://demo.docusign.net/restapi',
+            'account_id' => env('DOCUSIGN_ACCOUNT_ID'),
+            'base_path' => env('DOCUSIGN_BASE_URL'),
             'ds_access_token' => Option::get_option('docusign_auth_code'),
             'envelope_args' => $envelope_args
         ];
 
         return $args;
+        
     }
 }
