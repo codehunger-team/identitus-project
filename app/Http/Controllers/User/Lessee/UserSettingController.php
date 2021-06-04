@@ -27,7 +27,7 @@ class UserSettingController extends Controller
         $userData['is_vendor'] = 'no';
         $userData = $request->all();
 
-        if ($userData['is_vendor']) {
+        if (isset($userData['is_vendor'])) {
             \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
                 $m->from('noreply@identitus.com', \App\Models\Option::get_option('site_title'));
                 $m->to(\App\Models\Option::get_option('admin_email'))->subject('Applied for vendor');
@@ -63,7 +63,7 @@ class UserSettingController extends Controller
         } else {
 
             $request->session()->flash('msg', 'Your profile has been updated');
-            if ($userData['is_vendor'] == 'pending') {
+            if (isset($userData['is_vendor']) && $userData['is_vendor'] == 'pending') {
                 $request->session()->flash('msg', 'Thank for applying, Will back you soon !');
             }
             $user->fill($userData)->save();
