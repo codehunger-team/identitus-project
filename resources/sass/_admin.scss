@@ -316,3 +316,7 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
 #inner-message {
     margin: 0 auto;
 }
+
+.select2-container--default .select2-selection--multiple {
+    padding-right: 160px !important; 
+}

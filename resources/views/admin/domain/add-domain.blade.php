@@ -53,7 +53,7 @@
 	
 		<div class="col-xs-12 col-md-6">
 			<label>Category</label><br />
-			<select name="category" class="form-control" required="">
+			<select name="category" class="form-control" required>
 				@if( !count( $categories ) )
 				<option value="">Please add some categories first</option>
 				@endif
@@ -65,7 +65,7 @@
 	
 		<div class="col-xs-12 col-md-6 mt-3">
 			<label>Tags(Required for seo)</label><br />
-			<select class="form-control js-example-basic-multiple" required name="tags[]" multiple="multiple" ></select>
+			<select class="form-control js-example-basic-multiple"   style="width: 100% !important" required name="tags[]" multiple="multiple" ></select>
 		</div>
 	
 		<div class="col-xs-12 col-md-12 mt-3">
@@ -85,13 +85,6 @@
 	</div>
 </form>
 <script>
-	 ClassicEditor.create(document.querySelector('#editor')) 
-        .then(editor => {
-            window.editor = editor;
-            editor.ui.view.editable.element.style.height = '200px';
-        })
-        .catch(error => {
-            console.error('There was a problem initializing the editor.', error);
-        });
+	 CKEDITOR.replace( 'description' );
 </script>
 @endsection

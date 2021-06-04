@@ -1,11 +1,9 @@
 require('./bootstrap');
 require('./datatable');
-// require( 'datatables.net-bs' );
 require('moment');
 require('./datetimepicker');
 require('select2');
 require('./morris');
-require('./ck-editor');
 
 import 'select2/dist/css/select2.css';
 import {
