@@ -44,7 +44,7 @@ class CreateContractsTable extends Migration
             $table->string('lease_total')->nullable();
             $table->integer('auto_change_rate')->nullable();
 
-            $table->decimal('accrual_rate', $precision = 10, $scale = 0);
+            $table->decimal('accrual_rate', $precision = 10, $scale = 0)->nullable();
 
             $table->timestamps();
         });
