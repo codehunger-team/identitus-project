@@ -40,7 +40,7 @@ class UserController extends Controller
         if ($request->is_vendor == 'yes') {
             \Mail::send('emails.vendor-approval', ['user' => $user], function ($m) use ($user) {
 
-                $m->from(\App\Models\Option::get_option('admin_email'), \App\Model\Option::get_option('site_title'));
+                $m->from(\App\Models\Option::get_option('admin_email'), \App\Models\Option::get_option('site_title'));
 
                 $m->to($user->email)->subject('You have been approved');
             });
