@@ -15,81 +15,81 @@
     <ul class="list-unstyled components">
         <li class="text-white">ADMIN MENU</li>
         <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
-            <a href="{{route('admin.dashboard')}}" class="nav-link text-white"><i class="fa fa-columns"></i>
-                <span>Dashboard</span>
+            <a href="{{route('admin.dashboard')}}" class="nav-link text-white"><i class="fa fa-columns font-icon"></i>
+                <span class="side-text">Dashboard</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='add-commission' )) class="active" @endif>
             <a href="{{route('admin.add.commission')}}" class="nav-link text-white"><i class="fa fa-calculator"></i>
-                <span>Add Commission</span>
+                <span class="side-text">Add Commission</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='domains' )) class="active" @endif>
             <a href="{{route('admin.domain')}}" class="nav-link text-white"><i class="fa fa-globe"></i>
-                <span>Domains</span>
+                <span class="side-text">Domains</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='active-lease' )) class="active" @endif>
             <a href="{{route('admin.active.lease')}}" class="nav-link text-white"><i class="fas fa-rocket"></i>
-                <span>Active Lease</span>
+                <span class="side-text">Active Lease</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='inactive-lease' )) class="active" @endif>
             <a href="{{route('admin.inactive.lease')}}" class="nav-link text-white"><i class="fas fa-meteor"></i>
-                <span>Inactive Lease</span>
+                <span class="side-text">Inactive Lease</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='categories' )) class="active" @endif>
             <a href="{{route('admin.category')}}" class="nav-link text-white"><i class="fa fa-list"
                                                                                  aria-hidden="true"></i>
-                <span>Categories</span>
+                <span class="side-text">Categories</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='period' )) class="active" @endif>
             <a href="{{route('admin.period')}}" class="nav-link text-white">
                 <i class="fas fa-clock"></i>
-                <span>Period Types</span>
+                <span class="side-text">Period Types</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='option' )) class="active" @endif>
             <a href="{{route('admin.option')}}" class="nav-link text-white">
                 <i class="fas fa-calendar-day"></i>
-                <span>Option Expiration</span>
+                <span class="side-text">Option Expiration</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='grace-period' )) class="active" @endif>
             <a href="{{route('admin.grace')}}" class="nav-link text-white">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                <span>Grace Period</span>
+                <span class="side-text">Grace Period</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='bulk' )) class="active" @endif>
             <a href="{{route('admin.bulk.upload')}}" class="nav-link text-white">
                 <i class="fa fa-upload"></i>
-                <span>Bulk Upload</span>
+                <span class="side-text">Bulk Upload</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
             <a href="{{route('admin.users')}}" class="nav-link text-white">
                 <i class="fas fa-users"></i>
-                <span>Users</span>
+                <span class="side-text">Users</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
             <a href="{{route('admin.docusign')}}" class="nav-link text-white">
                 <i class="fas fa-plug"></i>
-                <span>Connect Docusign</span>
+                <span class="side-text">Connect Docusign</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='config' )) class="active" @endif>
             <a href="{{route('admin.configuration')}}" class="nav-link text-white">
                 <i class="fa fa-cog"></i>
-                <span>Configuration</span></a>
+                <span class="side-text">Configuration</span></a>
         </li>
         <li>
             <a href="{{route('admin.logout')}}" class="nav-link text-white">
                 <i class="fas fa-sign-out-alt"></i>
-                <span>Log Out</span>
+                <span class="side-text">Log Out</span>
             </a>
         </li>
     </ul>

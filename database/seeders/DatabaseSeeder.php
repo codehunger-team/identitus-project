@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
         $this->call(NaviSeeder::class);
         
         // Use it via tinker to create admin credential
-        // User::Create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@identitius.com',
-        //     'password' => bcrypt('admin@1234'),
-        //     'admin' => 1,
-        //     'email_verified_at' => now(),
-        // ]);
+        User::Create([
+            'name' => 'admin',
+            'email' => 'admin@identitius.com',
+            'password' => bcrypt('admin@1234'),
+            'admin' => 1,
+            'email_verified_at' => now(),
+        ]);
     }
 }

@@ -320,3 +320,14 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
 .select2-container--default .select2-selection--multiple {
     padding-right: 160px !important; 
 }
+
+.dropdown-toggle::after {
+     vertical-align: 0em !important; 
+     border-top: 0em solid !important; 
+     border-bottom: 0 !important; 
+     border-left: 0em solid transparent !important; 
+}
+
+.hide-show {
+    display: none !important;
+}
