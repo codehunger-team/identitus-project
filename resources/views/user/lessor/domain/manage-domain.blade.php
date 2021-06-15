@@ -1,8 +1,13 @@
 @extends('user.base')
-
 @section('section_title')
-<strong>Manage Domain: {{ $d->domain }}</strong>
-<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back to Domains Overview</a>
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Manage Domain: {{ $d->domain }}</strong>
+	</div>
+	<div class="col-sm-6">
+		<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back to Domains Overview</a>
+	</div>
+</div>
 @endsection
 
 @section('section_body')

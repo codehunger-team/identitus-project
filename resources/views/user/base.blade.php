@@ -10,6 +10,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/raphel.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -29,6 +30,7 @@
                   </div>
               </div>
           @endif
+          <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary"><a href="javascript:void(0)"><i class="sidebarCollapse fas fa-bars text-white"></i></a><span class="text-white">IDENTITUS</span></nav>
           <div class="col m-4">
               <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
               <div class="card mt-4">

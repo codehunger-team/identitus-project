@@ -1,8 +1,14 @@
 @extends('admin.base')
 
 @section('section_title')
-<strong>Users Overview</strong>
-<a href="{{route('admin.users')}}" class="btn btn-primary btn-xs float-end">Back to User's List</a>
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Users Overview</strong>
+	</div>
+	<div class="col-sm-6">
+		<a href="{{route('admin.users')}}" class="btn btn-primary btn-xs float-right">Back to User's List</a>
+	</div>
+</div>
 @endsection
 
 @section('section_body')

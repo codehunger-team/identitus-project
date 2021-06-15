@@ -331,3 +331,13 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
 .hide-show {
     display: none !important;
 }
+
+.float-right {
+    float: right;
+}
+
+@media (max-width: 768px) {
+    .float-right{
+        float: none;
+    }
+}

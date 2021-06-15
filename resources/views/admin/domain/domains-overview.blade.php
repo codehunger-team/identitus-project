@@ -1,7 +1,13 @@
 @extends('admin.base')
 @section('section_title')
-<strong>Domains Overview</strong>
-<a class="btn btn-primary float-end" href="{{route('admin.add.domain')}}">Add New Domain</a>
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Domains Overview</strong>
+	</div>
+	<div class="col-sm-6">
+		<a class="btn btn-primary float-right" href="{{route('admin.add.domain')}}">Add New Domain</a>
+	</div>
+</div>
 @endsection
 @section('section_body')
 @if($domains)

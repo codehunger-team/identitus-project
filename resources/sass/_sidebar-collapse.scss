@@ -150,16 +150,6 @@ ul ul a {
 }
 
 
-a.download {
-    background: #fff;
-    color: #32094e;
-}
-
-a.article,
-a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
-}
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -167,7 +157,6 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }
@@ -219,6 +208,16 @@ a.article:hover {
         margin-left: 0;
     }
     #sidebarCollapse span {
+        display: none;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    
+}
+
+@media (min-width: 768px) {
+    .navbar-hide {
         display: none;
     }
 }

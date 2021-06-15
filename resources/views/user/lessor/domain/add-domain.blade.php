@@ -1,8 +1,15 @@
 @extends('user.base')
 
 @section('section_title')
-<strong>Add New Domain</strong>
-<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back to Domains Overview</a>
+
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Add New Domain</strong>
+	</div>
+	<div class="col-sm-6">
+		<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-right">Back to Domains Overview</a>
+	</div>
+</div>
 @endsection
 
 @section('section_body')

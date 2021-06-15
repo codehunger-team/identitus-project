@@ -20,14 +20,9 @@
     });
 
     $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
+            $('.sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
                 $('.side-text').toggleClass('hide-show');
-
-                // $(".side-text").toggle(
-                //     function(){$(".side-text").css({"display": "block"});},
-                //     function(){$(".side-text").css({"display": "none"});
-                // });
             });
         });
 

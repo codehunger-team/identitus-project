@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="col-sm-2 mt-2">
-                <a href="javascript:void(0)"><i id="sidebarCollapse" class="fas fa-bars float-right text-white"></i></a>
+                <a href="javascript:void(0)"><i class="sidebarCollapse fas fa-bars float-right text-white"></i></a>
             </div>
         </div>
     </div>

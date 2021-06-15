@@ -1,10 +1,14 @@
 @extends('admin.base')
-
 @section('section_title')
-<strong>Manage Domain: {{ $d->domain }}</strong>
-<a href="{{route('admin.domain')}}" class="btn btn-primary btn-xs float-end">Back to Domains Overview</a>
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Manage Domain: {{ $d->domain }}</strong>
+	</div>
+	<div class="col-sm-6">
+		<a href="{{route('admin.domain')}}" class="btn btn-primary btn-xs float-right">Back to Domains Overview</a>
+	</div>
+</div>
 @endsection
-
 @section('section_body')
 <form method="POST" action="{{route('admin.manage.domain.update',$d->domain)}}" enctype="multipart/form-data">
 @csrf
