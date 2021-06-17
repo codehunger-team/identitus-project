@@ -38,7 +38,6 @@
                             <li><a href="{{route('review.terms',$d->domain)}}" class="dropdown-item">Lease Now</a></li>
                         @endif 
                             <li><a href="{{route('ajax.add-to-cart.buy',$d->domain)}}" class="dropdown-item">Buy Now</a></li>
-                            <li><a href="{{ $d->domain }}" class="dropdown-item">Counter</a></li>
                     </ul>
                 </div>
             </td>

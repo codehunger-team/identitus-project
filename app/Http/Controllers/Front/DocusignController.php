@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use DocuSign;
-use Illuminate\Http\Request;
-use SignatureClientService;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Client\ApiClient;
@@ -16,10 +13,7 @@ use App\Models\Domain;
 class DocusignController extends Controller
 {   
 
-    /** signatureClientService */
-    private $clientService;
-
-     /** signatureClientService */
+     /** hold config value */
      private $config;
 
     private $signer_client_id = 1000; # Used to indicate that the signer will use embedded

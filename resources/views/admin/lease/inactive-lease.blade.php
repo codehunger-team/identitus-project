@@ -25,7 +25,6 @@
 	</thead>
 	<tbody>
         @foreach( $lease as $d )
-        {{-- @dd($d->option_price) --}}
         
 		<tr>
 			<td>
@@ -92,7 +91,7 @@
             <td>
                 <div class="btn-group">                     
                     <a class="btn btn-primary btn-xs" href="{{url('/admin/set-terms',$d->domain)}}">
-                        <i class="glyphicon glyphicon-pencil"></i>
+                        <i class="fa fa-edit"></i>
                     </a>
                </div>
            </td>

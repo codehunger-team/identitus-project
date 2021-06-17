@@ -120,7 +120,7 @@
                         <div class="row">
                             <div class="col-lg-12 mt-2">
                                 <input type="checkbox" class="form-check-input" name="include_adult_domain"
-                                    checked>Include adult domains
+                                    >Include adult domains
                             </div>
                         </div>
                     </div>
