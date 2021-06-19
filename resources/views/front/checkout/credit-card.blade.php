@@ -2,7 +2,7 @@
 <!-- missing seo -->
 @section('content')
     @php
-        $stripe_key = \App\Models\Option::get_option( 'stripe_key' );
+        $stripe_key = env('PUBLISHABLE_KEY');
     @endphp
     <div class="container" style="margin-top:10%;margin-bottom:10%">
         <div class="row justify-content-center">

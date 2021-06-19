@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Contract;
 use App\Models\PeriodType;
 use App\Traits\CalculatePeriodTrait;
-use App\Models\User;
 use App\Models\Order;
 use App\Models\Domain;
 use App\Models\ReleasePayment;
@@ -17,7 +16,7 @@ class CheckoutController extends Controller
     use CalculatePeriodTrait;
 
     public function __construct() {
-		\Stripe\Stripe::setApiKey(\App\Models\Option::get_option( 'stripe_secret' ));
+		\Stripe\Stripe::setApiKey(env('STRIPE_SECRET' ));
 	}
     // process credit card payment
     public function credit_card_processing(Request $r)

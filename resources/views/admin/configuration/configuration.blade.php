@@ -165,7 +165,7 @@
 
 	{{-- Payment Configuration --}}
 	<div class="col-xs-12 col-md-6">
-		<div class="box">
+		{{-- <div class="box">
 			<div class="box-header with-border"><strong>Stripe Configurations</strong></div>
 			<div class="box-body">
 
@@ -183,9 +183,9 @@
 					<input type="text" name="stripe_client_id" class="form-control" value="{!! App\Models\Option::get_option('stripe_client_id') !!}">
 				</dd>
 			</div><!-- BODY FONT_COLOR -->
-		</div>
+		</div> --}}
 
-		<div class="box">
+		{{-- <div class="box">
 			<div class="box-header with-border"><strong>Docusign Configurations</strong></div>
 			<div class="box-body">
 
@@ -195,7 +195,7 @@
 				</dd>
 			</dl>
 			</div><!-- BODY FONT_COLOR -->
-		</div>
+		</div> --}}
 	</div><!-- color setup -->
 
 		{{-- Email Configuration --}}
