@@ -14,8 +14,8 @@
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
         the Domain Onwer (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
         <b>{{ Auth::user()->street_1 ?? '' }}</b>,
-        @if(Auth::user()->street_2) <b>{{ Auth::user()->street_2}}, @endif
-            {{Auth::user()->city . ', ' .Auth::user()->state  . ', ' .Auth::user()->country ?? '' }}</b>, the party
+        @isset(Auth::user()->street_2) <b>{{ Auth::user()->street_2 ?? ''}}, @endisset
+            {{Auth::user()->city ?? '' . ', ' .Auth::user()->state ?? ''  . ', ' .Auth::user()->country ?? '' }}</b>, the party
         wishing to obtain the use of the Domain Name (the “Lessee”).</p>
 
     <p><b>THE LESSOR AND THE LESSEE HEREBY AGREE as follows:</b></p>
