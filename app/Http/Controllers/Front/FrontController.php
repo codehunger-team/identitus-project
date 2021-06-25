@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Domain;
+use App\Models\Registrar;
 use App\Models\User;
 use Auth;
 use Carbon\Carbon;
@@ -212,5 +213,30 @@ class FrontController extends Controller
     public function qa()
     {
         return view('front.q-a');
+    }
+
+     /**
+     * Domain Info
+     *
+     */
+    public function domainInfo($domain)
+    {   
+        $domain = Domain::where('domain', $domain)->firstOrFail();
+        $category = Category::where('id',$domain->category)->firstOrfail();
+        $registrar = Registrar::where('id',$domain->registrar_id)->first();
+        
+        $no1   = rand( 1, 5 );
+        $no2   = rand( 1, 5 );
+        $total = $no1 + $no2;
+
+        $domain->domain_age = Domain::computeAge( $domain->reg_date, 0);
+
+		return view('front.domain-info')
+                ->with('domain', $domain)
+                ->with( 'no1', $no1 )
+                ->with( 'no2', $no2 )
+                ->with( 'total', $total )
+                ->with('registrar',$registrar)
+                ->with('category',$category);
     }
 }

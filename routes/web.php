@@ -30,6 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //domain Filter
 Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
+Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
 
 //review terms
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
@@ -56,4 +57,5 @@ Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
 Route::get('docusign/callback',[DocusignController::class,'callback'])->name('docusign.redirect');
 
 Route::get('sign/document/{domain}',[DocusignController::class,'signDocument'])->name('sign.document');
+
 
