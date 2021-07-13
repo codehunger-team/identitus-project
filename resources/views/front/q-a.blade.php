@@ -125,9 +125,7 @@
                         <div id="flush-collapseSix" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p>You can move your site where you want, let your customers and Google know, and ask
-                                    websites with backlinks to your site to make changes. In the end, you may have some
-                                    residual loss.</p>
+                                <p>We welcome lonely domains!</p>
                             </div>
                         </div>
                     </div>
