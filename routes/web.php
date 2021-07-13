@@ -27,11 +27,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//domain Filter
-Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
-Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
-Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
-
 //review terms
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
 
@@ -49,13 +44,16 @@ Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->n
 Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
 Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
-Route::get('about/us',[FrontController::class, 'about'])->name('about');
-Route::get('q/a',[FrontController::class, 'qa'])->name('qa');
+Route::get('about',[FrontController::class, 'about'])->name('about');
+Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
 
 //Docusign
 Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
 Route::get('docusign/callback',[DocusignController::class,'callback'])->name('docusign.redirect');
-
 Route::get('sign/document/{domain}',[DocusignController::class,'signDocument'])->name('sign.document');
 
+//domain Filter
+Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
+Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
+Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
 
