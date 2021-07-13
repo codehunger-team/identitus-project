@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid container-white mb-neg">
-    <div class="container footer footer-home">
-        <div class="text-center">
-            <h1 class="display-4">
+    <div class="container">
+        <div class="col">
+            <h1 class="display-4 text-center">
                About Us
             </h1>
             <h2>Claim your credible domain, hassle-free.</h2>
