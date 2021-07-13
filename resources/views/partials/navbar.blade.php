@@ -28,7 +28,7 @@
                 @guest
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Login/Register">
-                            <i class="fas fa-user-circle  fa-2x"></i>
+                            <i class="fas fa-user-circle fa-2x"></i>
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -66,7 +66,11 @@
                         </div>
                     </li>
                 @endguest
-                <li class="nav-item">
+                <li class="nav-item position-relative">
+                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
                     <a class="nav-link cart_items" href="javascript:void(0)" target="_self" aria-label="Cart">
                         <i class="fas fa-shopping-cart fa-2x"></i>
                     </a>
