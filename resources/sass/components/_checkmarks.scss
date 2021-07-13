@@ -1,0 +1,18 @@
+ul.checkmark li {
+    margin-bottom: 1em;
+    list-style-type: none;
+    padding: .25em 0 0 2.5em;
+    position: relative;
+
+    &:before {
+        content: "\2713 ";
+        font-size: 1.2em;
+        margin-left: -40px;
+        margin-right: 40px;
+        padding: .2em .45em .2em .45em;
+        position: relative;
+        color: white;
+        background-color: lighten(#859a31, 0%);
+        border-radius: 50%;
+    }
+}
