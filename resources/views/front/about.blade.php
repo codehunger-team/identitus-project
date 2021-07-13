@@ -1,16 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row mt-6">
-        <div class="col-sm-12">
-            <h1 class="text-theme text-center">Questions &amp; Answers</h1>
-            <div class="separator-3"></div>
-            <hr>
-        </div>
-    </div>
+
     <div class="container-fluid container-white mb-neg">
         <div class="container">
             <div class="row mt-6">
-                <div class="col">
+                <div class="col-sm-12">
                     <h1 class="text-theme text-center">About Us</h1>
                     <div class="separator-3"></div>
                     <hr>
