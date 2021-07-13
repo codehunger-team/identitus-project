@@ -1,15 +1,14 @@
 @extends('layouts.app')
 @section('content')
-
-    <div class="row mt-6">
-        <div class="col-sm-12">
-            <h1 class="text-theme text-center">Questions &amp; Answers</h1>
-            <div class="separator-3"></div>
-            <hr>
+    <div class="container">
+        <div class="row mt-6">
+            <div class="col-sm-12">
+                <h1 class="text-theme text-center">Questions &amp; Answers</h1>
+                <div class="separator-3"></div>
+                <hr>
+            </div>
         </div>
-    </div>
-    <div class="container my-4 ">
-        <div class="row">
+        <div class="row my-4">
             <div class="col-lg-8 col-sm-12 mx-auto">
                 <div class="accordion accordion-flush" id="accordionFlushOne">
                     {{--                    One--}}
@@ -25,8 +24,9 @@
                              aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <p>You’ll be notified prior to the lease ending; it’s usually
-                                desirable for both parties to continue the lease. Once a domain lease ends, possession
-                                of the DNS records return to the domain owner.</p>
+                                    desirable for both parties to continue the lease. Once a domain lease ends,
+                                    possession
+                                    of the DNS records return to the domain owner.</p>
                             </div>
                         </div>
                     </div>
