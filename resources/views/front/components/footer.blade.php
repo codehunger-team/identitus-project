@@ -1,7 +1,6 @@
 <footer class="page-footer font-small pt-4 bg-primary">
     <div class="container-fluid">
         <div class="container">
-            {{--                {!! nl2br( \App\Options::get_option( 'homepage_intro' ) ) !!}--}}
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <h1 class="brand brand-footer">
@@ -13,8 +12,12 @@
                         Links
                     </h1>
                     <ul class="nav navbar-nav">
-                        <li><a href="/p-tos">Terms of Service</a></li>
-                        <li><a href="/p-privacy-policy">Privacy Policy</a></li>
+                        <li>
+                            <a href="/p-tos">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="/p-privacy-policy">Privacy Policy</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-sm-12">

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-lg-8 col-sm-12 mx-auto">
                 <h2>Claim your credible domain, hassle-free.</h2>
 
                 <p>If you’re a startup or entrepreneur, you’ve likely been in that place we call the Domain Dump. You
