@@ -14,5 +14,6 @@
     @include('front.components.sweet-alert')
     @include('front.components.cart-popup')
     @include('partials.global-js')
+@include('front.components.footer')
 </body>
 </html>
