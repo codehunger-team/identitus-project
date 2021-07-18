@@ -46,3 +46,8 @@
     </tbody>
 </table>
 <?php $i++; ?>
+<script>
+    $(document).on('click','.dropdown', function(){
+        $(this).children('.dropdown-menu').toggleClass('show');
+    });
+</script>

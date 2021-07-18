@@ -105,18 +105,7 @@
 
             return false;
         });
-
-
-        $('.paypalSubmit').click(function () {
-            swal({
-                title: "Redirecting you to PayPal...",
-                text: 'It takes just a few seconds.',
-                timer: 10000,
-                showConfirmButton: false,
-                imageUrl: '/resources/assets/images/ajax.gif'
-            });
-        });
-
+        
         $('#make-offer').submit(function (ev) {
             ev.preventDefault();
 

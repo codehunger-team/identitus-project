@@ -130,7 +130,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="preload-search container-white mx-auto my-auto">
-                <img src="{{ asset( '../resources/assets/images/ajax.gif' ) }}" alt="preloading image"
+                <img src="{{ asset( 'images/ajax.gif' ) }}" alt="preloading image"
                     style="float: left; padding: 10px;" />
                 <h3 style="padding: 30px 0">Loading domains matching your criteria</h3>
                 <div class="clearfix"></div>
