@@ -107,11 +107,8 @@
                                 <option value="ends_with">Ends with</option>
                             </select>    
                         </div>
-                        {{-- <div class="row mt-2">
-                            
-                        </div> --}}
                     </div>
-                    <div class="col-sm-12 my-2">
+                    <div class="col-lg-2 col-sm-12 my-2" style="margin-top: 3% !important">
                         <button type="submit" name="sbAjaxSearch"
                             class="btn btn-full-width-sm btn-primary mr-auto float-right ">Filter
                         </button>
