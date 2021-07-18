@@ -28,11 +28,10 @@
 
                 <!-- Authentication Links -->
                 @guest
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false" aria-label="Login/Register">
-                        <i class="fas fa-user-circle  fa-2x"></i>
-                    </a>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Login/Register">
+                            <i class="fas fa-user-circle fa-2x"></i>
+                        </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         @if (Route::has('login'))
@@ -69,7 +68,7 @@
                     </div>
                 </li>
                 @endguest
-                <li class="nav-item">
+                <li class="nav-item position-relative">
                     <a class="nav-link cart_items" href="javascript:void(0)" target="_self" aria-label="Cart">
                         <i class="fas fa-shopping-cart fa-2x"></i>
                         <span class="translate-cart badge rounded-pill bg-danger">
