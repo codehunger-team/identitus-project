@@ -100,20 +100,16 @@
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Keyword Placement</label>
-                        <div class="row mt-2">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" value="contains" name="keyword_placement">
-                                <label class="form-check-label" for="contains">Contains</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" value="starts_with" name="keyword_placement">
-                                <label class="form-check-label" for="starts_with">Starts with</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" value="ends_with" name="keyword_placement" >
-                                <label class="form-check-label" for="ends_with">Ends with</label>
-                            </div>
+                        <div class="col-lg-6 col-sm-12 my-2">
+                            <select name="sortby" class="form-control">
+                                <option value="contains">Contains</option>
+                                <option value="starts_with">Starts with</option>
+                                <option value="ends_with">Ends with</option>
+                            </select>    
                         </div>
+                        {{-- <div class="row mt-2">
+                            
+                        </div> --}}
                     </div>
                     <div class="col-sm-12 my-2">
                         <button type="submit" name="sbAjaxSearch"
