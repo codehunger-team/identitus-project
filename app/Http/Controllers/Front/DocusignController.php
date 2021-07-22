@@ -64,11 +64,11 @@ class DocusignController extends Controller
     private function make_envelope($args,$lessorID)
     {   
         
-        $filename = 'contract_'.$lessorID.'.pdf';
+        $filename = 'pdf\contract_'.$lessorID.'.pdf';
 
-        $demo_docs_path = asset('doc/'.$filename);
-        // print_r($demo_docs_path); die;
+        $demo_docs_path = \Storage::disk('public')->path($filename);
         $content_bytes = file_get_contents($demo_docs_path);
+
         $base64_file_content = base64_encode($content_bytes);
         # Create the document model
         $document = new \DocuSign\eSign\Model\Document([# create the DocuSign document object

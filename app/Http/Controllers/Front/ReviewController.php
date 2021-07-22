@@ -61,6 +61,8 @@ class ReviewController extends Controller
         $pdf = PDF::loadView('front.review.pdf-terms', compact('graces','periods','options','domain','contracts','domainName',
         'leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
         $filename = 'contract_'.$lessor->id.'.pdf';
-        $pdf->save('doc/'.$filename);
+
+        \Storage::put('public/pdf/'.$filename, $pdf->output());
+        // $pdf->save('doc/'.$filename);
     }
 }
