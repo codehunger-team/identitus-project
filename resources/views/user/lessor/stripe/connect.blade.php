@@ -4,7 +4,7 @@
 @endsection
 @section('section_body')
     @php
-        $stripe_client_id = \App\Models\Option::get_option('stripe_client_id');
+        $stripe_client_id = env('STRIPE_CLIENT_ID');
     @endphp
     @if(isset($stripe_account_id))
     <a class="btn btn-danger" href="{{route('user.revoke.stripe')}}">Revoke Account</a>

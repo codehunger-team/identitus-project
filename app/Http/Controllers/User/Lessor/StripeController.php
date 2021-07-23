@@ -55,20 +55,19 @@ class StripeController extends Controller
 
 		  } catch (\Stripe\Exception\AuthenticationException $e) {
             
-            
             // Authentication with Stripe's API failed
 			// (maybe you changed API keys recently)
-			$request->session()->flash('msg', $e->getError()->message);
+			$request->session()->flash('msg', $e->getMessage());
 			return redirect('user/stripe-connect');
 
 		  } catch (\Stripe\Exception\ApiConnectionException $e) {
             
 			// Network communication with Stripe failed
-			$request->session()->flash('msg', $e->getError()->message);
+			$request->session()->flash('msg', $e->getMessage());
 			return redirect('user/stripe-connect');
 
 		  } catch (\Stripe\Exception\ApiErrorException $e) {
-            // echo $e->getError()->message; die;
+            // echo $e->getMessage(); die;
 			// Display a very generic error to the user, and maybe send
 			// yourself an email
 			$request->session()->flash('msg', $e->getError()->error_description);
@@ -125,17 +124,17 @@ class StripeController extends Controller
             
             // Authentication with Stripe's API failed
 			// (maybe you changed API keys recently)
-			$request->session()->flash('msg', $e->getError()->message);
+			$request->session()->flash('msg', $e->getMessage());
 			return redirect()->back();
 
 		  } catch (\Stripe\Exception\ApiConnectionException $e) {
             
 			// Network communication with Stripe failed
-			$request->session()->flash('msg', $e->getError()->message);
+			$request->session()->flash('msg', $e->getMessage());
 			return redirect()->back();
 
 		  } catch (\Stripe\Exception\ApiErrorException $e) {
-            // echo $e->getError()->message; die;
+            // echo $e->getMessage(); die;
 			// Display a very generic error to the user, and maybe send
 			// yourself an email
 			$request->session()->flash('msg', $e->getError()->error_description);
