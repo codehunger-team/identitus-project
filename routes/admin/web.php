@@ -124,6 +124,6 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::get('docusign',[DocusignController::class,'index'])->name('admin.docusign');
     Route::get('docusign/connect',[DocusignController::class,'connect'])->name('admin.connect.docusign');
     Route::get('docusign/revoke',[DocusignController::class,'revoke'])->name('admin.revoke.docusign');
-    Route::get('docusign/callback',[DocusignController::class,'callback'])->name('admin.docusign.callback');
-    
 });
+
+Route::get('admin/docusign/callback',[DocusignController::class,'callback'])->name('admin.docusign.callback');

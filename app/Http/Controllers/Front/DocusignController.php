@@ -64,7 +64,7 @@ class DocusignController extends Controller
     private function make_envelope($args,$lessorID)
     {   
         
-        $filename = 'pdf\contract_'.$lessorID.'.pdf';
+        $filename = 'pdf/contract_'.$lessorID.'.pdf';
 
         $demo_docs_path = \Storage::disk('public')->path($filename);
         $content_bytes = file_get_contents($demo_docs_path);

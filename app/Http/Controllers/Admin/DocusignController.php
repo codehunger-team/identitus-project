@@ -24,6 +24,7 @@ class DocusignController extends Controller
                 'redirect_uri' => route('admin.docusign.callback'),
             ];
             $queryBuild = http_build_query($params);
+            // dd($params);
 
             $url = "https://account-d.docusign.com/oauth/auth?";
 
