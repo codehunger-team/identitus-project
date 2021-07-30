@@ -6,6 +6,8 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\AjaxController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\DocusignController;
+use App\Http\Controllers\Front\EnquiryController;
+
 
 
 /*
@@ -52,8 +54,10 @@ Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
 Route::get('docusign/callback',[DocusignController::class,'callback'])->name('docusign.redirect');
 Route::get('sign/document/{domain}',[DocusignController::class,'signDocument'])->name('sign.document');
 
+//Enquiry Controller
+Route::post('send/enquiry', [EnquiryController::class, 'sendEnquiry'])->name('send.enquiry');
+
 //domain Filter
 Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
 Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
-

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DnsController;
 use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DocusignController;
+use App\Http\Controllers\Admin\EnquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,6 +125,9 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::get('docusign',[DocusignController::class,'index'])->name('admin.docusign');
     Route::get('docusign/connect',[DocusignController::class,'connect'])->name('admin.connect.docusign');
     Route::get('docusign/revoke',[DocusignController::class,'revoke'])->name('admin.revoke.docusign');
+
+    //Customer Enquiry
+    Route::get('customer/enquiry',[EnquiryController::class,'index'])->name('admin.customer.enquiry');
 });
 
 Route::get('admin/docusign/callback',[DocusignController::class,'callback'])->name('admin.docusign.callback');

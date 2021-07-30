@@ -24,11 +24,11 @@ class CreateDnsTable extends Migration
 
             $table->timestamp('dns_settings_id')->useCurrent()->comment('Timestampe to know the most recent dns settings.');
            
-            $table->mediumText('identitius_nameserver1')->comment('	Name server to give identitius control.');
-            $table->mediumText('identitius_nameserver2')->comment('Name server to give identitius control.');
+            $table->mediumText('identitius_nameserver1')->comment('	Name server to give identitius control.')->nullable();
+            $table->mediumText('identitius_nameserver2')->comment('Name server to give identitius control.')->nullable();
 
-            $table->mediumText('controller_nameserver1')->comment('Name server that domain controller wants the domain to point to.');
-            $table->mediumText('controller_nameserver2')->comment('Name server that domain controller wants the domain to point to.');
+            $table->mediumText('controller_nameserver1')->comment('Name server that domain controller wants the domain to point to.')->nullable();
+            $table->mediumText('controller_nameserver2')->comment('Name server that domain controller wants the domain to point to.')->nullable();
 
             $table->timestamps();
         });

@@ -58,8 +58,8 @@
                         <h3><strong>{{ App\Models\Option::get_option( 'currency_symbol' ) }}0.00</strong></h3>
                     </td>
                 </tr>@endif
-            </table>
-            <img src="https://devtest.verostamp.com/verostamp/public/images/stripe-badge.png" width="100%">
+            </table>    
+            <img src="{{asset('images/stripe-badge.png')}}" width="100%">
         </div>
     </div>
 </div>

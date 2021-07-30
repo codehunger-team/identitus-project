@@ -30,9 +30,5 @@
         </div>
     </div>
 </footer>
-{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-{{-- Do we need ajax?
-<script src="{{ asset('js/ajax.js') }}"></script>
---}}
-{{-- <script src="{{ asset('js/sweetalert.min.js') }}"></script> --}}
+
 
