@@ -140,8 +140,9 @@
                 negotiate these terms with the Lessor, <a href="#">you may attempt to do so here</a>, but please be
                 aware that the Lessor may withdraw their original offer to lease.</p>
             @if(Auth::check())
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#profileUpdateModal">Review Lease</button>
+            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#profileUpdateModal">Review Lease</button> --}}
+            <a  href="{{route('sign.document',$domainName)}}"><button class="btn btn-primary btn-block text-center mb-4 mt-5 w-30 lease-now">Lease Now</button></a>
             @else
             <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
             @endif
@@ -157,7 +158,7 @@
 It can be in PDF format or not. Ideally, for the lease, 
 this would eventually be a Docusign-type document.-->
 
-<div class="container" id="contract">
+{{-- <div class="container" id="contract">
     <br />
     <br />
     <br />
@@ -167,7 +168,6 @@ this would eventually be a Docusign-type document.-->
         <b>{{$domainName ?? ''}}</b>
     </h1>
     <br />
-    {{-- @dd(Auth::user()) --}}
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
         and time of <b>{{$getCurrentDateTime ?? ''}}</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
@@ -385,10 +385,9 @@ this would eventually be a Docusign-type document.-->
         <p>Name:{{$lessor->name ?? ''}} Name:{{Auth::user()->name ?? ''}} </p>
         <p>Title: Title:</p>
 
-        {{-- <a class="btn btn-primary btn-block text-center mb-4 mt-5 w-30" href="{{route('ajax.add.to.cart',$domainName)}}">Lease Now</a> --}}
+        
+</div> --}}
 
-        <a  href="{{route('sign.document',$domainName)}}"><button class="btn btn-primary btn-block text-center mb-4 mt-5 w-30 lease-now">Lease Now</button></a>
-</div>
 @endif
 <script>
     $(document).on('click','.lease-now',function(){
