@@ -23,7 +23,7 @@
                                 @if(! isset($domain->contract->period_payment))
                                     Unavailable      
                                 @else 
-                                {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->period_payment, 0) }}
+                                {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->contract->period_payment, 0) }}
                                 @endif
                             </h3>
                             <h5 class="text-muted">The checkout process is very quick and easy. Grab it before anyone else!</h5>
