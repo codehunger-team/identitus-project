@@ -22,14 +22,14 @@ class FrontController extends Controller
 
     // all domains
     public function all_domains(Request $request)
-    {
+    {   
         $userId = NULL;
 
         if (Auth::check()) {
             $userId = Auth::user()->id;
         }
 
-        $domain_list = Domain::where('domain_status','AVAILABLE')->where('user_id','<>',$userId)->get();
+        $domain_list = Domain::where('domain_status','AVAILABLE')->get();
        
 
         // append domain age to the list
