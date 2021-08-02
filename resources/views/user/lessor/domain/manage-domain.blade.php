@@ -98,7 +98,5 @@
 		</div>
 </div>
 </form>
-<script>
-	CKEDITOR.replace( 'description' );
-</script>
+@include('layouts.ckeditor')
 @endsection
