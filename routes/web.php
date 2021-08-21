@@ -31,6 +31,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //review terms
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
+Route::post('counter',[ReviewController::class, 'counterLease'])->name('counter');
+Route::get('counter/edit/{id}',[ReviewController::class, 'editCounter'])->name('edit.counter');
 
 //Add to Cart
 Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');

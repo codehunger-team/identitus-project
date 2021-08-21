@@ -3,11 +3,11 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Auth;
 
-class CustomerEnquiry extends Mailable
+class DomainReviewTerm extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,8 +22,7 @@ class CustomerEnquiry extends Mailable
      * @return void
      */
     public function __construct($data)
-    {   
-        dd($data);
+    {
         $this->data = $data;
     }
 
@@ -33,10 +32,11 @@ class CustomerEnquiry extends Mailable
      * @return $this
      */
     public function build()
-    {   
+    {
+        $userEmail = Auth::user()->email;
         $data = $this->data;
-        return $this->from($data['email'])
-        ->subject('Customer Enquiry')
-        ->markdown('emails.enquiry-email',compact('data'));
+        return $this->from($userEmail)
+            ->subject('Lease Counter')
+            ->markdown('emails.lease-counter-email', compact('data'));
     }
 }
