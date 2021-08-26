@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Source vars
+STGdb=identitius
+STGenv=web/.env
+STGhost=identweb
+STGurlKey=APP_URL
+
+# Dest vars
+DEVDB=identitius_dev
+DEVurl=http://dev.identitius.com
+
+# End Config
+#
+
+echo -e "\nThis process will pull a copy of the ${STGdb} database using the ${STGhost} ssh alias."
+echo -e "The website urls will be translated during the import. Existing tables will be replaced.\n"
+read -p "Press any key to continue ... "
+
+echo -ne "Attempting to determine Staging server URL ... "
+
+STGurl=$(ssh ${STGhost} "grep ${STGurlKey} ${STGenv}")
+
+if [ $? -eq 0 ]; then
+	STGurl=$(echo "${STGurl#*=}" | tr -d \'\")
+	echo "${STGurl}"
+
+	echo -ne "Verifying that the local database exists ... "
+
+	exTest=$(echo "SHOW TABLES;" | mysql -D ${DEVDB} 2>&1 > /dev/null)
+
+	if [ $? -eq 0 ]; then
+		echo "Success."
+
+		echo -ne "Copying ${STGhost} ${STGdb} database and updating urls ... "
+
+		ssh ${STGhost} "mysqldump ${STGdb}" | sed "s|${STGurl}|${DEVurl}|g" | mysql -D ${DEVDB}
+
+		if [ $? -eq 0 ]; then
+			echo "Complete."
+		else
+			echo "ERROR"
+			exit 1
+		fi
+	else
+		echo "ERROR!"
+		echo "${exTest}"
+		exit 1
+	fi
+else
+	echo "ERROR"
+	exit 1
+fi
+
+exit 0

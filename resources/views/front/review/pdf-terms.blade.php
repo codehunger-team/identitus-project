@@ -12,7 +12,7 @@
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
         and time of <b>{{$getCurrentDateTime ?? ''}}</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
-        the Domain Onwer (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
+        the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
         <b>{{ Auth::user()->street_1 ?? '' }}</b>,
         @isset(Auth::user()->street_2) <b>{{ Auth::user()->street_2 ?? ''}}, @endisset
             {{Auth::user()->city ?? '' . ', ' .Auth::user()->state ?? ''  . ', ' .Auth::user()->country ?? '' }}</b>, the party
