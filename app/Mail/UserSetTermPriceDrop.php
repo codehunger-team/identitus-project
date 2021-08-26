@@ -3,11 +3,11 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Domain;
 
-class CustomerEnquiry extends Mailable
+class UserSetTermPriceDrop extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +22,7 @@ class CustomerEnquiry extends Mailable
      * @return void
      */
     public function __construct($data)
-    {   
+    {
         $this->data = $data;
     }
 
@@ -34,8 +34,9 @@ class CustomerEnquiry extends Mailable
     public function build()
     {   
         $data = $this->data;
-        return $this->from($data['email'])
-        ->subject('Customer Enquiry')
-        ->markdown('emails.enquiry-email',compact('data'));
+        $domainName = Domain::latest()->first()->domain;
+        return $this->from($data['from_email'])
+        ->subject('Accepted Lease Counter')
+        ->markdown('emails.price-drop-email',compact('data','domainName'));
     }
 }

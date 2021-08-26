@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contract extends Model
 {
-//    protected $table = 'contracts';
-
+    // protected $table = 'contracts';
     protected $guarded = [];
 
     // set primary key to Contract
@@ -15,6 +14,6 @@ class Contract extends Model
 
     public function domain()
     {
-        return $this->belongsTo('\App\Domain');
+        return $this->belongsTo('\App\Models\Domain');
     }
 }

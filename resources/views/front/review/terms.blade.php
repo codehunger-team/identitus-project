@@ -167,6 +167,7 @@
                 $('#period').val(res.data.number_of_periods);
                 $('#option-purchase-price').val(res.data.option_price);
                 $('#counter-id').val(res.data.contract_id);
+                $('#lessor-id').val(res.data.lessor_id);
                 $("#counter-modal").modal('show');
             })
             .catch((err) => {

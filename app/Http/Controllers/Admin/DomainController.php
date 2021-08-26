@@ -11,6 +11,11 @@ use App\Models\Contract;
 use App\Models\GracePeriod;
 use App\Models\PeriodType;
 use App\Models\OptionExpiration;
+use App\Models\CounterOffer;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserSetTermPriceDrop;
+use Illuminate\Support\Facades\Auth;
 
 class DomainController extends Controller
 {
@@ -40,7 +45,6 @@ class DomainController extends Controller
             ->with('active', 'domains')
             ->with('domains', $domains)
             ->with('registrars', $registrars);
-
     }
 
     // add domain name listing
@@ -118,7 +122,7 @@ class DomainController extends Controller
                 $domain['discount'] = $data['discount'];
                 $domain['category'] = $data['category'];
                 $domain['user_id'] = $data['user_id'];
-                
+
                 //check for domain already present or not
                 if (in_array($data['domain'], $domainsArray)) {
                     Domain::where('domain', $data['domain'])->update($domain);
@@ -144,26 +148,24 @@ class DomainController extends Controller
                 } else {
                     contract::create($contract);
                 }
-
             } catch (Exception $e) {
 
                 return redirect('admin/bulk-domains')->with('msg', $e);
             }
-
         }
 
         // close handle to the temp file
         fclose($handle);
         $row = $row - 2;
         return redirect('admin/bulk-domains')->with('msg', 'Found <strong>' . $row . '</strong> total domains');
-
     }
 
     // add domain to database
     public function add_domain_process(Request $r)
     {
         //validation
-        $this->validate($r, ['domain' => 'required|unique:domains,domain',
+        $this->validate($r, [
+            'domain' => 'required|unique:domains,domain',
             'pricing' => 'required|numeric|min:1',
             'reg_date' => 'required|date_format:Y-m-d',
             'domain_logo' => 'image',
@@ -174,7 +176,7 @@ class DomainController extends Controller
         if (isset($r['tags'])) {
             $r['tags'] = implode(",", $r['tags']);
         }
-       
+
         // save this domain
         $d = Domain::create($r->except(['sb', '_token', '_wysihtml5_mode']));
 
@@ -200,7 +202,6 @@ class DomainController extends Controller
             // set logo in db
             $d->domain_logo = $filename;
             $d->save();
-
         } else {
             $d->domain_logo = 'default-logo.jpg';
             $d->save();
@@ -208,7 +209,6 @@ class DomainController extends Controller
 
         // redirect with message
         return redirect('/admin/manage-domain/' . $d->id)->with('msg', 'Domain successfully created.');
-
     }
 
     // manage domain name listing
@@ -224,17 +224,16 @@ class DomainController extends Controller
             ->with('categories', $categories)
             ->with('tags', $tags)
             ->with('registrars', $registrars);
-
     }
 
     public function manage_domain_update(Request $r, $domainName)
-    {   
-        $domain = New Domain;
-        $domainID = $domain->where('domain',$domainName)->pluck('id')->first();
+    {
+        $domain = new Domain;
+        $domainID = $domain->where('domain', $domainName)->pluck('id')->first();
         // dd($domainID);
         // validate min fields
         $this->validate($r, [
-            'domain' => 'required|unique:domains,domain,'.$domainID,
+            'domain' => 'required|unique:domains,domain,' . $domainID,
             'pricing' => 'required|numeric',
             'discount' => 'numeric',
         ]);
@@ -269,34 +268,40 @@ class DomainController extends Controller
             // set logo in db
             $domain->domain_logo = $filename;
             $domain->save();
-
         }
         // update db
         Domain::where('id', $domainID)->update($r->except(['sb', '_token', '_wysihtml5_mode']));
         // redirect with message
         return redirect('admin/manage-domain/' . $domainID)
             ->with('msg', 'Domain details successfully Updated.');
-
     }
 
     //set terms
-    public function set_terms($domainName) {
-        
-        $graces = GracePeriod::all();
-        $periods = PeriodType::all();
-        $options = OptionExpiration::all();
-        $domainId = Domain::where('domain',$domainName)->first()->id;
-        $contracts = Contract::where('domain_id',$domainId)->first();
-        $isLease = Domain::where('domain',$domainName)->first()->domain_status;
+    public function set_terms($domainName)
+    {
 
-        if(empty($contracts)) {
-            $contracts = [];
+        $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
+        
+        if ($DomainValidate) {
+            $graces = GracePeriod::all();
+            $periods = PeriodType::all();
+            $options = OptionExpiration::all();
+            $domainId = Domain::where('domain', $domainName)->first()->id;
+            $contracts = Contract::where('domain_id', $domainId)->first();
+            $isLease = Domain::where('domain', $domainName)->first()->domain_status;
+
+            if (empty($contracts)) {
+                $contracts = [];
+            }
+            return view('admin.domain.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+        } else {
+            abort(404);
         }
-        return view('admin.domain.set-terms',compact('graces','periods','options','domainId','contracts','domainName','isLease'));
     }
 
     // add terms
-    public function add_terms(Request $request) {
+    public function add_terms(Request $request)
+    {
 
         $data = [
             'period_payment' => $request->period_payment,
@@ -312,15 +317,22 @@ class DomainController extends Controller
             'accrual_rate' => 0,
             'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment)
         ];
-        
-        $contractData = Contract::where('domain_id',$request->domain_id)->first();
 
-        if($contractData) {
+        $contractData = Contract::where('domain_id', $request->domain_id)->first();
+
+        if ($contractData) {
             $contractData->update($data);
-            return redirect('admin/set-terms/'.$request->domain)->with('msg', 'Successfully updated');
+            $lesseeId = CounterOffer::where('contract_id', $contractData->contract_id)->pluck('lessee_id')->first();
+            if ($lesseeId) {
+                $data['from_email'] = Auth::user()->email;
+                $data['domain_name'] = Domain::where('id', $request->domain_id)->pluck('domain')->first();
+                $toEmail = User::where('id', $lesseeId)->pluck('email')->first();
+                Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($data));
+            }
+            return redirect('admin/set-terms/' . $request->domain)->with('msg', 'Successfully updated');
         } else {
             Contract::create($data);
-            return redirect('admin/set-terms/'.$request->domain)->with('msg', 'Successfully Added');
+            return redirect('admin/set-terms/' . $request->domain)->with('msg', 'Successfully Added');
         }
     }
 }

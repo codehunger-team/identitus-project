@@ -9,6 +9,10 @@ use App\Models\Domain;
 use App\Models\Category;
 use App\Models\Registrar;
 use App\Models\Contract;
+use App\Models\CounterOffer;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserSetTermPriceDrop;
 
 class DomainController extends Controller
 {
@@ -216,9 +220,15 @@ class DomainController extends Controller
         ];
 
         $contractData = Contract::where('domain_id', $request->domain_id)->first();
-
         if ($contractData) {
             $contractData->update($data);
+            $lesseeId = CounterOffer::where('contract_id',$contractData->contract_id)->pluck('lessee_id')->first();
+            if($lesseeId) {
+                $data['from_email'] = Auth::user()->email;
+                $data['domain_name'] = Domain::where('id',$request->domain_id)->pluck('domain')->first();
+                $toEmail = User::where('id',$lesseeId)->pluck('email')->first();
+                Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($data));
+            }
             return redirect('user/set-terms/' . $request->domain)->with('msg', 'Successfully updated');
 
         } else {

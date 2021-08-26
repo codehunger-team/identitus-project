@@ -195,20 +195,25 @@ class UserSettingController extends Controller
      */
     public function set_terms($domainName)
     {
+        $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
+        if ($DomainValidate) {
+            $graces = GracePeriod::all();
+            $periods = PeriodType::all();
+            $options = OptionExpiration::all();
+            
+            $domainId = Domain::where('domain', $domainName)->first()->id;
+            $isLease = Domain::where('domain', $domainName)->first()->domain_status;
+            $contracts = Contract::where('domain_id', $domainId)->first();
 
-        $graces = GracePeriod::all();
-        $periods = PeriodType::all();
-        $options = OptionExpiration::all();
-        
-        $domainId = Domain::where('domain', $domainName)->first()->id;
-        $isLease = Domain::where('domain', $domainName)->first()->domain_status;
-        $contracts = Contract::where('domain_id', $domainId)->first();
+            if (empty($contracts)) {
+                $contracts = [];
+            }
 
-        if (empty($contracts)) {
-            $contracts = [];
+            return view('user.lessee.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+        } else {
+            abort(404);
         }
-
-        return view('user.lessee.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+        
 
     }
 

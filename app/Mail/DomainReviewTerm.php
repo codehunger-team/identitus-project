@@ -5,7 +5,8 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Auth;
+use App\Models\Domain;
+use App\Models\User;
 
 class DomainReviewTerm extends Mailable
 {
@@ -33,10 +34,11 @@ class DomainReviewTerm extends Mailable
      */
     public function build()
     {
-        $userEmail = Auth::user()->email;
         $data = $this->data;
-        return $this->from($userEmail)
+        $lessorId = Domain::where('domain',$data['domain_name'])->pluck('user_id')->first();
+        $user = User::where('id',$lessorId)->first();
+        return $this->from($data['from_email'])
             ->subject('Lease Counter')
-            ->markdown('emails.lease-counter-email', compact('data'));
+            ->markdown('emails.lease-counter-email', compact('data','user'));
     }
 }

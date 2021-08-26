@@ -6,8 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Domain;
+use Auth;
+use App\Models\User;
 
-class CustomerEnquiry extends Mailable
+class CounterLeaseVendor extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +25,7 @@ class CustomerEnquiry extends Mailable
      * @return void
      */
     public function __construct($data)
-    {   
+    {
         $this->data = $data;
     }
 
@@ -34,8 +37,10 @@ class CustomerEnquiry extends Mailable
     public function build()
     {   
         $data = $this->data;
-        return $this->from($data['email'])
-        ->subject('Customer Enquiry')
-        ->markdown('emails.enquiry-email',compact('data'));
+        $lessorId = Domain::where('domain',$data['domain_name'])->pluck('user_id')->first();
+        $user = User::where('id',$lessorId)->first();
+        return $this->from($data['from_email'])
+        ->subject('Lease Counter')
+        ->markdown('emails.lease-counter-vendor-email',compact('data','user'));
     }
 }
