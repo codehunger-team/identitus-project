@@ -135,7 +135,7 @@ class DomainController extends Controller
     {   
 
         $domain = new \App\Models\Domain;
-                // validate min fields
+        // validate min fields
         $this->validate($r, [
             'domain' => 'required|unique:domains,domain,' . $domainId,
             'pricing' => 'required|numeric|min:1',

@@ -70,7 +70,7 @@ class ReviewController extends Controller
 
     //counter lease
     public function counterOffer(Request $request, $domainName)
-    {
+    {   
         $counterOffer = CounterOffer::where('domain_name', $domainName)->first();
 
         $contracts = Contract::latest()->first();
@@ -83,8 +83,7 @@ class ReviewController extends Controller
             $lessorId = CounterOffer::where('domain_name', $domainName)->pluck('lessor_id')->first();
             $name = User::where('id', $lessorId)->pluck('name')->first();
         }
-        $domainId = Contract::latest()->first()->domain_id;
-        $domainName = Domain::where('id', $domainId)->first()->domain;
+    
         return view('front.review.counter', compact('contracts', 'domainName', 'name', 'isVendor', 'counterOffer'));
     }
 
@@ -104,7 +103,7 @@ class ReviewController extends Controller
 
         $data = $request->except('_token');
         $counterOffer = CounterOffer::where('domain_name', $data['domain_name'])->first();
-
+        // dd($data['domain_name']);
         if (Auth::user()->is_vendor == 'yes' || Auth::user()->admin == 1) {
             $toEmail = User::where('id', $counterOffer->lessee_id)->pluck('email')->first();
             $data['from_email'] = User::where('id', $counterOffer->lessor_id)->pluck('email')->first();
@@ -129,37 +128,7 @@ class ReviewController extends Controller
         }
     }
 
-    //send mail to vendor from user in counter lease
-    public function counter(Request $request)
-    {
-
-        $data = $request->all();
-        $domainId = Contract::latest()->first()->domain_id;
-        $data['domain_name'] = Domain::where('id', $domainId)->first()->domain;
-        $data['lessee_id'] = Auth::user()->id;
-        $VendorEmail = User::where('id', $data['lessor_id'])->pluck('email')->first();
-
-        $validator = \Validator::make($request->all(), [
-            'first_payment' => 'required|numeric',
-            'period_payment' => 'required|numeric',
-            'number_of_periods' => 'required|numeric',
-            'option_purchase_price' => 'required|numeric',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()]);
-        }
-        try {
-            Mail::to($VendorEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
-            Session::flash('success', 'We have informed the owner regarding your price...');
-            CounterOffer::create($data);
-            return redirect()->back();
-        } catch (Exception $e) {
-            \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
-        }
-    }
-
-
-    //counter lease --shaiv
+    //counter lease 
     public function counterLease(Request $request)
     {
         $validator = \Validator::make($request->all(), [
@@ -181,7 +150,12 @@ class ReviewController extends Controller
 
             Mail::to($vendorEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
             Session::flash('success', 'We have informed the owner regarding your price...');
-            CounterOffer::create($data);
+            $isCounterOffer = CounterOffer::where('domain_name',$data['domain_name'])->where('lessee_id',Auth::user()->id)->first();
+            if ($isCounterOffer) {
+                $isCounterOffer->update($data);
+            } else {
+                CounterOffer::create($data);
+            }
             return redirect()->back();
         } catch (Exception $e) {
             \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
@@ -192,5 +166,11 @@ class ReviewController extends Controller
     public function editCounter($id)
     {
         return Contract::find($id);
+    }
+
+    //Trigger when user accept the offer
+    public function acceptOffer($domain)
+    {
+        dd($domain);
     }
 }
