@@ -5,6 +5,17 @@
 @endsection
 
 @section('section_body')
+
+<div id="ds-clickwrap"></div>
+<script src="https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js"></script>
+<script>docuSignClick.Clickwrap.render({
+      environment: 'https://demo.docusign.net',
+      accountId: 'd80c3d92-abb5-4d3e-b77a-f73b31017826',
+      clickwrapId: 'eda8cb9c-11bf-40d7-96d1-03ace60d849b',
+      clientUserId: 'swe'
+    }, '#ds-clickwrap');</script>
+
+
     @if(!empty(App\Models\Option::get_option('docusign_auth_code')))
         <a class="btn btn-danger text-white" href="{{route('admin.revoke.docusign')}}">Revoke Access</a>
     @else

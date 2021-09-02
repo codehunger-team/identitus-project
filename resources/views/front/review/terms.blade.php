@@ -141,7 +141,7 @@
 
         <a href="javascript:void(0)"><button
                 class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
-                id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter
+                id="{{$contracts->contract_id}}" {{$isAlreadyCounterOffered == 1 ? 'disabled' : '' }} data-bs-toggle="modal" data-bs-target="#counterModal">Counter
                 Lease</button></a>
 
         @else
@@ -182,6 +182,61 @@
     $(document).on('click', '.lease-counter', function () {
         $('.lease-now').attr('disabled', true)
         $(this).text('Sending mail to the owner ....');
+    });
+
+    //count offer form sumission
+    $('#counter-form-submit').on('click', function(e) {
+        e.preventDefault();
+        $('#counter-form-submit').attr('disabled', true);
+        $( '#first-payment-error' ).html( "" );
+        $( '#periodPayment-error' ).html( "" );
+        $( '#period-error' ).html( "" );
+        $( '#option-purchase-price-error' ).html( "" );
+        $.ajax({
+            type: "POST",
+            url: "{{ route('counter') }}",
+            data: $('form.counter-form').serialize(),
+            success: function(response) {
+                if(response.errors) {
+                    if(response.errors.first_payment){
+                        $( '#first-payment-error' ).html( response.errors.first_payment[0] );
+                        $( '#first-payment' ).addClass('border-danger');
+                    } else {
+                        $( '#first-payment' ).removeClass('border-danger');
+                    }
+
+                    if(response.errors.period_payment){
+                        $( '#periodPayment-error' ).html( response.errors.period_payment[0] );
+                        $( '#periodPayment' ).addClass('border-danger');
+                    } else {
+                        $( '#periodPayment' ).removeClass('border-danger');
+                    }
+
+                    if(response.errors.number_of_periods){
+                        $( '#period-error' ).html( response.errors.number_of_periods[0] );
+                        $( '#period' ).addClass('border-danger');
+                    } else {
+                        $( '#period' ).removeClass('border-danger');
+                    }
+
+                    if(response.errors.option_purchase_price){
+                        $( '#option-purchase-price-error' ).html( response.errors.option_purchase_price[0] );
+                        $( '#option-purchase' ).addClass('border-danger');
+                    } else {
+                        $( '#option-purchase' ).removeClass('border-danger');
+                    }
+                    
+                }
+                if(response.success) {
+                    $('.counter-form')[0].reset();
+                    location.reload();
+                }
+            },
+            error: function() {
+                location.reload();
+            }
+        });
+        return false;
     });
 
 </script>

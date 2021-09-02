@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "darryldecode/cart": "^4.2",
+        "docusign/click-client": "^1.0",
         "docusign/esign-client": "^6.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

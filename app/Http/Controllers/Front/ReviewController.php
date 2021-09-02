@@ -43,14 +43,17 @@ class ReviewController extends Controller
         $leasetotal = $contracts->first_payment + ($contracts->number_of_periods *
             $contracts->period_payment);
 
+        $isExistDomainInCounterOfferTbl =  CounterOffer::where('domain_name', $domainName)->first();
+        $isAlreadyCounterOffered = (!empty($isExistDomainInCounterOfferTbl)) ? 1 : 0;
         $mytime = Carbon::now();
+
         $getCurrentDateTime =  $mytime->toDateTimeString();
 
         if (Auth::check()) {
 
             $this->createPdf($domainName, $domain, $lessor, $contracts, $periods, $periodType, $options, $leasetotal, $getCurrentDateTime, $graces, $endOfLease);
 
-            return view('front.review.terms', compact('graces','periods','options','domain','contracts','domainName','leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
+            return view('front.review.terms', compact('isAlreadyCounterOffered','graces','periods','options','domain','contracts','domainName','leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
         } else {
 
             return redirect()->to(route('login'));
@@ -137,8 +140,9 @@ class ReviewController extends Controller
             'number_of_periods' => 'required|numeric',
             'option_purchase_price' => 'required|numeric',
         ]);
+
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()]);
+            return response()->json(['errors' => $validator->errors()]);
         }
         try {
             $data = $request->except('_token');
@@ -156,7 +160,7 @@ class ReviewController extends Controller
             } else {
                 CounterOffer::create($data);
             }
-            return redirect()->back();
+            return response()->json(['success' => true]);
         } catch (Exception $e) {
             \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
         }

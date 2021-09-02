@@ -1,11 +1,11 @@
 <div class="modal fade" id="counterModal" tabindex="-1" aria-labelledby="counterModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog"> 
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="counterModalLabel">Counter Offer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{route('counter')}}" method="post" id="counter_update" enctype="multipart/form-data">
+            <form action="" method="post" class="counter-form">
                 @csrf
                 @if(count($errors))
                 <div class="alert alert-danger">
@@ -30,6 +30,9 @@
                                 <label for="firstPayment">First Payment ($)</label>
                                 <input type="number" name="first_payment" class="form-control" id="first-payment"
                                     placeholder="First Payment" required>
+                                <span class="text-danger">
+                                    <p id="first-payment-error"></p>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -37,6 +40,9 @@
                                 <label for="periodPayments">Period Payments ($)</label>
                                 <input type="text" name="period_payment" id="periodPayment" class="form-control"
                                     placeholder="$500" required>
+                                    <span class="text-danger">
+                                        <p id="periodPayment-error"></p>
+                                    </span>
                             </div>
                         </div>
 
@@ -47,6 +53,9 @@
                                     <input type="number" name="number_of_periods" class="form-control" id="period"
                                         placeholder="Periods" required>
                                 </div>
+                                <span class="text-danger">
+                                    <p id="period-error"></p>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -54,15 +63,24 @@
                                 <label for="optionPurchasePrice">Option Purchase Price ($)</label>
                                 <input type="number" name="option_purchase_price" class="form-control" id="option-purchase-price"
                                     placeholder="$50,000" required>
+                                <span class="text-danger">
+                                    <p id="option-purchase-price-error"></p>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn lease-counter btn-primary">Submit</button>
+                    <button type="submit" id="counter-form-submit" class="btn lease-counter btn-primary">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<style>
+    .border-danger {
+        border :"2px solid red";
+    }
+</style>
