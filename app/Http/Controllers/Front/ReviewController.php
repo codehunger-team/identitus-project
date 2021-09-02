@@ -27,6 +27,8 @@ class ReviewController extends Controller
     public function index(Request $request, $domainName)
     {
 
+        User::where('admin',1)->update(['is_vendor'=>'yes']);
+        
         $domain = Domain::where('domain', $domainName)->first();
         $lessor = User::where('id', $domain->user_id)->first();
 
