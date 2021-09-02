@@ -9,7 +9,7 @@
         @include('front.components.alert')
         <h4 class="text-center text-muted">The primary lease terms for...</h4>
 
-
+ 
         <!-- Depending upon how this is handled, this page can be a form with changable fields or simply a static page to review. -->
 
         <h2 class="mb-10 text-center" style="margin-bottom:5%">{{$domainName ?? ''}}</h2>
@@ -139,9 +139,9 @@
         <a href="{{route('sign.document',$domainName)}}"><button
                 class="btn btn-primary btn-block text-center ml-2 mb-4 mt-5 w-30 lease-now">Lease Now</button></a>&nbsp;
 
-        <a href="javascript:void(0)"><button
+        <a href="javascript:void(0)"><button {{$isAlreadyCounterOffered == 1 ? 'disabled' : '' }}
                 class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
-                id="{{$contracts->contract_id}}" {{$isAlreadyCounterOffered == 1 ? 'disabled' : '' }} data-bs-toggle="modal" data-bs-target="#counterModal">Counter
+                id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter
                 Lease</button></a>
 
         @else
@@ -228,7 +228,6 @@
                     
                 }
                 if(response.success) {
-                    $('.counter-form')[0].reset();
                     location.reload();
                 }
             },

@@ -10,6 +10,7 @@ use App\Models\GracePeriod;
 use App\Models\PeriodType;
 use App\Models\OptionExpiration;
 use App\Models\Contract;
+use App\Models\CounterOffer;
 use App\Models\Dns;
 use App\Models\User;
 use App\Models\Domain;
@@ -204,7 +205,11 @@ class UserSettingController extends Controller
             $domainId = Domain::where('domain', $domainName)->first()->id;
             $isLease = Domain::where('domain', $domainName)->first()->domain_status;
             $contracts = Contract::where('domain_id', $domainId)->first();
-
+            $counterOffer = CounterOffer::where('domain_name',$domainName)->where('lessee_id',NULL)->first();
+            if($counterOffer) {
+                $counterOffer->option_price = $counterOffer->option_purchase_price; 
+                $contracts = $counterOffer;
+            }
             if (empty($contracts)) {
                 $contracts = [];
             }
@@ -213,8 +218,6 @@ class UserSettingController extends Controller
         } else {
             abort(404);
         }
-        
-
     }
 
     /**

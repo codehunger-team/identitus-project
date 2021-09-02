@@ -42,18 +42,17 @@ class ReviewController extends Controller
         $options = OptionExpiration::all();
         $leasetotal = $contracts->first_payment + ($contracts->number_of_periods *
             $contracts->period_payment);
-
+        
         $isExistDomainInCounterOfferTbl =  CounterOffer::where('domain_name', $domainName)->first();
         $isAlreadyCounterOffered = (!empty($isExistDomainInCounterOfferTbl)) ? 1 : 0;
         $mytime = Carbon::now();
-
         $getCurrentDateTime =  $mytime->toDateTimeString();
 
         if (Auth::check()) {
 
             $this->createPdf($domainName, $domain, $lessor, $contracts, $periods, $periodType, $options, $leasetotal, $getCurrentDateTime, $graces, $endOfLease);
 
-            return view('front.review.terms', compact('isAlreadyCounterOffered','graces','periods','options','domain','contracts','domainName','leasetotal','getCurrentDateTime','endOfLease','periodType','lessor'));
+            return view('front.review.terms', compact('graces','periods','options','domain','contracts','domainName','leasetotal','getCurrentDateTime','endOfLease','periodType','lessor', 'isAlreadyCounterOffered'));
         } else {
 
             return redirect()->to(route('login'));
@@ -74,18 +73,33 @@ class ReviewController extends Controller
     //counter lease
     public function counterOffer(Request $request, $domainName)
     {   
-        $counterOffer = CounterOffer::where('domain_name', $domainName)->first();
-
         $contracts = Contract::latest()->first();
         $isVendor = Auth::user()->is_vendor;
+        
+         //check for domain 
+         if($isVendor == 'yes') {
+            $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessor_id' => Auth::user()->id])->exists();
+            $domainCheckForUser = Domain::where(['user_id' => Auth::user()->id, 'domain' => $domainName])->first();
+            if(empty($domainCheckForUser) && !$counterOffer) {
+                abort('403', 'Not accessible');
+            }
+        } else if($isVendor == 'no' || $isVendor == 'pending') {
+            $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessee_id' => Auth::user()->id])->exists();
+            if(!$counterOffer) {
+                abort('403', 'Not accessible');
+            }
+        }
 
-        if ($isVendor == 'yes' || Auth::user()->admin == 1) {
+        $counterOffer = [];
+        if ($isVendor == 'yes' || (isset(Auth::user()->admin) && Auth::user()->admin == 1)) {
             $lesseeId = CounterOffer::where('domain_name', $domainName)->pluck('lessee_id')->first();
             $name = User::where('id', $lesseeId)->pluck('name')->first();
+            $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessor_id' => null])->first();
         } else {
             $lessorId = CounterOffer::where('domain_name', $domainName)->pluck('lessor_id')->first();
             $name = User::where('id', $lessorId)->pluck('name')->first();
-        }
+            $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessee_id' => null])->first();
+        }        
     
         return view('front.review.counter', compact('contracts', 'domainName', 'name', 'isVendor', 'counterOffer'));
     }
@@ -105,25 +119,63 @@ class ReviewController extends Controller
         }
 
         $data = $request->except('_token');
-        $counterOffer = CounterOffer::where('domain_name', $data['domain_name'])->first();
-        // dd($data['domain_name']);
-        if (Auth::user()->is_vendor == 'yes' || Auth::user()->admin == 1) {
-            $toEmail = User::where('id', $counterOffer->lessee_id)->pluck('email')->first();
-            $data['from_email'] = User::where('id', $counterOffer->lessor_id)->pluck('email')->first();
+
+        if (Auth::user()->is_vendor == 'yes') {
+            $lesseeId = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => null])->first()->lessee_id;
+            $toEmail = User::find($lesseeId)->email;
+            $data['from_email'] = Auth::user()->email;
         } else {
-            $toEmail = User::where('id', $counterOffer->lessor_id)->pluck('email')->first();
-            $data['from_email'] = User::where('id', $counterOffer->lessee_id)->pluck('email')->first();
+            $lessorId = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessee_id' => null])->first()->lessor_id;
+            $toEmail = User::find($lessorId)->email;
+            $data['from_email'] = Auth::user()->email;
         }
 
         try {
 
-            if (Auth::user()->is_vendor == 'yes' || Auth::user()->admin == 1) {
-                Mail::to($toEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
-            } else {
+            $isLessorData = [];
+            $isLesseeData = [];
+            if(Auth::user()->is_vendor == 'yes') {
+                $data['lessor_id'] = (string)Auth::user()->id;
+                $isLessorData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => $data['lessor_id']])->first();
+                $data['lessee_id'] = null;
+
+            } else if(Auth::user()->is_vendor == 'no' || Auth::user()->is_vender == 'pending') {
+                $data['lessee_id'] = (string)Auth::user()->id;
+                $isLesseeData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessee_id' => $data['lessee_id']])->first();
+                $data['lessor_id'] = null;
+            }
+
+
+            if (Auth::user()->is_vendor == 'yes') {
                 Mail::to($toEmail)->later(now()->addMinutes(1), new CounterLeaseVendor($data));
+            } else {
+                Mail::to($toEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
             }
             unset($data['from_email']);
-            CounterOffer::where('domain_name', $data['domain_name'])->update($data);
+
+
+            //update lessor data
+            if(is_null($data['lessee_id'])) {
+                if(!empty($isLessorData)) {
+                    $isLessorData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => $data['lessor_id']])->update($data);
+                } else {
+                    $contractId = CounterOffer::where('domain_name', $data['domain_name'])->pluck('contract_id')->first();
+                    $data['contract_id'] = $contractId;
+                    CounterOffer::create($data);
+                }
+            }
+
+            //update lessee data
+            if(is_null($data['lessor_id'])) {
+                if(!empty($isLesseeData)) {
+                    $isLessorData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessee_id' => $data['lessee_id']])->update($data);
+                } else {
+                    $contractId = CounterOffer::where('domain_name', $data['domain_name'])->pluck('contract_id')->first();
+                    $data['contract_id'] = $contractId;
+                    CounterOffer::create($data);
+                }
+            }
+
             Session::flash('success', 'We have informed regarding your price...');
             return redirect()->back();
         } catch (Exception $e) {
@@ -158,6 +210,7 @@ class ReviewController extends Controller
             if ($isCounterOffer) {
                 $isCounterOffer->update($data);
             } else {
+                unset($data['lessor_id']);
                 CounterOffer::create($data);
             }
             return response()->json(['success' => true]);
