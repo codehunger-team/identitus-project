@@ -7,9 +7,14 @@
 <div class="container">
     <div class="section-title">
         @include('front.components.alert')
+        @if(Session::has('docusign'))
+        @php
+        $clickwrap = Session::get('docusign');
+        @endphp
+        @include('front.review.docusign')
+        @endif
         <h4 class="text-center text-muted">The primary lease terms for...</h4>
 
- 
         <!-- Depending upon how this is handled, this page can be a form with changable fields or simply a static page to review. -->
 
         <h2 class="mb-10 text-center" style="margin-bottom:5%">{{$domainName ?? ''}}</h2>
@@ -185,57 +190,63 @@
     });
 
     //count offer form sumission
-    $('#counter-form-submit').on('click', function(e) {
+    $('#counter-form-submit').on('click', function (e) {
         e.preventDefault();
         $('#counter-form-submit').attr('disabled', true);
-        $( '#first-payment-error' ).html( "" );
-        $( '#periodPayment-error' ).html( "" );
-        $( '#period-error' ).html( "" );
-        $( '#option-purchase-price-error' ).html( "" );
+        $('#first-payment-error').html("");
+        $('#periodPayment-error').html("");
+        $('#period-error').html("");
+        $('#option-purchase-price-error').html("");
         $.ajax({
             type: "POST",
             url: "{{ route('counter') }}",
             data: $('form.counter-form').serialize(),
-            success: function(response) {
-                if(response.errors) {
-                    if(response.errors.first_payment){
-                        $( '#first-payment-error' ).html( response.errors.first_payment[0] );
-                        $( '#first-payment' ).addClass('border-danger');
+            success: function (response) {
+                if (response.errors) {
+                    if (response.errors.first_payment) {
+                        $('#first-payment-error').html(response.errors.first_payment[0]);
+                        $('#first-payment').addClass('border-danger');
                     } else {
-                        $( '#first-payment' ).removeClass('border-danger');
+                        $('#first-payment').removeClass('border-danger');
                     }
 
-                    if(response.errors.period_payment){
-                        $( '#periodPayment-error' ).html( response.errors.period_payment[0] );
-                        $( '#periodPayment' ).addClass('border-danger');
+                    if (response.errors.period_payment) {
+                        $('#periodPayment-error').html(response.errors.period_payment[0]);
+                        $('#periodPayment').addClass('border-danger');
                     } else {
-                        $( '#periodPayment' ).removeClass('border-danger');
+                        $('#periodPayment').removeClass('border-danger');
                     }
 
-                    if(response.errors.number_of_periods){
-                        $( '#period-error' ).html( response.errors.number_of_periods[0] );
-                        $( '#period' ).addClass('border-danger');
+                    if (response.errors.number_of_periods) {
+                        $('#period-error').html(response.errors.number_of_periods[0]);
+                        $('#period').addClass('border-danger');
                     } else {
-                        $( '#period' ).removeClass('border-danger');
+                        $('#period').removeClass('border-danger');
                     }
 
-                    if(response.errors.option_purchase_price){
-                        $( '#option-purchase-price-error' ).html( response.errors.option_purchase_price[0] );
-                        $( '#option-purchase' ).addClass('border-danger');
+                    if (response.errors.option_purchase_price) {
+                        $('#option-purchase-price-error').html(response.errors
+                            .option_purchase_price[0]);
+                        $('#option-purchase').addClass('border-danger');
                     } else {
-                        $( '#option-purchase' ).removeClass('border-danger');
+                        $('#option-purchase').removeClass('border-danger');
                     }
-                    
+
                 }
-                if(response.success) {
+                if (response.success) {
                     location.reload();
                 }
             },
-            error: function() {
+            error: function () {
                 location.reload();
             }
         });
         return false;
+    });
+
+    $(document).on('click', '.css-103txop', function () {
+        console.log('hello');
+        alert('hy');
     });
 
 </script>

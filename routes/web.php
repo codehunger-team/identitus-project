@@ -35,7 +35,6 @@ Route::post('counter',[ReviewController::class, 'counterLease'])->name('counter'
 Route::get('counter/edit/{id}',[ReviewController::class, 'editCounter'])->name('edit.counter');
 Route::get('counter/{domain}',[ReviewController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
 Route::post('counter/contract',[ReviewController::class, 'counterContract'])->name('counter.contract');
-Route::get('accept/offer/{domain}',[ReviewController::class, 'acceptOffer'])->name('accept.offer');
 
 //Add to Cart
 Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');

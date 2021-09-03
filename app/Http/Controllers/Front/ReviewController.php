@@ -227,9 +227,4 @@ class ReviewController extends Controller
         return Contract::find($id);
     }
 
-    //Trigger when user accept the offer
-    public function acceptOffer($domain)
-    {
-        dd($domain);
-    }
 }
