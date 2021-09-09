@@ -252,4 +252,10 @@ class Domain extends Model
         return $this->hasOne('App\Models\Contract');
     }
 
+    //get detail using domain name
+    public static function getDetailUsingDomainName($domainName)
+    {
+        return self::where('domain', $domainName)->first();
+    }
+
 }

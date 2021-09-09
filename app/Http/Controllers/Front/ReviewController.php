@@ -75,7 +75,8 @@ class ReviewController extends Controller
     //counter lease
     public function counterOffer(Request $request, $domainName)
     {   
-        $contracts = Contract::latest()->first();
+        $domainDetail = Domain::getDetailUsingDomainName($domainName);
+        $contracts = Contract::where('domain_id',$domainDetail->id)->first();
         $isVendor = Auth::user()->is_vendor;
         
          //check for domain 

@@ -23,8 +23,9 @@
                     url: url,
                 })
                 setTimeout(function () {
-                    window.location.reload(1);
-                }, 10000);
+                    var url = '{{ route("checkout") }}';
+                    window.location.href = url;
+                }, 5000);
                 // Custom logic for ‘new’ agreements
             }
         },

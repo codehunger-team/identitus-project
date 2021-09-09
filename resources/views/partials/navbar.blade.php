@@ -53,6 +53,11 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @if(Auth::user()->admin == 1)
+                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        @else
+                        <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                        @endif
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
@@ -60,11 +65,6 @@
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
-                        @if(Auth::user()->admin == 1)
-                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                        @else
-                        <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
-                        @endif
                     </div>
                 </li>
                 @endguest

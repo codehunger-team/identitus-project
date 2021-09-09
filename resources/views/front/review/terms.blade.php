@@ -146,8 +146,8 @@
 
         <a href="javascript:void(0)"><button {{$isAlreadyCounterOffered == 1 ? 'disabled' : '' }}
                 class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
-                id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter
-                Lease</button></a>
+                id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">{{$isAlreadyCounterOffered == 1 ? 'Already in negotiation' : 'Counter
+                Lease' }}</button></a>
 
         @else
         <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
