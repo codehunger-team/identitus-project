@@ -7,6 +7,7 @@ use App\Http\Controllers\Front\AjaxController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\DocusignController;
 use App\Http\Controllers\Front\EnquiryController;
+use App\Http\Controllers\Front\CounterOfferController;
 
 
 
@@ -31,10 +32,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //review terms
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
-Route::post('counter',[ReviewController::class, 'counterLease'])->name('counter');
-Route::get('counter/edit/{id}',[ReviewController::class, 'editCounter'])->name('edit.counter');
-Route::get('counter/{domain}',[ReviewController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
-Route::post('counter/contract',[ReviewController::class, 'counterContract'])->name('counter.contract');
+Route::post('counter',[CounterOfferController::class, 'counterLease'])->name('counter');
+Route::get('counter/edit/{id}',[CounterOfferController::class, 'editCounter'])->name('edit.counter');
+Route::get('counter/{domain}',[CounterOfferController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
+Route::post('counter/contract',[CounterOfferController::class, 'counterContract'])->name('counter.contract');
+Route::get('accept/offer/{id}',[CounterOfferController::class, 'acceptOffer'])->name('accept.offer');
 
 //Add to Cart
 Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');

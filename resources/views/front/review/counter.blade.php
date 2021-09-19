@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn lease-counter-vendor btn-primary">Accept Lease</button>
+                            <a href="{{route('accept.offer',$contracts->contract_id)}}" class="btn btn-primary">Accept Lease</a>
                         </div>
                     </div>
                 </div>
