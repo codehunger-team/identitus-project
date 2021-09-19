@@ -14,7 +14,7 @@
                 </div>
             @endif
             @if( session()->has('message') AND session()->has('message_type') )
-                @include('components.sweet-alert')
+                @include('front.components.sweet-alert')
             @endif
         </div>
     </div>

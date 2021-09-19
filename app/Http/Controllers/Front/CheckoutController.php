@@ -10,6 +10,7 @@ use App\Traits\CalculatePeriodTrait;
 use App\Models\Order;
 use App\Models\Domain;
 use App\Models\ReleasePayment;
+use Exception;
 
 class CheckoutController extends Controller
 {
@@ -126,148 +127,150 @@ class CheckoutController extends Controller
 
     // stripe credit card payment
     public function credit_card(Request $request, $contractId = null)
-    {
+    {   
+        try{
+            if (\Auth::guard()->user()) {
 
-        if (\Auth::guard()->user()) {
-
-            if (isset($contractId) && \Cart::getContent()->count() == 0) {
-                $contract = Contract::where('contract_id', $contractId)->first();
-                $dataOfDoamin = Domain::Where('id', $contract->domain_id)->first();
-                \Cart::add($dataOfDoamin['id'], $dataOfDoamin['domain'], $contract->period_payment, 1, ['lease'], 0.00);
-
-            }
-
-            $sellerWise = null;
-            foreach (\Cart::getContent() as $domains) {
-                $domainData = \App\Models\Domain::find($domains->id);
-                $sellerWise[$domainData->user_id][] = $domains->price;
-            }
-
-            foreach ($sellerWise as $sellerID => $sellerValue) {
-                $totalSellerWise[$sellerID] = array_sum($sellerValue);
-            }
-
-            $amount = \Cart::getTotal();
-            $amount *= 100;
-            $amount = (int) $amount;
-
-            try {
-                $payment_intent = \Stripe\PaymentIntent::create([
-                    'description' => \App\Models\Option::get_option('site_title') ?? 'Web Domains',
-                    'shipping' => [
-                        'name' => $request->user()->name ?? '',
-                        'address' => [
-                            'line1' => $request->user()->street_1 ?? '',
-                            'postal_code' => $request->user()->city ?? '',
-                            'city' => $request->user()->city ?? '',
-                            'state' => $request->user()->state ?? '',
-                            'country' => 'US',
+                if (isset($contractId) && \Cart::getContent()->count() == 0) {
+                    $contract = Contract::where('contract_id', $contractId)->first();
+                    $dataOfDoamin = Domain::Where('id', $contract->domain_id)->first();
+                    \Cart::add($dataOfDoamin['id'], $dataOfDoamin['domain'], $contract->period_payment, 1, ['lease'], 0.00);
+    
+                }
+    
+                $sellerWise = null;
+                foreach (\Cart::getContent() as $domains) {
+                    $domainData = \App\Models\Domain::find($domains->id);
+                    $sellerWise[$domainData->user_id][] = $domains->price;
+                }
+    
+                foreach ($sellerWise as $sellerID => $sellerValue) {
+                    $totalSellerWise[$sellerID] = array_sum($sellerValue);
+                }
+    
+                $amount = \Cart::getTotal();
+                $amount *= 100;
+                $amount = (int) $amount;
+    
+                try {
+                    $payment_intent = \Stripe\PaymentIntent::create([
+                        'description' => \App\Models\Option::get_option('site_title') ?? 'Web Domains',
+                        'shipping' => [
+                            'name' => $request->user()->name ?? '',
+                            'address' => [
+                                'line1' => $request->user()->street_1 ?? '',
+                                'postal_code' => $request->user()->city ?? '',
+                                'city' => $request->user()->city ?? '',
+                                'state' => $request->user()->state ?? '',
+                                'country' => 'US',
+                            ],
                         ],
-                    ],
-
-                    'amount' => $amount,
-                    'currency' => \App\Models\Option::get_option('currency_code'),
-                    'payment_method_types' => ['card'],
-
-                ]);
-
-                // Use Stripe's library to make requests...
-
-            } catch (\Stripe\Exception\CardException $e) {
-                // Since it's a decline, \Stripe\Exception\CardException will be caught;
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\RateLimitException $e) {
-                // Too many requests made to the API too quickly
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\InvalidRequestException $e) {
-                // Invalid parameters were supplied to Stripe's API
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\AuthenticationException $e) {
-                // Authentication with Stripe's API failed
-                // (maybe you changed API keys recently)
-                $request->session()->flash('msg', $e->getMessage());
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\ApiConnectionException $e) {
-                // Network communication with Stripe failed
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\ApiErrorException $e) {
-                // Display a very generic error to the user, and maybe send
-                // yourself an email
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (Exception $e) {
-                // Something else happened, completely unrelated to Stripe
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
+    
+                        'amount' => $amount,
+                        'currency' => \App\Models\Option::get_option('currency_code'),
+                        'payment_method_types' => ['card'],
+    
+                    ]);
+    
+                    // Use Stripe's library to make requests...
+    
+                } catch (\Stripe\Exception\CardException $e) {
+                    // Since it's a decline, \Stripe\Exception\CardException will be caught;
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\RateLimitException $e) {
+                    // Too many requests made to the API too quickly
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\InvalidRequestException $e) {
+                    // Invalid parameters were supplied to Stripe's API
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\AuthenticationException $e) {
+                    // Authentication with Stripe's API failed
+                    // (maybe you changed API keys recently)
+                    $request->session()->flash('msg', $e->getMessage());
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\ApiConnectionException $e) {
+                    // Network communication with Stripe failed
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\ApiErrorException $e) {
+                    // Display a very generic error to the user, and maybe send
+                    // yourself an email
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (Exception $e) {
+                    // Something else happened, completely unrelated to Stripe
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                }
+    
+                try {
+    
+                } catch (\Stripe\Exception\CardException $e) {
+                    // Since it's a decline, \Stripe\Exception\CardException will be caught;
+                    $request->session()->flash('msg', $e->getError()->message);
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\RateLimitException $e) {
+                    // Too many requests made to the API too quickly
+    
+                    return redirect('checkout')
+                        ->withErrors([$e->getError()->message]);
+    
+                } catch (\Stripe\Exception\InvalidRequestException $e) {
+                    // Invalid parameters were supplied to Stripe's API
+                    $request->session()->flash('msg', $e->getError()->message);
+    
+                    return redirect()->back();
+    
+                } catch (\Stripe\Exception\AuthenticationException $e) {
+                    // Authentication with Stripe's API failed
+                    // (maybe you changed API keys recently)
+                    
+                    return redirect('checkout')
+                        ->withErrors([$e->getError()->message]);
+    
+                } catch (\Stripe\Exception\ApiConnectionException $e) {
+                    // Network communication with Stripe failed
+                    return redirect('checkout')
+                        ->withErrors([$e->getError()->message]);
+    
+                } catch (\Stripe\Exception\ApiErrorException $e) {
+                    // Display a very generic error to the user, and maybe send
+                    // yourself an email
+    
+                    return redirect('checkout')
+                        ->withErrors([$e->getError()->message]);
+    
+                } catch (Exception $e) {
+                    // Something else happened, completely unrelated to Stripe
+                    return redirect('checkout')
+                        ->withErrors([$e->getError()->message]);
+    
+                }
+    
+                $intent = $payment_intent->client_secret;
+    
+                if ($amount < 1) {
+                    throw new \Exception("Error. Total amount is not valid.");
+                }
+    
+                return view('front.checkout.credit-card', compact('intent'));
+    
+            } else {
+                return redirect()->route('login');
             }
-
-            try {
-
-            } catch (\Stripe\Exception\CardException $e) {
-                // Since it's a decline, \Stripe\Exception\CardException will be caught;
-                $request->session()->flash('msg', $e->getError()->message);
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\RateLimitException $e) {
-                // Too many requests made to the API too quickly
-
-                return redirect('checkout')
-                    ->withErrors([$e->getError()->message]);
-
-            } catch (\Stripe\Exception\InvalidRequestException $e) {
-                // Invalid parameters were supplied to Stripe's API
-                $request->session()->flash('msg', $e->getError()->message);
-
-                return redirect()->back();
-
-            } catch (\Stripe\Exception\AuthenticationException $e) {
-                // Authentication with Stripe's API failed
-                // (maybe you changed API keys recently)
-                
-                return redirect('checkout')
-                    ->withErrors([$e->getError()->message]);
-
-            } catch (\Stripe\Exception\ApiConnectionException $e) {
-                // Network communication with Stripe failed
-                return redirect('checkout')
-                    ->withErrors([$e->getError()->message]);
-
-            } catch (\Stripe\Exception\ApiErrorException $e) {
-                // Display a very generic error to the user, and maybe send
-                // yourself an email
-
-                return redirect('checkout')
-                    ->withErrors([$e->getError()->message]);
-
-            } catch (Exception $e) {
-                // Something else happened, completely unrelated to Stripe
-                return redirect('checkout')
-                    ->withErrors([$e->getError()->message]);
-
-            }
-
-            $intent = $payment_intent->client_secret;
-
-            if ($amount < 1) {
-                throw new \Exception("Error. Total amount is not valid.");
-            }
-
-            return view('front.checkout.credit-card', compact('intent'));
-
-        } else {
-
-            return redirect()->route('login');
+        } catch (Exception $e) {
+            return redirect()->back()->with('msg', 'Empty Cart');
 
         }
 

@@ -25,7 +25,7 @@
                 setTimeout(function () {
                     var url = '{{ route("checkout") }}';
                     window.location.href = url;
-                }, 5000);
+                }, 9000);
                 // Custom logic for ‘new’ agreements
             }
         },
