@@ -55,4 +55,6 @@ Route::prefix('user')->middleware('auth','vendorApproval','verified')->group(fun
     Route::get('stripe-connect', [StripeController::class, 'stripeConnect'])->name('user.stripe-connect');
     Route::get('stripe-connect/redirect', [StripeController::class, 'stripeConnectRedirect'])->name('user.stripe-connect.redirect');
     Route::get('stripe-connect/revoke', [StripeController::class, 'revokeStripe'])->name('user.revoke.stripe');
+
+    Route::get('close/negotiation/{domain}',[DomainController::class, 'close_negotiation'])->name('close.negotiation');
 });

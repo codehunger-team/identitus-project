@@ -31,7 +31,7 @@ class DomainController extends Controller
         $domains->map(function ($d) {
             $d->domain_age = Domain::computeAge($d->reg_date, 0);
         });
-
+     
         return view('user.lessor.domain.domain')
             ->with('active', 'domains')
             ->with('domains', $domains)
@@ -236,5 +236,14 @@ class DomainController extends Controller
             return redirect('user/set-terms/' . $request->domain)->with('msg', 'Successfully Added');
         }
 
+    }
+    /**
+     * Close Negotitation
+     * 
+     */  
+    public function close_negotiation($domain)
+    {
+        CounterOffer::where('domain_name', $domain)->delete();
+        return redirect()->back()->with('msg', 'Negotiation has been closed.');
     }
 }

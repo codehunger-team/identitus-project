@@ -106,6 +106,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn lease-counter-vendor btn-primary">Accept Lease</button>
+                        </div>
                     </div>
                 </div>
             </div>

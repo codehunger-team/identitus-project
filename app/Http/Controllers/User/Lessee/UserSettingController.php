@@ -205,7 +205,7 @@ class UserSettingController extends Controller
             $domainId = Domain::where('domain', $domainName)->first()->id;
             $isLease = Domain::where('domain', $domainName)->first()->domain_status;
             $contracts = Contract::where('domain_id', $domainId)->first();
-            $counterOffer = CounterOffer::where('domain_name',$domainName)->where('lessee_id',NULL)->first();
+            $counterOffer = CounterOffer::where('domain_name',$domainName)->where('lessor_id',NULL)->first();
             if($counterOffer) {
                 $counterOffer->option_price = $counterOffer->option_purchase_price; 
                 $contracts = $counterOffer;
