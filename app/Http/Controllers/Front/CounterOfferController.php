@@ -178,15 +178,15 @@ class CounterOfferController extends Controller
     {   
         if (Auth::user()->is_vendor == 'yes') {
             $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
+            $updateCounter = $counterOffer->where('contract_id',$contractId)->select('first_payment','period_payment','number_of_periods','option_purchase_price as option_price')->first()->toArray();
+            $updateCounter['lease_total'] = $updateCounter['first_payment'] + ($updateCounter['number_of_periods'] * $updateCounter['period_payment']);
             
-            $updateCounter = $counterOffer->select('first_payment','period_payment','number_of_periods','option_purchase_price as option_price')->first()->toArray();
-            // dd($updateCounter);
             Contract::where('contract_id',$contractId)->update($updateCounter);
             $updateCounter['from_email'] = Auth::user()->email;
             $updateCounter['domain_name'] = $counterOffer->domain_name;
             $toEmail = User::where('id',$counterOffer->lessee_id)->pluck('email')->first();
-            // dd($updateCounter,$counterOffer);
             Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($updateCounter));
+            
             Session::flash('success', 'We have informed the user regarding your price...');
             return redirect()->back();
         }

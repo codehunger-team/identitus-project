@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{route('accept.offer',$contracts->contract_id)}}" class="btn btn-primary">Accept Lease</a>
+                            <a href="{{route('accept.offer',$contracts->contract_id)}}"><button class="btn btn-primary disable-button">Accept  Offer</button></a>
                         </div>
                     </div>
                 </div>
@@ -180,4 +180,9 @@
     </div>
 </div> <br>
 <hr>
+<script>
+    $(document).on('click','.disable-button',function(){
+        $(this).attr("disabled", true);
+    });
+</script>
 @endsection
