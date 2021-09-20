@@ -84,15 +84,9 @@ class CounterOfferController extends Controller
             if(Auth::user()->is_vendor == 'yes') {
                 $data['lessor_id'] = (string)Auth::user()->id;
                 $isLessorData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => $data['lessor_id']])->first();
+                // dd(Domain::where('name',$data['domain_name'])->contract->first());
                 $data['lessee_id'] = null;
-                $updateContract = [
-                    'lease_total' => $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']),
-                    'first_payment' => $request->first_payment,
-                    'period_payment' => $request->period_payment,
-                    'number_of_periods' => $request->number_of_periods,
-                    'option_price' => $request->option_purchase_price,
-                ];
-                Contract::where('contract_id',$isLessorData->contract_id)->update($updateContract);
+                
 
             } else if(Auth::user()->is_vendor == 'no' || Auth::user()->is_vender == 'pending') {
                 $data['lessee_id'] = (string)Auth::user()->id;
@@ -130,6 +124,14 @@ class CounterOfferController extends Controller
                     CounterOffer::create($data);
                 }
             }
+            $updateContract = [
+                'lease_total' => $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']),
+                'first_payment' => $request->first_payment,
+                'period_payment' => $request->period_payment,
+                'number_of_periods' => $request->number_of_periods,
+                'option_price' => $request->option_purchase_price,
+            ];
+            Contract::where('contract_id',$contractId)->update($updateContract);
 
             Session::flash('success', 'We have informed regarding your price...');
             return redirect()->back();
