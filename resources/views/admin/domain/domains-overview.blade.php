@@ -57,9 +57,18 @@
                     </a>
                     <a href="{{url('admin/domains?remove=')}}{!! $d->id !!}"
                         onclick="return confirm('Are you sure you want to remove this domain from database?');"
-                        class="btn btn-danger">
+                        class="btn btn-danger mr-5">
                         <i class="fa fa-trash text-white"></i>
                     </a>
+                    @endif
+                    @php
+                        $counterOffer = app('App\Models\CounterOffer');
+                        $isInNegotitaion = $counterOffer::where('domain_name',$d->domain)->count()
+				     @endphp
+                    @if($isInNegotitaion > 0)
+                        <a class="btn btn-secondary btn-xs" title="Close Negotiation" onclick="return confirm('Are you sure you want to remove this domain negotiation from database?');" href="{{route('close.negotiation',$d->domain)}}">
+                            <i class="fa fa-times text-white"></i>
+                        </a>
                     @endif
                 </div>
             </td>

@@ -107,7 +107,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{route('accept.offer',$contracts->contract_id)}}"><button class="btn btn-primary disable-button">Accept  Offer</button></a>
+                            @if(Auth::user()->is_vendor == 'yes')
+                                <a href="{{route('accept.offer',$contracts->contract_id)}}"><button class="btn btn-primary disable-button">Accept  Offer</button></a>
+                            @else 
+                                <a href="{{route('review.terms',$domainName)}}"><button class="btn btn-primary disable-button">Lease Now</button></a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -170,7 +174,7 @@
                                 <input type="hidden" value="{{$domainName}}" name="domain_name">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn lease-counter-vendor btn-primary">Submit</button>
+                            <button type="submit" class="btn lease-counter-vendor btn-primary ">Submit</button>
                         </div>
                         </form>
                     </div>

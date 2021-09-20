@@ -54,8 +54,7 @@ class CounterOfferController extends Controller
 
     //send mail to user from vendor in counter lease --shaiv
     public function counterContract(Request $request)
-    {
-
+    {   
         $validator = \Validator::make($request->all(), [
             'first_payment' => 'required|numeric',
             'period_payment' => 'required|numeric',
@@ -86,6 +85,14 @@ class CounterOfferController extends Controller
                 $data['lessor_id'] = (string)Auth::user()->id;
                 $isLessorData = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => $data['lessor_id']])->first();
                 $data['lessee_id'] = null;
+                $updateContract = [
+                    'lease_total' => $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']),
+                    'first_payment' => $request->first_payment,
+                    'period_payment' => $request->period_payment,
+                    'number_of_periods' => $request->number_of_periods,
+                    'option_price' => $request->option_purchase_price,
+                ];
+                Contract::where('contract_id',$isLessorData->contract_id)->update($updateContract);
 
             } else if(Auth::user()->is_vendor == 'no' || Auth::user()->is_vender == 'pending') {
                 $data['lessee_id'] = (string)Auth::user()->id;
@@ -178,13 +185,20 @@ class CounterOfferController extends Controller
     {   
         if (Auth::user()->is_vendor == 'yes') {
             $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
-            $updateCounter = $counterOffer->where('contract_id',$contractId)->select('first_payment','period_payment','number_of_periods','option_purchase_price as option_price')->first()->toArray();
+            
+            $updateCounter = $counterOffer->where('contract_id',$contractId)->select('first_payment','period_payment','number_of_periods',
+            'option_purchase_price as option_price')->first()->toArray();
+
             $updateCounter['lease_total'] = $updateCounter['first_payment'] + ($updateCounter['number_of_periods'] * $updateCounter['period_payment']);
             
             Contract::where('contract_id',$contractId)->update($updateCounter);
+            
             $updateCounter['from_email'] = Auth::user()->email;
+            
             $updateCounter['domain_name'] = $counterOffer->domain_name;
+            
             $toEmail = User::where('id',$counterOffer->lessee_id)->pluck('email')->first();
+            
             Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($updateCounter));
             
             Session::flash('success', 'We have informed the user regarding your price...');

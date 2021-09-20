@@ -97,7 +97,8 @@
         </div>
         @if($isLease != 'LEASE')
         <div class="col-xs-12 col-md-6" style="margin-top:2%">
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{route('counter.offer',$domainName)}}" class="btn btn-success">Counter</a>
         </div>
     </div>
 </form>
