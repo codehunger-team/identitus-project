@@ -17,6 +17,7 @@ class EnquiryController extends Controller
       */
      public function sendEnquiry(Request $request)
      {    
+          // dd($request->all());
           $this->validate($request, [
                'name' => 'required',
                'email' => 'required|email',

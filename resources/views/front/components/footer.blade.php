@@ -24,6 +24,7 @@
                     <h1 class="brand brand-footer text-white">
                         Contact
                     </h1>
+                    @include('front.components.alert')
                     @include('partials.contact-form')
                 </div>
             </div>
