@@ -14,9 +14,12 @@ use App\Models\CounterOffer;
 use App\Models\Domain;
 use App\Models\Contract;
 use App\Models\User;
+use App\Traits\DocusignTrait;
+use App\Http\Controllers\Front\ReviewController;
 
 class CounterOfferController extends Controller
-{
+{   
+    use DocusignTrait;
     //counter lease
     public function counterOffer(Request $request, $domainName)
     {   
@@ -52,8 +55,8 @@ class CounterOfferController extends Controller
         return view('front.review.counter', compact('contracts', 'domainName', 'name', 'isVendor', 'counterOffer'));
     }
 
-    //send mail to user from vendor in counter lease --shaiv
-    public function counterContract(Request $request)
+    //send mail to user from vendor in counter lease
+    public function counterContract(Request $request,ReviewController $reviewController)
     {   
         $validator = \Validator::make($request->all(), [
             'first_payment' => 'required|numeric',
@@ -111,7 +114,11 @@ class CounterOfferController extends Controller
                     $data['contract_id'] = $contractId;
                     CounterOffer::create($data);
                 }
-
+                $reviewController->createPdf($data['domain_name'],$request);
+                $params = $this->docusignClickWrap($data['domain_name']);
+                if ($params['created_time']) {
+                    \Session::put('docusign', $params);
+                }
                 $updateContract = [
                     'lease_total' => $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']),
                     'first_payment' => $request->first_payment,

@@ -3,11 +3,14 @@
 <div class="container">
     <div class="section-title">
         @include('front.components.alert')
+        @php
+            $clickwrap = Session::get('docusign');
+        @endphp
+        @isset($clickwrap)
+            @include('partials.docusign')
+        @endisset
         <h4 class="text-center text-muted"> Negotiation lease terms for...</h4>
-
-
         <!-- Depending upon how this is handled, this page can be a form with changable fields or simply a static page to review. -->
-
         <h2 class="mb-10 text-center" style="margin-bottom:5%">{{$domainName ?? ''}}</h2>
         <div class="alert alert-success alert-block" role="alert" style="display: none;" id="main">
             <button class="close" data-dismiss="alert"></button>

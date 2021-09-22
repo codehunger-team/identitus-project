@@ -10,7 +10,7 @@
     $clickwrap = Session::get('docusign');
 @endphp
 @isset($clickwrap)
-    @include('user.lessor.domain.component.docusign')
+    @include('partials.docusign')
 @endisset
 @if($isInNegotiation)
     <h5 class="card-title">Lessee Counter Price</h5>

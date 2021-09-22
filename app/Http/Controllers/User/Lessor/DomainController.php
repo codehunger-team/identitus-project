@@ -254,7 +254,6 @@ class DomainController extends Controller
             \Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
             $reviewController->createPdf($domainName,$request);
-            // dd('dfd');
 
             $params = $this->docusignClickWrap($domainName);
             if ($params['created_time']) {
@@ -262,7 +261,6 @@ class DomainController extends Controller
             }
             return redirect('user/set-terms/' . $request->domain);
         } catch (Exception $e) {
-            // dd($e);
             return redirect('user/set-terms/' . $request->domain)->with('msg', $e->getMessage());
         }
     }
