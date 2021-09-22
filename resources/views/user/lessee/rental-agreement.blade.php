@@ -72,7 +72,7 @@
 				 	<a class="btn btn-danger btn-xs text-white mr-5" data-toggle="tooltip" title="Set DNS" href="{{route('user.add.dns',$d->id)}}">
 						<i class="fa fa-edit" aria-hidden="true"></i>
 					</a>																				
-					<a class="btn btn-success text-white btn-xs" data-toggle="tooltip" title="View Terms" href="{{route('set.terms',$d->domain)}}">
+					<a class="btn btn-success text-white btn-xs" data-toggle="tooltip" title="View Terms" href="{{route('view.terms',$d->domain)}}">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
 				</div>

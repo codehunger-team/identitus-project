@@ -13,6 +13,9 @@ use App\Models\CounterOffer;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserSetTermPriceDrop;
+use App\Models\GracePeriod;
+use App\Models\OptionExpiration;
+use App\Models\PeriodType;
 
 class DomainController extends Controller
 {
@@ -189,6 +192,38 @@ class DomainController extends Controller
     {
         Domain::where('id', $domainId)->delete();
         return redirect()->back()->with('msg', 'Domain Deleted Successfully.');
+    }
+
+    /**
+     *  Set Terms
+     *  @param $domainName
+     *  GET User/set-terms/{domainName}
+     *  @return renderable
+     */
+    public function set_terms($domainName)
+    {
+        $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
+        if ($DomainValidate) {
+            $graces = GracePeriod::all();
+            $periods = PeriodType::all();
+            $options = OptionExpiration::all();
+
+            $domainId = Domain::where('domain', $domainName)->first()->id;
+            $isLease = Domain::where('domain', $domainName)->first()->domain_status;
+            $contracts = Contract::where('domain_id', $domainId)->first();
+            $counterOffer = CounterOffer::where('domain_name', $domainName)->where('lessor_id', NULL)->first();
+            if ($counterOffer) {
+                $counterOffer->option_price = $counterOffer->option_purchase_price;
+                $contracts = $counterOffer;
+            }
+            if (empty($contracts)) {
+                $contracts = [];
+            }
+
+            return view('user.lessor.domain.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+        } else {
+            abort(404);
+        }
     }
 
     /**

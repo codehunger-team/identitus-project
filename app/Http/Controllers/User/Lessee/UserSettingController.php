@@ -17,7 +17,7 @@ use App\Models\Domain;
 use Hash;
 
 class UserSettingController extends Controller
-{   
+{
     /**
      *  Use to update user details
      */
@@ -35,7 +35,6 @@ class UserSettingController extends Controller
             });
 
             $userData['is_vendor'] = 'pending';
-
         }
 
         if (!empty($userData['old_password'])) {
@@ -56,11 +55,9 @@ class UserSettingController extends Controller
                 ])->save();
 
                 $request->session()->flash('msg', 'Your password has been updated');
-
             } else {
                 $request->session()->flash('msg', 'Password does not match');
             }
-
         } else {
 
             $request->session()->flash('msg', 'Your profile has been updated');
@@ -137,7 +134,6 @@ class UserSettingController extends Controller
             ->with('gracePeriod', $gracePeriod)
             ->with('periodTypes', $periodTypes)
             ->with('optionExpiration', $optionExpiration);
-
     }
 
     /**
@@ -148,7 +144,6 @@ class UserSettingController extends Controller
         $userId = Auth::id();
         $dns = Dns::where('domain_id', $domainId)->first();
         return view('user.lessee.dns', compact('domainId', 'dns'));
-
     }
 
     /**
@@ -161,11 +156,10 @@ class UserSettingController extends Controller
         $data['user_id'] = Auth::id();
 
         $isDomain = Dns::where('domain_id', $request->domain_id)->first();
-        
+
         if (isset($isDomain)) {
             Dns::where('domain_id', $request->domain_id)->update($data);
             return back()->with('msg', 'Dns updated successfully');
-
         } else {
             Dns::create($data);
             return back()->with('msg', 'Dns added successfully');
@@ -180,7 +174,7 @@ class UserSettingController extends Controller
     {
 
         $order = Order::where('id', $id)->first();
-        
+
         // order contents unserialize
         $order_content = json_decode($order->order_contents);
 
@@ -190,40 +184,39 @@ class UserSettingController extends Controller
             ->with('order_content', $order_content);
     }
 
-     /**
-     *  Set Terms
-     * 
+    /**
+     *  View Terms
+     *  @param $domainName
+     *  GET user/set-terms/{domainName}
+     *  @return renderable
      */
-    public function set_terms($domainName)
+    public function viewTerms($domainName)
     {
-        $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
-        if ($DomainValidate) {
-            $graces = GracePeriod::all();
-            $periods = PeriodType::all();
-            $options = OptionExpiration::all();
-            
-            $domainId = Domain::where('domain', $domainName)->first()->id;
-            $isLease = Domain::where('domain', $domainName)->first()->domain_status;
-            $contracts = Contract::where('domain_id', $domainId)->first();
-            $counterOffer = CounterOffer::where('domain_name',$domainName)->where('lessor_id',NULL)->first();
-            if($counterOffer) {
-                $counterOffer->option_price = $counterOffer->option_purchase_price; 
-                $contracts = $counterOffer;
-            }
-            if (empty($contracts)) {
-                $contracts = [];
-            }
 
-            return view('user.lessee.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
-        } else {
-            abort(404);
+        $graces = GracePeriod::all();
+        $periods = PeriodType::all();
+        $options = OptionExpiration::all();
+
+        $domainId = Domain::where('domain', $domainName)->first()->id;
+        $isLease = Domain::where('domain', $domainName)->first()->domain_status;
+        $contracts = Contract::where('domain_id', $domainId)->first();
+        $counterOffer = CounterOffer::where('domain_name', $domainName)->where('lessor_id', NULL)->first();
+        
+        if ($counterOffer) {
+            $counterOffer->option_price = $counterOffer->option_purchase_price;
+            $contracts = $counterOffer;
         }
+        if (empty($contracts)) {
+            $contracts = [];
+        }
+
+        return view('user.lessee.view-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
     }
 
     /**
      *  Logout User
      * 
-    */
+     */
     public function logout(Request $request)
     {
         $request->session()->flush();

@@ -29,7 +29,7 @@ Route::prefix('user')->middleware('auth','verified')->group(function () {
     Route::get('set-dns/{id}', [UserSettingController::class, 'addDns'])->name('user.add.dns');
     Route::post('nameserver/store', [UserSettingController::class, 'storeDns'])->name('nameserver.store');
     Route::get('view-order/{domain}', [UserSettingController::class, 'view_order'])->name('view.order');
-    Route::get('set-terms/{id}', [UserSettingController::class, 'set_terms'])->name('set.terms');
+    Route::get('view-terms/{id}', [UserSettingController::class, 'viewTerms'])->name('view.terms');
     Route::get('logout', [UserSettingController::class, 'logout'])->name('user.logout');
 });
 
@@ -44,6 +44,7 @@ Route::prefix('user')->middleware('auth','vendorApproval','verified')->group(fun
     Route::get('add/domain', [DomainController::class, 'addDomain'])->name('add.domain');
     Route::post('store/domain', [DomainController::class, 'storeDomain'])->name('store.domain');
     Route::post('add-terms', [DomainController::class, 'add_terms'])->name('add-terms');
+    Route::get('set-terms/{id}', [DomainController::class, 'set_terms'])->name('set.terms');
     Route::get('manage-domain/{domain}', [DomainController::class, 'manage_domain'])->name('manage.domain');
     Route::post('domain-update/{domain}', [DomainController::class, 'manage_domain_update'])->name('domain.update');
     Route::get('delete-domain/{domain}', [DomainController::class, 'domain_delete'])->name('domain.delete');

@@ -13,7 +13,7 @@
 			<br />We will get back to you shortly for discussing transfer details.
 			<hr />
 			    @foreach ($decodedOrderContent as $domainId => $item)
-						You can set your DNS here for <a href="{{url('user/set-dns',$domainId)}}" target="_blank">{{$item->name}}</a>
+						<a href="{{url('user/set-dns',$domainId)}}" target="_blank">You can set your DNS here for <b>{{$item->name}}</b></a>
 					<br />
 				@endforeach
 				
