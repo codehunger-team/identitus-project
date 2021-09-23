@@ -253,9 +253,10 @@ class DomainController extends Controller
             ];
             \Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
+            
             $reviewController->createPdf($domainName,$request);
-
             $params = $this->docusignClickWrap($domainName);
+
             if ($params['created_time']) {
                 \Session::put('docusign', $params);
             }

@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserSetTermPriceDrop;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Front\ReviewController;
 
 class DomainController extends Controller
 {
@@ -290,49 +291,57 @@ class DomainController extends Controller
             $contracts = Contract::where('domain_id', $domainId)->first();
             $isLease = Domain::where('domain', $domainName)->first()->domain_status;
 
+            $isInNegotiation = CounterOffer::where('domain_name', $domainName)->first();
+            if($isInNegotiation) {
+                $isInNegotiation->lease_total = $isInNegotiation->first_payment + ($isInNegotiation->number_of_periods * $isInNegotiation->period_payment);
+            } 
+
             if (empty($contracts)) {
                 $contracts = [];
             }
-            return view('admin.domain.set-terms', compact('graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+            return view('admin.domain.set-terms', compact('isInNegotiation','graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
         } else {
             abort(404);
         }
     }
 
     // add terms
-    public function add_terms(Request $request)
+    public function add_terms(Request $request, ReviewController $reviewController)
     {
 
-        $data = [
-            'period_payment' => $request->period_payment,
-            'period_type_id' => $request->period_type_id,
-            'number_of_periods' => $request->number_of_periods,
-            'option_price' => $request->option_price,
-            'option_expiration' => 6,
-            'grace_period_id' => 4,
-            'domain_id' => $request->domain_id,
-            'lessor_id' => 1,
-            'first_payment' => $request->first_payment,
-            'auto_change_rate' => 0,
-            'accrual_rate' => 0,
-            'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment)
-        ];
+        try {
+            $this->validate($request, [
+                'first_payment' => 'required|numeric',
+                'number_of_periods' => 'required|numeric',
+                'period_payment' => 'required|numeric',
 
-        $contractData = Contract::where('domain_id', $request->domain_id)->first();
+            ]);
+            $data = [
+                'period_payment' => $request->period_payment,
+                'period_type_id' => $request->period_type_id,
+                'number_of_periods' => $request->number_of_periods,
+                'option_price' => $request->option_price,
+                'option_expiration' => 6,
+                'grace_period_id' => 4,
+                'domain_id' => $request->domain_id,
+                'lessor_id' => Auth::id(),
+                'first_payment' => $request->first_payment,
+                'auto_change_rate' => 0,
+                'accrual_rate' => 0,
+                'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment),
+            ];
+            \Session::put('form_data', $data);
+            $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
+            
+            $reviewController->createPdf($domainName,$request);
+            $params = $this->docusignClickWrap($domainName);
 
-        if ($contractData) {
-            $contractData->update($data);
-            $lesseeId = CounterOffer::where('contract_id', $contractData->contract_id)->pluck('lessee_id')->first();
-            if ($lesseeId) {
-                $data['from_email'] = Auth::user()->email;
-                $data['domain_name'] = Domain::where('id', $request->domain_id)->pluck('domain')->first();
-                $toEmail = User::where('id', $lesseeId)->pluck('email')->first();
-                Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($data));
+            if ($params['created_time']) {
+                \Session::put('docusign', $params);
             }
-            return redirect('admin/set-terms/' . $request->domain)->with('msg', 'Successfully updated');
-        } else {
-            Contract::create($data);
-            return redirect('admin/set-terms/' . $request->domain)->with('msg', 'Successfully Added');
+            return redirect('admin/set-terms/' . $request->domain);
+        } catch (Exception $e) {
+            return redirect('admin/set-terms/' . $request->domain)->with('msg', $e->getMessage());
         }
     }
 }
