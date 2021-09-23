@@ -63,9 +63,28 @@ class ReviewController extends Controller
         $lessor = User::where('id', $domain->user_id)->first();
 
         $contracts = Contract::where('domain_id', $domain->id)->first();
-        if($contracts == NULL) {
+
+        if($contracts == NULL || isset($termsData)) {
+            $contract = Contract::where('domain_id', $domain->id)->first();
             $contracts = collect();
-            $contracts = $termsData;
+            if(isset($termsData->request)) {
+                $termsData = $termsData->request->all();
+            }
+            $contracts->first_payment = $termsData['first_payment'];
+            $contracts->period_payment = $termsData['period_payment'];
+            $contracts->number_of_periods = $termsData['number_of_periods'];
+            $contracts->option_expiration = 6;
+            $contracts->grace_period_id = 4;
+            if(isset($termsData['option_purchase_price'])) {
+                $contracts->option_price = $termsData['option_purchase_price'];
+            } else {
+                $contracts->option_price = $termsData['option_price'];
+            }
+            if(isset($termsData['period_type_id'])) {
+                $contracts->period_type_id = $termsData['period_type_id'];
+            } else {
+                $contracts->period_type_id = $contract->period_type_id;
+            }
         }
     
         $graces = GracePeriod::all();
@@ -79,9 +98,8 @@ class ReviewController extends Controller
         $options = OptionExpiration::all();
         $leasetotal = $contracts->first_payment + ($contracts->number_of_periods *
             $contracts->period_payment);
-        
-        $getCurrentDateTime =  getCurrentDateTime();
 
+        $getCurrentDateTime =  getCurrentDateTime();
         $pdf = PDF::loadView('front.review.pdf-terms', compact(
             'graces',
             'periods',

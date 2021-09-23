@@ -32,11 +32,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //review terms
 Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
+
+//counter offer
 Route::post('counter',[CounterOfferController::class, 'counterLease'])->name('counter');
 Route::get('counter/edit/{id}',[CounterOfferController::class, 'editCounter'])->name('edit.counter');
 Route::get('counter/{domain}',[CounterOfferController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
 Route::post('counter/contract',[CounterOfferController::class, 'counterContract'])->name('counter.contract');
 Route::get('accept/offer/{id}',[CounterOfferController::class, 'acceptOffer'])->name('accept.offer');
+Route::get('update/counter-offer/{id}',[CounterOfferController::class, 'updateCounterOffer'])->name('update.counter.offer');
 
 //Add to Cart
 Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');

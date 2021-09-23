@@ -7,7 +7,7 @@
             $clickwrap = Session::get('docusign');
         @endphp
         @isset($clickwrap)
-            @include('partials.docusign')
+            @include('front.components.docusign')
         @endisset
         <h4 class="text-center text-muted"> Negotiation lease terms for...</h4>
         <!-- Depending upon how this is handled, this page can be a form with changable fields or simply a static page to review. -->

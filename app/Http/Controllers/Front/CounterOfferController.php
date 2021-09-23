@@ -98,7 +98,8 @@ class CounterOfferController extends Controller
 
             
             if (Auth::user()->is_vendor == 'yes') {
-                Mail::to($toEmail)->later(now()->addMinutes(1), new CounterLeaseVendor($data));
+                Session::put('email', $toEmail);
+                Session::put('data',$data);
             } else {
                 Mail::to($toEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
             }
@@ -126,7 +127,7 @@ class CounterOfferController extends Controller
                     'number_of_periods' => $request->number_of_periods,
                     'option_price' => $request->option_purchase_price,
                 ];
-                Contract::where('contract_id',$contractId)->update($updateContract);
+                Session::put('updateContract', $updateContract);
             }
 
             //update lessee data
@@ -137,13 +138,12 @@ class CounterOfferController extends Controller
                     $data['contract_id'] = $contractId;
                     CounterOffer::create($data);
                 }
+                Session::flash('success', 'We have informed regarding your price...');
             }
-            
-
-            Session::flash('success', 'We have informed regarding your price...');
             return redirect()->back();
         } catch (Exception $e) {
             \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
+            return redirect()->back()->with('msg', $e->getMessage());
         }
     }
 
@@ -189,8 +189,14 @@ class CounterOfferController extends Controller
         return Contract::find($id);
     }
 
-    //Accept Lease
-    public function acceptOffer($contractId)
+    /**
+     * Accept offer by lessor
+     * @param $contractId
+     * @param App\Http\Controllers\Front\ReviewController
+     * @return response
+     * GET accept/offer/{id}
+     */
+    public function acceptOffer($contractId,ReviewController $reviewController)
     {   
         if (Auth::user()->is_vendor == 'yes') {
             $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
@@ -200,18 +206,49 @@ class CounterOfferController extends Controller
 
             $updateCounter['lease_total'] = $updateCounter['first_payment'] + ($updateCounter['number_of_periods'] * $updateCounter['period_payment']);
             
-            Contract::where('contract_id',$contractId)->update($updateCounter);
-            
             $updateCounter['from_email'] = Auth::user()->email;
             
             $updateCounter['domain_name'] = $counterOffer->domain_name;
-            
+
+            $reviewController->createPdf($updateCounter['domain_name'],$updateCounter);
+            $params = $this->docusignClickWrap($updateCounter['domain_name']);
+            if ($params['created_time']) {
+                \Session::put('docusign', $params);
+            }
+            \Session::put('updateCounter',$updateCounter);
             $toEmail = User::where('id',$counterOffer->lessee_id)->pluck('email')->first();
-            
-            Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($updateCounter));
-            
-            Session::flash('success', 'We have informed the user regarding your price...');
+            Session::put('email', $toEmail); 
             return redirect()->back();
         }
+    }
+
+    /**
+     * Update counter offer detail by lessor
+     * @param $contractId
+     * @return response
+     * GET update/counter-offer/{id}
+     */
+    public function updateCounterOffer($contractId)
+    {   
+        Session::forget('docusign');
+        $updateContract = \Session::get('updateContract');
+        
+        $toEmail = Session::get('email'); 
+        $data = Session::get('data');
+        
+        $updateCounter = Session::get('updateCounter');
+        if(isset($updateCounter)) {
+            $updateContract = $updateCounter;
+            Mail::to($toEmail)->later(now()->addMinutes(1), new UserSetTermPriceDrop($updateCounter));
+        } else {
+            Mail::to($toEmail)->later(now()->addMinutes(1), new CounterLeaseVendor($data));
+        }
+        Contract::where('contract_id',$contractId)->update($updateContract);
+        
+        Session::forget('updateContract');
+        Session::forget('email');
+        Session::forget('updateCounter');
+        Session::forget('data');
+        Session::flash('success', 'We have informed the user regarding your price...');
     }
 }
