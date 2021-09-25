@@ -16,17 +16,26 @@ use App\Models\Contract;
 use App\Models\User;
 use App\Traits\DocusignTrait;
 use App\Http\Controllers\Front\ReviewController;
+use App\Traits\DomainBuyerTrait;
 
 class CounterOfferController extends Controller
 {   
-    use DocusignTrait;
-    //counter lease
+    use DocusignTrait,DomainBuyerTrait;
+    
+    /**
+     * This function is used for counter offer
+     * POST counter/{domain} 
+     * @param $request
+     * @param $domain
+     *   
+     */ 
     public function counterOffer(Request $request, $domainName)
     {   
         $domainDetail = Domain::getDetailUsingDomainName($domainName);
         $contracts = Contract::where('domain_id',$domainDetail->id)->first();
         $isVendor = Auth::user()->is_vendor;
         
+        $this->convertLessorToLessee($domainName);
          //check for domain 
          if($isVendor == 'yes') {
             $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessor_id' => Auth::user()->id])->exists();
@@ -55,7 +64,13 @@ class CounterOfferController extends Controller
         return view('front.review.counter', compact('contracts', 'domainName', 'name', 'isVendor', 'counterOffer'));
     }
 
-    //send mail to user from vendor in counter lease
+    
+    /**
+     * send mail to user from vendor in counter lease
+     * POST counter/contract 
+     * @param $request
+     * @param ReviewController
+     */
     public function counterContract(Request $request,ReviewController $reviewController)
     {   
         $validator = \Validator::make($request->all(), [
@@ -69,6 +84,8 @@ class CounterOfferController extends Controller
         }
 
         $data = $request->except('_token');
+
+        $this->convertLessorToLessee($data['domain_name']);
 
         if (Auth::user()->is_vendor == 'yes') {
             $lesseeId = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => null])->first()->lessee_id;
@@ -160,6 +177,7 @@ class CounterOfferController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
+        
         try {
             $data = $request->except('_token');
             $contract = Contract::where('contract_id', $data['contract_id'])->first();
@@ -198,8 +216,11 @@ class CounterOfferController extends Controller
      */
     public function acceptOffer($contractId,ReviewController $reviewController)
     {   
+        $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
+
+        $this->convertLessorToLessee($counterOffer->domain_name);
+        
         if (Auth::user()->is_vendor == 'yes') {
-            $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
             
             $updateCounter = $counterOffer->where('contract_id',$contractId)->select('first_payment','period_payment','number_of_periods',
             'option_purchase_price as option_price')->first()->toArray();
