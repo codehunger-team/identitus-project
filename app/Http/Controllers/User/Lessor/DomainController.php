@@ -293,7 +293,7 @@ class DomainController extends Controller
             \Session::forget('form_data');
             \Session::forget('msg');
         } catch (Exception $e) {
-            \Session::put('msg', $e->getMessage());
+            // \Session::put('msg', $e->getMessage());
         }
     }
 

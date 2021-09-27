@@ -37,13 +37,14 @@ class CounterOfferController extends Controller
         
         $this->convertLessorToLessee($domainName);
          //check for domain 
-         if($isVendor == 'yes') {
+         if(Auth::user()->is_vendor == 'yes') {
             $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessor_id' => Auth::user()->id])->exists();
             $domainCheckForUser = Domain::where(['user_id' => Auth::user()->id, 'domain' => $domainName])->first();
             if(empty($domainCheckForUser) && !$counterOffer) {
                 abort('403', 'Not accessible');
             }
-        } else if($isVendor == 'no' || $isVendor == 'pending') {
+        } else if(Auth::user()->is_vendor == 'no' || Auth::user()->is_vendor == 'pending') {
+            $isVendor = 'no';
             $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessee_id' => Auth::user()->id])->exists();
             if(!$counterOffer) {
                 abort('403', 'Not accessible');
@@ -51,7 +52,7 @@ class CounterOfferController extends Controller
         }
 
         $counterOffer = [];
-        if ($isVendor == 'yes' || (isset(Auth::user()->admin) && Auth::user()->admin == 1)) {
+        if (Auth::user()->is_vendor == 'yes' || (isset(Auth::user()->admin) && Auth::user()->admin == 1)) {
             $lesseeId = CounterOffer::where('domain_name', $domainName)->pluck('lessee_id')->first();
             $name = User::where('id', $lesseeId)->pluck('name')->first();
             $counterOffer = CounterOffer::where(['domain_name' => $domainName, 'lessor_id' => null])->first();

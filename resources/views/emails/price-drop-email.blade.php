@@ -1,6 +1,7 @@
 
 @component('mail::message')
 # Price Has Been Dropped <br> <br> <hr>
+## Domain Name :<h2 class="font-weight-bold">{{$data['domain_name']}}</h2><br>
 ## First Payment :<h2 class="font-weight-bold">$ {{$data['first_payment']}}</h2><br>
 ## Period Payments :<h2 class="font-weight-bold">$ {{$data['period_payment']}}</h2><br>
 ## Periods :<h2 class="font-weight-bold">{{$data['number_of_periods']}}</h2><br>

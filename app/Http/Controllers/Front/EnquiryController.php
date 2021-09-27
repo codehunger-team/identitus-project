@@ -17,7 +17,6 @@ class EnquiryController extends Controller
       */
      public function sendEnquiry(Request $request)
      {    
-          // dd($request->all());
           $this->validate($request, [
                'name' => 'required',
                'email' => 'required|email',
@@ -27,7 +26,7 @@ class EnquiryController extends Controller
                $data = $request->all();
                Contact::create($data);
                Mail::to('admin@identitus.com')->later(now()->addMinutes(1), new CustomerEnquiry($data));
-               return back()->with('success', 'Will Contact you soon.');
+               return back()->with('contact-msg', 'Will Contact you soon.');
           } catch (Exception $e) {
                \Log::critical($e->getFile().$e->getLine().$e->getMessage());
           }

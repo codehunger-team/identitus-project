@@ -16,7 +16,8 @@ trait DomainBuyerTrait
     {
         $domainBuyer = CounterOffer::where('domain_name', $domainName)->pluck('lessee_id')->first();
         if (Auth::user()->id == $domainBuyer) {
-            Auth::user()->is_vendor == 'no';
+            Auth::user()->is_vendor = 'no';
+            // dd(Auth::user()->is_vendor);
         }
     }
 }
