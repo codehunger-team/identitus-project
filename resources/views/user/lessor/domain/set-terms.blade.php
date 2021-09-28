@@ -110,7 +110,7 @@
             <label>First Payment</label><br />
             <input type="number" class="form-control firstPayment" name="first_payment" id="firstPayment"
                 placeholder="First Payment" required {{ $isLease == 'LEASE' ? 'disabled' : '' }}
-                value="{{$contracts->first_payment ?? ''}}">
+                value="{{$contracts->first_payment ?? old('first_payment')}}">
         </div>
         <input type="hidden" name="domain_id" value="{{$domainId}}">
         <input type="hidden" name="domain" value="{{$domainName}}">
@@ -119,7 +119,7 @@
             <label for="periodPayments">Period Payments ($)</label>
             <input type="number" class="form-control periodPayment" name="period_payment" id="periodPayments"
                 placeholder="$500" {{ $isLease == 'LEASE' ? 'disabled' : '' }} required
-                value="{{$contracts->period_payment ?? ''}}">
+                value="{{$contracts->period_payment ?? old('period_payment')}}">
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="periodPayments">Period Type</label>
@@ -138,12 +138,12 @@
         <div class="col-xs-12 col-md-6">
             <label for="periods">Periods</label>
             <input type="number" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control period" id="periods"
-                name="number_of_periods" value="{{$contracts->number_of_periods ?? ''}}" placeholder="Periods">
+                name="number_of_periods" value="{{$contracts->number_of_periods ?? old('number_of_periods')}}" placeholder="Periods">
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="optionPurchasePrice">Option Purchase Price ($)</label>
             <input type="number" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control"
-                id="optionPurchasePrice" name="option_price" value="{{$contracts->option_price ?? ''}}"
+                id="optionPurchasePrice" name="option_price" value="{{$contracts->option_price ?? old('option_price')}}"
                 placeholder="$50,000">
         </div>
         <div class="col-xs-12 col-md-6">

@@ -147,13 +147,13 @@
                                     <div class="form-group">
                                         <label for="firstPayment">First Payment ($)</label>
                                         <input type="number" name="first_payment" class="form-control"
-                                            id="first-payment" placeholder="First Payment" required>
+                                            id="first-payment" value="{{Request::old('first_payment')}}" placeholder="First Payment" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="periodPayments">Period Payments ($)</label>
-                                        <input type="text" name="period_payment" id="periodPayment" class="form-control"
+                                        <input type="text" value="{{Request::old('period_payment')}}" name="period_payment" id="periodPayment" class="form-control"
                                             placeholder="$500" required>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                     <div class="form-group">
                                         <label for="periods">Periods <span class="text-danger">*</span></label>
                                         <div class="input-group mb-2">
-                                            <input type="number" name="number_of_periods" class="form-control"
+                                            <input type="number" value="{{Request::old('number_of_periods')}}" name="number_of_periods" class="form-control"
                                                 id="period" placeholder="Periods" required>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="optionPurchasePrice">Option Purchase Price ($)</label>
-                                        <input type="number" name="option_purchase_price" class="form-control"
+                                        <input type="number" value="{{Request::old('option_purchase_price')}}" name="option_purchase_price" class="form-control"
                                             id="option-purchase-price" placeholder="$50,000" required>
                                     </div>
                                 </div>

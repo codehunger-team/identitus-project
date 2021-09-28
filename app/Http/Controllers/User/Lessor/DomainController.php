@@ -260,7 +260,7 @@ class DomainController extends Controller
             if ($params['created_time']) {
                 \Session::put('docusign', $params);
             }
-            return redirect('user/set-terms/' . $request->domain);
+            return redirect('user/set-terms/' . $request->domain)->withInput();
         } catch (Exception $e) {
             return redirect('user/set-terms/' . $request->domain)->with('msg', $e->getMessage());
         }

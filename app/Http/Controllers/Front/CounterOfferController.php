@@ -85,7 +85,7 @@ class CounterOfferController extends Controller
         }
 
         $data = $request->except('_token');
-
+        $request->flash();
         $this->convertLessorToLessee($data['domain_name']);
 
         if (Auth::user()->is_vendor == 'yes') {
@@ -158,7 +158,7 @@ class CounterOfferController extends Controller
                 }
                 Session::flash('success', 'We have informed regarding your price...');
             }
-            return redirect()->back();
+            return redirect()->back()->withInput();
         } catch (Exception $e) {
             \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
             return redirect()->back()->with('msg', $e->getMessage());
@@ -247,11 +247,14 @@ class CounterOfferController extends Controller
     /**
      * Update counter offer detail by lessor
      * @param $contractId
+     * @param $request
      * @return response
      * GET update/counter-offer/{id}
      */
-    public function updateCounterOffer($contractId)
+    public function updateCounterOffer(Request $request,$contractId)
     {   
+        $request->flash();
+
         Session::forget('docusign');
         $updateContract = \Session::get('updateContract');
         
