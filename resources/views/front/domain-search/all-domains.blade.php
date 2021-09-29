@@ -101,7 +101,7 @@
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Keyword Placement</label>
                         <div class="col-lg-6 col-sm-12 my-2">
-                            <select name="sortby" class="form-control">
+                            <select name="keyword_placement" class="form-control">
                                 <option value="contains">Contains</option>
                                 <option value="starts_with">Starts with</option>
                                 <option value="ends_with">Ends with</option>
