@@ -98,12 +98,14 @@ class FrontController extends Controller
 
         // apply TLD filter ( if required )
         if ($r->extension != '') {
-            $domains->where('domain', 'like', '%' . $r->extension);
+            $d = $domains->where('domain', 'like', '%' . $r->extension)->get();
         }
 
         // apply keyword filter ( if required )
         if ($r->keyword != '') {
-            $domains->where('domain', 'like', '%' . $r->keyword . '%');
+            $d = $domains->where('domain', 'like', '%' . $r->keyword . '%')->get();
+        } else {
+            $d = $domains->get();
         }
 
         if ($r->keyword_placement == 'starts_with') {
@@ -111,34 +113,32 @@ class FrontController extends Controller
         }
 
         // apply price filter ( if required )
-        if ($r->price_to > 0) {
-            $domains->whereBetween('pricing', [$r->price_from, $r->price_to]);
-            if (Auth::check()) {
-                $d = $domains->WithContracts()->get();
-            }
+        if ($r->price_to > 0 && $r->price_to != '∞') {
+            $d = $domains->whereBetween('pricing', [$r->price_from, $r->price_to])->get();
+            // if (Auth::check()) {
+            //     $d = $domains->WithContracts()->get();
+            // }
         }
 
-        if (Auth::check()) {
-            $d = $domains->where('user_id','<>',Auth::user()->id)->get();
-        } else {
-            $d = $domains->get();
-        }
+       
+        // $d = $domains->get();
+        
 
         if ($r->keyword_placement == 'ends_with') {
             $d = \App\Models\Domain::getCharacterEndswith($r->keyword);
         }
 
-        if (!isset($r->include_domains_with_numerals)) {
-            $d = \App\Models\Domain::getStringWithNoNumerals($r->keyword);
-        }
+        // if (!isset($r->include_domains_with_numerals)) {
+        //     $d = \App\Models\Domain::getStringWithNoNumerals($r->keyword);
+        // }
 
-        if (!isset($r->include_domains_with_hyphens)) {
-            $d = \App\Models\Domain::getKeywordWithhyphens($r->keyword);
-        }
+        // if (!isset($r->include_domains_with_hyphens)) {
+        //     $d = \App\Models\Domain::getKeywordWithhyphens($r->keyword);
+        // }
 
-        if (isset($r->domains_with_numerals_only)) {
-            $d = \App\Models\Domain::getKeywordWithNumerals($r->keyword);
-        }
+        // if (isset($r->domains_with_numerals_only)) {
+        //     $d = \App\Models\Domain::getKeywordWithNumerals($r->keyword);
+        // }
 
         // apply age filter ( if required )
         if ($r->age > 0) {
