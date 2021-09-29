@@ -22,7 +22,7 @@
                 platform that does the work for you.</p>
             <button class="btn btn-warning btn-block w-100 mt-2" type="button">GET YOUR DOMAIN TODAY</button>
         </div>
-        <div class="col-lg-3 col-sm-12 mb-4">
+        <div class="col mb-4">
             <div class="card bg-dark text-white pricing-blue h-100">
                 <h1 class="card-title text-center mt-5">Lease</h1>
                 <div class="card-body pricing">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-12 mb-4">
+        <div class="col mb-4">
             <div class="card bg-dark text-white pricing-orange  h-100">
                 <h1 class="card-title text-center mt-5">Buy</h1>
                 <div class="card-body pricing">
