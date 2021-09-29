@@ -15,7 +15,7 @@
                     <img src="{{ asset('images/adopt-spaceman.svg') }}" class="text-center" alt="Adopt A Domain"
                          loading="lazy">
                 </div>
-                <p class="text-center">Search our database of available domains for lease.</p>
+                <p class="text-center">Search our database of available&nbsp;domains&nbsp;for&nbsp;lease.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <h4 class="text-center">Submit Lease</h4>
