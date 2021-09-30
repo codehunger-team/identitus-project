@@ -4,7 +4,7 @@
         <tr>
             <th scope="col">Domain</th>
             <th scope="col">Monthly Lease</th>
-            <th scope="col">or Buy Now</th>
+            <th scope="col">Buy Now</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu" aria-labelledby="buy">
                         @if (isset($d->contract->period_payment))
                             <li><a href="{{route('review.terms',$d->domain)}}" class="dropdown-item">Lease Now</a></li>
-                        @endif 
+                        @endif
                             <li><a href="{{route('ajax.add-to-cart.buy',$d->domain)}}" class="dropdown-item">Buy Now</a></li>
                     </ul>
                 </div>
