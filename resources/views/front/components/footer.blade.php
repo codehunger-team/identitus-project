@@ -3,9 +3,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
-                    <h1 class="brand brand-footer">
-                        <a href="/">Identitius</a>
-                    </h1>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Identitius') }}
+                    </a>
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     <h1 class="brand brand-footer text-white">
