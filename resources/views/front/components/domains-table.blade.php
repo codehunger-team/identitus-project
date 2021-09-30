@@ -4,15 +4,15 @@
         <tr>
             <th scope="col">Domain</th>
             <th scope="col">Monthly Lease</th>
-            <th scope="col">Buy Now</th>
-            <th scope="col"></th>
+            <th scope="col">Purchase Price</th>
+            <th scope="col">Options</th>
         </tr>
     </thead>
     <tbody>
         @foreach( $domains as $d )
         <?php $i++; ?>
         <tr>
-            <td><a href="{{ $d->domain }}">{{ $d->domain }} </a></td>
+            <td><a class="text-break" href="{{ $d->domain }}">{{ $d->domain }}</a></td>
             @if (isset($d->contract->period_payment))
             <td>{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->contract->period_payment, 0) }}</td>
             @else
