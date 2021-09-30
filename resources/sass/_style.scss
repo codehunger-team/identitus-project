@@ -92,9 +92,7 @@ h1.brand-footer a:hover {
     color: var(--blue);
 }
 
-footer h1.brand-footer a {
-    color: white;
-}
+
 
 h1.brand-footer a:hover {
     color: white;
@@ -477,4 +475,16 @@ body.loading .overlay{
 .mt-16 {
     margin-top: 16% !important;
 }
+
+footer {
+    label {
+        color: black;
+    }
+
+    input:required +  label::after, textarea:required +  label::after {
+        content: ' *';
+        color: red;
+    }
+}
+
 
