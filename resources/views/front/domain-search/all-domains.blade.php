@@ -119,7 +119,7 @@
     </div>
 </div>
 {{--Preloader--}}
-<div class="container">
+<div class="container preload-search">
     <div class="row">
         <div class="col-auto mx-auto">
             <div class="d-flex align-items-center mx-auto preload-search">
