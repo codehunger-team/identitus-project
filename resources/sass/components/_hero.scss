@@ -1,6 +1,10 @@
 .hero-rocket {
-  background: url("../../images/rocket.svg") no-repeat 100%  bottom,  linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);;
-  min-height: 800px;
-  background-size: 100%;
-  padding-top: 120px;
+    background: url("../../images/rocket.svg") no-repeat 100% bottom, linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);;
+    min-height: 40rem;
+    background-size: 100%;
+    padding-top: 120px;
+
+    @include media-breakpoint-up(md) {
+        min-height: 50rem;
+    }
 }

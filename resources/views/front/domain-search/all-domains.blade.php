@@ -124,16 +124,20 @@
         <div class="col-auto mx-auto">
             <div class="d-flex align-items-center mx-auto preload-search">
                 <div class="spinner-border text-secondary ml-auto" role="status" aria-hidden="true"></div>
-                <strong>&nbsp;&nbsp;Loading domains...</strong>
+                <strong>&nbsp;&nbsp;Loading Domains...</strong>
             </div>
         </div>
     </div>
 </div>
 
 {{--    Table--}}
-<div class="container container-white my-4">
+<div class="container my-4">
     <div class="row">
-        @include('front.components.domains-table')
+        <div class="col">
+            <div class="card shadow">
+                @include('front.components.domains-table')
+            </div>
+        </div>
     </div>
 </div>
 @push('scripts')
