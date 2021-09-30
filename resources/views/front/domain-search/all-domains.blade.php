@@ -105,7 +105,7 @@
                                 <option value="contains">Contains</option>
                                 <option value="starts_with">Starts with</option>
                                 <option value="ends_with">Ends with</option>
-                            </select>    
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-2 col-sm-12 my-2" style="margin-top: 3% !important">
@@ -121,12 +121,10 @@
 {{--Preloader--}}
 <div class="container">
     <div class="row">
-        <div class="col-sm-12">
-            <div class="preload-search container-white mx-auto my-auto">
-                <img src="{{ asset( 'images/ajax.gif' ) }}" alt="preloading image"
-                    style="float: left; padding: 10px;" />
-                <h3 style="padding: 30px 0">Loading domains matching your criteria</h3>
-                <div class="clearfix"></div>
+        <div class="col-auto mx-auto">
+            <div class="d-flex align-items-center mx-auto preload-search">
+                <div class="spinner-border text-secondary ml-auto" role="status" aria-hidden="true"></div>
+                <strong>&nbsp;&nbsp;Loading domains...</strong>
             </div>
         </div>
     </div>
