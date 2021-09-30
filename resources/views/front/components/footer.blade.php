@@ -1,4 +1,4 @@
-<footer class="page-footer font-small pt-4 bg-primary">
+<footer class="page-footer font-small py-4 bg-primary">
     <div class="container-fluid">
         <div class="container">
             <div class="row">
@@ -6,6 +6,10 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Identitius') }}
                     </a>
+                    <p>
+                        Affordable and flexible domain lease plans,
+                        with&nbsp;the option to buy.
+                    </p>
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     <h1 class="brand brand-footer text-white">
