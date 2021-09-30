@@ -23,17 +23,6 @@ body {
     background: #ffffff;
 }
 
-.homepage-img {
-    position: relative;
-    margin: 0;
-    background-size: cover;
-    width: 100%;
-    min-height: 630px;
-    background-image: url('/resources/assets/images/emile-perron-xrVDYZRGdw4-unsplash.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-
-}
 
 .navbar-nav {
     text-transform: uppercase;
@@ -460,6 +449,7 @@ nav h1.brand {
 body.loading{
     overflow: hidden;
 }
+
 /* Make spinner image visible when body element has the loading class */
 body.loading .overlay{
     display: block;
