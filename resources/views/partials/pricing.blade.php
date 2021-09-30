@@ -20,7 +20,8 @@
                 owner to make an offer is easier said than done. Meanwhile, domain owners are waiting for the big pay
                 day that never comes. Identitius bridges this gap to negotiate a win-win for both parties, in one
                 platform that does the work for you.</p>
-            <button class="btn btn-warning btn-block w-100 mt-2" type="button">GET YOUR DOMAIN TODAY</button>
+
+            <a href="/domains" class="btn btn-warning btn-block w-100 mt-2">Get Your Domain Today</a>
         </div>
         <div class="col mb-4">
             <div class="card bg-dark text-white pricing-blue h-100">
@@ -28,18 +29,18 @@
                 <div class="card-body pricing">
                     <h5 class="card-text text-right">As low as</h5>
                     <p class="display-1 text-right">$9/<span class="display-4 small">mo</span></p>
-                    <a href="#" class="btn btn-primary btn-lg active w-100 mt-4" role="button">
+                    <a href="/domains" class="btn btn-primary btn-lg active w-100 mt-4">
                         Lease a Domain</a>
                 </div>
             </div>
         </div>
         <div class="col mb-4">
-            <div class="card bg-dark text-white pricing-orange  h-100">
+            <div class="card bg-dark text-white pricing-orange h-100">
                 <h1 class="card-title text-center mt-5">Buy</h1>
                 <div class="card-body pricing">
                     <p class="card-text text-right">As low as</p>
                     <p class="display-1 text-right">$24/<span class="display-4 small">mo</span></p>
-                    <a href="#" class="btn btn-primary btn-lg active w-100 mt-4" role="button">Buy a
+                    <a href="/domains" class="btn btn-primary btn-lg active w-100 mt-4">Buy a
                         Domain</a>
                 </div>
 
