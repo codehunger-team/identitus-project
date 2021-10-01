@@ -93,7 +93,7 @@ class FrontController extends Controller
 
         // apply category filter ( if required )
         if ($r->category > 0) {
-            $domains->where('category', $r->category);
+            $d = $domains->where('category', $r->category)->get();
         }
 
         // apply TLD filter ( if required )
@@ -109,7 +109,7 @@ class FrontController extends Controller
         }
 
         if ($r->keyword_placement == 'starts_with') {
-            $domains->where('domain', 'like', $r->keyword . '%');
+            $d = $domains->where('domain', 'like',$r->keyword . '%')->get();
         }
 
         // apply price filter ( if required )
