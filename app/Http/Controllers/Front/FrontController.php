@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 use Validator;
+use App\Models\Option;
+use App\Http\Controllers\Admin\DocusignController;
 
 class FrontController extends Controller
 {
@@ -21,8 +23,18 @@ class FrontController extends Controller
     }
 
     // all domains
-    public function all_domains(Request $request)
+    public function all_domains(Request $request,DocusignController $docusign)
     {   
+        $toDate = Option::where('name','docusign_auth_code')->pluck('updated_at')->first();
+        $to = Carbon::createFromFormat('Y-m-d H:s:i', $toDate);
+        $from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+        $diff_in_hours = $to->diffInHours($from);
+        
+        if($diff_in_hours > 7){
+            $docusign->refreshToken();
+        }
+
+
         $userId = NULL;
 
         if (Auth::check()) {

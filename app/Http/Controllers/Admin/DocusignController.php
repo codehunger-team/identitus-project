@@ -14,9 +14,8 @@ class DocusignController extends Controller
      * @return render
      */
     public function index()
-    {
+    {   
         return view('admin.docusign.index');
-
     }
     
     /**
@@ -53,10 +52,7 @@ class DocusignController extends Controller
     {
         $code = $request->code;
 
-        $client_id = env('DOCUSIGN_CLIENT_ID');
-        $client_secret = env('DOCUSIGN_CLIENT_SECRET');
-
-        $integrator_and_secret_key = "Basic " . utf8_decode(base64_encode("{$client_id}:{$client_secret}"));
+        $integrator_and_secret_key = $this->getSecretKey();
 
         $ch = curl_init();
 
@@ -88,6 +84,12 @@ class DocusignController extends Controller
                     'value' => $decodedData->access_token,
                 ],
             );
+            Option::Create(
+                [
+                    'name' => 'docusign_refresh_code',
+                    'value' => $decodedData->refresh_token,
+                ],
+            );
         }
         return redirect()->route('admin.docusign')->with('msg', 'Docusign Succesfully Connected');
     }
@@ -101,8 +103,56 @@ class DocusignController extends Controller
     {
         if (!empty(Option::get_option('docusign_auth_code'))) {
             Option::where('name', 'docusign_auth_code')->delete();
+            Option::where('name', 'docusign_refresh_code')->delete();
         }
         return redirect()->route('admin.docusign')->with('msg', 'Docusign Succesfully revoked');
     }
 
+    /**
+     * Generate secret key combination
+     *
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        $client_id = env('DOCUSIGN_CLIENT_ID');
+        $client_secret = env('DOCUSIGN_CLIENT_SECRET');
+
+        return "Basic " . utf8_decode(base64_encode("{$client_id}:{$client_secret}"));
+    }
+
+    /**
+     * Refresh the token on auth token expiration
+     *
+     * @return void
+     */
+    public function refreshToken()
+    {
+        $integrator_and_secret_key = $this->getSecretKey();
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://account-d.docusign.com/oauth/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $post = array(
+            'grant_type' => 'refresh_token',
+            'refresh_token' => Option::get_option('docusign_refresh_code'),
+        );
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+        $headers = array();
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = "authorization: $integrator_and_secret_key";
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+        $decodedData = json_decode($result);
+
+        Option::where('name','docusign_auth_code')->update(['value'=>$decodedData->access_token]);
+    }
 }

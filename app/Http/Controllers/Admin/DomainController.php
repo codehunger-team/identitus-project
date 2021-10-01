@@ -12,9 +12,6 @@ use App\Models\GracePeriod;
 use App\Models\PeriodType;
 use App\Models\OptionExpiration;
 use App\Models\CounterOffer;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\UserSetTermPriceDrop;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Front\ReviewController;
 
