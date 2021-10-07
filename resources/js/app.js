@@ -59,7 +59,7 @@ import {
     faDollarSign,
     faPlug,
     faTimes,
-    faMinus,
+    faSignInAlt,
 
 } from '@fortawesome/free-solid-svg-icons';
 // add the imported icons to the library
@@ -106,7 +106,8 @@ library.add(faBars,
     faBan,
     faDollarSign,
     faPlug,
-    faTimes);
+    faTimes,
+    faSignInAlt);
 
 // tell FontAwesome to watch the DOM and add the SVGs when it detects icon markup
 dom.watch();

@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar px-4">
     <div class="sidebar-header">
         <div class="row">
             <div class="col-sm-6">

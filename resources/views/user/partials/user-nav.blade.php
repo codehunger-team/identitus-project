@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar px-4">
     <div class="sidebar-header">
         <div class="row">
             <div class="col-sm-6">
@@ -19,21 +19,21 @@
           <li @if(isset($active) AND ($active == 'user')) class="active" @endif>
             <a href="{{route('user.profile')}}"><i class="fa fa-user"></i> <span class="side-text">Profile</span></a>
           </li>
-  
+
         <!-- Functions as Lessee/Buyer -->
           <li @if(isset($active) AND ($active == 'orders')) class="active" @endif>
             <a href="{{route('user.orders')}}"><i class="fa fa-shopping-cart "></i> <span class="side-text">Orders</span></a>
           </li>
-  
+
           <li @if(isset($active) AND ($active == 'rental-agreement')) class="active" @endif>
             <a href="{{route('user.rental.agreement')}}"><i class="fa fa-credit-card" aria-hidden="true"></i> <span class="side-text">Rental Agreements</span></a>
           </li>
-          
+
           <hr>
         <!-- Functions as Lessor/Seller -->
         @if (Auth::user()->is_vendor == 'yes')
         <li class="header">Seller + Lessor Tools</li>
-  
+
         <!-- These three menu items need to be user.specific -->
           <li @if(isset($active) AND ($active == 'seller-order')) class="active" @endif>
             <a href="{{route('user.seller.orders')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="side-text">Orders</span></a>
