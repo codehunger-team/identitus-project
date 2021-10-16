@@ -13,6 +13,7 @@ use App\Models\PeriodType;
 use App\Models\OptionExpiration;
 use App\Models\CounterOffer;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\DocusignController;
 use App\Http\Controllers\Front\ReviewController;
 
 class DomainController extends Controller
@@ -279,7 +280,7 @@ class DomainController extends Controller
     {
 
         $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
-        
+
         if ($DomainValidate) {
             $graces = GracePeriod::all();
             $periods = PeriodType::all();
@@ -289,21 +290,27 @@ class DomainController extends Controller
             $isLease = Domain::where('domain', $domainName)->first()->domain_status;
 
             $isInNegotiation = CounterOffer::where('domain_name', $domainName)->first();
-            if($isInNegotiation) {
+            if ($isInNegotiation) {
                 $isInNegotiation->lease_total = $isInNegotiation->first_payment + ($isInNegotiation->number_of_periods * $isInNegotiation->period_payment);
-            } 
+            }
 
             if (empty($contracts)) {
                 $contracts = [];
             }
-            return view('admin.domain.set-terms', compact('isInNegotiation','graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+            return view('admin.domain.set-terms', compact('isInNegotiation', 'graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
         } else {
             abort(404);
         }
     }
 
-    // add terms
-    public function add_terms(Request $request, ReviewController $reviewController)
+    /**
+     * Use to add terms
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Controllers\Front\ReviewController $reviewController
+     * @param \App\Http\Controllers\Admin\DocusignController $docusign
+     * @return renderable
+     */
+    public function add_terms(Request $request, ReviewController $reviewController, DocusignController $docusign)
     {
 
         try {
@@ -329,8 +336,14 @@ class DomainController extends Controller
             ];
             \Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
-            
-            $reviewController->createPdf($domainName,$request);
+
+            $diff_in_hours = docusignHourDifference();
+
+            if ($diff_in_hours > 7) {
+                $docusign->refreshToken();
+            }
+
+            $reviewController->createPdf($domainName, $request);
             $params = $this->docusignClickWrap($domainName);
 
             if ($params['created_time']) {

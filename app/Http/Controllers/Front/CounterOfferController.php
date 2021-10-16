@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Admin\DocusignController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
@@ -72,7 +73,7 @@ class CounterOfferController extends Controller
      * @param $request
      * @param ReviewController
      */
-    public function counterContract(Request $request,ReviewController $reviewController)
+    public function counterContract(Request $request,ReviewController $reviewController,DocusignController $docusign)
     {   
         $validator = \Validator::make($request->all(), [
             'first_payment' => 'required|numeric',
@@ -124,6 +125,12 @@ class CounterOfferController extends Controller
             unset($data['from_email']);
 
             $contractId = CounterOffer::where('domain_name', $data['domain_name'])->pluck('contract_id')->first();
+            
+            $diff_in_hours = docusignHourDifference();
+
+            if ($diff_in_hours > 7) {
+                $docusign->refreshToken();
+            }
 
             //update lessor data
             if(is_null($data['lessee_id'])) {
@@ -215,12 +222,18 @@ class CounterOfferController extends Controller
      * @return response
      * GET accept/offer/{id}
      */
-    public function acceptOffer($contractId,ReviewController $reviewController)
+    public function acceptOffer($contractId,ReviewController $reviewController,DocusignController $docusign)
     {   
         $counterOffer = CounterOffer::where('contract_id',$contractId)->first();
 
         $this->convertLessorToLessee($counterOffer->domain_name);
         
+        $diff_in_hours = docusignHourDifference();
+
+        if ($diff_in_hours > 7) {
+            $docusign->refreshToken();
+        }
+
         if (Auth::user()->is_vendor == 'yes') {
             
             $updateCounter = $counterOffer->where('contract_id',$contractId)->select('first_payment','period_payment','number_of_periods',

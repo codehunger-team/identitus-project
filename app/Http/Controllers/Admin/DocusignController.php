@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 class DocusignController extends Controller
 {   
 
@@ -127,7 +128,14 @@ class DocusignController extends Controller
      * @return void
      */
     public function refreshToken()
-    {
+    {   
+
+        $toDate = Option::where('name','docusign_refresh_code')->pluck('updated_at')->first();
+        $to = Carbon::createFromFormat('Y-m-d H:s:i', $toDate);
+        $from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+        $diff_in_days = $to->diffInDays($from);
+       
         $integrator_and_secret_key = $this->getSecretKey();
 
         $ch = curl_init();
@@ -152,7 +160,9 @@ class DocusignController extends Controller
         }
         curl_close($ch);
         $decodedData = json_decode($result);
-
+        if($diff_in_days > 28) {
+            Option::where('name','docusign_refresh_code')->update(['value'=>$decodedData->refresh_token]);
+        }
         Option::where('name','docusign_auth_code')->update(['value'=>$decodedData->access_token]);
     }
 }

@@ -19,6 +19,7 @@ use App\Models\PeriodType;
 use App\Http\Controllers\Front\ReviewController;
 use App\Traits\DocusignTrait;
 use Exception;
+use App\Http\Controllers\Admin\DocusignController;
 
 class DomainController extends Controller
 {
@@ -224,11 +225,14 @@ class DomainController extends Controller
         }
     }
 
-    /**
-     * Add Terms
-     * 
+     /**
+     * Use to add terms
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Controllers\Front\ReviewController $reviewController
+     * @param \App\Http\Controllers\Admin\DocusignController $docusign
+     * @return renderable
      */
-    public function add_terms(Request $request, ReviewController $reviewController)
+    public function add_terms(Request $request, ReviewController $reviewController,DocusignController $docusign)
     {
         try {
             $this->validate($request, [
@@ -254,6 +258,12 @@ class DomainController extends Controller
             \Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
             
+            $diff_in_hours = docusignHourDifference();
+
+            if ($diff_in_hours > 7) {
+                $docusign->refreshToken();
+            }
+
             $reviewController->createPdf($domainName,$request);
             $params = $this->docusignClickWrap($domainName);
 
