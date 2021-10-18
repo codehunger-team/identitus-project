@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\User;
-use App\Contracts;
-use App\Domain;
+use App\Models\User;
+use App\Models\Contracts;
+use App\Models\Domain;
 
 class SchedulePaymentCron extends Command
 {
