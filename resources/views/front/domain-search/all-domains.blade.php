@@ -20,7 +20,7 @@
                     <div id="custom-search-input">
                         <div class="input-group">
                             <input id="input" placeholder="Domain or keyword" @if( !empty( $autoKeyword ) )
-                                value="{{ $autoKeyword }}" @endif name="keyword" class="form-control input-lg" />
+                                value="{{ $autoKeyword }}" @endif name="keyword" class="form-control search-input input-lg" />
                             <button id="buttonAjaxFilter" class="btn btn-primary" type="submit">
                                 <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -180,6 +180,10 @@
     });
 
     $("#buttonAjaxFilter").on('click', function () {
+        $("#ajax-search-form").trigger('submit');
+    });
+
+    $(".search-input").on('keyup', function () {
         $("#ajax-search-form").trigger('submit');
     });
 
