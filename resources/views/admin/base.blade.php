@@ -4,35 +4,23 @@
 <body>
 <div class="wrapper">
     <!-- Sidebar  -->
-    @include('admin.partials.admin-nav')
-    <!-- Page Content  -->
+@include('admin.partials.admin-nav')
+<!-- Page Content  -->
     <div id="content">
-        @if(session('msg'))
-            <div id="message">
-                <div style="padding: 5px;">
-                    <div id="inner-message" class="alert alert-error">
-                        <div class="alert alert-primary alert-dismissible  float-end notify" role="alert">
-                            {!! session('msg') !!}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @include('admin.partials.admin-message')
+        @include('admin.partials.admin-navbar')
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 ms-sm-auto col-lg-10" style="margin-top: 6rem; margin-bottom: 6rem;">
+                    <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            @yield('section_body', 'Body')
                         </div>
                     </div>
+                    @yield('extra_bottom')
                 </div>
             </div>
-        @endif
-        <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary">
-            <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary">
-                <button><i class="sidebarCollapse fas fa-bars text-white"></i></button>
-                <p class="text-white">IDENTITUS</p>
-            </nav>
-        </nav>
-        <div class="col-md-9 ms-sm-auto col-lg-10 px-4">
-            <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
-            <div class="card mt-4">
-                <div class="card-body">
-                    @yield('section_body', 'Body')
-                </div>
-            </div>
-            @yield('extra_bottom')
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
-<script src="{{ asset('js/raphel.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/raphel.min.js') }}" defer></script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js" defer></script>
+
 <script>
     $(function() {
         $('.dataTable').dataTable();

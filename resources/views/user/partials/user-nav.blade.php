@@ -1,17 +1,5 @@
 <nav id="sidebar" class="sidebar px-4" >
-    <div class="sidebar-header" >
-        <div class="row">
-            <div class="col-sm-6">
-                <a href="{{url('/')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <h3>Identitius</h3>
-                    <strong>I</strong>
-                </a>
-            </div>
-            <div class="col-sm-2 mt-2">
-                <a href="javascript:void(0)"><i class="sidebarCollapse fas fa-bars float-right text-white"></i></a>
-            </div>
-        </div>
-    </div>
+
     <!-- Sidebar Menu -->
     <ul class="list-unstyled components">
         <li class="header">USER MENU</li>
