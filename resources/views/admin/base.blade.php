@@ -19,8 +19,13 @@
                 </div>
             </div>
         @endif
-        <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary"><a href="javascript:void(0)"><i class="sidebarCollapse fas fa-bars text-white"></i></a><span class="text-white">IDENTITUS</span></nav>
-        <div class="col m-4">
+        <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary">
+            <nav class="navbar navbar-hide navbar-expand-lg navbar-primary bg-primary">
+                <button><i class="sidebarCollapse fas fa-bars text-white"></i></button>
+                <p class="text-white">IDENTITUS</p>
+            </nav>
+        </nav>
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-4">
             <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
             <div class="card mt-4">
                 <div class="card-body">
