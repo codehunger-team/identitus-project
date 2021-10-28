@@ -9,7 +9,7 @@
     <div id="content">
         @include('admin.partials.admin-message')
         @include('admin.partials.admin-navbar')
-        <div class="container">
+        <div  class="container-fluid">
             <div class="row">
                 <div class="col-md-9 ms-sm-auto col-lg-10" style="margin-top: 6rem; margin-bottom: 6rem;">
                     <h1 class="box-header">@yield('section_title', 'Section Title')</h1>
