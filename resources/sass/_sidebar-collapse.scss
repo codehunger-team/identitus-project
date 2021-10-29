@@ -117,8 +117,8 @@ span {
 }
 
 #sidebar ul li a:hover {
-    color: #32094e;
-    background: #6d7fcc;
+    background: rgba(255, 255, 255, .3);
+    @extend .rounded;
 }
 
 #sidebar ul li a i {
@@ -127,8 +127,9 @@ span {
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: var(--bs-gray-dark);
+    background: var(--bs-warning);
+    border-radius: 5px;
 }
 
 a[data-toggle="collapse"] {
@@ -146,7 +147,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: var(--bs-warning);
 }
 
 
@@ -184,7 +185,7 @@ ul ul a {
         margin-left: 0 !important;
     }
     #sidebar .sidebar-header h3,
-   
+
     #sidebar .sidebar-header strong {
         display: block;
     }
@@ -213,7 +214,7 @@ ul ul a {
     .sidebar-header {
         display: none;
     }
-    
+
 }
 
 @media (min-width: 768px) {
