@@ -40,6 +40,10 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
+
+    @include media-breakpoint-up(md) {
+        margin-left: 3rem;
+    }
 }
 
 #sidebar {

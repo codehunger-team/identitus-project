@@ -2,7 +2,7 @@
 
     <!-- Sidebar Menu -->
     <ul class="list-unstyled components">
-        <li class="header">USER MENU</li>
+        <li class="header">User Menu</li>
         <!-- Optionally, you can add icons to the links -->
           <li @if(isset($active) AND ($active == 'user')) class="active" @endif>
             <a href="{{route('user.profile')}}"><i class="fa fa-user"></i> <span class="side-text">Profile</span></a>
