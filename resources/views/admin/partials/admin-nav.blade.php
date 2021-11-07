@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar"  class="sidebar px-4">
     <ul class="list-unstyled components">
         <li class="text-white">ADMIN MENU</li>
         <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
