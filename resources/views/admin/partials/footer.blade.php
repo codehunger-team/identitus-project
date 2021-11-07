@@ -1,6 +1,6 @@
-<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/raphel.min.js') }}" defer></script>
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js" defer></script>
+<script src="{{ asset('js/app.js') }}" ></script>
+<script src="{{ asset('js/raphel.min.js') }}" ></script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js" ></script>
 
 <script>
     $(function() {
@@ -55,6 +55,15 @@
         $('#message').html('Matched').css('color', 'green');
       } else
         $('#message').html('Not Matched').css('color', 'red');
+    });
+
+    $(document).on('click','.navbar-button',function() { 
+        $('.navbar-button').toggleClass("sidenav-push"); 
+        if ($(".navbar-button").hasClass("sidenav-push")) {
+            $(".adjust-side-nav").css({"width": "80%", "margin-right": "inherit"});
+        } else {
+            $(".adjust-side-nav").css({"width": "100%", "margin-right": "auto"});
+        }
     });
 </script>
 

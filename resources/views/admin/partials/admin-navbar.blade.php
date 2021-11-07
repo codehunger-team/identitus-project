@@ -1,5 +1,5 @@
-<nav class="navbar navbar-primary bg-primary fixed-top">
-    <button class="btn button">
+<nav id="mySidenav" class="navbar navbar-primary bg-primary fixed-top">
+    <button class="btn button navbar-button">
         <i class="sidebarCollapse fas fa-bars text-white" aria-hidden="Menu"></i>
     </button>
     <a href="{{url('/')}}" class=" text-white text-end mr-5">

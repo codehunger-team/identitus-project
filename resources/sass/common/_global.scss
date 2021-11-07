@@ -1,5 +1,5 @@
 .gradient-underline {
-   display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
@@ -9,8 +9,23 @@
         content: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='212' height='4'%3E%3Cg%3E%3Cdefs%3E%3ClinearGradient id='idpXZr1xFULg1027044847' gradientTransform='rotate(0, 0.5, 0.5)'%3E%3Cstop offset='0' stop-color='rgb(219,0,155)' stop-opacity='1'%3E%3C/stop%3E%3Cstop offset='1' stop-color='rgb(81,83,162)' stop-opacity='1'%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M 0 0 L 212.413 0 L 212.413 4 L 0 4 Z' fill='url(%23idpXZr1xFULg1027044847)'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
     }
 }
+
 footer a {
-    &:link, &:visited {
+
+    &:link,
+    &:visited {
         color: white;
     }
 }
+
+@media screen and (min-width: 480px) {
+    .navbar-button {
+        display: none;
+    }
+
+    .sidenav-push {
+        width: 80% !important;
+        margin-right: inherit !important;
+    }
+}
+ 
