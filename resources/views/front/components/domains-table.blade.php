@@ -2,9 +2,9 @@
 <table class="table" id="ajax-filtered-domains">
     <thead>
         <tr>
-            <th scope="col">Domain</th>
-            <th scope="col">Monthly Lease</th>
-            <th scope="col">Purchase Price</th>
+            <th scope="col">Domain <a class="sort" href="javascript:void(0)"><i class="fas fa-sort"></a></i></th>
+            <th scope="col">Monthly Lease <a class="sort" href="javascript:void(0)"><i class="fas fa-sort"></a></th>
+            <th scope="col">Purchase Price <a class="sort" href="javascript:void(0)"><i class="fas fa-sort"></a></th>
             <th scope="col">Options</th>
         </tr>
     </thead>
@@ -46,4 +46,19 @@
     </tbody>
 </table>
 <?php $i++; ?>
-
+<script>    
+$(document).on('click','th',function(){
+    var table = $(this).parents('table').eq(0)
+    var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+    this.asc = !this.asc
+    if (!this.asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+})
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index)
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+    }
+}
+function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+</script>
