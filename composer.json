@@ -6,8 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "darryldecode/cart": "^4.2",
+        "doctrine/dbal": "^3.1",
         "docusign/click-client": "^1.0",
         "docusign/esign-client": "^6.1",
         "fideloper/proxy": "^4.4",
@@ -16,9 +19,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
-        "stripe/stripe-php": "^7.77",
-        "ext-curl": "*",
-        "ext-json": "*"
+        "stripe/stripe-php": "^7.77"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
