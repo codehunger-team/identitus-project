@@ -40,10 +40,6 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
-
-    @include media-breakpoint-up(md) {
-        margin-left: 3rem;
-    }
 }
 
 #sidebar {
@@ -55,15 +51,14 @@ span {
 }
 
 #sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
-    text-align: center;
+    min-width: 250px;
+    max-width: 250px;
 }
 
-#sidebar.active .sidebar-header h3,
-#sidebar.active .CTAs {
-    display: none;
-}
+//#sidebar.active .sidebar-header h3,
+//#sidebar.active .CTAs {
+//    display: none;
+//}
 
 #sidebar.active .sidebar-header strong {
     display: block;
@@ -215,14 +210,23 @@ ul ul a {
     #sidebarCollapse span {
         display: none;
     }
-    .sidebar-header {
-        display: none;
-    }
 
 }
 
 @media (min-width: 768px) {
     .navbar-hide {
         display: none;
+    }
+    .navbar-button {
+        visibility: hidden;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .sidenav-push {
+        width: 80% !important;
+        margin-right: inherit !important;
     }
 }

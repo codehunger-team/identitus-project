@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar px-4">
+<nav id="sidebar" class="p-4">
 
     <!-- Sidebar Menu -->
     <ul class="list-unstyled components">
