@@ -144,15 +144,16 @@
         <a href="{{route('sign.document',$domainName)}}"><button
                 class="btn btn-primary btn-block text-center ml-2 mb-4 mt-5 w-30 lease-now">Lease Now</button></a>&nbsp;
 
-        <a href="javascript:void(0)"><button {{$isAlreadyCounterOffered == 1 ? 'disabled' : '' }}
-                class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
-                id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">{{$isAlreadyCounterOffered == 1 ? 'Already in negotiation' : 'Counter
-                Lease' }}</button></a>
-
+        <a href="javascript:void(0)">
+            @if($isAlreadyCounterOffered != 1)
+                <button class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
+                    id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter Lease
+                </button>
+            @endif
+        </a>
         @else
         <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
         @endif
-        {{-- @include('front.components.review-term-modal') --}}
         @include('front.components.review-term-counter-modal')
     </div>
 </div>

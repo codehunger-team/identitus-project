@@ -167,7 +167,7 @@ class DocusignController extends Controller
             }
             Option::where('name', 'docusign_auth_code')->update(['value' => $decodedData->access_token]);
         } catch (Exception $e) {
-            return redirect()->back()->with('success', $e->getMessage());
+            return redirect()->back()->with('msg', $e->getMessage());
         }
     }
 }

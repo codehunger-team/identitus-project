@@ -12,7 +12,6 @@ use App\Models\OptionExpiration;
 use App\Traits\CalculatePeriodTrait;
 use App\Models\User;
 use PDF;
-use Auth;
 use App\Models\CounterOffer;
 
 class ReviewController extends Controller
@@ -45,15 +44,9 @@ class ReviewController extends Controller
         
         $getCurrentDateTime =  getCurrentDateTime();
 
-        if (Auth::check()) {
+        $this->createPdf($domainName, $domain, $lessor, $contracts, $periods, $periodType, $options, $leasetotal, $getCurrentDateTime, $graces, $endOfLease);
 
-            $this->createPdf($domainName, $domain, $lessor, $contracts, $periods, $periodType, $options, $leasetotal, $getCurrentDateTime, $graces, $endOfLease);
-
-            return view('front.review.terms', compact('graces', 'periods', 'options', 'domain', 'contracts', 'domainName', 'leasetotal', 'getCurrentDateTime', 'endOfLease', 'periodType', 'lessor', 'isAlreadyCounterOffered'));
-        } else {
-
-            return redirect()->to(route('login'));
-        }
+        return view('front.review.terms', compact('graces', 'periods', 'options', 'domain', 'contracts', 'domainName', 'leasetotal', 'getCurrentDateTime', 'endOfLease', 'periodType', 'lessor', 'isAlreadyCounterOffered'));
     }
 
 

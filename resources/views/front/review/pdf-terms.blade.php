@@ -1,3 +1,4 @@
+@auth
 <div class="container" id="contract">
     <br />
     <br />
@@ -227,4 +228,4 @@
         <p>Title: Title:</p>
 
 </div>
-
+@endauth
