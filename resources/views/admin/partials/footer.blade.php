@@ -57,13 +57,8 @@
         $('#message').html('Not Matched').css('color', 'red');
     });
 
-    $(document).on('click','.navbar-button',function() { 
-        $('.navbar-button').toggleClass("sidenav-push"); 
-        if ($(".navbar-button").hasClass("sidenav-push")) {
-            $(".adjust-side-nav").css({"width": "80%", "margin-right": "inherit"});
-        } else {
-            $(".adjust-side-nav").css({"width": "100%", "margin-right": "auto"});
-        }
-    });
+    // $(document).on('click','.navbar-button',function() {
+    //     $('.navbar-button').toggleClass("sidenav-push");
+    // });
 </script>
 
