@@ -40,7 +40,7 @@ Want us to help with adding or editing contracts in bulk? Send us an email at <a
             <td>
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->pricing, 0) }}
             </td>
-            
+
 			<td>
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->option_price, 0) }}
 
@@ -49,7 +49,7 @@ Want us to help with adding or editing contracts in bulk? Send us an email at <a
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->lease_total, 0) }}
 
             </td>
-            
+
 			@foreach($optionExpiration as $optionData)
                 @if($optionData->id == $d->option_expiration)
                     <td>
@@ -91,9 +91,9 @@ Want us to help with adding or editing contracts in bulk? Send us an email at <a
                 @endif
             @endforeach
             <td>
-                <div class="btn-group">                    
+                <div class="btn-group">
                 <a class="btn btn-primary btn-xs" href="{{route('set.terms',$d->domain)}} ">
-                    <i class="glyphicon glyphicon-pencil"></i>
+                    <i class="fa fa-edit" aria-hidden="true"></i>
                    </a>
                </div>
            </td>
