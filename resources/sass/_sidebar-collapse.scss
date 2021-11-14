@@ -55,11 +55,6 @@ span {
     max-width: 250px;
 }
 
-//#sidebar.active .sidebar-header h3,
-//#sidebar.active .CTAs {
-//    display: none;
-//}
-
 #sidebar.active .sidebar-header strong {
     display: block;
 }
@@ -70,7 +65,6 @@ span {
 
 #sidebar.active ul li a {
     padding: 20px 10px;
-    text-align: center;
     font-size: 1.2em;
 }
 
@@ -169,7 +163,6 @@ ul ul a {
     #sidebar {
         min-width: 80px;
         max-width: 80px;
-        text-align: center;
         margin-left: -80px !important;
     }
     .dropdown-toggle::after {

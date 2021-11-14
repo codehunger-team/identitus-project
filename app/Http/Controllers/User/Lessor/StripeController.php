@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\StripeConnectTrait;
 use App\Traits\AuthTrait;
-use App\Models\Option;
 
 class StripeController extends Controller
 {   

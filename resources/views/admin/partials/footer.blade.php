@@ -22,7 +22,7 @@
     $(document).ready(function () {
             $('.sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
-                $('.side-text').toggleClass('hide-show');
+                // $('.side-text').toggleClass('hide-show');
             });
         });
 
