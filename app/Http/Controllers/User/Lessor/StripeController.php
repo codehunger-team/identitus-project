@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\StripeConnectTrait;
 use App\Traits\AuthTrait;
+use App\Models\Option;
 
 class StripeController extends Controller
 {   
@@ -94,7 +95,7 @@ class StripeController extends Controller
      */
     public function revokeStripe(Request $request)
     {   
-        $stripe_client_id = \App\Options::get_option('stripe_client_id');
+        $stripe_client_id = env('STRIPE_CLIENT_ID');
         $stripe_account_id =  User::where('id',$this->authID())->first()->stripe_account_id;
         try {
 			\Stripe\OAuth::deauthorize([
