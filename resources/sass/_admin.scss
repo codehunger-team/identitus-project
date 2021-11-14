@@ -341,3 +341,10 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
         float: none;
     }
 }
+
+#message {
+    position: fixed;
+    top: 10% !important;
+    left: 0;
+    width: 100%;
+}
