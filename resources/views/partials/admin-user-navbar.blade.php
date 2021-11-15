@@ -129,10 +129,10 @@
             <a href="{{route('user.inactive.lease')}}">
                 <i class="fa fa-ban" aria-hidden="true"></i> <span class="side-text">Inactive Lease</span></a>
         </li>
-        <li @if(isset($active) AND ($active=='bank-details' )) class="active" @endif>
-            <a href="{{route('user.stripe-connect')}}">
-                <i class="fa fa-university" aria-hidden="true"></i> <span class="side-text">Connect Stripe</span></a>
-        </li>
+{{--        <li @if(isset($active) AND ($active=='bank-details' )) class="active" @endif>--}}
+{{--            <a href="{{route('user.stripe-connect')}}">--}}
+{{--                <i class="fa fa-university" aria-hidden="true"></i> <span class="side-text">Connect Stripe</span></a>--}}
+{{--        </li>--}}
         @endif
         <li>
             <a href="{{route('user.logout')}}"><i class="fa fa-power-off"></i> <span class="side-text">Log
