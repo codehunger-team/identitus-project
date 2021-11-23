@@ -22,12 +22,12 @@ class FrontController extends Controller
     }
 
     // all domains
-    public function all_domains(Request $request,DocusignController $docusign)
-    {   
-       
+    public function all_domains(Request $request, DocusignController $docusign)
+    {
+
         $diff_in_hours = docusignHourDifference();
 
-        if($diff_in_hours > 7){
+        if ($diff_in_hours > 7) {
             $docusign->refreshToken();
         }
 
@@ -37,8 +37,8 @@ class FrontController extends Controller
             $userId = Auth::user()->id;
         }
 
-        $domain_list = Domain::where('domain_status','AVAILABLE')->get();
-       
+        $domain_list = Domain::where('domain_status', 'AVAILABLE')->get();
+
 
         // append domain age to the list
         $domain_list->map(function ($d) {
@@ -67,7 +67,6 @@ class FrontController extends Controller
             ->with('categories', $categories)
             ->with('autoSearch', $autoSearch)
             ->with('autoKeyword', $autoKeyword);
-
     }
 
     // ajax domain filtering
@@ -117,7 +116,7 @@ class FrontController extends Controller
         }
 
         if ($r->keyword_placement == 'starts_with') {
-            $d = $domains->where('domain', 'like',$r->keyword . '%')->get();
+            $d = $domains->where('domain', 'like', $r->keyword . '%')->get();
         }
 
         // apply price filter ( if required )
@@ -128,9 +127,9 @@ class FrontController extends Controller
             // }
         }
 
-       
+
         // $d = $domains->get();
-        
+
 
         if ($r->keyword_placement == 'ends_with') {
             $d = \App\Models\Domain::getCharacterEndswith($r->keyword);
@@ -171,7 +170,6 @@ class FrontController extends Controller
         }
 
         return view('front.components.domains-table')->with('domains', $d);
-
     }
 
     /**
@@ -191,8 +189,11 @@ class FrontController extends Controller
 
         if ($validator->errors()->count() > 0) {
             return response()->json(
-                ['error' => $validator->errors()->all(),
-                    'error_length' => $validator->errors()->count()]);
+                [
+                    'error' => $validator->errors()->all(),
+                    'error_length' => $validator->errors()->count()
+                ]
+            );
         }
 
         $user = Auth::user();
@@ -201,8 +202,11 @@ class FrontController extends Controller
         $user->update($request->data);
         Session::flash('success', 'User has been updated successfully!');
         return response()->json(
-            ['action' => 'success',
-                'error_length' => 0]);
+            [
+                'action' => 'success',
+                'error_length' => 0
+            ]
+        );
     }
 
     /**
@@ -223,28 +227,28 @@ class FrontController extends Controller
         return view('front.q-a');
     }
 
-     /**
+    /**
      * Domain Info
      *
      */
     public function domainInfo($domain)
-    {   
+    {
         $domain = Domain::where('domain', $domain)->firstOrFail();
-        $category = Category::where('id',$domain->category)->firstOrfail();
-        $registrar = Registrar::where('id',$domain->registrar_id)->first();
-        
-        $no1   = rand( 1, 5 );
-        $no2   = rand( 1, 5 );
+        $category = Category::where('id', $domain->category)->firstOrfail();
+        $registrar = Registrar::where('id', $domain->registrar_id)->first();
+
+        $no1   = rand(1, 5);
+        $no2   = rand(1, 5);
         $total = $no1 + $no2;
 
-        $domain->domain_age = Domain::computeAge( $domain->reg_date, 0);
+        $domain->domain_age = Domain::computeAge($domain->reg_date, 0);
 
-		return view('front.domain-info')
-                ->with('domain', $domain)
-                ->with( 'no1', $no1 )
-                ->with( 'no2', $no2 )
-                ->with( 'total', $total )
-                ->with('registrar',$registrar)
-                ->with('category',$category);
+        return view('front.domain-info')
+            ->with('domain', $domain)
+            ->with('no1', $no1)
+            ->with('no2', $no2)
+            ->with('total', $total)
+            ->with('registrar', $registrar)
+            ->with('category', $category);
     }
 }

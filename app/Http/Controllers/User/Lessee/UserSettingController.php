@@ -172,12 +172,11 @@ class UserSettingController extends Controller
      */
     public function view_order($id)
     {
-
         $order = Order::where('id', $id)->first();
 
         // order contents unserialize
         $order_content = json_decode($order->order_contents);
-
+        
         return view('user.lessee.view-order')
             ->with('active', 'orders')
             ->with('order', $order)

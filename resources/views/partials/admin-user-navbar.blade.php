@@ -1,5 +1,5 @@
 <nav id="sidebar" class="p-4">
-    @if(auth::user()->admin == 1)
+    @if(auth()->user()->admin == 1)
     <ul class="list-unstyled components">
         <li class="text-white">ADMIN MENU</li>
         <li @if(isset($active) AND ($active=='dashboard' )) class="active" @endif>
