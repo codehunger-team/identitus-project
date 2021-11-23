@@ -198,5 +198,9 @@
         });
 
     });
+    
+    $(document).on('click','.navbar-toggler',function(){
+        $('.navbar-collapse').toggleClass("collapse");
+    });
 
 </script>
