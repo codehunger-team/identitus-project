@@ -13,9 +13,13 @@
         const $value = $('#char_slider');
         const $priceTo = $('.price_to');
         const $priceValue = $('#price_slider');
+        const $monthlyPriceTo = $('.monthly_price_to');
+        const $monthlyPriceValue = $('#monthly_price_slider');
 
-        $value.val(0); // set the charcter default value to zero
+        $value.val('63'); // set the charcter default value to zero
         $priceValue.val('20000'); // set the price defalut value
+        $monthlyPriceValue.val('20000'); // set the price defalut value
+
 
         $value.on('input change', () => {
             $('.char_to').val($value.val());
@@ -24,6 +28,15 @@
             }
         });
 
+        $monthlyPriceValue.on('input change', () => {
+            priceCount = $("#monthly_price_slider").val();
+            if (priceCount >= 17000) {
+                $monthlyPriceTo.val('');
+            } else {
+                $monthlyPriceTo.val($monthlyPriceValue.val());
+
+            }
+        });
 
         $priceValue.on('input change', () => {
             priceCount = $("#price_slider").val();
@@ -49,6 +62,10 @@
     });
 
     $(".price-range").on('change', function () {
+        submitAjaxSearch();
+    });
+
+    $(".monthly-price-range").on('change', function(){
         submitAjaxSearch();
     });
 

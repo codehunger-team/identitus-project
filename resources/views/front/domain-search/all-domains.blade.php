@@ -75,29 +75,38 @@
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Character Length</label>
                         <div class="row mt-2">
-                            <div class="col-lg-4">
-                                <input type="number" name="char_from" placeholder="from" class="form-control char_from"
+                                <input type="hidden" name="char_from" placeholder="from" class="form-control char_from"
                                     value="0">
-                            </div>
                             <div class="col-lg-5">
-                                <input type="number" name="char_to" placeholder="to" class="form-control char_to">
+                                <input type="number" name="char_to" value="63" class="form-control char_to">
                             </div>
                         </div>
                         <input id="char_slider" class="border-0 character-length" type="range" min="0" max="63" />
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">
-                        <label class="label">Price Range(USD)</label>
+                        <label class="label">Purchase Price Range($)</label>
                         <div class="row mt-2">
-                            <div class="col-lg-4">
-                                <input type="number" name="price_from" placeholder="from"
-                                    class="form-control price_from" value="0">
-                            </div>
+                            <input type="hidden" name="price_from" placeholder="from"
+                                class="form-control price_from" value="0">
                             <div class="col-lg-5">
                                 <input type="text" name="price_to" value="&infin;" placeholder="&infin;"
                                     class="form-control price_to">
                             </div>
                         </div>
                         <input id="price_slider" class="border-0 price-range" type="range" min="0" max="20000"
+                            step="500" />
+                    </div>
+                    <div class="col-lg-4 col-sm-12 my-2">
+                        <label class="label">Monthly Price Range($)</label>
+                        <div class="row mt-2">
+                            <input type="hidden" name="monthly_price_from" placeholder="from"
+                                class="form-control monthly_price_from" value="0">
+                            <div class="col-lg-5">
+                                <input type="text" name="monthly_price_to" value="&infin;" placeholder="&infin;"
+                                    class="form-control monthly_price_to">
+                            </div>
+                        </div>
+                        <input id="monthly_price_slider" class="border-0 monthly-price-range" type="range" min="0" max="20000"
                             step="500" />
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">

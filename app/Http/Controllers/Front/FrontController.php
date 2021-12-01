@@ -122,30 +122,19 @@ class FrontController extends Controller
         // apply price filter ( if required )
         if ($r->price_to > 0 && $r->price_to != '∞') {
             $d = $domains->whereBetween('pricing', [$r->price_from, $r->price_to])->get();
-            // if (Auth::check()) {
-            //     $d = $domains->WithContracts()->get();
-            // }
         }
 
-
-        // $d = $domains->get();
-
+        // apply monthly price filter ( if required )
+        if ($r->monthly_price_to > 0 && $r->monthly_price_to != '∞') {
+            $d = Domain::join('contracts', 'domain.id', '=', 'contracts.domain_id')
+                ->whereBetween('pricing', [$r->monthly_price_from, $r->monthly_price_to])
+                ->get();
+        }
 
         if ($r->keyword_placement == 'ends_with') {
             $d = \App\Models\Domain::getCharacterEndswith($r->keyword);
         }
 
-        // if (!isset($r->include_domains_with_numerals)) {
-        //     $d = \App\Models\Domain::getStringWithNoNumerals($r->keyword);
-        // }
-
-        // if (!isset($r->include_domains_with_hyphens)) {
-        //     $d = \App\Models\Domain::getKeywordWithhyphens($r->keyword);
-        // }
-
-        // if (isset($r->domains_with_numerals_only)) {
-        //     $d = \App\Models\Domain::getKeywordWithNumerals($r->keyword);
-        // }
 
         // apply age filter ( if required )
         if ($r->age > 0) {
