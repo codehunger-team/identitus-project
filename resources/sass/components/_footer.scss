@@ -2,4 +2,13 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+
+    label {
+        color: black;
+    }
+
+    input:required +  label::after, textarea:required +  label::after {
+        content: ' *';
+        color: red;
+    }
 }
