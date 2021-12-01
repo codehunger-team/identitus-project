@@ -25,10 +25,14 @@
                 setTimeout(function () {
                     var url = '{{ route("checkout") }}';
                     window.location.href = url;
-                }, 9000);
+                }, 6000);
                 // Custom logic for ‘new’ agreements
             }
         },
     }, '#ds-clickwrap')
 
+    $(document).ready(function(){
+        $('.lease-now').attr('disabled', true)
+        $('.lease-now').text('Redirecting you to cart ....');
+    });
 </script>
