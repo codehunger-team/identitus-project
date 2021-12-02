@@ -15,3 +15,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
 mix.copyDirectory('resources/images', 'public/images');
+mix.copyDirectory('resources/js/extrajs', 'public/js');
