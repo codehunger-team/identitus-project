@@ -127,7 +127,7 @@ class FrontController extends Controller
         // apply monthly price filter ( if required )
         if ($r->monthly_price_to > 0 && $r->monthly_price_to != '∞') {
             $d = Domain::join('contracts', 'domain.id', '=', 'contracts.domain_id')
-                ->whereBetween('pricing', [$r->monthly_price_from, $r->monthly_price_to])
+                ->whereBetween('contracts.first_payment', [$r->monthly_price_from, $r->monthly_price_to])
                 ->get();
         }
 
