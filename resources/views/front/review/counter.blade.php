@@ -28,14 +28,14 @@
                                 <div class="form-group">
                                     <label for="firstPayment">First Payment ($)</label>
                                     <input type="number" class="form-control" id="firstPayment"
-                                        placeholder="First Payment" value="{{$contracts->first_payment ?? ''}}"
+                                         value="{{$contracts->first_payment ?? ''}}"
                                         readonly>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="periodPayments">Period Payments ($)</label>
-                                    <input type="text" class="form-control" placeholder="$500" readonly
+                                    <input type="text" class="form-control" readonly
                                         value="{{$contracts->period_payment ?? ''}}">
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                     <label for="periods">Periods <span class="text-danger">*</span></label>
                                     <div class="input-group mb-2">
                                         <div class="input-group mb-2">
-                                            <input type="number" class="form-control" id="periods" placeholder="Periods"
+                                            <input type="number" class="form-control" id="periods" 
                                                 readonly value="{{$contracts->number_of_periods ?? ''}}">
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="firstPayment">First Payment ($)</label>
                                     <input type="number" name="first_payment" class="form-control" id="first-payments"
-                                        placeholder="First Payment" value="{{$counterOffer->first_payment ?? ''}}"
+                                         value="{{$counterOffer->first_payment ?? ''}}"
                                         readonly>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                     <label for="periodPayments">Period Payments ($)</label>
                                     <input type="text" name="period_payment" id="periodPayments" class="form-control"
-                                        placeholder="$500" value="{{$counterOffer->period_payment ?? ''}}" readonly>
+                                        value="{{$counterOffer->period_payment ?? ''}}" readonly>
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                     <label for="periods">Periods <span class="text-danger">*</span></label>
                                     <div class="input-group mb-2">
                                         <input type="number" name="number_of_periods" class="form-control" id="periods"
-                                            placeholder="Periods" value="{{$counterOffer->number_of_periods?? ''}}"
+                                             value="{{$counterOffer->number_of_periods?? ''}}"
                                             readonly>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="form-group">
                                     <label for="optionPurchasePrice">Option Purchase Price ($)</label>
                                     <input type="number" name="option_purchase_price" class="form-control"
-                                        id="option-purchase-prices" placeholder="$50,000"
+                                        id="option-purchase-prices" 
                                         value="{{$counterOffer->option_purchase_price ?? ''}}" readonly>
                                 </div>
                             </div>
@@ -147,14 +147,14 @@
                                     <div class="form-group">
                                         <label for="firstPayment">First Payment ($)</label>
                                         <input type="number" name="first_payment" class="form-control"
-                                            id="first-payment" value="{{Request::old('first_payment')}}" placeholder="First Payment" required>
+                                            id="first-payment" value="{{Request::old('first_payment')}}"  required>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="periodPayments">Period Payments ($)</label>
                                         <input type="text" value="{{Request::old('period_payment')}}" name="period_payment" id="periodPayment" class="form-control"
-                                            placeholder="$500" required>
+                                             required>
                                     </div>
                                 </div>
 
@@ -163,7 +163,7 @@
                                         <label for="periods">Periods <span class="text-danger">*</span></label>
                                         <div class="input-group mb-2">
                                             <input type="number" value="{{Request::old('number_of_periods')}}" name="number_of_periods" class="form-control"
-                                                id="period" placeholder="Periods" required>
+                                                id="period"  required>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
                                     <div class="form-group">
                                         <label for="optionPurchasePrice">Option Purchase Price ($)</label>
                                         <input type="number" value="{{Request::old('option_purchase_price')}}" name="option_purchase_price" class="form-control"
-                                            id="option-purchase-price" placeholder="$50,000" required>
+                                            id="option-purchase-price"  required>
                                     </div>
                                 </div>
                                 <input type="hidden" value="{{$domainName}}" name="domain_name">

@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label for="firstPayment">First Payment ($)</label>
                                 <input type="number" name="first_payment" class="form-control" id="first-payment"
-                                    placeholder="First Payment" required>
+                                     required>
                                 <span class="text-danger">
                                     <p id="first-payment-error"></p>
                                 </span>
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="periodPayments">Period Payments ($)</label>
                                 <input type="text" name="period_payment" id="periodPayment" class="form-control"
-                                    placeholder="$500" required>
+                                     required>
                                     <span class="text-danger">
                                         <p id="periodPayment-error"></p>
                                     </span>
@@ -51,7 +51,7 @@
                                 <label for="periods">Periods <span class="text-danger">*</span></label>
                                 <div class="input-group mb-2">
                                     <input type="number" name="number_of_periods" class="form-control" id="period"
-                                        placeholder="Periods" required>
+                                        required>
                                 </div>
                                 <span class="text-danger">
                                     <p id="period-error"></p>
@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 <label for="optionPurchasePrice">Option Purchase Price ($)</label>
                                 <input type="number" name="option_purchase_price" class="form-control" id="option-purchase-price"
-                                    placeholder="$50,000" required>
+                                    required>
                                 <span class="text-danger">
                                     <p id="option-purchase-price-error"></p>
                                 </span>
@@ -78,7 +78,6 @@
         </div>
     </div>
 </div>
-
 <style>
     .border-danger {
         border :"2px solid red";
