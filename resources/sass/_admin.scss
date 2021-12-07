@@ -318,14 +318,14 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
 }
 
 .select2-container--default .select2-selection--multiple {
-    padding-right: 160px !important; 
+    padding-right: 160px !important;
 }
 
 .dropdown-toggle::after {
-     vertical-align: 0em !important; 
-     border-top: 0em solid !important; 
-     border-bottom: 0 !important; 
-     border-left: 0em solid transparent !important; 
+     vertical-align: 0em !important;
+     border-top: 0em solid !important;
+     border-bottom: 0 !important;
+     border-left: 0em solid transparent !important;
 }
 
 .hide-show {
@@ -347,4 +347,9 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child 
     top: 10% !important;
     left: 0;
     width: 100%;
+}
+
+
+#sidebar ul li a svg {
+    margin-right: 0.625rem;
 }

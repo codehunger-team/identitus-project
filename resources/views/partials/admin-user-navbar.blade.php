@@ -103,8 +103,8 @@
         </li>
 
         <li @if(isset($active) AND ($active=='rental-agreement' )) class="active" @endif>
-            <a href="{{route('user.rental.agreement')}}"><i class="fa fa-credit-card" aria-hidden="true"></i> <span
-                    class="side-text">Rental Agreements</span></a>
+            <a href="{{route('user.rental.agreement')}}"><i class="fa fa-credit-card" aria-hidden="true"></i>
+                <span class="side-text">Agreements</span></a>
         </li>
 
         <hr>
@@ -118,8 +118,8 @@
                     class="side-text">Orders</span></a>
         </li>
         <li @if(isset($active) AND ($active=='domains' )) class="active" @endif>
-            <a href="{{route('user.domains')}}"><i class="fa fa-globe"></i> <span class="side-text">Owned
-                    Domains</span></a>
+            <a href="{{route('user.domains')}}"><i class="fa fa-globe"></i>
+                <span class="side-text">Domain Overview</span></a>
         </li>
         <li @if(isset($active) AND ($active=='active-lease' )) class="active" @endif>
             <a href="{{route('user.active.lease')}}"><i class="fa fa-dollar-sign" aria-hidden="true"></i> <span
