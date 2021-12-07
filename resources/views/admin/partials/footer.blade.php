@@ -20,11 +20,10 @@
     });
 
     $(document).ready(function () {
-            $('.sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                // $('.side-text').toggleClass('hide-show');
-            });
-        });
+        $(document).on('click','.sidebarCollapse',function(){
+            $('#sidebar').toggleClass('active');
+        })
+    });
 
     $(document).on('keyup', '#firstPayment,#periods,#periodPayments', function (event) {
         var checkId = event.target.id;

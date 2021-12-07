@@ -63,7 +63,7 @@
                 <span class="side-text">Users</span>
             </a>
         </li>
-        <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
+        <li @if(isset($active) AND ($active=='docusign' )) class="active" @endif>
             <a href="{{route('admin.docusign')}}" class="nav-link text-white">
                 <i class="fas fa-plug"></i>
                 <span class="side-text">Connect Docusign</span>

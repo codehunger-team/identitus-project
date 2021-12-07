@@ -18,7 +18,8 @@ class DocusignController extends Controller
      */
     public function index()
     {
-        return view('admin.docusign.index');
+        return view('admin.docusign.index')
+        ->with('active', 'docusign');
     }
 
     /**
