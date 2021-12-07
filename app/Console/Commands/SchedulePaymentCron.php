@@ -4,8 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
-use App\Models\Contracts;
+use App\Models\Contract;
 use App\Models\Domain;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SchedulePaymentCron extends Command
 {
@@ -39,23 +41,22 @@ class SchedulePaymentCron extends Command
      * @return int
      */
     public function handle()
-    {    
-        $userData = User::get();
-        $todayTime = \Carbon\Carbon::now()->format('Y-m-d H:i');   
-        
-        $contracts = Contracts::get();
+    {
+        $todayTime = \Carbon\Carbon::now()->format('Y-m-d H:i');
 
-        foreach($contracts as $key =>$contract) {
+        $contracts = Contract::get();
 
-            if(!empty($contract->payment_due_date)) { 
-                
+        foreach ($contracts as $key => $contract) {
+            Log::info('inside contracts for each loop');
+            if (!empty($contract->payment_due_date)) {
+
                 $futureContractTime = \Carbon\Carbon::parse($contract->payment_due_date)->subHours(24)->format('Y-m-d H:i');
 
                 $contractTime = \Carbon\Carbon::parse($contract->payment_due_date)->format('Y-m-d H:i');
 
-                if($futureContractTime == $todayTime) {   
-                    $domainName = Domain::where('id',$contract->domain_id)->first()->domain;
-                    $user = User::where('id',$contract->lessee_id)->first();
+                if ($futureContractTime == $todayTime) {
+                    $domainName = Domain::where('id', $contract->domain_id)->first()->domain;
+                    $user = User::where('id', $contract->lessee_id)->first();
                     $scheduleSends[$key]['user_id'] = $contract->lessee_id;
                     $scheduleSends[$key]['period_payment'] = $contract->period_payment;
                     $scheduleSends[$key]['contract_id'] = $contract->contract_id;
@@ -64,37 +65,40 @@ class SchedulePaymentCron extends Command
                     $scheduleSends[$key]['user_email'] = $user->email;
                     $scheduleSends[$key]['user_name'] = $user->name;
                     $scheduleSends[$key]['date'] = $todayTime;
-                    
+                    Log::info('inside future contract time');
                 } else if ($contractTime == $todayTime) {
-                    $domainName = Domain::where('id',$contract->domain_id)->first()->domain;
-                    $user = User::where('id',$contract->lessee_id)->first();
+                    $domainName = Domain::where('id', $contract->domain_id)->first()->domain;
+                    $user = User::where('id', $contract->lessee_id)->first();
                     $missedPayments[$key]['domain_name'] = $domainName;
                     $missedPayments[$key]['user_email'] = $user->email;
                     $missedPayments[$key]['user_name'] = $user->name;
                     $missedPayments[$key]['payment_due_date'] = $contractTime;
                     $missedPayments[$key]['contract_id'] = $contract->contract_id;
                     $missedPayments[$key]['period_payment'] = $contract->period_payment;
-                    
-                    Contracts::where('contract_id',$contract->contract_id)->update(['contract_status_id'=>0]);                    
+
+                    Contract::where('contract_id', $contract->contract_id)->update(['contract_status_id' => 0]);
+                    Log::info('contract time');
                 }
-            } 
+            }
         }
 
-        if(isset($scheduleSends)) {
-            foreach($scheduleSends as $scheduleSend) {  
+        if (isset($scheduleSends)) {
+            foreach ($scheduleSends as $scheduleSend) {
                 // Mail to the user to pay there lease
-                  \Mail::send('emails.schedule-send', ['scheduleSend' => $scheduleSend], function ($m) use ($scheduleSend) {    
-                    $m->from(\App\Options::get_option('admin_email'), \App\Options::get_option('site_title'));
-                    $m->to($scheduleSend['user_email'])->subject('Lease Payment Received for '.$scheduleSend['domain_name'].'');
+                Mail::send('emails.schedule-send', ['scheduleSend' => $scheduleSend], function ($m) use ($scheduleSend) {
+                    $m->from(\App\Models\Option::get_option('admin_email'), \App\Models\Option::get_option('site_title'));
+                    $m->to($scheduleSend['user_email'])->subject('Lease Payment Received for ' . $scheduleSend['domain_name'] . '');
                 });
+                Log::info('schedule send email');
             }
-        } else if(isset($missedPayments)) {
-            foreach($missedPayments as $missedPayment) {  
+        } else if (isset($missedPayments)) {
+            foreach ($missedPayments as $missedPayment) {
                 // mail to the user when they forget to pay the lease
-                  \Mail::send('emails.missed-payment', ['missedPayment' => $missedPayment], function ($m) use ($missedPayment) {    
-                    $m->from(\App\Options::get_option('admin_email'), \App\Options::get_option('site_title'));
-                    $m->to($missedPayment['user_email'])->subject('Rent for '.$missedPayment['domain_name'].' is Past Due');
+                Mail::send('emails.missed-payment', ['missedPayment' => $missedPayment], function ($m) use ($missedPayment) {
+                    $m->from(\App\Models\Option::get_option('admin_email'), \App\Models\Option::get_option('site_title'));
+                    $m->to($missedPayment['user_email'])->subject('Rent for ' . $missedPayment['domain_name'] . ' is Past Due');
                 });
+                Log::info('Missed payment email');
             }
         }
     }
