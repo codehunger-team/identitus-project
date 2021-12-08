@@ -481,3 +481,7 @@ body.loading .overlay{
     border-color: var(--bs-primary);
 }
 
+.page-item.active .page-link {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
