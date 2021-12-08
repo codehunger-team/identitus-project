@@ -71,7 +71,7 @@
         </li>
         <li @if(isset($active) AND ($active=='customer' )) class="active" @endif>
             <a href="{{route('admin.customer.enquiry')}}" class="nav-link text-white">
-                <i class="fas fa-plug"></i>
+                <i class="fas fa-user"></i>
                 <span class="side-text">Customer Enquiry</span>
             </a>
         </li>

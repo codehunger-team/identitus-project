@@ -100,34 +100,35 @@ class FrontController extends Controller
 
         // apply category filter ( if required )
         if ($r->category > 0) {
-            $d = $domains->where('category', $r->category)->get();
+            $d = $domains->where('domain_status','AVAILABLE')->where('category', $r->category)->get();
         }
 
         // apply TLD filter ( if required )
         if ($r->extension != '') {
-            $d = $domains->where('domain', 'like', '%' . $r->extension)->get();
+            $d = $domains->where('domain_status','AVAILABLE')->where('domain', 'like', '%' . $r->extension)->get();
         }
 
         // apply keyword filter ( if required )
         if ($r->keyword != '') {
-            $d = $domains->where('domain', 'like', '%' . $r->keyword . '%')->get();
+            $d = $domains->where('domain_status','AVAILABLE')->where('domain', 'like', '%' . $r->keyword . '%')->get();
         } else {
-            $d = $domains->get();
+            $d = $domains->where('domain_status','AVAILABLE')->get();
         }
 
         if ($r->keyword_placement == 'starts_with') {
-            $d = $domains->where('domain', 'like', $r->keyword . '%')->get();
+            $d = $domains->where('domain_status','AVAILABLE')->where('domain', 'like', $r->keyword . '%')->get();
         }
 
         // apply price filter ( if required )
         if ($r->price_to > 0 && $r->price_to != '∞') {
-            $d = $domains->whereBetween('pricing', [$r->price_from, $r->price_to])->get();
+            $d = $domains->where('domain_status','AVAILABLE')->whereBetween('pricing', [$r->price_from, $r->price_to])->get();
         }
 
         // apply monthly price filter ( if required )
         if ($r->monthly_price_to > 0 && $r->monthly_price_to != '∞') {
             $d = Domain::join('contracts', 'domain.id', '=', 'contracts.domain_id')
                 ->whereBetween('contracts.first_payment', [$r->monthly_price_from, $r->monthly_price_to])
+                ->where('domain_status','AVAILABLE')
                 ->get();
         }
 

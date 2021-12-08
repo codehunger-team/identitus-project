@@ -2,7 +2,12 @@
 
 @section('section_title')
 <strong>View Terms</strong>
+@if(Route::currentRouteName() == 'view.terms')
+<a href="{{route('user.rental.agreement')}}" class="btn btn-primary btn-xs float-end">Back</a>
+@else
 <a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back</a>
+@endif
+
 <br /><br />
 <h1 class="text-center">{{$domainName}}</h1>
 @endsection
@@ -61,24 +66,16 @@
             @endif
         </select>
     </div>
-    <div class="col-xs-12 col-md-6">
-        {{--Auto-calculates based on terms. (No. of periods x rate per period.)--}}
-        <label for="leaseTotal">Lease Total ($)</label>
-        <input type="text" class="form-control" name="lease_total" id="leaseTotal" placeholder="Lease Total"
-            value="{{$contracts->lease_total ?? ''}}" disabled>
-    </div>
-    <div class="col-xs-12 col-md-6">
-        {{--            Number Percentage--}}
+    {{-- <div class="col-xs-12 col-md-6">
         <label for="annualIncrease">Annual Increase (%)</label>
         <input type="number" class="form-control" id="annualIncrease" name="annual_increase" placeholder="3" value="0"
             disabled>
-    </div>
-    <div class="col-xs-12 col-md-6">
-        {{--            Number Percentage--}}
+    </div> --}}
+    {{-- <div class="col-xs-12 col-md-6">
         <label for="annualTowardsPurchase">Annual Towards Purchase (%)</label>
         <input type="number" class="form-control" id="annualTowardsPurchase" name="annual_towards_purchase"
             placeholder="3" value="0" disabled>
-    </div>
+    </div> --}}
     <div class="col-xs-12 col-md-6">
         <label for="gracePeriod">Grace Period</label>
         <select class="form-control" id="periodPayments" name="grace_period_id" disabled required>
@@ -90,6 +87,12 @@
             @endforeach
             @endif
         </select>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        {{--Auto-calculates based on terms. (No. of periods x rate per period.)--}}
+        <label for="leaseTotal">Lease Total ($)</label>
+        <input type="text" class="form-control" name="lease_total" id="leaseTotal" placeholder="Lease Total"
+            value="{{$contracts->lease_total ?? ''}}" disabled>
     </div>
 </div>
 @endsection

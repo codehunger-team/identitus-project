@@ -2,6 +2,7 @@
 
 @section('section_title')
 	<strong>Set DNS</strong>
+    <a href="{{route('user.rental.agreement')}}" class="btn btn-primary btn-xs float-end">Back</a>
 @endsection
 
 @section('section_body')
