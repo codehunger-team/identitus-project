@@ -25,7 +25,7 @@ class UserSettingController extends Controller
     {
 
         $user = User::findOrFail(Auth::user()->id);
-        $userData['is_vendor'] = 'no';
+        
         $userData = $request->all();
 
         if (isset($userData['is_vendor'])) {
@@ -35,8 +35,10 @@ class UserSettingController extends Controller
             });
 
             $userData['is_vendor'] = 'pending';
+        } else {
+            $userData['is_vendor'] = $user->is_vendor;
         }
-
+        
         if (!empty($userData['old_password'])) {
             if (Hash::check($userData['old_password'], $user->password)) {
                 $user->fill([
