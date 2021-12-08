@@ -1,7 +1,7 @@
 @extends('user.base')
 
 @section('section_title')
-	<strong>Rental agreements</strong>
+	<strong>Agreements</strong>
 @endsection
 
 @section('section_body')
@@ -37,7 +37,7 @@
 			<td>
 				@if(!empty($d->option_price))
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->option_price, 0) }}
-				@else 
+				@else
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . 0}}
 				@endif
 
@@ -62,16 +62,16 @@
 				{{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($d->period_payment) }}
             </td>
             <td>
-				{{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->end_date)}} 
+				{{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->end_date)}}
             </td>
             <td>
-                {{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->payment_due_date)}} 
+                {{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($d->payment_due_date)}}
             </td>
 			<td>
-				 <div class="btn-group">  																			
+				 <div class="btn-group">
 				 	<a class="btn btn-danger btn-xs text-white mr-5" data-toggle="tooltip" title="Set DNS" href="{{route('user.add.dns',$d->id)}}">
 						<i class="fa fa-edit" aria-hidden="true"></i>
-					</a>																				
+					</a>
 					<a class="btn btn-success text-white btn-xs" data-toggle="tooltip" title="View Terms" href="{{route('view.terms',$d->domain)}}">
 						<i class="fa fa-eye" aria-hidden="true"></i>
 					</a>
