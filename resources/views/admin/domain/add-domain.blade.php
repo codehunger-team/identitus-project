@@ -13,9 +13,14 @@
 <form method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
 	<div class="row">
-		<div class="col-xs-12 col-md-6">
+		<div class="col-xs-12 col-md-6 mb-4">
 			<label>Domain Name</label><br />
-			<input type="text" required name="domain" class="form-control" value="{{ old('domain') }}"><br />
+			<input type="text" required name="domain" class="form-control" @error('domain') is-invalid @enderror value="{{ old('domain') }}">
+			@error('domain')
+				<span class="required-message" role="alert">
+					<strong>{{ $message }}</strong>
+				</span>
+			@enderror
 		</div>
 	
 		<div class="col-xs-12 col-md-6">

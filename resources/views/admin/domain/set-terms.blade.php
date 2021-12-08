@@ -1,7 +1,7 @@
 @extends('user.base')
 @section('section_title')
 <strong>Set Terms</strong>
-<a href="{{route('user.domains')}}" class="btn btn-primary btn-xs float-end">Back</a>
+<a href="{{route('admin.domain')}}" class="btn btn-primary btn-xs float-end">Back</a>
 <br /><br />
 <h1 class="text-center">{{$domainName}}</h1>
 @endsection
@@ -12,7 +12,7 @@
 @isset($clickwrap)
     @include('partials.docusign')
 @endisset
-@isset($isInNegotiation)
+@if($isInNegotiation)
     <h5 class="card-title">Lessee Counter Price</h5>
         <div class="row">
             <div class="col-xs-12 col-md-6">
@@ -37,7 +37,8 @@
                     @foreach($periods as $p)
                     <option value="{{$p->id}}" @if(isset($contracts->period_type_id) && $contracts->period_type_id ==
                         $p->id)
-                        selected @endif>{{$p->period_type}}</option>
+                        selected @endif>{{$p->period_type}}
+                    </option>
                     @endforeach
                     @endif
                 </select>
@@ -45,7 +46,7 @@
             <div class="col-xs-12 col-md-6">
                 <label for="periods">Periods</label>
                 <input type="number" class="form-control period" id="periods" disabled="" name="number_of_periods" value="{{$isInNegotiation->number_of_periods}}"
-                    >
+                   >
             </div>
             <div class="col-xs-12 col-md-6">
                 <label for="optionPurchasePrice">Option Purchase Price ($)</label>
@@ -84,19 +85,9 @@
                 <input type="text" class="form-control" placeholder="Lease Total"
                     value="{{$isInNegotiation->lease_total}}" disabled="">
             </div>
-            {{-- <div class="col-xs-12 col-md-6">
-                <label for="annualIncrease">Annual Increase (%)</label>
-                <input type="number" class="form-control" id="annualIncrease" name="annual_increase" placeholder="3"
-                    value="0" disabled="">
-            </div>
-            <div class="col-xs-12 col-md-6">
-                <label for="annualTowardsPurchase">Annual Towards Purchase (%)</label>
-                <input type="number" class="form-control" id="annualTowardsPurchase" name="annual_towards_purchase"
-                    placeholder="3" value="0" disabled="">
-            </div> --}}
         </div>
     <hr>
-@endisset
+@endif
 @if($isLease != 'LEASE')
 <h5 class="card-title">Set/Update Terms</h5>
 <form method="POST" id="form" enctype="multipart/form-data" action="{{url('user/add-terms')}}">
@@ -106,8 +97,8 @@
         <div class="col-xs-12 col-md-6">
             <label>First Payment</label><br />
             <input type="number" class="form-control firstPayment" name="first_payment" id="firstPayment"
-                placeholder="First Payment" required {{ $isLease == 'LEASE' ? 'disabled' : '' }}
-                value="{{$contracts->first_payment ?? ''}}">
+                 required {{ $isLease == 'LEASE' ? 'disabled' : '' }}
+                value="{{$contracts->first_payment ?? old('first_payment')}}">
         </div>
         <input type="hidden" name="domain_id" value="{{$domainId}}">
         <input type="hidden" name="domain" value="{{$domainName}}">
@@ -115,38 +106,40 @@
         <div class="col-xs-12 col-md-6">
             <label for="periodPayments">Period Payments ($)</label>
             <input type="number" class="form-control periodPayment" name="period_payment" id="periodPayments"
-                placeholder="$500" {{ $isLease == 'LEASE' ? 'disabled' : '' }} required
-                value="{{$contracts->period_payment ?? old('first_payment')}}">
+                 {{ $isLease == 'LEASE' ? 'disabled' : '' }} required
+                value="{{$contracts->period_payment ?? old('period_payment')}}">
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="periodPayments">Period Type</label>
             <select name="period_type_id" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control period"
-                disabled>
-                <option selected value="">Select Period Type</option>
+                readonly>
+                <option value="3" selected="">Month</option>
+                {{-- <option selected value="">Select Period Type</option>
                 @if(count($periods))
-                @foreach($periods as $p)
-                <option value="{{$p->id}}" @if(isset($contracts->period_type_id) || $p->id ==
-                    3)
-                    selected @endif>{{$p->period_type}}</option>
-                @endforeach
-                @endif
+                    @foreach($periods as $p)
+                    <option value="{{$p->id}}" @if(isset($contracts->period_type_id) || $p->id ==
+                        3)
+                        selected @endif>{{$p->period_type}}</option>
+                    @endforeach
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="periods">Periods</label>
             <input type="number" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control period" id="periods"
-                name="number_of_periods" value="{{$contracts->number_of_periods ?? old('number_of_periods')}}" placeholder="Periods">
+                name="number_of_periods" value="{{$contracts->number_of_periods ?? old('number_of_periods')}}">
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="optionPurchasePrice">Option Purchase Price ($)</label>
             <input type="number" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control"
                 id="optionPurchasePrice" name="option_price" value="{{$contracts->option_price ?? old('option_price')}}"
-                placeholder="$50,000">
+                >
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="gracePeriod">Option Expiration</label>
-            <select class="form-control" id="periodPayments" name="option_expiration" disabled required>
-                <option>Select purchase option expiration point</option>
+            <select class="form-control" id="periodPayments" name="option_expiration" readonly required>
+                <option value="6" selected="">simultaneous with lease expiration</option>
+                {{-- <option>Select purchase option expiration point</option>
                 @if(count($options))
                 @php
                 $selected = 6;
@@ -154,26 +147,27 @@
                 @foreach($options as $o)
                 <option value={{$o->id}} @if($selected==$o->id) selected @endif>{{$o->option_expiration}}</option>
                 @endforeach
-                @endif
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="gracePeriod">Grace Period</label>
-            <select class="form-control" id="periodPayments" name="grace_period_id" disabled required>
-                <option selected disabled value="">Select Grace Period</option>
+            <select class="form-control" id="periodPayments" name="grace_period_id" readonly required>
+                <option value="4" selected="">5</option>
+                {{-- <option selected disabled value="">Select Grace Period</option>
                 @if(count($graces))
                 @php $selectedGrace = 4; @endphp
                 @foreach($graces as $g)
                 <option value={{$g->id}} @if($selectedGrace==$g->id) selected @endif>{{$g->grace_period}}</option>
                 @endforeach
-                @endif
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
             {{--Auto-calculates based on terms. (No. of periods x rate per period.)--}}
             <label for="leaseTotal">Lease Total ($)</label>
-            <input type="text" class="form-control" name="lease_total" id="leaseTotal" placeholder="Lease Total"
-                value="{{$contracts->lease_total ?? old('lease_total')}}" disabled>
+            <input type="text" class="form-control" name="lease_total" id="leaseTotal" 
+                value="{{$contracts->lease_total ?? ''}}" disabled>
         </div>
         {{-- <div class="col-xs-12 col-md-6">
             <label for="annualIncrease">Annual Increase (%)</label>
@@ -188,9 +182,9 @@
         @if($isLease != 'LEASE')
         <div class="col-xs-12 col-md-6" style="margin-top:2%">
             <button type="submit" class="btn btn-primary">Submit</button>
-            @isset($isInNegotiation)
+            @if($isInNegotiation)
                 <a href="{{route('counter.offer',$domainName)}}" class="btn btn-success">Counter</a>
-            @endisset
+            @endif
         </div>
     </div>
 </form>

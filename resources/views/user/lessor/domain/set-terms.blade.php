@@ -112,15 +112,16 @@
         <div class="col-xs-12 col-md-6">
             <label for="periodPayments">Period Type</label>
             <select name="period_type_id" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control period"
-                disabled>
-                <option selected value="">Select Period Type</option>
+                readonly>
+                <option value="3" selected="">Month</option>
+                {{-- <option selected value="">Select Period Type</option>
                 @if(count($periods))
                     @foreach($periods as $p)
                     <option value="{{$p->id}}" @if(isset($contracts->period_type_id) || $p->id ==
                         3)
                         selected @endif>{{$p->period_type}}</option>
                     @endforeach
-                @endif
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
@@ -136,8 +137,9 @@
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="gracePeriod">Option Expiration</label>
-            <select class="form-control" id="periodPayments" name="option_expiration" disabled required>
-                <option>Select purchase option expiration point</option>
+            <select class="form-control" id="periodPayments" name="option_expiration" readonly required>
+                <option value="6" selected="">simultaneous with lease expiration</option>
+                {{-- <option>Select purchase option expiration point</option>
                 @if(count($options))
                 @php
                 $selected = 6;
@@ -145,19 +147,20 @@
                 @foreach($options as $o)
                 <option value={{$o->id}} @if($selected==$o->id) selected @endif>{{$o->option_expiration}}</option>
                 @endforeach
-                @endif
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
             <label for="gracePeriod">Grace Period</label>
-            <select class="form-control" id="periodPayments" name="grace_period_id" disabled required>
-                <option selected disabled value="">Select Grace Period</option>
+            <select class="form-control" id="periodPayments" name="grace_period_id" readonly required>
+                <option value="4" selected="">5</option>
+                {{-- <option selected disabled value="">Select Grace Period</option>
                 @if(count($graces))
                 @php $selectedGrace = 4; @endphp
                 @foreach($graces as $g)
                 <option value={{$g->id}} @if($selectedGrace==$g->id) selected @endif>{{$g->grace_period}}</option>
                 @endforeach
-                @endif
+                @endif --}}
             </select>
         </div>
         <div class="col-xs-12 col-md-6">
