@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-sm-12 my-auto">
+                <div class="col-lg-4 col-sm-12">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Identitius') }}
                     </a>

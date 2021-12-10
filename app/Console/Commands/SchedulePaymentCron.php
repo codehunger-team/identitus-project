@@ -47,7 +47,6 @@ class SchedulePaymentCron extends Command
         $contracts = Contract::get();
 
         foreach ($contracts as $key => $contract) {
-            Log::info('inside contracts for each loop');
             if (!empty($contract->payment_due_date)) {
 
                 $futureContractTime = \Carbon\Carbon::parse($contract->payment_due_date)->subHours(24)->format('Y-m-d H:i');
@@ -65,7 +64,6 @@ class SchedulePaymentCron extends Command
                     $scheduleSends[$key]['user_email'] = $user->email;
                     $scheduleSends[$key]['user_name'] = $user->name;
                     $scheduleSends[$key]['date'] = $todayTime;
-                    Log::info('inside future contract time');
                 } else if ($contractTime == $todayTime) {
                     $domainName = Domain::where('id', $contract->domain_id)->first()->domain;
                     $user = User::where('id', $contract->lessee_id)->first();
@@ -77,7 +75,6 @@ class SchedulePaymentCron extends Command
                     $missedPayments[$key]['period_payment'] = $contract->period_payment;
 
                     Contract::where('contract_id', $contract->contract_id)->update(['contract_status_id' => 0]);
-                    Log::info('contract time');
                 }
             }
         }

@@ -128,6 +128,9 @@
                             <div class="col-md-6">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <div id="passwordHelpBlock" class="form-text">
+                                    Your password must be 8-20 characters long, contain letters,numbers,special character and must not contain spaces or emoji.
+                                  </div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
