@@ -1,7 +1,7 @@
 @component('mail::message')
 # Customer Enquiry
 
-Customer With Below Info Has Put Enquiry
+Customer Details
 
 @component('mail::table')
 | Name       | Email         | Message  |
