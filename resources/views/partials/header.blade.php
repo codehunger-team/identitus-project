@@ -9,8 +9,11 @@
     <meta name="description" content="Domains for adoption">
     <meta name="keywords" content="domains">
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="https://www.google.com/recaptcha/api.js?render=6LfSJoodAAAAAHvycF7YWFmCfaHgiJYRGxOF8QKN"></script> --}}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

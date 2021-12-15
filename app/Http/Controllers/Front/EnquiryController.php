@@ -8,6 +8,8 @@ use App\Models\Contact;
 use Exception;
 use App\Mail\CustomerEnquiry;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class EnquiryController extends Controller
 {
@@ -16,19 +18,48 @@ class EnquiryController extends Controller
       *
       */
      public function sendEnquiry(Request $request)
-     {    
-          $this->validate($request, [
+     {
+          $data = $request->all();
+          $rules = [
                'name' => 'required',
                'email' => 'required|email',
                'message' => 'required'
-          ]);
+          ];
+          $validator = \Validator::make($data, $rules);
+
+          // Validate the input and return correct response
+          if ($validator->fails()) {
+               return \Response::json(array(
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+
+               ), 200); // 400 being the HTTP code for an invalid request.
+          }
           try {
-               $data = $request->all();
-               Contact::create($data);
-               Mail::to('admin@identitus.com')->later(now()->addMinutes(1), new CustomerEnquiry($data));
-               return back()->with('contact-msg', 'Will Contact you soon.');
+               $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                    'secret' => env('RECAPTCHA_SECRET_KEY'),
+                    'response' => $request->recaptchaToken,
+               ]);
+               $recaptchaResponse = $response->json();
+               if ($recaptchaResponse['success'] == true) {
+                    Contact::create($data);
+                    
+                    dispatch(function ($data) {
+                         Mail::to('admin@identitus.com')->send(new CustomerEnquiry($data));
+                     })->afterResponse();
+
+                    $message = [
+                         'success' => true,
+                    ];
+                    Session::flash('contact-msg','Will Contact you soon');
+                    return response()->json($message, 200);
+
+               } else {
+                    $recaptchaFail = 'Something went wrong !';
+                    return response()->json($recaptchaFail, 200);
+               }
           } catch (Exception $e) {
-               \Log::critical($e->getFile().$e->getLine().$e->getMessage());
+               \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
           }
      }
 }
