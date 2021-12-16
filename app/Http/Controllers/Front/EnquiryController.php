@@ -10,6 +10,7 @@ use App\Mail\CustomerEnquiry;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use App\Jobs\SendEmailJob;
 
 class EnquiryController extends Controller
 {
@@ -44,10 +45,11 @@ class EnquiryController extends Controller
                if ($recaptchaResponse['success'] == true) {
                     Contact::create($data);
                     
-                    dispatch(function ($data) {
-                         Mail::to('admin@identitus.com')->send(new CustomerEnquiry($data));
-                     })->afterResponse();
-
+                    // dispatch(function ($data) {
+                    //      Mail::to('admin@identitus.com')->send(new CustomerEnquiry($data));
+                    //  })->afterResponse();
+                    
+                     dispatch(new SendEmailJob($data));
                     $message = [
                          'success' => true,
                     ];
