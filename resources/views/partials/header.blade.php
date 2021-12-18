@@ -12,7 +12,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    {{-- <script src="https://www.google.com/recaptcha/api.js?render=6LfSJoodAAAAAHvycF7YWFmCfaHgiJYRGxOF8QKN"></script> --}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
     <!-- Fonts -->

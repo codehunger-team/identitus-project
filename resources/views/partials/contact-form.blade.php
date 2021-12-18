@@ -14,7 +14,7 @@
             placeholder="Leave a comment here" id="contactMessage" style="height: 100px" required></textarea>
         <label for="contactMessage">Comments</label>
     </div>
-    <button class="g-recaptcha btn btn-warning my-2 float-end" data-sitekey="6LfSJoodAAAAAHvycF7YWFmCfaHgiJYRGxOF8QKN"
+    <button class="g-recaptcha btn btn-warning my-2 float-end" data-sitekey="{{env('RECAPTCHA_SITE_KEY')}}"
         data-callback='onSubmit' data-action='submit'>Submit</button>
 </form>
 
