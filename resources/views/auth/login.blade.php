@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
+{{-- #32094e --}}
     <div class="container">
         <div class="row justify-content-center vh-100">
             <div class="col-md-8 my-auto">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header bg-primary text-light">{{ __('Login') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
