@@ -41,7 +41,7 @@ class ReviewController extends Controller
 
         $isExistDomainInCounterOfferTbl =  CounterOffer::where('domain_name', $domainName)->first();
         $isAlreadyCounterOffered = (!empty($isExistDomainInCounterOfferTbl)) ? 1 : 0;
-        
+
         $getCurrentDateTime =  getCurrentDateTime();
 
         $this->createPdf($domainName, $domain, $lessor, $contracts, $periods, $periodType, $options, $leasetotal, $getCurrentDateTime, $graces, $endOfLease);
@@ -49,18 +49,22 @@ class ReviewController extends Controller
         return view('front.review.terms', compact('graces', 'periods', 'options', 'domain', 'contracts', 'domainName', 'leasetotal', 'getCurrentDateTime', 'endOfLease', 'periodType', 'lessor', 'isAlreadyCounterOffered'));
     }
 
-
-    public function createPdf($domainName,$termsData='')
+    /**
+     * Creat PDF according to lease terms
+     * @param string $domainName
+     * @param object $termsData
+     */
+    public function createPdf($domainName, $termsData = '')
     {
         $domain = Domain::where('domain', $domainName)->first();
         $lessor = User::where('id', $domain->user_id)->first();
 
         $contracts = Contract::where('domain_id', $domain->id)->first();
 
-        if($contracts == NULL || isset($termsData)) {
+        if ($contracts == NULL || isset($termsData)) {
             $contract = Contract::where('domain_id', $domain->id)->first();
             $contracts = collect();
-            if(isset($termsData->request)) {
+            if (isset($termsData->request)) {
                 $termsData = $termsData->request->all();
             }
             $contracts->first_payment = $termsData['first_payment'];
@@ -68,18 +72,18 @@ class ReviewController extends Controller
             $contracts->number_of_periods = $termsData['number_of_periods'];
             $contracts->option_expiration = 6;
             $contracts->grace_period_id = 4;
-            if(isset($termsData['option_purchase_price'])) {
+            if (isset($termsData['option_purchase_price'])) {
                 $contracts->option_price = $termsData['option_purchase_price'];
             } else {
                 $contracts->option_price = $termsData['option_price'];
             }
-            if(isset($termsData['period_type_id'])) {
+            if (isset($termsData['period_type_id'])) {
                 $contracts->period_type_id = $termsData['period_type_id'];
             } else {
                 $contracts->period_type_id = $contract->period_type_id;
             }
         }
-    
+
         $graces = GracePeriod::all();
 
         $periods = PeriodType::all();
@@ -93,6 +97,7 @@ class ReviewController extends Controller
             $contracts->period_payment);
 
         $getCurrentDateTime =  getCurrentDateTime();
+
         $pdf = PDF::loadView('front.review.pdf-terms', compact(
             'graces',
             'periods',
@@ -103,11 +108,12 @@ class ReviewController extends Controller
             'leasetotal',
             'getCurrentDateTime',
             'endOfLease',
-            'periodType',
+            'periodType',  
             'lessor'
         ));
         $filename = 'contract_' . $lessor->id . '.pdf';
-
+        $contractPdf = 'domain_contract_' . $domain->id . '.pdf';
         \Storage::put('public/pdf/' . $filename, $pdf->output());
+        \Storage::put('public/pdf/' . $contractPdf, $pdf->output());
     }
 }

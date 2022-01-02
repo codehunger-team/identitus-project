@@ -26,6 +26,7 @@ Route::prefix('user')->middleware('auth','verified')->group(function () {
     Route::get('profile', [UserSettingController::class, 'userProfile'])->name('user.profile');
     Route::get('orders', [UserSettingController::class, 'userOrders'])->name('user.orders');
     Route::get('rental-agreement', [UserSettingController::class, 'rentalAgreement'])->name('user.rental.agreement');
+    Route::get('show-contract/{domainId}', [UserSettingController::class, 'showContract'])->name('user.show.contract');
     Route::get('set-dns/{id}', [UserSettingController::class, 'addDns'])->name('user.add.dns');
     Route::post('nameserver/store', [UserSettingController::class, 'storeDns'])->name('nameserver.store');
     Route::get('view-order/{domain}', [UserSettingController::class, 'view_order'])->name('view.order');

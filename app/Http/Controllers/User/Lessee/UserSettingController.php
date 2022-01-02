@@ -15,6 +15,7 @@ use App\Models\Dns;
 use App\Models\User;
 use App\Models\Domain;
 use Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserSettingController extends Controller
 {
@@ -186,9 +187,10 @@ class UserSettingController extends Controller
     }
 
     /**
+     * 
      *  View Terms
-     *  @param $domainName
-     *  GET user/set-terms/{domainName}
+     *  @param string $domainName
+     *  GET user/view-terms/{domainName}
      *  @return renderable
      */
     public function viewTerms($domainName)
@@ -216,11 +218,26 @@ class UserSettingController extends Controller
 
     /**
      *  Logout User
-     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request)
     {
         $request->session()->flush();
         return redirect('/');
+    }
+
+    /**
+     * this function is used to show contract
+     * @param string $domainID
+     * @return renderable
+     */
+    public function showContract($domainId)
+    {   
+        $filename = 'pdf/domain_contract_' . $domainId . '.pdf';
+
+        $contractPath = Storage::disk('public')->path($filename);
+        // dd($contractPath);
+        return view('user.lessee.view-contract',compact('domainId'))->render();
     }
 }
