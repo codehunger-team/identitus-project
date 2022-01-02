@@ -90,7 +90,7 @@
 @endif
 @if($isLease != 'LEASE')
 <h5 class="card-title">Set/Update Terms</h5>
-<form method="POST" id="form" enctype="multipart/form-data" action="{{url('user/add-terms')}}">
+<form method="POST" id="form" enctype="multipart/form-data" class="set-terms-form" action="{{url('user/add-terms')}}">
     @csrf
     @endif
     <div class="row">
@@ -181,7 +181,7 @@
         </div> --}}
         @if($isLease != 'LEASE')
         <div class="col-xs-12 col-md-6" style="margin-top:2%">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary call-docusign">Submit</button>
             @if($isInNegotiation)
                 <a href="{{route('counter.offer',$domainName)}}" class="btn btn-success">Counter</a>
             @endif

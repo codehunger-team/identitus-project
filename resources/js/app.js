@@ -4,6 +4,7 @@ require('moment');
 require('./datetimepicker');
 require('select2');
 require('./morris');
+require('./custom');
 
 import 'select2/dist/css/select2.css';
 import {

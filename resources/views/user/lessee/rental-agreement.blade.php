@@ -74,13 +74,11 @@
                         href="{{route('user.add.dns',$d->domain_id)}}">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                     </a>
-                    <a class="btn btn-success show-contract text-white btn-xs" data-domain="{{$d->domain}}" id="{{$d->domain_id}}" data-toggle="tooltip"
-                        title="View Contract" href="javascript:void(0)">
+                    <a href="javascript:void(0)" class="btn btn-success show-contract text-white btn-xs"
+                        data-domain="{{$d->domain}}" id="{{$d->domain_id}}" data-toggle="tooltip" title="View Contract"
+                        href="javascript:void(0)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
-                    {{-- <button type="button" class="btn btn-primary"  >
-						Launch demo modal
-					  </button> --}}
                 </div>
             </td>
         </tr>
@@ -90,21 +88,6 @@
 @else
 No domains in database.
 @endif
-<script>
-    $(document).on('click', '.show-contract', function () {
-		id =  $(this).attr('id');
-		domain = $(this).attr('data-domain');
-		$('.modal-title').text(domain);
-		var url = '{{ route("user.show.contract", ":id") }}';
-		url = url.replace(':id',id);
-        axios.get(url)
-            .then((response) => {
-				$('.modal-body').append(response.data);
-				$("#contract-modal").modal("show");
-
-            });
-    });
-</script>
 <div class="modal  fade" id="contract-modal" tabindex="-1" aria-labelledby="contractModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -120,4 +103,19 @@ No domains in database.
         </div>
     </div>
 </div>
+<script>
+    $(document).on('click', '.show-contract', function () {
+        id = $(this).attr('id');
+        domain = $(this).attr('data-domain');
+        $('.modal-title').text(domain);
+        var url = '{{ route("user.show.contract", ":id") }}';
+        url = url.replace(':id', id);
+        axios.get(url)
+            .then((response) => {
+                $('.modal-body').html('');
+                $('.modal-body').append(response.data);
+                $("#contract-modal").modal("show");
+            });
+    });
+</script>
 @endsection

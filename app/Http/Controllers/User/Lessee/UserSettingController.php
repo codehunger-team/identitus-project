@@ -235,9 +235,7 @@ class UserSettingController extends Controller
     public function showContract($domainId)
     {   
         $filename = 'pdf/domain_contract_' . $domainId . '.pdf';
-
         $contractPath = Storage::disk('public')->path($filename);
-        // dd($contractPath);
         return view('user.lessee.view-contract',compact('domainId'))->render();
     }
 }
