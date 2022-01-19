@@ -281,7 +281,7 @@ class DomainController extends Controller
 
         $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
 
-        if ($DomainValidate) {
+        // if ($DomainValidate) {
             $graces = GracePeriod::all();
             $periods = PeriodType::all();
             $options = OptionExpiration::all();
@@ -298,9 +298,9 @@ class DomainController extends Controller
                 $contracts = [];
             }
             return view('admin.domain.set-terms', compact('isInNegotiation', 'graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
-        } else {
-            abort(404);
-        }
+        // } else {
+        //     abort(404);
+        // }
     }
 
     /**
