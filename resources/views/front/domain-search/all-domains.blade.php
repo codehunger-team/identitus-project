@@ -7,7 +7,7 @@
 <div class="container main-top">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="text-center">Filter Domains</h1>
+            <h1 class="text-center">Find Your Domain Filter</h1>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
                 <div class="col-12-sm">
                     <div id="custom-search-input">
                         <div class="input-group">
-                            <input id="input" placeholder="Domain or keyword" @if( !empty( $autoKeyword ) )
+                            <input id="input" placeholder="Enter Domain or keyword" @if( !empty( $autoKeyword ) )
                                 value="{{ $autoKeyword }}" @endif name="keyword"
                                 class="form-control search-input input-lg" />
                             <button id="buttonAjaxFilter" class="btn btn-primary" type="submit">

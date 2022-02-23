@@ -18,21 +18,20 @@
                 <p class="text-center">Search our database of available&nbsp;domains&nbsp;for&nbsp;lease.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Submit Lease</h4>
+                <h4 class="text-center">Sign A Lease</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/pencil-spaceman.svg') }}" class="text-center" alt="Adopt A Domain"
                          loading="lazy">
                 </div>
-                <p class="text-center">Let us handle the pesky paperwork.</p>
+                <p class="text-center">You maintain the option to buy the domain anytime through the life of the lease.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Build Your Site</h4>
+                <h4 class="text-center">Link or Build Your Site</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/coding-spaceman.svg') }}" alt="Adopt A Domain"
                          class="text-center loading=" lazy">
                 </div>
-                <p class="text-center">We’ll send you the onboarding steps that will get your site moving within 48
-                    hours.</p>
+                <p class="text-center">We point the domain to your site server or we can help you build one that you own.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <h4 class="text-center">Buy or Keep Leasing</h4>
@@ -40,8 +39,7 @@
                     <img src="{{ asset('images/leasing-spaceman.svg') }}" alt="Adopt A Domain" class="text-center"
                          loading="lazy">
                 </div>
-                <p class="text-center">Buy the domain at any point during the lease, or you and the owner can agree to
-                    continue the lease.</p>
+                <p class="text-center">Before the lease ends, either re-lease, execute your option to buy the domain, or simply move your site to a new domain.</p>
             </div>
         </div>
     </section>
