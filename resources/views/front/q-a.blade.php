@@ -17,16 +17,16 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseOne" aria-expanded="false"
                                     aria-controls="flush-collapseOne">
-                                What happens if I want to continue leasing when the lease contract ends?
+                                What happens when the lease contract ends?
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p>You’ll be notified prior to the lease ending; it’s usually
-                                    desirable for both parties to continue the lease. Once a domain lease ends,
-                                    possession
-                                    of the DNS records return to the domain owner.</p>
+                                <p>First and foremost, at Identitius you can buy the domain so that you have full control before the lease ends.</p>
+                                <p>If you do not execute your right to buy the domain during, then you can still negotiate with the domain owner / lessor to renew the lease.</p>
+                                <p>Lastly, if you or the domain owner / lessor chooses not to renew, then the domain owner / lessor will re-assume DNS control. You do not lose your site, but they will likely no longer point the domain to your site.</p>
+                                <p><b>A domain lease is very similar to a commercial real estate lease, except here we give you the option to buy.</b></p>
                             </div>
                         </div>
                     </div>
@@ -65,11 +65,10 @@
                                     domains are free of any trademark, copyright, or other IP infringements. Identitius
                                     makes no guarantees in this regard as trademark issues are between the domain owner
                                     and the party leasing the domain.</p>
-                                <p>Domains may have copyright or trademark rights included. Check with the owner as
+                                <p>Conversely, domain owners / lessors may include copyright or trademark rights. Again, check with the owner as
                                     Identitius makes no guarantees as these issues are between the domain owners and the
                                     party leasing the domain.</p>
-                                <p>It’s always smart to consult with an attorney as well, and we have a list of
-                                    attorneys who are happy to help.</p>
+                                <p>It’s always smart to consult with an attorney as well.</p>
                             </div>
                         </div>
                     </div>
@@ -101,15 +100,14 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseFive" aria-expanded="false"
                                     aria-controls="flush-collapseFive">
-                                What happens if I decide to change web hosting after putting work into the site?
+                                What happens if I decide to use another domain after putting work into the site?
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p>You can move your site where you want, let your customers and Google know, and ask
-                                    websites with backlinks to your site to make changes. In the end, you may have some
-                                    residual loss.</p>
+                                <p>Your site is yours. You can move your site where you want, let your customers and search engines know, and ask
+                                    websites with backlinks to your site to make changes. Ultimately, the site is yours and the domain is not. Unless, of course, you choose to buy it.</p>
                             </div>
                         </div>
                     </div>
@@ -119,13 +117,13 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseSix" aria-expanded="false"
                                     aria-controls="flush-collapseSix">
-                                I want to lease my domain on Identitius. What do I do?
+                                I want to offer my domains for lease on Identitius. What do I do?
                             </button>
                         </h2>
                         <div id="flush-collapseSix" class="accordion-collapse collapse"
                              aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p>We welcome lonely domains!</p>
+                                <p>We welcome lonely domains! Please contact us using the form in the footer below.</p>
                             </div>
                         </div>
                     </div>

@@ -12,7 +12,7 @@
                 <li>Snag a top-level domain at a fair price.</li>
                 <li>Reduce the financial risk that comes with buying a domain outright.</li>
                 <li>Kick-start your business and focus on what really matters to get it up and running.</li>
-                <li>Have full DNS control.</li>
+                <!-- <li>Have full DNS control. <- per sean, this is saved for later.</li> -->
                 <li>Negotiate lease or purchase terms with the domain owner.</li>
             </ul>
             <p>You’ll have the option to buy the domain at any point during the lease, at the price you secured up
