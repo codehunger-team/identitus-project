@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 trait DocusignTrait {
 
     public function docusignClickWrap($domain)
-    {
+    {   
         $accountsApi = $this->accountsApi();
         # Build the display settings
         $displaySettings = new DisplaySettings(
@@ -26,7 +26,6 @@ trait DocusignTrait {
                 'format' => 'modal',
                 'has_decline_button' => true,
                 'must_read' => true,
-                'must_view' => true,
                 'require_accept' => true,
                 'document_display' => 'document'
             ]
@@ -51,7 +50,7 @@ trait DocusignTrait {
                 'order' => '1'
             ])
         ];
-
+        
         # Build ClickwrapRequest
         $clickwrap = new ClickwrapRequest(
             [
@@ -85,7 +84,6 @@ trait DocusignTrait {
     public function accountsApi(): AccountsApi
     {
         $args['ds_access_token'] = Option::get_option('docusign_auth_code');
-
         $config = new Configuration();
         $config->setHost('https://demo.docusign.net/clickapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);

@@ -233,7 +233,7 @@ class DomainController extends Controller
      * @return renderable
      */
     public function add_terms(Request $request, ReviewController $reviewController,DocusignController $docusign)
-    {
+    {   
         try {
             $this->validate($request, [
                 'first_payment' => 'required|numeric',

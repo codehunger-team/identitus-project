@@ -24,7 +24,6 @@ class FrontController extends Controller
     // all domains
     public function all_domains(Request $request, DocusignController $docusign)
     {
-
         $diff_in_hours = docusignHourDifference();
 
         if ($diff_in_hours > 7) {

@@ -121,7 +121,6 @@ class DocusignController extends Controller
     {
         $client_id = env('DOCUSIGN_CLIENT_ID');
         $client_secret = env('DOCUSIGN_CLIENT_SECRET');
-
         return "Basic " . utf8_decode(base64_encode("{$client_id}:{$client_secret}"));
     }
 
@@ -140,7 +139,6 @@ class DocusignController extends Controller
             $diff_in_days = $to->diffInDays($from);
 
             $integrator_and_secret_key = $this->getSecretKey();
-
             $ch = curl_init();
 
             curl_setopt($ch, CURLOPT_URL, 'https://account-d.docusign.com/oauth/token');
@@ -163,7 +161,7 @@ class DocusignController extends Controller
                 echo 'Error:' . curl_error($ch);
             }
             curl_close($ch);
-
+            
             $decodedData = json_decode($result);
             // if ($diff_in_days > 28) {
             //     Option::where('name', 'docusign_refresh_code')->update(['value' => $decodedData->refresh_token]);

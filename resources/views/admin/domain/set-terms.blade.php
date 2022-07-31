@@ -90,7 +90,7 @@
 @endif
 @if($isLease != 'LEASE')
 <h5 class="card-title">Set/Update Terms</h5>
-<form method="POST" id="form" enctype="multipart/form-data set-terms-form" action="{{url('user/add-terms')}}">
+<form method="POST" id="form" enctype="multipart/form-data" class="set-terms-form" action="{{url('user/add-terms')}}">
     @csrf
     @endif
     <div class="row">
