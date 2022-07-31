@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row mt-6">
             <div class="col">
-                <h1 class="text-theme text-center">About Us</h1>
+                <h1 class="text-theme text-center">About Identitius</h1>
                 <div class="separator-3"></div>
                 <hr>
             </div>
@@ -32,8 +32,8 @@
                     <li>Use a top-level domain through a fair monthly plan.</li>
                     <li>Reduce the financial risk that comes with buying a domain outright.</li>
                     <li>Kick-start your business and focus on what really matters to get it up and running.</li>
-                    <li>Have control of your site development and design.</li>
-                    <li> Negotiate lease or purchase terms with the domain owner.</li>
+                    <!--<li>Have control of your site development and design.</li> -->
+                    <li>Negotiate lease or purchase terms with the domain owner.</li>
                 </ul>
 
                 <p>You’ll have the option to <strong>buy the domain at any point</strong> during the lease, at the price
