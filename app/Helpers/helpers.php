@@ -21,3 +21,8 @@ function docusignHourDifference() {
 	$from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 	return $to->diffInHours($from);
 }
+
+function changeDateFormat($date) {
+	return date("F d,Y h:i a", strtotime($date));
+
+}

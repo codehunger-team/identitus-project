@@ -11,7 +11,7 @@
     <br />
     {{-- @dd(Auth::user()) --}}
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
-        and time of <b>{{$getCurrentDateTime ?? ''}}</b> is between <b>{{$lessor->company ?? ''}}</b> of
+        and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
         the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
         <b>{{ Auth::user()->street_1 ?? '' }}</b>,
@@ -29,7 +29,7 @@
 
     <p>Subject to receipt of the First Payment, as defined below in Paragraph 3 and subject to Paragraph 4, the term
         (the “Term”) of this Lease shall be for a time length of <b>{{$contracts->number_of_periods ?? ''}}</b>
-        <b>{{$periodType}}</b>s, commencing on <b>{{$getCurrentDateTime ?? ''}}</b> (the “Effective Date and Time”) and
+        <b>{{$periodType}}</b>s, commencing on <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> (the “Effective Date and Time”) and
         expiring <b>{{$contracts->number_of_periods ?? ''}}</b> <b>{{$periodType}}</b>s thereafter, specifically at
         <b>{{$endOfLease ?? ''}}</b> (the “Expiration Date and Time”).
         Throughout the Term, so long as the Lessee’s obligations under this Agreement are in good standing, the Lessee
@@ -45,7 +45,7 @@
 
     <p>On the <b>{{$getCurrentDayOfMonth ?? ''}}</b> of each successive <b>{{$periodType}}</b> of the
         <b>{{$contracts->number_of_periods ?? ''}}</b>-<b>{{$periodType}}</b> Term, commencing on
-        <b>{{$getCurrentDateTime ?? ''}}</b>, the Lessee shall pay to the Lessor a <b>{{$periodType}}ly</b> rental price
+        <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b>, the Lessee shall pay to the Lessor a <b>{{$periodType}}ly</b> rental price
         of US$<b>{{$contracts->period_payment ?? ''}}</b>, for the use of Domain Name, inclusive of all applicable taxes
         and transaction fees, and without any deduction or set-off (“Rent”).</p>
 

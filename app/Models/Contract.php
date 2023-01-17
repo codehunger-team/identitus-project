@@ -16,4 +16,9 @@ class Contract extends Model
     {
         return $this->belongsTo('\App\Models\Domain');
     }
+
+    public function getStartDateAttribute($value)
+    {   
+        
+    }
 }
