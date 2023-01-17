@@ -2,23 +2,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- termly.io consent banner -->
+    
+    <script type="text/javascript" src="https://app.termly.io/embed.min.js" data-auto-block="on" data-website-uuid="c2d97ad4-8a15-41a4-bbf4-57589e63be22" ></script>
+       
+     <!-- End termly.io consent banner -->
+
     <!-- CSRF Token -->
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Identitius') }}</title>
     <meta name="description" content="Domains for adoption">
     <meta name="keywords" content="domains">
 
-        <!-- Termly.io Script --> 
-        
-        <!-- $_COOKIE  -->
-
-        <script
+    <!-- termly.io Scripts --> 
+              
+    <script
     type="text/javascript"
     src="https://app.termly.io/embed.min.js"
     data-auto-block="on"
     data-website-uuid="c2d97ad4-8a15-41a4-bbf4-57589e63be22"
     ></script>
+
+    <!-- End termly.io Scripts -->
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
