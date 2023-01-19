@@ -57,7 +57,7 @@ class UserSettingController extends Controller
                     'is_vendor' => $userData['is_vendor'],
                 ])->save();
 
-                $request->session()->flash('msg', 'Your password has been updated');
+                $request->session()->flash('msg', 'Your profile has been updated');
             } else {
                 $request->session()->flash('msg', 'Password does not match');
             }
