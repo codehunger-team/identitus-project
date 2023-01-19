@@ -23,6 +23,6 @@ function docusignHourDifference() {
 }
 
 function changeDateFormat($date) {
-	return date("F d,Y h:i a", strtotime($date));
+	return date("F d, Y h:i a", strtotime($date));
 
 }
