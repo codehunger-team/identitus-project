@@ -4,8 +4,13 @@
 
     <!-- termly.io consent banner -->
     
-    <script type="text/javascript" src="https://app.termly.io/embed.min.js" data-auto-block="on" data-website-uuid="c2d97ad4-8a15-41a4-bbf4-57589e63be22" ></script>
-       
+    <script
+    type="text/javascript"
+    src="https://app.termly.io/embed.min.js"
+    data-auto-block="on"
+    data-website-uuid="c2d97ad4-8a15-41a4-bbf4-57589e63be22"
+    ></script>
+           
      <!-- End termly.io consent banner -->
 
     <!-- CSRF Token -->
@@ -21,7 +26,7 @@
     <script
     type="text/javascript"
     src="https://app.termly.io/embed.min.js"
-    data-auto-block="on"
+    data-auto-block="off"
     data-website-uuid="c2d97ad4-8a15-41a4-bbf4-57589e63be22"
     ></script>
 
