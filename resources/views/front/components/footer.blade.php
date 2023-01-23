@@ -31,6 +31,9 @@
                         <li>
                             <a href="/p-disclaimer">Disclaimer</a>
                         </li>
+                        <li>
+                            <a href="/p-ccpa-do-not-sell">CCPA Do Not Sell</a>
+                        </li>                      
                     </ul>
                 </div>
                 <div class="col-lg-4 col-sm-12">
