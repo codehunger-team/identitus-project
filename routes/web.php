@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\DocusignController;
 use App\Http\Controllers\Front\EnquiryController;
 use App\Http\Controllers\Front\CounterOfferController;
+use Illuminate\Support\Facades\Auth;
 
 
 

@@ -15,6 +15,8 @@ use App\Models\CounterOffer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DocusignController;
 use App\Http\Controllers\Front\ReviewController;
+use Image;
+use Illuminate\Support\Str;
 
 class DomainController extends Controller
 {
@@ -170,7 +172,7 @@ class DomainController extends Controller
             'domain_logo' => 'image',
             'discount' => 'numeric',
         ]);
-        $r['user_id'] = \Auth::user()->id;
+        $r['user_id'] = Auth::user()->id;
 
         if (isset($r['tags'])) {
             $r['tags'] = implode(",", $r['tags']);
@@ -190,7 +192,7 @@ class DomainController extends Controller
             $file->move(base_path() . '/domain-logos/', $filename);
 
             // create thumbnail & save
-            $img = \Image::make(base_path() . '/domain-logos/' . $filename);
+            $img = Image::make(base_path() . '/domain-logos/' . $filename);
             $img->resize(null, 98, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
@@ -207,7 +209,7 @@ class DomainController extends Controller
         }
 
         // redirect with message
-        return redirect('/admin/manage-domain/' . $d->id)->with('msg', 'Domain successfully created.');
+        return redirect()->route('admin.domain')->with('msg', 'Domain successfully created.');
     }
 
     // manage domain name listing
@@ -282,22 +284,22 @@ class DomainController extends Controller
         $DomainValidate = Domain::where('domain', $domainName)->where('user_id', Auth::user()->id)->first();
 
         // if ($DomainValidate) {
-            $graces = GracePeriod::all();
-            $periods = PeriodType::all();
-            $options = OptionExpiration::all();
-            $domainId = Domain::where('domain', $domainName)->first()->id;
-            $contracts = Contract::where('domain_id', $domainId)->first();
-            $isLease = Domain::where('domain', $domainName)->first()->domain_status;
+        $graces = GracePeriod::all();
+        $periods = PeriodType::all();
+        $options = OptionExpiration::all();
+        $domainId = Domain::where('domain', $domainName)->first()->id;
+        $contracts = Contract::where('domain_id', $domainId)->first();
+        $isLease = Domain::where('domain', $domainName)->first()->domain_status;
 
-            $isInNegotiation = CounterOffer::where('domain_name', $domainName)->first();
-            if ($isInNegotiation) {
-                $isInNegotiation->lease_total = $isInNegotiation->first_payment + ($isInNegotiation->number_of_periods * $isInNegotiation->period_payment);
-            }
+        $isInNegotiation = CounterOffer::where('domain_name', $domainName)->first();
+        if ($isInNegotiation) {
+            $isInNegotiation->lease_total = $isInNegotiation->first_payment + ($isInNegotiation->number_of_periods * $isInNegotiation->period_payment);
+        }
 
-            if (empty($contracts)) {
-                $contracts = [];
-            }
-            return view('admin.domain.set-terms', compact('isInNegotiation', 'graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
+        if (empty($contracts)) {
+            $contracts = [];
+        }
+        return view('admin.domain.set-terms', compact('isInNegotiation', 'graces', 'periods', 'options', 'domainId', 'contracts', 'domainName', 'isLease'));
         // } else {
         //     abort(404);
         // }
