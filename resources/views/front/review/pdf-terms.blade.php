@@ -31,7 +31,7 @@
         (the “Term”) of this Lease shall be for a time length of <b>{{$contracts->number_of_periods ?? ''}}</b>
         <b>{{$periodType}}</b>s, commencing on <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> (the “Effective Date and Time”) and
         expiring <b>{{$contracts->number_of_periods ?? ''}}</b> <b>{{$periodType}}</b>s thereafter, specifically at
-        <b>{{$endOfLease ?? ''}}</b> (the “Expiration Date and Time”).
+        <b>{{changeDateFormat($endOfLease) ?? ''}}</b> (the “Expiration Date and Time”).
         Throughout the Term, so long as the Lessee’s obligations under this Agreement are in good standing, the Lessee
         shall have the right to use the Domain Name in accordance with the terms and conditions contained herein.
 
@@ -46,7 +46,7 @@
     <p>On the <b>{{$getCurrentDayOfMonth ?? ''}}</b> of each successive <b>{{$periodType}}</b> of the
         <b>{{$contracts->number_of_periods ?? ''}}</b>-<b>{{$periodType}}</b> Term, commencing on
         <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b>, the Lessee shall pay to the Lessor a <b>{{$periodType}}ly</b> rental price
-        of US$<b>{{$contracts->period_payment ?? ''}}</b>, for the use of Domain Name, inclusive of all applicable taxes
+        of US $<b>{{$contracts->period_payment ?? ''}}</b>, for the use of Domain Name, inclusive of all applicable taxes
         and transaction fees, and without any deduction or set-off (“Rent”).</p>
 
     <p>The Set-up Payment and Rent are collectively referred to herein as “Payments”. </p>
@@ -56,7 +56,7 @@
     <p>Provided that the Lessee’s obligations hereunder are in good standing, at any time during the Term and up to the
         moment <b>{{$o->option_expiration ?? ''}}</b>, the Lessee may notify the Lessor in writing that it intends to exercise
         its option (the “Option”) to purchase the Domain Name by paying all of the remaining Rent otherwise payable
-        through until the end of the Term, plus the sum of US$<b>{{$contracts->option_price ?? ''}}</b> (the “Option
+        through until the end of the Term, plus the sum of US $<b>{{$contracts->option_price ?? ''}}</b> (the “Option
         Purchase Price”).</p>
 
     <p>As a condition of the Option, the Option Purchase Price must be paid no later than ten (10) days subsequent to
@@ -223,9 +223,13 @@
 
 
 
-        <p>Per:_____________________________ Per:_____________________________</p>
-        <p>Name:{{$lessor->name ?? ''}} Name:{{Auth::user()->name ?? ''}} </p>
-        <p>Title: Title:</p>
+        <p>Name:{{Auth::user()->name ?? ''}} </p>
+        <br>Lessee
+
+        <p>Name:{{$lessor->name ?? ''}} </p>
+        <br>Lessor
+        
+        
 
 </div>
 @endauth
