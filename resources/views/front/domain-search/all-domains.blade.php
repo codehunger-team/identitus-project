@@ -86,38 +86,48 @@
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Purchase Price Range($)</label>
                         <div class="row mt-2">
-                            <input type="hidden" name="price_from" placeholder="from"
-                                class="form-control price_from" value="0">
                             <div class="col-lg-5">
-                                <input type="text" name="price_to" value="&infin;" placeholder="&infin;"
+                                <input type="text" name="price_from" placeholder="from"
+                                    class="form-control price_from">
+                            </div>
+                            <div class="col-lg-5">
+                                <input type="text" name="price_to" placeholder="to"
                                     class="form-control price_to">
                             </div>
                         </div>
-                        <input id="price_slider" class="border-0 price-range" type="range" min="0" max="20000"
-                            step="500" />
+                        {{-- <input id="price_slider" class="border-0 price-range" type="range" min="0" max="20000"
+                            step="500" /> --}}
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Monthly Price Range($)</label>
                         <div class="row mt-2">
-                            <input type="hidden" name="monthly_price_from" placeholder="from"
-                                class="form-control monthly_price_from" value="0">
                             <div class="col-lg-5">
-                                <input type="text" name="monthly_price_to" value="&infin;" placeholder="&infin;"
+                                <input type="text" name="monthly_price_from" placeholder="from"
+                                    class="form-control monthly_price_from">
+                            </div>
+                            <div class="col-lg-5">
+                                <input type="text" name="monthly_price_to" placeholder="to"
                                     class="form-control monthly_price_to">
                             </div>
                         </div>
-                        <input id="monthly_price_slider" class="border-0 monthly-price-range" type="range" min="0" max="20000"
-                            step="500" />
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Keyword Placement</label>
-                        <div class="col-lg-6 col-sm-12 my-2">
-                            <select name="keyword_placement" class="form-control keyword-placement">
-                                <option value="contains">Contains</option>
-                                <option value="starts_with">Starts with</option>
-                                <option value="ends_with">Ends with</option>
-                            </select>
+                        <div class="row mt-2">
+                            <div class="col-lg-5 col-sm-12 my-2">
+                                <select name="keyword_placement" class="form-control keyword-placement">
+                                    <option value="contains">Contains</option>
+                                    <option value="starts_with">Starts with</option>
+                                    <option value="ends_with">Ends with</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-5 mt-2">
+                                <button type="submit" name="sbAjaxSearch"
+                                class="btn btn-full-width-sm btn-primary mr-auto float-right ">Search Query
+                            </button>
+                            </div>
                         </div>
+                       
                     </div>
                     {{-- <div class="col-lg-2 col-sm-12 my-2" style="margin-top: 3% !important">
                         <button type="submit" name="sbAjaxSearch"
