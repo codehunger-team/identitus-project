@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Session;
 use Validator;
 use App\Http\Controllers\Admin\DocusignController;
+use Yajra\DataTables\Facades\DataTables;
 
 class FrontController extends Controller
 {
@@ -68,9 +69,38 @@ class FrontController extends Controller
             ->with('autoKeyword', $autoKeyword);
     }
 
-    // ajax domain filtering
-    public function domain_filtering(Request $r)
+    /**
+     * This function is used to return teh datatable of the Domains page
+     * @method POST /ajax/domain_filtering
+     * @param Request $request
+     * @return Datatable
+     */
+
+    public function domain_filtering(Request $request)
     {
+        $domains = Domain::where('domain_status', 'AVAILABLE')
+            ->when(isset($request->keyword) && $request->keyword != null, function ($query) use ($request) {
+                $query->where('domain', 'like', '%' . $request->keyword . '%');
+            })
+            ->when(isset($request->category) && $request->category != null, function ($query) use ($request) {
+                $query->where('category', $request->category);
+            })
+            ->when(isset($request->extension) && $request->extension != null, function ($query) use ($request) {
+                $query->getCharacterEndswith($request->extension);
+            })
+            ->when(isset($request->extension) && $request->extension != null, function ($query) use ($request) {
+                $query->getCharacterEndswith($request->extension);
+            });
+        return DataTables::of($domains)
+            ->addIndexColumn()
+            ->addColumn('monthly_lease', function ($query) {
+                return 123;
+            })
+            ->addColumn('options', function ($query) {
+                return '<a class="btn btn-primary dropdown-toggle" href="' . $query['id'] . '" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false">Get</a>';
+            })
+            ->rawColumns(['options', 'monthly_lease'])
+            ->make(true);
 
         // filter sorting option
         $allowedSort = ['id.desc', 'pricing.asc', 'pricing.desc', 'domain.asc'];

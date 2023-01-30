@@ -15,20 +15,15 @@
     <div class="row">
         <div class="col-sm-12 mx-auto">
             <form method="POST" action="{{route('ajax.domainfiltering')}}" id="ajax-search-form">
-                {!! csrf_field() !!}
+                @csrf
                 <div class="col-12-sm">
                     <div id="custom-search-input">
                         <div class="input-group">
-                            <input id="input" placeholder="Enter Domain or keyword" @if( !empty( $autoKeyword ) )
-                                value="{{ $autoKeyword }}" @endif name="keyword"
-                                class="form-control search-input input-lg" />
+                            <input id="input" placeholder="Enter Domain or keyword" @if( !empty( $autoKeyword ) ) value="{{ $autoKeyword }}" @endif name="keyword" class="form-control search-input input-lg" />
                             <button id="buttonAjaxFilter" class="btn btn-primary" type="submit">
-                                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-                                    <path fill-rule="evenodd"
-                                        d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                                 </svg>
                             </button>
                         </div>
@@ -75,8 +70,7 @@
                     <div class="col-lg-4 col-sm-12 my-2">
                         <label class="label">Character Length</label>
                         <div class="row mt-2">
-                                <input type="hidden" name="char_from" placeholder="from" class="form-control char_from"
-                                    value="0">
+                            <input type="hidden" name="char_from" placeholder="from" class="form-control char_from" value="0">
                             <div class="col-lg-5">
                                 <input type="number" name="char_to" value="63" class="form-control char_to">
                             </div>
@@ -87,12 +81,10 @@
                         <label class="label">Purchase Price Range($)</label>
                         <div class="row mt-2">
                             <div class="col-lg-5">
-                                <input type="text" name="price_from" placeholder="from"
-                                    class="form-control price_from">
+                                <input type="text" name="price_from" placeholder="from" class="form-control price_from">
                             </div>
                             <div class="col-lg-5">
-                                <input type="text" name="price_to" placeholder="to"
-                                    class="form-control price_to">
+                                <input type="text" name="price_to" placeholder="to" class="form-control price_to">
                             </div>
                         </div>
                         {{-- <input id="price_slider" class="border-0 price-range" type="range" min="0" max="20000"
@@ -102,12 +94,10 @@
                         <label class="label">Monthly Price Range($)</label>
                         <div class="row mt-2">
                             <div class="col-lg-5">
-                                <input type="text" name="monthly_price_from" placeholder="from"
-                                    class="form-control monthly_price_from">
+                                <input type="text" name="monthly_price_from" placeholder="from" class="form-control monthly_price_from">
                             </div>
                             <div class="col-lg-5">
-                                <input type="text" name="monthly_price_to" placeholder="to"
-                                    class="form-control monthly_price_to">
+                                <input type="text" name="monthly_price_to" placeholder="to" class="form-control monthly_price_to">
                             </div>
                         </div>
                     </div>
@@ -122,18 +112,12 @@
                                 </select>
                             </div>
                             <div class="col-lg-5 mt-2">
-                                <button type="submit" name="sbAjaxSearch"
-                                class="btn btn-full-width-sm btn-primary mr-auto float-right ">Search Query
-                            </button>
+                                <button type="button" id="sbAjaxSearch" class="btn btn-full-width-sm btn-primary mr-auto float-right ">Search Query
+                                </button>
                             </div>
                         </div>
-                       
+
                     </div>
-                    {{-- <div class="col-lg-2 col-sm-12 my-2" style="margin-top: 3% !important">
-                        <button type="submit" name="sbAjaxSearch"
-                            class="btn btn-full-width-sm btn-primary mr-auto float-right ">Filter
-                        </button>
-                    </div> --}}
                 </div>
             </form>
         </div>
@@ -151,12 +135,24 @@
     </div>
 </div>
 
-{{--    Table--}}
+{{-- Table--}}
 <div class="container my-4">
     <div class="row">
         <div class="col">
             <div class="card shadow">
-                @include('front.components.domains-table')
+                <div class="card-body ajax-filtered-domains">
+                    <table id="domainsTable" class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Monthly Lease</th>
+                                <th>Purchase Price</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

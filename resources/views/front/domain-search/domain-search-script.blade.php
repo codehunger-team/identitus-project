@@ -1,14 +1,57 @@
 <script>
+    $(document).ready(function() {
+        var formData = $('#ajax-search-form').serialize();
+        $('#domainsTable').DataTable({
+            searching: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                type: 'POST',
+                url: "{{route('ajax.domainfiltering')}}",
+                data: formData,
+                cache: false,
+                beforeSend: function() {
+                    $('.preload-search').show();
+                    $('.ajax-filtered-domains').hide();
+                },
+                success: function(data) {
+                    $('.preload-search').hide();
+                    $('.ajax-filtered-domains').show();
+                },
+                error: function(data) {
+                    $('.preload-search').hide();
+                    $('.ajax-filtered-domains').show();
+                }
+            },
+            columns: [{
+                    data: "domain",
+                    name: "domain"
+                },
+                {
+                    data: "monthly_lease",
+                    name: "monthly_lease"
+                },
+                {
+                    data: "pricing",
+                    name: "pricing"
+                },
+                {
+                    data: "options",
+                    name: "options"
+                },
+            ]
+        });
+    });
     //uncheck all except domain with numerals
-    $('input.numeralsonly').on('change', function () {
+    $('input.numeralsonly').on('change', function() {
         $('input.numerals').not(this).prop('checked', false);
     });
 
     //uncheck domain with numerals only
-    $('input.numerals').on('change', function () {
+    $('input.numerals').on('change', function() {
         $('input.numeralsonly').not(this).prop('checked', false);
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         const $charTo = $('.char_to');
         const $value = $('#char_slider');
         const $priceTo = $('.price_to');
@@ -48,80 +91,28 @@
             }
         });
     });
-
-    $("#buttonAjaxFilter").on('click', function () {
-        submitAjaxSearch();
-    });
-
-    $(".keyword-placement").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    $(".search-input").on('keyup', function () {
-        submitAjaxSearch();
-    });
-
-    $(".price-range").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    $(".monthly-price-range").on('change', function(){
-        submitAjaxSearch();
-    });
-
-    $(".character-length").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    $(".category").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    $(".any-tld").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    $(".age").on('change', function () {
-        submitAjaxSearch();
-    });
-
-    function submitAjaxSearch() {
-        $("#ajax-search-form").trigger('submit');
-    }
-    var ajaxFilterDomains = $("#ajax-search-form");
-
-    ajaxFilterDomains.submit(function (event) {
-
-        console.log('form submitted')
-
+    $('#sbAjaxSearch').click(function() {
+        $('#domainsTable').DataTable().clear().destroy();
         event.preventDefault();
-
-        var formData = $(this).serialize();
-
+        var formData = $('#ajax-search-form').serialize();
         $.ajax({
             type: 'POST',
             url: "{{route('ajax.domainfiltering')}}",
             data: formData,
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 $('.preload-search').show();
-                $('#ajax-filtered-domains').hide();
+                $('.ajax-filtered-domains').hide();
             },
-            success: function (data) {
+            success: function(data) {
                 $('.preload-search').hide();
-                $('#ajax-filtered-domains').show();
-                $('#ajax-filtered-domains').html(data);
+                $('.ajax-filtered-domains').show();
             },
-            error: function (data) {
-
+            error: function(data) {
                 $('.preload-search').hide();
-                $('#ajax-filtered-domains').show();
+                $('.ajax-filtered-domains').show();
                 sweetAlert("Oops...", data, "error");
-
             }
         });
-
-        return false;
     });
-
 </script>
