@@ -78,18 +78,35 @@ class FrontController extends Controller
 
     public function domain_filtering(Request $request)
     {
+        $filters = $request->filters;
         $domains = Domain::where('domain_status', 'AVAILABLE')
-            ->when(isset($request->keyword) && $request->keyword != null, function ($query) use ($request) {
-                $query->where('domain', 'like', '%' . $request->keyword . '%');
+            ->when(isset($filters['keyword']) && $filters['keyword'] != null, function ($query) use ($filters) {
+                if ($filters['keyword_placement'] == 'contains') {
+                    $query->where('domain', 'like', '%' . $filters['keyword'] . '%');
+                }
+                if ($filters['keyword_placement'] == 'starts_with') {
+                    $query->where('domain', 'like', $filters['keyword'] . '%');
+                }
+                if ($filters['keyword_placement'] == 'ends_with') {
+                    $query->where('domain', 'like', '%' . $filters['keyword']);
+                }
             })
-            ->when(isset($request->category) && $request->category != null, function ($query) use ($request) {
-                $query->where('category', $request->category);
+            ->when(isset($filters['category']) && $filters['category'] != null, function ($query) use ($filters) {
+                $query->where('category', $filters['category']);
             })
-            ->when(isset($request->extension) && $request->extension != null, function ($query) use ($request) {
-                $query->getCharacterEndswith($request->extension);
+            ->when(isset($filters['extension']) && $filters['extension'] != null, function ($query) use ($filters) {
+                $query->where('domain', 'LIKE', "%" . $filters['extension']);
             })
-            ->when(isset($request->extension) && $request->extension != null, function ($query) use ($request) {
-                $query->getCharacterEndswith($request->extension);
+            ->when(isset($filters['age']) && $filters['age'] != null, function ($query) use ($filters) {
+                $from = date('Y-m-d', strtotime('-' . $filters['age'] . 'years'));
+                $to = date('Y-m-d');
+                $query->whereBetween('reg_date', [$from, $to]);
+            })
+            ->when(isset($filters['price_from']) && $filters['price_from'] != null && isset($filters['price_to']) && $filters['price_to'] != null, function ($query) use ($filters) {
+                $query->whereBetween('pricing', [$filters['price_from'], $filters['price_to']]);
+            })
+            ->when(isset($filters['char_to']) && $filters['char_to'] != null && $filters['char_to'] != 'ALL', function ($query) use ($filters) {
+                $query->whereRaw('LENGTH(domain) > ' . $filters['char_to']);
             });
         return DataTables::of($domains)
             ->addIndexColumn()

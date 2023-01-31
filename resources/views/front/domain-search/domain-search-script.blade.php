@@ -1,6 +1,18 @@
 <script>
     $(document).ready(function() {
-        var formData = $('#ajax-search-form').serialize();
+        datatable();
+    });
+
+    $('#sbAjaxSearch').click(function() {
+        datatable();
+    });
+
+    function datatable() {
+        $("#domainsTable").dataTable().fnDestroy();
+        var filtersData = {};
+        var formData = $('#ajax-search-form').serializeArray().map(function(x) {
+            filtersData[x.name] = x.value;
+        });
         $('#domainsTable').DataTable({
             searching: false,
             processing: true,
@@ -8,20 +20,10 @@
             ajax: {
                 type: 'POST',
                 url: "{{route('ajax.domainfiltering')}}",
-                data: formData,
-                cache: false,
-                beforeSend: function() {
-                    $('.preload-search').show();
-                    $('.ajax-filtered-domains').hide();
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    filters: filtersData,
                 },
-                success: function(data) {
-                    $('.preload-search').hide();
-                    $('.ajax-filtered-domains').show();
-                },
-                error: function(data) {
-                    $('.preload-search').hide();
-                    $('.ajax-filtered-domains').show();
-                }
             },
             columns: [{
                     data: "domain",
@@ -41,7 +43,7 @@
                 },
             ]
         });
-    });
+    }
     //uncheck all except domain with numerals
     $('input.numeralsonly').on('change', function() {
         $('input.numerals').not(this).prop('checked', false);
@@ -88,30 +90,6 @@
             } else {
                 $priceTo.val($priceValue.val());
 
-            }
-        });
-    });
-    $('#sbAjaxSearch').click(function() {
-        $('#domainsTable').DataTable().clear().destroy();
-        event.preventDefault();
-        var formData = $('#ajax-search-form').serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{route('ajax.domainfiltering')}}",
-            data: formData,
-            cache: false,
-            beforeSend: function() {
-                $('.preload-search').show();
-                $('.ajax-filtered-domains').hide();
-            },
-            success: function(data) {
-                $('.preload-search').hide();
-                $('.ajax-filtered-domains').show();
-            },
-            error: function(data) {
-                $('.preload-search').hide();
-                $('.ajax-filtered-domains').show();
-                sweetAlert("Oops...", data, "error");
             }
         });
     });
