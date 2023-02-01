@@ -70,9 +70,12 @@ class ReviewController extends Controller
             if (isset($termsData->request)) {
                 $termsData = $termsData->request->all();
             }
-            // $contracts->first_payment = $termsData['first_payment'];
-            // $contracts->period_payment = $termsData['period_payment'];
-            // $contracts->number_of_periods = $termsData['number_of_periods'];
+            if($contract == NULL) {
+                $contracts = collect();
+            }
+            $contracts->first_payment = $termsData['first_payment'];
+            $contracts->period_payment = $termsData['period_payment'];
+            $contracts->number_of_periods = $termsData['number_of_periods'];
             $contracts->option_expiration = 6;
             $contracts->grace_period_id = 4;
             if (isset($termsData['option_purchase_price'])) {
@@ -90,9 +93,17 @@ class ReviewController extends Controller
         $graces = GracePeriod::all();
 
         $periods = PeriodType::all();
+        
+        if($contracts->period_type_id == NULL) {
+            $periodTypeId = $termsData['period_type_id'];
+        } else {
+            $periodTypeId = $contracts->period_type_id;
+        }
+
         $periodDays = $periods->where('id', $contracts->period_type_id);
 
         $periodType = $periods->where('id', $contracts->period_type_id)->first()->period_type;
+        
         $endOfLease = $this->calculatePeriod($periodDays, $contracts->number_of_periods);
 
         $options = OptionExpiration::all();
