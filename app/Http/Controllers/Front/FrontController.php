@@ -114,7 +114,7 @@ class FrontController extends Controller
                 return 123;
             })
             ->addColumn('options', function ($query) {
-                return '<a class="btn btn-primary dropdown-toggle" href="' . $query['id'] . '" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false">Get</a>';
+                return '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy"><li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li> </ul> </div>';
             })
             ->rawColumns(['options', 'monthly_lease'])
             ->make(true);

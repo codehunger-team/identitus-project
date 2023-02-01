@@ -15,7 +15,10 @@ use App\Models\CounterOffer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DocusignController;
 use App\Http\Controllers\Front\ReviewController;
+use App\Http\Requests\AddTermsRequest;
+use Illuminate\Support\Facades\Session;
 use Image;
+use Exception;
 use Illuminate\Support\Str;
 
 class DomainController extends Controller
@@ -147,7 +150,7 @@ class DomainController extends Controller
                 if (isset($updatedColumnDomainId)) {
                     contract::where('domain_id', $updatedColumnDomainId)->update($contract);
                 } else {
-                    contract::create($contract);
+                    Contract::create($contract);
                 }
             } catch (Exception $e) {
 
@@ -312,16 +315,9 @@ class DomainController extends Controller
      * @param \App\Http\Controllers\Admin\DocusignController $docusign
      * @return renderable
      */
-    public function add_terms(Request $request, ReviewController $reviewController, DocusignController $docusign)
+    public function add_terms(AddTermsRequest $request, ReviewController $reviewController, DocusignController $docusign)
     {
-
         try {
-            $this->validate($request, [
-                'first_payment' => 'required|numeric',
-                'number_of_periods' => 'required|numeric',
-                'period_payment' => 'required|numeric',
-
-            ]);
             $data = [
                 'period_payment' => $request->period_payment,
                 'period_type_id' => $request->period_type_id,
@@ -336,7 +332,7 @@ class DomainController extends Controller
                 'accrual_rate' => 0,
                 'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment),
             ];
-            \Session::put('form_data', $data);
+            Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
 
             $diff_in_hours = docusignHourDifference();
