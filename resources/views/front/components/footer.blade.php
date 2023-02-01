@@ -17,22 +17,22 @@
                     </h1>
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/p-tos">Terms of Service</a>
+                            <a href="/tos">Terms of Service</a>
                         </li>
                         <li>
-                            <a href="/p-privacy-policy">Privacy Policy</a>
+                            <a href="/privacy-policy">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="/p-cookie-policy">Cookie Policy</a>
+                            <a href="/cookie-policy">Cookie Policy</a>
                         </li>
                         <li>
-                            <a href="/p-eula">EULA</a>
+                            <a href="/eula">EULA</a>
                         </li>
                         <li>
-                            <a href="/p-disclaimer">Disclaimer</a>
+                            <a href="/disclaimer">Disclaimer</a>
                         </li>
                         <li>
-                            <a href="/p-ccpa-do-not-sell">CCPA Do Not Sell</a>
+                            <a href="/ccpa-do-not-sell">CCPA Do Not Sell</a>
                         </li>                      
                     </ul>
                 </div>

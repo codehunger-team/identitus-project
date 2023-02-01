@@ -199,4 +199,59 @@ class FrontController extends Controller
             ->with('registrar', $registrar)
             ->with('category', $category);
     }
+
+        /**
+     * Terms of Service page
+     *
+     */
+    public function tos()
+    {
+        return view('front.tos');
+    }
+
+            /**
+     * Privacy Policy page
+     *
+     */
+    public function privacy()
+    {
+        return view('front.privacy');
+    }
+    
+            /**
+     * Cookie Policy page
+     *
+     */
+    public function cookie()
+    {
+        return view('front.cookie');
+    }
+
+            /**
+     * eula page
+     *
+     */
+    public function eula()
+    {
+        return view('front.eula');
+    }
+
+            /**
+     * Discaimer page
+     *
+     */
+    public function disclaimer()
+    {
+        return view('front.disclaimer');
+    }
+
+            /**
+     * CCPA Do Not Sell page
+     *
+     */
+    public function ccpa()
+    {
+        return view('front.ccpa');
+    }
+        
 }

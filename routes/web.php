@@ -56,8 +56,16 @@ Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->n
 Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
 Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
+
+//Standard pages
 Route::get('about',[FrontController::class, 'about'])->name('about');
 Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
+Route::get('tos',[FrontController::class, 'tos'])->name('tos');
+Route::get('privacy-policy',[FrontController::class, 'privacy'])->name('privacy');
+Route::get('cookie-policy',[FrontController::class, 'cookie'])->name('cookie');
+Route::get('eula',[FrontController::class, 'eula'])->name('eula');
+Route::get('disclaimer',[FrontController::class, 'disclaimer'])->name('disclaimer');
+Route::get('ccpa-do-not-sell',[FrontController::class, 'ccpa'])->name('ccpa');
 
 //Docusign
 Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
