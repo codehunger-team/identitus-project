@@ -215,16 +215,16 @@ class FrontController extends Controller
      */
     public function privacy()
     {
-        return view('front.privacy');
+        return view('front.privacy-policy');
     }
-    
+
             /**
      * Cookie Policy page
      *
      */
     public function cookie()
     {
-        return view('front.cookie');
+        return view('front.cookie-policy');
     }
 
             /**
