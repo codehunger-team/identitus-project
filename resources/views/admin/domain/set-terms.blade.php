@@ -90,7 +90,7 @@
 @endif
 @if($isLease != 'LEASE')
 <h5 class="card-title">Set/Update Terms</h5>
-<form method="POST" id="form" enctype="multipart/form-data" class="set-terms-form" action="{{url('user/add-terms')}}">
+<form method="POST" id="form" enctype="multipart/form-data set-terms-form" action="{{url('user/add-terms')}}">
     @csrf
     @endif
     <div class="row">
@@ -113,7 +113,7 @@
             <label for="periodPayments">Period Type</label>
             <select name="period_type_id" {{ $isLease == 'LEASE' ? 'disabled' : '' }} class="form-control period"
                 readonly>
-                <option value="3" selected="">Month</option>
+                <option value="3" selected="">Monthly</option>
                 {{-- <option selected value="">Select Period Type</option>
                 @if(count($periods))
                     @foreach($periods as $p)
