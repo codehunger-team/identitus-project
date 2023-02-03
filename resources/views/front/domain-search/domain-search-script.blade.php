@@ -14,7 +14,6 @@
             filtersData[x.name] = x.value;
         });
         $('#domainsTable').DataTable({
-            searching: false,
             processing: true,
             serverSide: true,
             ajax: {
