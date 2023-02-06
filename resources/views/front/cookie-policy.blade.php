@@ -22,6 +22,12 @@
                     tjs.parentNode.insertBefore(js, tjs);
                     }(document, 'script', 'termly-jssdk'));</script>
                 </p>
+                <p>
+                    Change your cookie preferences using the link below:
+                </p>
+                <p>
+                    <a href="#" onclick="window.displayPreferenceModal();return false;" id="termly-consent-preferences">Consent Preferences</a>
+                </p>
             </div>
         </div>
     </div>

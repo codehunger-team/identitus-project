@@ -30,6 +30,9 @@
                         </li>
                         <li>
                             <a href="/ccpa-do-not-sell">CCPA Do Not Sell</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="window.displayPreferenceModal();return false;" id="termly-consent-preferences">Consent Preferences</a>
                         </li>                      
                     </ul>
                 </div>
