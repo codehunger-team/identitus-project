@@ -63,7 +63,6 @@ Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
 Route::get('tos',[FrontController::class, 'tos'])->name('tos');
 Route::get('privacy-policy',[FrontController::class, 'privacy'])->name('privacy');
 Route::get('cookie-policy',[FrontController::class, 'cookie'])->name('cookie');
-Route::get('eula',[FrontController::class, 'eula'])->name('eula');
 Route::get('disclaimer',[FrontController::class, 'disclaimer'])->name('disclaimer');
 Route::get('ccpa-do-not-sell',[FrontController::class, 'ccpa'])->name('ccpa');
 

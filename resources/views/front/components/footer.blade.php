@@ -26,9 +26,6 @@
                             <a href="/cookie-policy">Cookie Policy</a>
                         </li>
                         <li>
-                            <a href="/eula">EULA</a>
-                        </li>
-                        <li>
                             <a href="/disclaimer">Disclaimer</a>
                         </li>
                         <li>
