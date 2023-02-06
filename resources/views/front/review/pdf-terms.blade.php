@@ -126,12 +126,12 @@
     <p>(c) If this Lease is terminated for any reason other than its due fulfillment by the Lessee, or other than as a
         result of Early Termination, or other than with the express consent of the Lessor in writing, then without
         prejudice to its other rights at law or in equity the Lessor may at any time demand immediate payment of all of
-        the following:
-        <li>(i) All arrears of Rent and other money then due and/or payable by the Lessee under the Lease.
-        <li>(ii) The Lessor’s loss on the Lease to be notified by the Lessor to the Lessee.
-        <li>(iii) All costs and expenses incurred by the Lessor enforcing this agreement.
-        <li>(iv) Interest on all money payable under this provision from the date of termination, the date of payment at
-            the rate of 3% per year calculated monthly.
+        the following: </br>
+        (i) All arrears of Rent and other money then due and/or payable by the Lessee under the Lease. </br>
+        (ii) The Lessor’s loss on the Lease to be notified by the Lessor to the Lessee. </br>
+        (iii) All costs and expenses incurred by the Lessor enforcing this agreement. </br>
+        (iv) Interest on all money payable under this provision from the date of termination, the date of payment at
+            the rate of 3% per year calculated monthly.</br>
     </p>
 
     <p><b>10. Invalidity or Severability</b></p>
