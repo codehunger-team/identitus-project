@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row mt-6">
             <div class="col">
-                <h1 class="text-theme text-center">Terms of Service</h1>
+                <h1 class="text-theme text-center">Cookie Policy</h1>
                 <div class="separator-3"></div>
                 <hr>
             </div>

@@ -114,7 +114,12 @@ class FrontController extends Controller
                 return 123;
             })
             ->addColumn('options', function ($query) {
-                return '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy"><li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li> </ul> </div>';
+                $action = '';
+                if (isset($query->contract->period_payment)) {
+                    $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
+                };
+                $action .=  '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy"><li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li> </ul> </div>';
+                return $action;
             })
             ->rawColumns(['options', 'monthly_lease'])
             ->make(true);
@@ -200,58 +205,69 @@ class FrontController extends Controller
             ->with('category', $category);
     }
 
-        /**
-     * Terms of Service page
-     *
+    /**
+     * Display the TOS Page
+     * @method GET /tos
+     * @return Renderable
      */
+
     public function tos()
     {
         return view('front.tos');
     }
 
-            /**
-     * Privacy Policy page
-     *
+    /**
+     * Display the Privacy Policy Page
+     * @method GET /privacy-policy
+     * @return Renderable
      */
+
     public function privacy()
     {
         return view('front.privacy-policy');
     }
 
-            /**
-     * Cookie Policy page
-     *
+    /**
+     * Display the Cookie Policy Page
+     * @method GET /cookie-policy
+     * @return Renderable
      */
+
     public function cookie()
     {
         return view('front.cookie-policy');
     }
 
-            /**
-     * eula page
-     *
+    /**
+     * Display the Cookie Eula Page
+     * @method GET /eula
+     * @return Renderable
      */
+
     public function eula()
     {
         return view('front.eula');
     }
 
-            /**
-     * Discaimer page
-     *
+    /**
+     * Display the Cookie Disclaimer Page
+     * @method GET /disclaimer
+     * @return Renderable
      */
+
     public function disclaimer()
     {
         return view('front.disclaimer');
     }
 
-            /**
-     * CCPA Do Not Sell page
-     *
+    /**
+     * Display the Cookie Disclaimer Page
+     * @method GET /ccpa-do-not-sell
+     * @return Renderable
      */
+
     public function ccpa()
     {
-        return view('front.ccpa');
+        return view('front.ccpa-do-not-sell');
     }
-        
 }
