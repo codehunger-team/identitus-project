@@ -36,8 +36,7 @@ class ReviewController extends Controller
         $endOfLease = $this->calculatePeriod($periodDays, $contracts->number_of_periods);
 
         $options = OptionExpiration::all();
-        $leasetotal = $contracts->first_payment + ($contracts->number_of_periods *
-            $contracts->period_payment);
+        $leasetotal = $contracts->first_payment + ($contracts->number_of_periods * $contracts->period_payment);
 
         $isExistDomainInCounterOfferTbl =  CounterOffer::where('domain_name', $domainName)->first();
         $isAlreadyCounterOffered = (!empty($isExistDomainInCounterOfferTbl)) ? 1 : 0;
@@ -66,11 +65,11 @@ class ReviewController extends Controller
             // dd($termsData);
             // $date=date_create($contracts->start_date);
             // dd(date_format($date,"F d,Y h:i a"));
-        
+
             if (isset($termsData->request)) {
                 $termsData = $termsData->request->all();
             }
-            if($contract == NULL) {
+            if ($contract == NULL) {
                 $contracts = collect();
             }
             $contracts->first_payment = $termsData['first_payment'];
@@ -92,9 +91,11 @@ class ReviewController extends Controller
 
         $graces = GracePeriod::all();
 
+        $gracePeriod = GracePeriod::find($contracts->grace_period_id);
+
         $periods = PeriodType::all();
-        
-        if($contracts->period_type_id == NULL) {
+
+        if ($contracts->period_type_id == NULL) {
             $periodTypeId = $termsData['period_type_id'];
         } else {
             $periodTypeId = $contracts->period_type_id;
@@ -103,15 +104,14 @@ class ReviewController extends Controller
         $periodDays = $periods->where('id', $contracts->period_type_id);
 
         $periodType = $periods->where('id', $contracts->period_type_id)->first()->period_type;
-        
+
         $endOfLease = $this->calculatePeriod($periodDays, $contracts->number_of_periods);
 
         $options = OptionExpiration::all();
-        $leasetotal = $contracts->first_payment + ($contracts->number_of_periods *
-            $contracts->period_payment);
+        $leasetotal = $contracts->first_payment + ($contracts->number_of_periods * $contracts->period_payment);
 
         $getCurrentDateTime =  getCurrentDateTime();
-        
+
         // dd($contracts);
         $pdf = PDF::loadView('front.review.pdf-terms', compact(
             'graces',
@@ -123,8 +123,9 @@ class ReviewController extends Controller
             'leasetotal',
             'getCurrentDateTime',
             'endOfLease',
-            'periodType',  
-            'lessor'
+            'periodType',
+            'lessor',
+            'gracePeriod'
         ));
         $filename = 'contract_' . $lessor->id . '.pdf';
         $contractPdf = 'domain_contract_' . $domain->id . '.pdf';
