@@ -12,7 +12,16 @@
         <div class="row">
             <div class="col-lg-8 col-sm-12 mx-auto">
 
-                <p>This is the Identitius Eula.</p>
+                <p>
+                    <div name="termly-embed" data-id="a108a8f8-013b-4940-b9db-2c527af0e343" data-type="iframe"></div>
+                    <script type="text/javascript">(function(d, s, id) {
+                    var js, tjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://app.termly.io/embed-policy.min.js";
+                    tjs.parentNode.insertBefore(js, tjs);
+                    }(document, 'script', 'termly-jssdk'));</script>
+                </p>
             </div>
         </div>
     </div>
