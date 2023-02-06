@@ -16,19 +16,19 @@ class PeriodTypeSeeder extends Seeder
     {
         $datas = [
             '0' => [
-                'period_type' => 'Day',
+                'period_type' => 'Daily',
             ],
             '1' => [
-                'period_type' => 'Week',
+                'period_type' => 'Weekly',
             ],
             '2' => [
-                'period_type' => 'Month',
+                'period_type' => 'Monthly',
             ],
             '3' => [
-                'period_type' => 'Quarter',
+                'period_type' => 'Quarterly',
             ],
             '4' => [
-                'period_type' => 'Year',
+                'period_type' => 'Yearly',
             ],
         ];
 
