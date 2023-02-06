@@ -60,7 +60,7 @@ class ReviewController extends Controller
 
         $contracts = Contract::where('domain_id', $domain->id)->first();
 
-        if ($contracts == NULL || isset($termsData)) {
+        if ($contracts == NULL && isset($termsData)) {
             $contract = Contract::where('domain_id', $domain->id)->first();
             // dd($termsData);
             // $date=date_create($contracts->start_date);
@@ -72,9 +72,9 @@ class ReviewController extends Controller
             if ($contract == NULL) {
                 $contracts = collect();
             }
-            // $contracts->first_payment = $termsData['first_payment'];
-            // $contracts->period_payment = $termsData['period_payment'];
-            // $contracts->number_of_periods = $termsData['number_of_periods'];
+            $contracts->first_payment = $termsData['first_payment'];
+            $contracts->period_payment = $termsData['period_payment'];
+            $contracts->number_of_periods = $termsData['number_of_periods'];
             $contracts->option_expiration = 6;
             $contracts->grace_period_id = 4;
             if (isset($termsData['option_purchase_price'])) {
