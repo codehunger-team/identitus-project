@@ -11,7 +11,7 @@
     <br />
     {{-- @dd(Auth::user()) --}}
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
-        and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? ''}}</b> of
+        and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? Auth::user()->name}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
         the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
         <b>{{ Auth::user()->street_1 ?? '' }}</b>,
@@ -209,20 +209,19 @@
             be deemed to have been received on the next day following transmission.</p>
 
         <p>IN WITNESS WHEREOF the parties hereto have executed this Agreement on the date first above written.</p>
-
-        <p>[LESSEE]</p>
-        <p>Name:{{Auth::user()->name ?? ''}} </p>
-        <p>Created At: December 06, 2023 07:19 pm</p>
-        <p>IP: 101.92.32.46</p>
-        
-        ===================================================================== 
+         
+        @if(str_contains(url()->current(), '/review-terms'))
+            <p>[LESSEE]</p>
+            <p>Name:{{Auth::user()->name ?? ''}} </p>
+            {{-- <p>Created At: December 06, 2023 07:19 pm</p> --}}
+            <p>IP: {{Request::ip() ?? ''}}</p>
+            
+            ===================================================================== 
+        @endif
         <p>[LESSOR]</p>
         <p>Name:{{$lessor->name ?? ''}} </p>
-        <p>Created At: JANURARY 06, 2023 07:19 pm</p>
-        <p>IP: 98.36.25.12</p>
-       
-        
-        
+        <p>Created At: {{changeDateFormat($lessor->created_at)}}</p>
+        <p>IP: {{$lessor->ip ?? Request::ip()}}</p>
 
 </div>
 @endauth

@@ -146,6 +146,7 @@ class DomainController extends Controller
                 $contract['domain_id'] = $domain_id;
                 $contract['lessor_id'] = $data['user_id'];
                 $contract['lease_total'] = $data['first_payment'] + ($data['number_of_periods'] * $data['period_payment']);
+                $contract['ip'] = \Request::ip();
 
                 if (isset($updatedColumnDomainId)) {
                     contract::where('domain_id', $updatedColumnDomainId)->update($contract);

@@ -254,6 +254,7 @@ class DomainController extends Controller
                 'auto_change_rate' => 0,
                 'accrual_rate' => 0,
                 'lease_total' => $request->first_payment + ($request->number_of_periods * $request->period_payment),
+                'ip' => \Request::ip()
             ];
             \Session::put('form_data', $data);
             $domainName = Domain::where('id', $request->domain_id)->pluck('domain')->first();
