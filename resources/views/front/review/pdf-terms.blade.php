@@ -9,14 +9,14 @@
         <b>{{$domainName ?? ''}}</b>
     </h1>
     <br />
-    {{-- @dd(Auth::user()) --}}
+   
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
-        and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? Auth::user()->name}}</b> of
+        and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
-        the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
+        the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? Auth::user()->name }}</b>, of
         <b>{{ Auth::user()->street_1 ?? '' }}</b>,
         @isset(Auth::user()->street_2) <b>{{ Auth::user()->street_2 ?? ''}}, @endisset
-            {{Auth::user()->city ?? '' . ', ' .Auth::user()->state ?? ''  . ', ' .Auth::user()->country ?? '' }}</b>, the party
+            {{Auth::user()->city ?? ''}}, {{Auth::user()->state ?? ''}}, {{Auth::user()->country ?? ''}}, {{Auth::user()->zip ?? ''}}</b>, the party
         wishing to obtain the use of the Domain Name (the “Lessee”).</p>
 
     <p><b>THE LESSOR AND THE LESSEE HEREBY AGREE as follows:</b></p>
@@ -214,14 +214,14 @@
             <p>[LESSEE]</p>
             <p>Name:{{Auth::user()->name ?? ''}} </p>
             {{-- <p>Created At: December 06, 2023 07:19 pm</p> --}}
-            <p>IP: {{Request::ip() ?? ''}}</p>
+            {{-- <p>IP: {{Request::ip() ?? ''}}</p> --}}
             
             ===================================================================== 
         @endif
         <p>[LESSOR]</p>
         <p>Name:{{$lessor->name ?? ''}} </p>
-        <p>Created At: {{changeDateFormat($lessor->created_at)}}</p>
-        <p>IP: {{$lessor->ip ?? Request::ip()}}</p>
+        {{-- <p>Created At: {{changeDateFormat($lessor->created_at)}}</p>
+        <p>IP: {{$lessor->ip ?? Request::ip()}}</p> --}}
 
 </div>
 @endauth
