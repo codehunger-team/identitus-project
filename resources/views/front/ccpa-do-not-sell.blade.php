@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-8 col-sm-12 mx-auto">
 
-                <p>This is the Identitius CCPA.</p>
+                <p><a href="https://app.termly.io/notify/165a1ecc-9440-44ec-953d-26da7981446d">Do Not Sell or Share My Personal information</a></p>
             </div>
         </div>
     </div>

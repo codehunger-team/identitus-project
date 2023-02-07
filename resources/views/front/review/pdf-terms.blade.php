@@ -102,26 +102,18 @@
     <p><b>9. Default</b></p>
     <p>(a) The Lessor and the Lessee agree that each of the following events amounts to a default by the Lessee under
         this Lease:
-        <li>(i) if the Lessee fails to pay any Payment payable under this Lease on the due date for payment, subject to
-            a
-            <select class="form-control" disabled>
-                @if(count($graces))
-                @foreach($graces as $g)
-                <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected @endif>{{$g->grace_period}}
-                </option>
-                @endforeach
-                @endif
-            </select>day grace period;
-        <li>(ii) the Lessee fails to perform or observe any of the covenants or provisions of this Lease on the part of
-            the Lessee to be performed or observed;
-        <li>(iii) if a writ of execution is issued against the Lessee’s property under a judgment in any court of
-            competent jurisdiction;
-        <li>(iv) if a distress warrant is issued against the Lessee’s property under a judgment in any court of
-            competent jurisdiction;
-        <li>(v) If the Lessee becomes bankrupt or if the Lessee makes an assignment or composition with the Lessee’s
+        <li>If the Lessee fails to pay any Payment payable under this Lease on the due date for payment, subject to a
+           {{$gracePeriod}} day grace period; </li>
+        <li> the Lessee fails to perform or observe any of the covenants or provisions of this Lease on the part of
+            the Lessee to be performed or observed; </li>
+        <li>If a writ of execution is issued against the Lessee’s property under a judgment in any court of
+            competent jurisdiction; </li>
+        <li>If a distress warrant is issued against the Lessee’s property under a judgment in any court of
+            competent jurisdiction; </li>
+        <li>If the Lessee becomes bankrupt or if the Lessee makes an assignment or composition with the Lessee’s
             creditors or if the Lessee is a body corporate and a resolution is passed or a petition filed for the
             winding up of the Lessee other than for the purposes of reconstruction or amalgamation or if the Lessee
-            becomes subject to the appointment of a receiver.
+            becomes subject to the appointment of a receiver. </li>
     </p>
 
     <p>(b) In the event default occurs, the Lessor and/or Identitius may immediately or at any time thereafter reset the
@@ -134,12 +126,12 @@
     <p>(c) If this Lease is terminated for any reason other than its due fulfillment by the Lessee, or other than as a
         result of Early Termination, or other than with the express consent of the Lessor in writing, then without
         prejudice to its other rights at law or in equity the Lessor may at any time demand immediate payment of all of
-        the following:
-        <li>(i) All arrears of Rent and other money then due and/or payable by the Lessee under the Lease.
-        <li>(ii) The Lessor’s loss on the Lease to be notified by the Lessor to the Lessee.
-        <li>(iii) All costs and expenses incurred by the Lessor enforcing this agreement.
-        <li>(iv) Interest on all money payable under this provision from the date of termination, the date of payment at
-            the rate of 3% per year calculated monthly.
+        the following: </br>
+        (i) All arrears of Rent and other money then due and/or payable by the Lessee under the Lease. </br>
+        (ii) The Lessor’s loss on the Lease to be notified by the Lessor to the Lessee. </br>
+        (iii) All costs and expenses incurred by the Lessor enforcing this agreement. </br>
+        (iv) Interest on all money payable under this provision from the date of termination, the date of payment at
+            the rate of 3% per year calculated monthly.</br>
     </p>
 
     <p><b>10. Invalidity or Severability</b></p>
@@ -218,16 +210,17 @@
 
         <p>IN WITNESS WHEREOF the parties hereto have executed this Agreement on the date first above written.</p>
 
-        <p>[LESSOR] [LESSEE]</p>
-
-
-
-
+        <p>[LESSEE]</p>
         <p>Name:{{Auth::user()->name ?? ''}} </p>
-        <br>Lessee
-
+        <p>Created At: December 06, 2023 07:19 pm</p>
+        <p>IP: 101.92.32.46</p>
+        
+        ===================================================================== 
+        <p>[LESSOR]</p>
         <p>Name:{{$lessor->name ?? ''}} </p>
-        <br>Lessor
+        <p>Created At: JANURARY 06, 2023 07:19 pm</p>
+        <p>IP: 98.36.25.12</p>
+       
         
         
 

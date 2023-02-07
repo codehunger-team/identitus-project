@@ -239,17 +239,6 @@ class FrontController extends Controller
     }
 
     /**
-     * Display the Cookie Eula Page
-     * @method GET /eula
-     * @return Renderable
-     */
-
-    public function eula()
-    {
-        return view('front.eula');
-    }
-
-    /**
      * Display the Cookie Disclaimer Page
      * @method GET /disclaimer
      * @return Renderable
