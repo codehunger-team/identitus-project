@@ -114,12 +114,12 @@ class FrontController extends Controller
                 return 123;
             })
             ->addColumn('options', function ($query) {
-                $action = '';
+                $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
                 if (isset($query->contract->period_payment)) {
                     $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
                 };
-                $action .=  '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy"><li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li> </ul> </div>';
-                return $action;
+                $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
+                return $action . '</ul> </div>';
             })
             ->rawColumns(['options', 'monthly_lease'])
             ->make(true);
