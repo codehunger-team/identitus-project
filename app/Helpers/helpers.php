@@ -26,3 +26,7 @@ function changeDateFormat($date) {
 	return date("F d, Y h:i a", strtotime($date));
 
 }
+
+function formatMobileNumber($formattedNumber) {
+	return preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $formattedNumber);
+}

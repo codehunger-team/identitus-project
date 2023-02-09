@@ -180,7 +180,7 @@
             <br>{{Auth::user()->city . ', ' .Auth::user()->state . ',' .Auth::user()->zip ?? '' }}
             <br>{{Auth::user()->country ?? '' }}
             <br>{{Auth::user()->email ?? ''}}
-            <br>{{Auth::user()->phone ?? ''}}</p>
+            <br>{{formatMobileNumber(Auth::user()->phone ?? '')}}</p>
 
 
         <p>If to Lessor:</p>
@@ -198,7 +198,7 @@
             <br>{{$lessor->city . ', ' .$lessor->state . ',' .$lessor->zip ?? '' }}
             <br>{{$lessor->country ?? '' }}
             <br>{{$lessor->email ?? ''}}
-            <br>{{$lessor->phone ?? ''}}</p>
+            <br>{{formatMobileNumber($lessor->phone ?? '')}}</p>
         @endif
 
 
