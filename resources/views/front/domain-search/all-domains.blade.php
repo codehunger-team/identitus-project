@@ -84,7 +84,7 @@
                             step="500" /> --}}
                     </div>
                     <div class="col-lg-4 col-sm-12 my-2">
-                        <label class="label">Monthly Price Range($):</label>
+                        <label class="label">Monthly Lease Range($):</label>
                         <div class="row mt-2">
                             <div class="col-lg-6">
                                 <input type="text" name="monthly_price_from" placeholder="from" class="form-control monthly_price_from">

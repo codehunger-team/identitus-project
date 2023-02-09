@@ -107,11 +107,20 @@ class FrontController extends Controller
             })
             ->when(isset($filters['char_to']) && $filters['char_to'] != null && $filters['char_to'] != 'ALL', function ($query) use ($filters) {
                 $query->whereRaw('LENGTH(domain) > ' . $filters['char_to']);
+            })
+            ->when(isset($filters['monthly_price_from']) && $filters['monthly_price_from'] != null && isset($filters['monthly_price_to']) && $filters['monthly_price_to'] != null, function ($query) use ($filters) {
+                $query->WhereHas('contract', function ($query) use ($filters) {
+                    $query->whereBetween('first_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
+                });
             });
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('monthly_lease', function ($query) {
-                return 123;
+                if (isset($query->contract->first_payment)) {
+                    return $query->contract->first_payment;
+                } else {
+                    return 'Not Available';
+                }
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
