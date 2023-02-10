@@ -110,14 +110,14 @@ class FrontController extends Controller
             })
             ->when(isset($filters['monthly_price_from']) && $filters['monthly_price_from'] != null && isset($filters['monthly_price_to']) && $filters['monthly_price_to'] != null, function ($query) use ($filters) {
                 $query->WhereHas('contract', function ($query) use ($filters) {
-                    $query->whereBetween('first_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
+                    $query->whereBetween('period_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
                 });
             });
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('monthly_lease', function ($query) {
-                if (isset($query->contract->first_payment)) {
-                    return $query->contract->first_payment;
+                if (isset($query->contract->period_payment)) {
+                    return $query->contract->period_payment;
                 } else {
                     return 'Not Available';
                 }
