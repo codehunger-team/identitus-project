@@ -88,7 +88,7 @@ class FrontController extends Controller
                     $query->where('domain', 'like', $filters['keyword'] . '%');
                 }
                 if ($filters['keyword_placement'] == 'ends_with') {
-                    ($query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%'.$filters['keyword'].'"'))->toSql();
+                    ($query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%'.$filters['keyword'].'"'));
                 }
             })
             ->when(isset($filters['category']) && $filters['category'] != null, function ($query) use ($filters) {
