@@ -89,7 +89,7 @@ class FrontController extends Controller
                     $query->where('domain', 'like', $filters['keyword'] . '%');
                 }
                 if ($filters['keyword_placement'] == 'ends_with') {
-                    $query->where('domain', 'like', '%' . $filters['keyword']);
+                    $query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%'.$filters['keyword'].'"');
                 }
             })
             ->when(isset($filters['category']) && $filters['category'] != null, function ($query) use ($filters) {
@@ -107,12 +107,21 @@ class FrontController extends Controller
                 $query->whereBetween('pricing', [$filters['price_from'], $filters['price_to']]);
             })
             ->when(isset($filters['char_to']) && $filters['char_to'] != null && $filters['char_to'] != 'ALL', function ($query) use ($filters) {
-                $query->whereRaw('LENGTH(domain) > ' . $filters['char_to']);
+                $query->whereRaw('LENGTH(SUBSTRING_INDEX(domain, ".", 1)) <= ' . $filters['char_to']);
+            })
+            ->when(isset($filters['monthly_price_from']) && $filters['monthly_price_from'] != null && isset($filters['monthly_price_to']) && $filters['monthly_price_to'] != null, function ($query) use ($filters) {
+                $query->WhereHas('contract', function ($query) use ($filters) {
+                    $query->whereBetween('period_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
+                });
             });
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('monthly_lease', function ($query) {
-                return 123;
+                if (isset($query->contract->period_payment)) {
+                    return $query->contract->period_payment;
+                } else {
+                    return 'Not Available';
+                }
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';

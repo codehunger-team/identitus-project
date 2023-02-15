@@ -9,14 +9,14 @@
         <b>{{$domainName ?? ''}}</b>
     </h1>
     <br />
-    {{-- @dd(Auth::user()) --}}
+   
     <p>THIS LEASE AGREEMENT (the “Agreement”) for the Domain Name, <b>{{$domainName ?? ''}}</b>, beginning at the date
         and time of <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> is between <b>{{$lessor->company ?? ''}}</b> of
         <b>{{ $lessor->street_1 .', '. $lessor->street_2 }}{{$lessor->city . ', ' .$lessor->state . ', ' .$lessor->zip . ', ' .$lessor->country ?? '' }}</b>,
-        the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? '' }}</b>, of
-        <b>{{ Auth::user()->street_1 ?? '' }}</b>,
-        @isset(Auth::user()->street_2) <b>{{ Auth::user()->street_2 ?? ''}}, @endisset
-            {{Auth::user()->city ?? '' . ', ' .Auth::user()->state ?? ''  . ', ' .Auth::user()->country ?? '' }}</b>, the party
+        the Domain Owner (the “Lessor”), and <b>{{ Auth::user()->company ?? Auth::user()->name }}</b>, of
+        <b>{{ Auth::user()->street_1 ?? '' }},
+        @isset(Auth::user()->street_2) {{ Auth::user()->street_2 ?? ''}}, @endisset
+            {{Auth::user()->city ?? ''}}, {{Auth::user()->state ?? ''}}, {{Auth::user()->country ?? ''}}, {{Auth::user()->zip ?? ''}}</b>, the party
         wishing to obtain the use of the Domain Name (the “Lessee”).</p>
 
     <p><b>THE LESSOR AND THE LESSEE HEREBY AGREE as follows:</b></p>
@@ -29,9 +29,9 @@
 
     <p>Subject to receipt of the First Payment, as defined below in Paragraph 3 and subject to Paragraph 4, the term
         (the “Term”) of this Lease shall be for a time length of <b>{{$contracts->number_of_periods ?? ''}}</b>
-        <b>{{$periodType}}</b>s, commencing on <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> (the “Effective Date and Time”) and
-        expiring <b>{{$contracts->number_of_periods ?? ''}}</b> <b>{{$periodType}}</b>s thereafter, specifically at
-        <b>{{changeDateFormat($endOfLease) ?? ''}}</b> (the “Expiration Date and Time”).
+        <b>{{$periodType}}s</b>, commencing on <b>{{changeDateFormat($getCurrentDateTime) ?? ''}} UTC</b> (the “Effective Date and Time”) and
+        expiring <b>{{$contracts->number_of_periods ?? ''}}</b> <b>{{$periodType}}s</b> thereafter, specifically at
+        <b>{{changeDateFormat($endOfLease) ?? ''}} UTC</b> (the “Expiration Date and Time”).
         Throughout the Term, so long as the Lessee’s obligations under this Agreement are in good standing, the Lessee
         shall have the right to use the Domain Name in accordance with the terms and conditions contained herein.
 
@@ -103,7 +103,7 @@
     <p>(a) The Lessor and the Lessee agree that each of the following events amounts to a default by the Lessee under
         this Lease:
         <li>If the Lessee fails to pay any Payment payable under this Lease on the due date for payment, subject to a
-           {{$gracePeriod}} day grace period; </li>
+           {{$gracePeriod->grace_period ?? 0}} day grace period; </li>
         <li> the Lessee fails to perform or observe any of the covenants or provisions of this Lease on the part of
             the Lessee to be performed or observed; </li>
         <li>If a writ of execution is issued against the Lessee’s property under a judgment in any court of
@@ -180,7 +180,7 @@
             <br>{{Auth::user()->city . ', ' .Auth::user()->state . ',' .Auth::user()->zip ?? '' }}
             <br>{{Auth::user()->country ?? '' }}
             <br>{{Auth::user()->email ?? ''}}
-            <br>{{Auth::user()->phone ?? ''}}</p>
+            <br>{{formatMobileNumber(Auth::user()->phone ?? '')}}</p>
 
 
         <p>If to Lessor:</p>
@@ -198,7 +198,7 @@
             <br>{{$lessor->city . ', ' .$lessor->state . ',' .$lessor->zip ?? '' }}
             <br>{{$lessor->country ?? '' }}
             <br>{{$lessor->email ?? ''}}
-            <br>{{$lessor->phone ?? ''}}</p>
+            <br>{{formatMobileNumber($lessor->phone ?? '')}}</p>
         @endif
 
 
@@ -209,20 +209,19 @@
             be deemed to have been received on the next day following transmission.</p>
 
         <p>IN WITNESS WHEREOF the parties hereto have executed this Agreement on the date first above written.</p>
-
-        <p>[LESSEE]</p>
-        <p>Name:{{Auth::user()->name ?? ''}} </p>
-        <p>Created At: December 06, 2023 07:19 pm</p>
-        <p>IP: 101.92.32.46</p>
-        
-        ===================================================================== 
+         
+        @if(str_contains(url()->current(), '/review-terms'))
+            <p>[LESSEE]</p>
+            <p>Name:{{Auth::user()->name ?? ''}} </p>
+            {{-- <p>Created At: December 06, 2023 07:19 pm</p> --}}
+            {{-- <p>IP: {{Request::ip() ?? ''}}</p> --}}
+            
+            ===================================================================== 
+        @endif
         <p>[LESSOR]</p>
         <p>Name:{{$lessor->name ?? ''}} </p>
-        <p>Created At: JANURARY 06, 2023 07:19 pm</p>
-        <p>IP: 98.36.25.12</p>
-       
-        
-        
+        {{-- <p>Created At: {{changeDateFormat($lessor->created_at)}}</p>
+        <p>IP: {{$lessor->ip ?? Request::ip()}}</p> --}}
 
 </div>
 @endauth
