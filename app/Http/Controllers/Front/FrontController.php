@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Session;
 use Validator;
 use App\Http\Controllers\Admin\DocusignController;
+use Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 class FrontController extends Controller
@@ -258,5 +259,23 @@ class FrontController extends Controller
     public function ccpa()
     {
         return view('front.ccpa-do-not-sell');
+    }
+
+    /**
+     * This function is used to get domain search typeahead
+     * @method GET /domain-typeahead
+     * @param Request $request
+     * @return JSON
+     */
+
+    public function domainSearchTypeahead(Request $request)
+    {
+        try {
+            $request->validate(['keyword' => 'required']);
+            $domains = Domain::select('id', 'domain')->where('domain', 'like', '%' . $request->keyword . '%')->take(10)->get();
+            return response()->json(['success' => true, 'data' => $domains, 'message' => 'Domain Data Fetched Successfully']);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

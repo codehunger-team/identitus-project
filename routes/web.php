@@ -27,54 +27,56 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('domain-typeahead', [FrontController::class, 'domainSearchTypeahead'])->name('domain.search.typeahead');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //review terms
-Route::get('review-terms/{id}',[ReviewController::class, 'index'])->name('review.terms');
+Route::get('review-terms/{id}', [ReviewController::class, 'index'])->name('review.terms');
 
 //counter offer
-Route::post('counter',[CounterOfferController::class, 'counterLease'])->name('counter');
-Route::get('counter/edit/{id}',[CounterOfferController::class, 'editCounter'])->name('edit.counter');
-Route::get('counter/{domain}',[CounterOfferController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
-Route::post('counter/contract',[CounterOfferController::class, 'counterContract'])->name('counter.contract');
-Route::get('accept/offer/{id}',[CounterOfferController::class, 'acceptOffer'])->name('accept.offer');
-Route::get('update/counter-offer/{id}',[CounterOfferController::class, 'updateCounterOffer'])->name('update.counter.offer');
+Route::post('counter', [CounterOfferController::class, 'counterLease'])->name('counter');
+Route::get('counter/edit/{id}', [CounterOfferController::class, 'editCounter'])->name('edit.counter');
+Route::get('counter/{domain}', [CounterOfferController::class, 'counterOffer'])->middleware('auth')->name('counter.offer');
+Route::post('counter/contract', [CounterOfferController::class, 'counterContract'])->name('counter.contract');
+Route::get('accept/offer/{id}', [CounterOfferController::class, 'acceptOffer'])->name('accept.offer');
+Route::get('update/counter-offer/{id}', [CounterOfferController::class, 'updateCounterOffer'])->name('update.counter.offer');
 
 //Add to Cart
-Route::get('checkout',[AjaxController::class, 'cart_contents'])->name('checkout');
-Route::get('ajax/add-to-cart/buy/{domain}',[AjaxController::class, 'add_to_cart_buy'])->name('ajax.add-to-cart.buy');
-Route::get('ajax/add-to-cart/{domain}',[AjaxController::class, 'add_to_cart'])->name('ajax.add.to.cart');
-Route::get('/cart/remove/particular-item/{id}',[AjaxController::class, 'cart_remove_item'])->name('ajax.remove.to.cart');
+Route::get('checkout', [AjaxController::class, 'cart_contents'])->name('checkout');
+Route::get('ajax/add-to-cart/buy/{domain}', [AjaxController::class, 'add_to_cart_buy'])->name('ajax.add-to-cart.buy');
+Route::get('ajax/add-to-cart/{domain}', [AjaxController::class, 'add_to_cart'])->name('ajax.add.to.cart');
+Route::get('/cart/remove/particular-item/{id}', [AjaxController::class, 'cart_remove_item'])->name('ajax.remove.to.cart');
 
 //user
-Route::post('user/review/update',[FrontController::class, 'user_update'])->name('user.review.update');
+Route::post('user/review/update', [FrontController::class, 'user_update'])->name('user.review.update');
 
 //checkout
-Route::get('checkout/credit-card',[CheckoutController::class, 'credit_card'])->name('checkout.credit.card');
+Route::get('checkout/credit-card', [CheckoutController::class, 'credit_card'])->name('checkout.credit.card');
 Route::post('checkout/credit-card', [CheckoutController::class, 'credit_card_processing'])->name('checkout.credit.card.processing');
 Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 
 //Standard pages
-Route::get('about',[FrontController::class, 'about'])->name('about');
-Route::get('q-and-a',[FrontController::class, 'qa'])->name('qa');
-Route::get('tos',[FrontController::class, 'tos'])->name('tos');
-Route::get('privacy-policy',[FrontController::class, 'privacy'])->name('privacy');
-Route::get('cookie-policy',[FrontController::class, 'cookie'])->name('cookie');
-Route::get('disclaimer',[FrontController::class, 'disclaimer'])->name('disclaimer');
-Route::get('ccpa-do-not-sell',[FrontController::class, 'ccpa'])->name('ccpa');
+Route::get('about', [FrontController::class, 'about'])->name('about');
+Route::get('q-and-a', [FrontController::class, 'qa'])->name('qa');
+Route::get('tos', [FrontController::class, 'tos'])->name('tos');
+Route::get('privacy-policy', [FrontController::class, 'privacy'])->name('privacy');
+Route::get('cookie-policy', [FrontController::class, 'cookie'])->name('cookie');
+Route::get('disclaimer', [FrontController::class, 'disclaimer'])->name('disclaimer');
+Route::get('ccpa-do-not-sell', [FrontController::class, 'ccpa'])->name('ccpa');
 
 //Docusign
-Route::get('docusign',[DocusignController::class,'index'])->name('docusign');
-Route::get('docusign/callback',[DocusignController::class,'callback'])->name('docusign.redirect');
-Route::get('sign/document/{domain}',[DocusignController::class,'signDocument'])->name('sign.document');
+Route::get('docusign', [DocusignController::class, 'index'])->name('docusign');
+Route::get('docusign/callback', [DocusignController::class, 'callback'])->name('docusign.redirect');
+Route::get('sign/document/{domain}', [DocusignController::class, 'signDocument'])->name('sign.document');
 
 //Enquiry Controller
 Route::post('send/enquiry', [EnquiryController::class, 'sendEnquiry'])->name('send.enquiry');
 
 //domain Filter
-Route::get('domains',[FrontController::class, 'all_domains'])->name('domains');
+Route::get('domains', [FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
 Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
