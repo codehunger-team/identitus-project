@@ -20,6 +20,7 @@
     .search-results {
         padding: 0;
     }
+
     .search-result {
         list-style: none;
         padding: 7px;
@@ -39,7 +40,8 @@
             url: '{{ route("domain.search.typeahead") }}' + '?keyword=' + $('input[name="keyword"]').val(),
             success: function(data) {
                 data.data.forEach(element => {
-                    $('.search-results').append('<li class="search-result"><i class="fas fa-search me-2"></i>' + element.domain + '</li>');
+                    $('.search-results').html('');
+                    $('.search-results').append('<a href="/'+ element.domain +'"><li class="search-result"><i class="fas fa-search me-2"></i>' + element.domain + '</li></a>');
                 });
             },
             error: function(error) {
