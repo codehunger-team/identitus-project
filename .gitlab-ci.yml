@@ -72,7 +72,7 @@ build-app:
     - export NVM_DIR=/root/.nvm
     - . /root/.nvm/nvm.sh
     - mkdir build && cd build
-    - git clone git@gitlab:identitius/identitius.git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@noproxy.gitlab.digicloak.co/identitius/identitius.git
     - cd identitius
     - git submodule update --init --recursive
     - ./deploy/post-merge-run-prod
