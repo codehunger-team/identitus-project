@@ -1,0 +1,78 @@
+stages:
+  - build
+  - update-repos
+  - deploy-stage
+  - deploy-prod
+
+.deploy:
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
+
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -p $SSH_PORT $SSH_STAGE_HOST >> ~/.ssh/known_hosts
+    - ssh-keyscan -p $SSH_PORT $SSH_PROD_HOST >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  variables:
+    GIT_STRATEGY: none
+
+fetch-stage:
+  stage: update-repos
+  extends: .deploy
+  script:
+    - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "cd identitius.git  && git fetch -f --update-head-ok origin '*:*'"
+  only:
+    - main
+
+fetch-prod:
+  stage: update-repos
+  extends: .deploy
+  script:
+    - ssh -p ${SSH_PROD_PORT} $SSH_PROD_USER@${SSH_PROD_HOST} "cd identitius.git  && git fetch -f --update-head-ok origin '*:*'"
+  only:
+    - main
+
+
+deploy-staging:
+  stage: deploy-stage
+  extends: .deploy
+  script:
+    - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "./deploy-stage.sh $CI_COMMIT_SHA"
+  only:
+    - main
+
+deploy-prod:
+  stage: deploy-prod
+  extends: .deploy
+  script:
+    - ssh -p ${SSH_PROD_PORT} $SSH_PROD_USER@${SSH_PROD_HOST} "./deploy-prod.sh $CI_COMMIT_SHA"
+  only:
+    - main
+  when: manual
+
+
+build-app:
+  image: noproxy.gitlab.digicloak.co:5050/beagleboard-website/beagleboard/beaglebuild:latest
+  stage: build
+  tags:
+    - docker
+  only:
+    - main
+  variables:
+    GIT_STRATEGY: none
+#  before-script:
+#    - export PATH="$(npm bin):$PATH"
+  script:
+    - whoami
+    - pwd
+    - export NVM_DIR=/root/.nvm
+    - . /root/.nvm/nvm.sh
+    - mkdir build && cd build
+    - git clone git@gitlab:identitius/identitius.git
+    - cd identitius
+    - git submodule update --init --recursive
+    - ./deploy/post-merge-run-prod
