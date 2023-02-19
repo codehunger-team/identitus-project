@@ -44,6 +44,7 @@ deploy-staging:
     - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "./deploy-stage.sh $CI_COMMIT_SHA"
   only:
     - main
+  when: manual
 
 deploy-prod:
   stage: deploy-prod
