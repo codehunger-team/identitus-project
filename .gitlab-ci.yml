@@ -56,7 +56,7 @@ deploy-prod:
 
 
 build-app:
-  image: noproxy.gitlab.digicloak.co:5050/beagleboard-website/beagleboard/beaglebuild:latest
+  image: noproxy.gitlab.digicloak.co:5050/identitius/identitius/phpbuild:latest
   stage: build
   tags:
     - docker
