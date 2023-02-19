@@ -71,6 +71,7 @@ build-app:
     - whoami
     - pwd
     - export NVM_DIR=/root/.nvm
+    - export SKIP_ARTISAN_MIGRATE=Y
     - . /root/.nvm/nvm.sh
     - mkdir build && cd build
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.digicloak.co/identitius/identitius.git
