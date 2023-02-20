@@ -61,8 +61,8 @@ build-app:
   stage: build
   tags:
     - docker
-  only:
-    - main
+#  only:
+#    - main
   variables:
     GIT_STRATEGY: none
 #  before-script:

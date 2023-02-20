@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# keep track of the last executed command
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+# echo an error message before exiting
+trap 'echo "\"${last_command}\" command exited with code $?."' EXIT
+
+declare -F nvm
+if [ $? -ne 0 ]; then
+	export NVM_DIR=${HOME}/.nvm
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
+
+declare -F nvm
+if [ $? -ne 0 ]; then
+	echo "ERROR: nvm function undefined."
+else
+	echo "Running nvm install ..."
+	nvm install && nvm use
+fi
+
+set -e
+
+echo "Updating npm ..."
+npm install -g npm
+
+echo "Running composer install (root) ..."
+composer install
+
+# Clear the old boostrap/cache/compiled.php
+echo "Running php artisan clear-compiled ... "
+php artisan clear-compiled
+
+# Recreate boostrap/cache/compiled.php
+echo "Running php artisan optimize ... "
+php artisan optimize
+
+if [[ $SKIP_ARTISAN_MIGRATE != Y ]]; then
+    # Migrate any database changes
+    echo "Running php artisan migrate ... "
+    php artisan migrate
+else
+    echo "Skipping php artisan migrate."
+fi
+
+echo "Running npm ci ... "
+npm ci
+
+echo "Running npm run prod ... "
+npm run prod
+
