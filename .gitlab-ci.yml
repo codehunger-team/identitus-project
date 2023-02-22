@@ -63,7 +63,7 @@ deploy-prod:
 
 
 build-app:
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/identitius/identitius/phpbuild:latest
+  image: noproxy.gitlab.digicloak.co:5050/identitius/identitius/phpbuild:latest
   stage: build
   tags:
     - docker
