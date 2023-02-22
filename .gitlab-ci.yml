@@ -1,13 +1,13 @@
 stages:
   - build
   - update-repos
-  - deploy-stage
-  - deploy-prod
+  - deploy
 
-.deploy:
+.deploy-common:
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
 
   before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
     - eval $(ssh-agent -s)
     - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
@@ -22,7 +22,7 @@ stages:
 
 fetch-stage:
   stage: update-repos
-  extends: .deploy
+  extends: .deploy-common
   script:
     - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "cd identitius.git  && git fetch -f --update-head-ok origin '*:*'"
   only:
@@ -30,7 +30,7 @@ fetch-stage:
 
 fetch-prod:
   stage: update-repos
-  extends: .deploy
+  extends: .deploy-common
   script:
     - ssh -p ${SSH_PROD_PORT} $SSH_PROD_USER@${SSH_PROD_HOST} "cd identitius.git  && git fetch -f --update-head-ok origin '*:*'"
   only:
@@ -38,17 +38,23 @@ fetch-prod:
 
 
 deploy-staging:
-  stage: deploy-stage
-  extends: .deploy
+  stage: deploy
+  extends: .deploy-common
   script:
     - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "./deploy-stage.sh $CI_COMMIT_SHA"
+  environment:
+    name: staging
+    url: https://staging.identitius.com
   only:
     - main
   when: manual
 
 deploy-prod:
-  stage: deploy-prod
-  extends: .deploy
+  stage: deploy
+  extends: .deploy-common
+  environment:
+    name: production
+    url: https://identitius.com
   script:
     - ssh -p ${SSH_PROD_PORT} $SSH_PROD_USER@${SSH_PROD_HOST} "./deploy-prod.sh $CI_COMMIT_SHA"
   only:
