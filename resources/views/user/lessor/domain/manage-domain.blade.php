@@ -52,7 +52,7 @@
             <label>Registrar</label><br />
             <select name="registrar_id" class="form-control">
                 @foreach($registrars as $registrar)
-                <option value="{{$registrar->id}}" @if($d->registrar == $registrar->id) selected
+                <option value="{{$registrar->id}}" @if($d->registrar_id == $registrar->id) selected
                     @endif>{{$registrar->registrar}}</option>
                 @endforeach
             </select>

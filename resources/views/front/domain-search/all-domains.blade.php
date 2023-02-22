@@ -14,10 +14,10 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 mx-auto">
-            <form method="POST" action="{{route('ajax.domainfiltering')}}" id="ajax-search-form">
+            <form id="ajax-search-form">
                 <div class="col-12-sm">
                     <div class="form-group">
-                        <input class="form-control" name="keyword" placeholder="Enter Domain Name Or Keyword">
+                    <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
                     </div>
                 </div>
                 <div class="form-group row my-2">

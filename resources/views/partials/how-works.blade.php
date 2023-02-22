@@ -39,7 +39,7 @@
                     <img src="{{ asset('images/leasing-spaceman.svg') }}" alt="Adopt A Domain" class="text-center"
                          loading="lazy">
                 </div>
-                <p class="text-center">Before the lease ends, either re-lease, execute your option to buy the domain, or simply move your site to a new domain.</p>
+                <p class="text-center">Anytime during the lease, you can buy the domain at the agreed pre-set price.</p>
             </div>
         </div>
     </section>
