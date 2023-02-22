@@ -39,7 +39,7 @@
                     <img src="{{ asset('images/leasing-spaceman.svg') }}" alt="Adopt A Domain" class="text-center"
                          loading="lazy">
                 </div>
-                <p class="text-center">Anytime during the lease, you can buy the domain at the agreed pre-set price.</p>
+                <p class="text-center">Buy the domain at a pre-set price anytime during the lease.</p>
             </div>
         </div>
     </section>
