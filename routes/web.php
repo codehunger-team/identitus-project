@@ -79,4 +79,4 @@ Route::post('send/enquiry', [EnquiryController::class, 'sendEnquiry'])->name('se
 //domain Filter
 Route::get('domains', [FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
-Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
+Route::get('domain/detail/{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
