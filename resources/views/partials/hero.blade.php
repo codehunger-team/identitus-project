@@ -9,7 +9,7 @@
                 </h2>
                 <h3 class="text-primary">
                     Affordable + flexible lease plans,<br>
-                    with the option to buy.
+                    secured with an OPTION to BUY.
                 </h3>
                 <div class="py-2">
                     @include('partials.search')
