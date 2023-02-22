@@ -58,7 +58,7 @@ class FrontController extends Controller
 
         if ($request->has('keyword')) {
             $autoKeyword = trim(strip_tags($request->get('keyword')));
-            $autoSearch = "<script>$(function() { $( '#ajax-search-form' ).trigger('submit'); });</script>";
+            $autoSearch = "<script>$(#sbAjaxSearch).trigger('click');</script>";
         }
 
         // show view
@@ -89,7 +89,7 @@ class FrontController extends Controller
                     $query->where('domain', 'like', $filters['keyword'] . '%');
                 }
                 if ($filters['keyword_placement'] == 'ends_with') {
-                    $query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%'.$filters['keyword'].'"');
+                    $query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%' . $filters['keyword'] . '"');
                 }
             })
             ->when(isset($filters['category']) && $filters['category'] != null, function ($query) use ($filters) {
@@ -281,7 +281,8 @@ class FrontController extends Controller
     {
         try {
             $request->validate(['keyword' => 'required']);
-            $domains = Domain::select('id', 'domain')->where('domain', 'like', '%' . $request->keyword . '%')->take(10)->get();
+            $domains = Domain::where('domain_status', 'AVAILABLE')
+                ->where('domain', 'like', '%' . $request->keyword . '%')->take(10)->get();
             return response()->json(['success' => true, 'data' => $domains, 'message' => 'Domain Data Fetched Successfully']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

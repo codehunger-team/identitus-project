@@ -79,7 +79,7 @@ class DomainController extends Controller
         // insert array
         $insert = [];
         while (($data = fgetcsv($handle, 0, ",")) !== false) {
-            // get lines count
+            // get lines counts
             $num = count($data);
             // increase rows
             $row++;
@@ -107,8 +107,9 @@ class DomainController extends Controller
             $insert[] = $i;
             // $contracts[] = $contract;
         } // the csv lines loop
+        // die;
         unset($insert[0]);
-        // dd($insert);
+        
         foreach ($insert as $data) {
 
             try {
