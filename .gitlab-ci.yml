@@ -1,7 +1,8 @@
 stages:
   - build
   - update-repos
-  - deploy
+  - deploy-stage
+  - deploy-prod
 
 .deploy-common:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/alpine:latest
@@ -37,7 +38,7 @@ fetch-prod:
 
 
 deploy-staging:
-  stage: deploy
+  stage: deploy-stage
   extends: .deploy-common
   script:
     - ssh -p ${SSH_STAGE_PORT} $SSH_STAGE_USER@${SSH_STAGE_HOST} "./deploy-stage.sh $CI_COMMIT_SHA"
@@ -49,7 +50,7 @@ deploy-staging:
   when: manual
 
 deploy-prod:
-  stage: deploy
+  stage: deploy-prod
   extends: .deploy-common
   environment:
     name: production
