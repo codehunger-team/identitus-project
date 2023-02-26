@@ -82,5 +82,6 @@ build-app:
     - mkdir build && cd build
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.digicloak.co/identitius/identitius.git
     - cd identitius
+    - git checkout ${CI_COMMIT_SHA}
     - git submodule update --init --recursive
     - ./deploy/post-merge-run-prod
