@@ -41,7 +41,7 @@
             success: function(data) {
                 $('.search-results').html('');
                 data.data.forEach(element => {
-                    $('.search-results').append('<a href="/domain/detail/' + element.domain + '"><li class="search-result"><i class="fas fa-search me-2"></i>' + element.domain + '</li></a>');
+                    $('.search-results').append('<a href="/' + element.domain + '"><li class="search-result"><i class="fas fa-search me-2"></i>' + element.domain + '</li></a>');
                 });
             },
             error: function(error) {
