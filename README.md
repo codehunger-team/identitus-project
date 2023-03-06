@@ -64,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Project-specific notes
+
+## `deploy/post-merge-run-dev` script
+
+This script prunes existing site artifacts and builds new ones based upon the current contents of the work tree, just like will be done when deployments are made to the web servers with the exception that some caching features are not enabled so as not to interfere with development and debugging. 
+
+## git hooks
+
+The deploy directory contains a script named `sethooks.sh`. This script creates 3 git hooks: post-merge, post-checkout, and pre-commit. The "post-" scripts run the `deploy/post-merge-run-dev` script after a merge or checkout operation. The pre-commit script prevents you from committing changes on the main branch, which is a protected branch.

@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Choose Your Domain</h4>
+                <h4 class="text-center">Get the Name You Want</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/adopt-spaceman.svg') }}" class="text-center" alt="Adopt A Domain"
                          loading="lazy">
@@ -18,28 +18,28 @@
                 <p class="text-center">Search our database of available&nbsp;domains&nbsp;for&nbsp;lease.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Sign A Lease</h4>
+                <h4 class="text-center">Secure the Domain</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/pencil-spaceman.svg') }}" class="text-center" alt="Adopt A Domain"
                          loading="lazy">
                 </div>
-                <p class="text-center">You maintain the option to buy the domain anytime through the life of the lease.</p>
+                <p class="text-center">Obtain a lease with an option to buy the domain at an agreed price.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Link or Build Your Site</h4>
+                <h4 class="text-center">Launch Your Site</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/coding-spaceman.svg') }}" alt="Adopt A Domain"
                          class="text-center loading=" lazy">
                 </div>
-                <p class="text-center">We point the domain to your site server or we can help you build one that you own.</p>
+                <p class="text-center">Build your site using the perfect domain name.</p>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h4 class="text-center">Buy or Keep Leasing</h4>
+                <h4 class="text-center">Buy the Domain Anytime</h4>
                 <div class="text-center">
                     <img src="{{ asset('images/leasing-spaceman.svg') }}" alt="Adopt A Domain" class="text-center"
                          loading="lazy">
                 </div>
-                <p class="text-center">Anytime during the lease, you can buy the domain at the agreed pre-set price.</p>
+                <p class="text-center">If your site does well, buy the domain at the agreed price anytime during the lease.</p>
             </div>
         </div>
     </section>

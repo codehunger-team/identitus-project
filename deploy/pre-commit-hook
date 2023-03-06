@@ -1,0 +1,16 @@
+#!/bin/bash
+
+protectedBranch="main"
+currentBranch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [[ $currentBranch == $protectedBranch ]]; then
+  echo "------ ERROR: Branch is protected ------"
+  echo "You can't commit directly to the ${protectedBranch} branch."
+  echo "Commit to a different branch and create a merge request instead,"
+  echo "optionally using the -o merge_request.create and the"
+  echo "-o merge_request.merge_when_pipeline_succeeds git options when"
+  echo "pushing your commits."
+  echo "----------------------------------------"
+  exit 1
+fi
+
