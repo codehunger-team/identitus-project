@@ -137,8 +137,8 @@
                         <thead>
                             <tr>
                                 <th>Domain</th>
-                                <th>Monthly Lease</th>
-                                <th>Purchase Price</th>
+                                <th>Monthly Lease $</th>
+                                <th>Purchase Price $</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
