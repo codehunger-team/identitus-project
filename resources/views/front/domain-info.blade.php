@@ -63,17 +63,17 @@
             <table class="table table-bordered table-responsive">
                 <tr>
                     <th class="theading">Registered On</th>
-                    <td>{{ date('jS F Y', strtotime($domain->reg_date) ) }}</td>
+                    <td>{{ date('jS F Y', strtotime($domain->reg_date) ) ?? ''}}</td>
                     <th class="theading">Registrar</th>
                     <td>{{ $registrar->registrar }}</td>
                 </tr>
                 <tr>
                     <th class="theading">Domain Age</th>
-                    <td>@if( $domain->domain_age != 0 ) {{ $domain->domain_age }} Years Old @else Less than 1
+                    <td>@if( $domain->domain_age != 0 ) {{ $domain->domain_age ?? ''}} Years Old @else Less than 1
                         Year Old @endif</td>
                     <th class="theading">Domain Category</th>
                     <td>
-                        {{ $category->catname }}
+                        {{ $category->catname ?? ''}}
                     </td>
                 </tr>
                 <tr>

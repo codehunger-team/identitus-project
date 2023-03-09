@@ -116,9 +116,12 @@ class FrontController extends Controller
             });
         return DataTables::of($domains)
             ->addIndexColumn()
+            ->addColumn('pricing', function ($query) {
+                    return '$'.$query->pricing;
+            })
             ->addColumn('monthly_lease', function ($query) {
                 if (isset($query->contract->period_payment)) {
-                    return $query->contract->period_payment;
+                    return '$'.$query->contract->period_payment;
                 } else {
                     return 'Not Available';
                 }
@@ -195,11 +198,13 @@ class FrontController extends Controller
      *
      */
     public function domainInfo($domain)
-    {
+    {   
         $domain = Domain::where('domain', $domain)->firstOrFail();
-        $category = Category::where('id', $domain->category)->firstOrfail();
+        $category = Category::where('id', $domain->category)->first();
         $registrar = Registrar::where('id', $domain->registrar_id)->first();
-
+        if(!isset($category)) {
+            $category = 'Not Found';
+        }
         $no1   = rand(1, 5);
         $no2   = rand(1, 5);
         $total = $no1 + $no2;
