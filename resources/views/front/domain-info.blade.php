@@ -9,7 +9,7 @@
         @if( session()->has('message') AND session()->has('message_type') )
                 @include('components.sweet-alert')
         @endif
-        <h4 class="text-center text-muted">This domain is available for purchase.</h4>
+        <h4 class="text-center text-muted">This domain is available for rent or purchase.</h4>
     </div>
 </div>
 <div class="container">
@@ -18,7 +18,7 @@
         <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <h2>LEASE NOW</h2>
+                    <h2>RENT NOW</h2>
                             <h3>
                                 @if(! isset($domain->contract->period_payment))
                                     Unavailable      
@@ -26,7 +26,7 @@
                                 {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->contract->period_payment, 0) }}
                                 @endif
                             </h3>
-                            <h5 class="text-muted">The checkout process is very quick and easy. Grab it before anyone else!</h5>
+                            <h5 class="text-muted">Secure the domain with an option to buy it by renting now.</h5>
                         <a class="btn btn-success btn-block @if(! isset($domain->contract->period_payment))  disabled @endif"
                             href="{{route('review.terms',$domain->domain)}}">Lease Now</a>
                 </div>           
@@ -44,7 +44,7 @@
                             {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->pricing, 0) }}
                         @endif
                         </h3>
-                    <h5 class="text-muted">The checkout process is very quick and easy. Grab it before anyone else!</h5>
+                    <h5 class="text-muted">Forget renting, just buy the domain and own it now!</h5>
                     <a class="btn btn-success btn-block"
                     href="{{route('ajax.add-to-cart.buy',$domain->domain)}}">Buy Now</a>
                 </div>
