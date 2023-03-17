@@ -149,6 +149,15 @@
         </div>
     </div>
 </div>
+
+<div class="container main-bottom">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="text-center">If you did not find the domain you want, let us help. <a href="mailto:info@identitius.com"><u>Click here to contact us</u></a>.</h4>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 @include('front.domain-search.domain-search-script')
 @endpush
