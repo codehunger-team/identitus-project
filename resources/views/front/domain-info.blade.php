@@ -9,7 +9,8 @@
         @if( session()->has('message') AND session()->has('message_type') )
                 @include('components.sweet-alert')
         @endif
-        <h4 class="text-center text-muted">This domain is available for rent or purchase.</h4>
+        <h3 class="text-center text-muted">This domain name is available to rent or purchase.</h3>
+        <p class="text-center text-muted">If you know someone that might want to rent or purchase this domain name, <a href="mailto:info@identitius.com"><u>let us know</u></a>. We offer referral fees.</p>
     </div>
 </div>
 <div class="container">

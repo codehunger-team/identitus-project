@@ -28,7 +28,7 @@
                 <h1 class="card-title text-center mt-5">Lease</h1>
                 <div class="card-body pricing">
                     <h5 class="card-text text-right">As low as</h5>
-                    <p class="display-1 text-right">$9/<span class="display-4 small">mo</span></p>
+                    <p class="display-1 text-right">$1/<span class="display-4 small">mo</span></p>
                     <a href="/domains" class="btn btn-primary btn-lg active w-100 mt-4">
                         Lease a Domain</a>
                 </div>
