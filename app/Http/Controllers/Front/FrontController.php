@@ -117,14 +117,17 @@ class FrontController extends Controller
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('pricing', function ($query) {
-                    return '$'.$query->pricing;
+                    return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_blank">$'.$query->pricing.'</a>';
             })
             ->addColumn('monthly_lease', function ($query) {
                 if (isset($query->contract->period_payment)) {
-                    return '$'.$query->contract->period_payment;
+                    return '<a href="' . route('review.terms', $query->domain) . '" target="_blank">$'.$query->contract->period_payment.'</a>';
                 } else {
                     return 'Not Available';
                 }
+            })
+            ->addColumn('domain', function ($query) {
+                return '<a href="' . route('domain.details',$query->domain) . '" target="_blank">'.$query->domain.'</a>';
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
@@ -134,7 +137,7 @@ class FrontController extends Controller
                 $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
                 return $action . '</ul> </div>';
             })
-            ->rawColumns(['options', 'monthly_lease'])
+            ->rawColumns(['options', 'monthly_lease','domain','pricing'])
             ->make(true);
     }
 
