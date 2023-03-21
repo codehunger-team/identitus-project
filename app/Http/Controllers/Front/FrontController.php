@@ -78,9 +78,15 @@ class FrontController extends Controller
      */
 
     public function domain_filtering(Request $request)
-    {
+    {   
         $filters = $request->filters;
+        $dataTableSearch = $request->search['value'];
+        $dataTableSorting = $request->order[0];
         $domains = Domain::where('domain_status', 'AVAILABLE')
+           
+            ->when(isset($dataTableSearch) && $dataTableSearch != 'null', function ($query) use ($dataTableSearch) {
+                $query->where('domain', 'like', '%' . $dataTableSearch . '%');
+            })
             ->when(isset($filters['keyword']) && $filters['keyword'] != null, function ($query) use ($filters) {
                 if ($filters['keyword_placement'] == 'contains') {
                     $query->where('domain', 'like', '%' . $filters['keyword'] . '%');
@@ -108,6 +114,14 @@ class FrontController extends Controller
             })
             ->when(isset($filters['char_to']) && $filters['char_to'] != null && $filters['char_to'] != 'ALL', function ($query) use ($filters) {
                 $query->whereRaw('LENGTH(SUBSTRING_INDEX(domain, ".", 1)) <= ' . $filters['char_to']);
+            })
+            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '2', function ($query) use ($dataTableSorting) {
+                $query->orderBy('pricing', $dataTableSorting['dir']);
+            })
+            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '1', function ($query) use ($dataTableSorting) {
+                $query->WhereHas('contract', function ($query) use ($dataTableSorting) {
+                    $query->orderBy('period_payment', $dataTableSorting['dir']);
+                });
             })
             ->when(isset($filters['monthly_price_from']) && $filters['monthly_price_from'] != null && isset($filters['monthly_price_to']) && $filters['monthly_price_to'] != null, function ($query) use ($filters) {
                 $query->WhereHas('contract', function ($query) use ($filters) {
