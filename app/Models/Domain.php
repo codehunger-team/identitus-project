@@ -9,9 +9,11 @@ class Domain extends Model
 {
 
     // fillable
-    protected $fillable = ['domain', 'pricing', 'registrar_id', 'reg_date', 'exp_date',
+    protected $fillable = [
+        'domain', 'pricing', 'registrar_id', 'reg_date', 'exp_date',
         'domain_age', 'description', 'short_description', 'discount',
-        'category', 'user_id', 'tags'];
+        'category', 'user_id', 'tags'
+    ];
 
     // get available extensions
     public static function getAvailableExtensions()
@@ -29,7 +31,6 @@ class Domain extends Model
         }
 
         return array_unique($extensions, SORT_STRING);
-
     }
 
     // get character count
@@ -37,7 +38,6 @@ class Domain extends Model
     {
 
         return strlen(strtok($domainName, '.'));
-
     }
 
     /**
@@ -157,7 +157,6 @@ class Domain extends Model
             if (preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $removeDelimiter)) {
 
                 $domainID[] = $domainfilter->id;
-
             }
         }
 
@@ -172,7 +171,7 @@ class Domain extends Model
      * @return array
      */
     public static function getKeywordWithhyphens($keyword)
-    {   
+    {
         $userId = NULL;
 
         if (Auth::check()) {
@@ -209,7 +208,6 @@ class Domain extends Model
 
         // return age difference
         return $years_diff;
-
     }
 
     // use "domain" for the model injection into routes
@@ -232,7 +230,7 @@ class Domain extends Model
         if (Auth::check()) {
             $userId = Auth::user()->id;
         }
-        
+
         $query->leftJoin('contracts', function ($join) {
             $join->on('domains.id', '=', 'contracts.domain_id');
         })->select('domains.pricing', 'domains.domain_status', 'domains.domain', 'domains.discount', 'contracts.period_payment')
@@ -249,7 +247,7 @@ class Domain extends Model
 
     public function contract()
     {
-        return $this->hasOne('App\Models\Contract');
+        return $this->hasOne('App\Models\Contract')->withDefault(['period_payment' => 'Not Available']);
     }
 
     //get detail using domain name
@@ -257,5 +255,4 @@ class Domain extends Model
     {
         return self::where('domain', $domainName)->first();
     }
-
 }

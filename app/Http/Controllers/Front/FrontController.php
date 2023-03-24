@@ -78,14 +78,12 @@ class FrontController extends Controller
      */
 
     public function domain_filtering(Request $request)
-    {   
+    {
         $filters = $request->filters;
-        $dataTableSearch = $request->search['value'];
         $dataTableSorting = $request->order[0];
-        $domains = Domain::where('domain_status', 'AVAILABLE')
-           
-            ->when(isset($dataTableSearch) && $dataTableSearch != 'null', function ($query) use ($dataTableSearch) {
-                $query->where('domain', 'like', '%' . $dataTableSearch . '%');
+        $domains = Domain::with('contract')->where('domain_status', 'AVAILABLE')
+            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '2', function ($query) use ($dataTableSorting) {
+                $query->orderBy('pricing', $dataTableSorting['dir']);
             })
             ->when(isset($filters['keyword']) && $filters['keyword'] != null, function ($query) use ($filters) {
                 if ($filters['keyword_placement'] == 'contains') {
@@ -115,14 +113,6 @@ class FrontController extends Controller
             ->when(isset($filters['char_to']) && $filters['char_to'] != null && $filters['char_to'] != 'ALL', function ($query) use ($filters) {
                 $query->whereRaw('LENGTH(SUBSTRING_INDEX(domain, ".", 1)) <= ' . $filters['char_to']);
             })
-            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '2', function ($query) use ($dataTableSorting) {
-                $query->orderBy('pricing', $dataTableSorting['dir']);
-            })
-            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '1', function ($query) use ($dataTableSorting) {
-                $query->WhereHas('contract', function ($query) use ($dataTableSorting) {
-                    $query->orderBy('period_payment', $dataTableSorting['dir']);
-                });
-            })
             ->when(isset($filters['monthly_price_from']) && $filters['monthly_price_from'] != null && isset($filters['monthly_price_to']) && $filters['monthly_price_to'] != null, function ($query) use ($filters) {
                 $query->WhereHas('contract', function ($query) use ($filters) {
                     $query->whereBetween('period_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
@@ -131,17 +121,13 @@ class FrontController extends Controller
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('pricing', function ($query) {
-                    return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_blank">$'.$query->pricing.'</a>';
+                return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_blank">$' . $query->pricing . '</a>';
             })
-            ->addColumn('monthly_lease', function ($query) {
-                if (isset($query->contract->period_payment)) {
-                    return '<a href="' . route('review.terms', $query->domain) . '" target="_blank">$'.$query->contract->period_payment.'</a>';
-                } else {
-                    return 'Not Available';
-                }
+            ->editColumn('contract.period_payment', function ($query) {
+                return '<a href="' . route('review.terms', $query->domain) . '" target="_blank">$' . $query->contract->period_payment . '</a>';
             })
-            ->addColumn('domain', function ($query) {
-                return '<a href="' . route('domain.details',$query->domain) . '" target="_blank">'.$query->domain.'</a>';
+            ->editColumn('domain', function ($query) {
+                return '<a href="' . route('domain.details', $query->domain) . '" target="_blank">' . $query->domain . '</a>';
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
@@ -151,7 +137,7 @@ class FrontController extends Controller
                 $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
                 return $action . '</ul> </div>';
             })
-            ->rawColumns(['options', 'monthly_lease','domain','pricing'])
+            ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
             ->make(true);
     }
 
@@ -215,11 +201,11 @@ class FrontController extends Controller
      *
      */
     public function domainInfo($domain)
-    {   
+    {
         $domain = Domain::where('domain', $domain)->firstOrFail();
         $category = Category::where('id', $domain->category)->first();
         $registrar = Registrar::where('id', $domain->registrar_id)->first();
-        if(!isset($category)) {
+        if (!isset($category)) {
             $category = 'Not Found';
         }
         $no1   = rand(1, 5);
