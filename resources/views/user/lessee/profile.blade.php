@@ -50,7 +50,7 @@
             </div>
             @if($user->is_vendor == 'no' || empty($user->is_vendor))
             <div class="col-xs-12 col-md-6">
-                <label for="gracePeriod">Become Vendor</label>
+                <label for="Become Vendor">Become Vendor</label>
                 <select name="is_vendor" id="cars" class="form-control">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
@@ -69,6 +69,14 @@
                 <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="**********">
                 <span id='message'></span>
             </div>
+
+            <div class="col-xs-12 col-md-6 mt-4">
+                <h4>Do you want to sell your domain, tick the checkbox ?</h4>
+            </div>
+            <div class="col-xs-12 col-md-6 mt-4">
+                <input class="form-check-input" type="checkbox" id="become-vendor">
+            </div>
+            
             @else  
             <div class="col-xs-12 col-md-4">
                 <label>Old Password</label>
@@ -90,4 +98,32 @@
             </div>
         </div>
 </form>
+
+<div class="modal fade" id="terms-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Terms to become vendor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <iframe height="500px" width="460px" src="{{url('storage/pdf/test.pdf')}}"></iframe>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    $(document).on('click',	'#become-vendor', function(){
+        if($(this).is(":checked")) 
+        {   
+            $('#terms-modal').modal('show');
+        }
+    });
+</script>
 @endsection
