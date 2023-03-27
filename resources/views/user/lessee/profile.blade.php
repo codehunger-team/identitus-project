@@ -71,7 +71,7 @@
             </div>
 
             <div class="col-xs-12 col-md-6 mt-4">
-                <h4>Do you want to sell your domain, tick the checkbox ?</h4>
+                <h4>Become a vendor to lease or sell your domains by marking the checkbox.</h4>
             </div>
             <div class="col-xs-12 col-md-6 mt-4">
                 <input class="form-check-input" type="checkbox" id="become-vendor">
