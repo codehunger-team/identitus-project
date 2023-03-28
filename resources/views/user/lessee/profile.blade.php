@@ -51,7 +51,7 @@
             @if($user->is_vendor == 'no' || empty($user->is_vendor))
             <div class="col-xs-12 col-md-6">
                 <label for="Become Vendor">Become Vendor</label>
-                <select name="is_vendor" id="cars" class="form-control">
+                <select name="is_vendor" id="apply-for-vendor" class="form-control">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select>
@@ -94,7 +94,7 @@
             @endif
             {{-- <p>You are about to make a public offer by setting your domain lease terms, and are agreeing to Identitius Terms of Use, and making a legal offer that another party may accept and execute. We want our market to function with as little friction as possible, and request that you honor your public offer if accepted by another party. </p> --}}
             <div class="col-xs-12 col-md-6" style="margin-top:2%">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" id="profile-submit-button">Submit</button>
             </div>
         </div>
 </form>
@@ -107,23 +107,31 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <iframe height="500px" width="460px" src="{{url('storage/pdf/test.pdf')}}"></iframe>
-            
+            <iframe height="500px" width="460px" src="{{url('pdf/terms.pdf')}}"></iframe>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary discard" data-bs-dismiss="modal">No, I don't agree</button>
+          <button type="button" class="btn btn-primary agree">Yes, I agree</button>
         </div>
       </div>
     </div>
-  </div>
-
+</div>
 <script>
     $(document).on('click',	'#become-vendor', function(){
         if($(this).is(":checked")) 
         {   
             $('#terms-modal').modal('show');
         }
+    });
+    $(document).on('click',	'.discard' ,function(){
+        $('#become-vendor').prop('checked', false)
+    });
+    $(document).on('click',	'.agree' ,function(){
+        $('#terms-modal').modal('toggle');
+        $('#apply-for-vendor').val(1);
+        $('#profile-submit-button').trigger('click');
+        $('#profile-submit-button').attr('disabled', 'disabled');
+        $('#profile-submit-button').text('submiting...');
     });
 </script>
 @endsection
