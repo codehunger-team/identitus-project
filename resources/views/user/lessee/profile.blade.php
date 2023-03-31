@@ -49,32 +49,37 @@
                 <input type="text" class="form-control" name="zip" placeholder="ZIP" value="{{$user->zip ?? ''}}">
             </div>
             @if($user->is_vendor == 'no' || empty($user->is_vendor))
-            <div class="col-xs-12 col-md-6">
+            {{-- <div class="col-xs-12 col-md-6">
                 <label for="Become Vendor">Become Vendor</label>
                 <select name="is_vendor" id="apply-for-vendor" class="form-control">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select>
-            </div>
-            <div class="col-xs-12 col-md-6">
+            </div> --}}
+            <div class="col-xs-12 col-md-4">
                 <label>Old Password</label>
                 <input type="password" class="form-control" name="old_password" placeholder="**********">
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
                 <label>New Password</label>
                 <input type="password" class="form-control" id="new_password" name="new_password" placeholder="**********">
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
                 <label>Confirm New Password</label>
                 <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="**********">
                 <span id='message'></span>
             </div>
-
+            @if(Session::has('docusign'))
+            @php
+            $clickwrap = Session::get('docusign');
+            @endphp
+            @include('user.lessee.docusign.become-vendor-terms')
+            @endif
             <div class="col-xs-12 col-md-6 mt-4">
                 <h4>Become a vendor to lease or sell your domains by marking the checkbox.</h4>
             </div>
             <div class="col-xs-12 col-md-6 mt-4">
-                <input class="form-check-input" type="checkbox" id="become-vendor">
+                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="btn btn-primary btn-sm btn-block text-center">Become Vendor</a>
             </div>
             
             @else  
@@ -98,40 +103,10 @@
             </div>
         </div>
 </form>
-
-<div class="modal fade" id="terms-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Terms to become vendor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <iframe height="500px" width="460px" src="{{url('pdf/terms.pdf')}}"></iframe>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary discard" data-bs-dismiss="modal">No, I don't agree</button>
-          <button type="button" class="btn btn-primary agree">Yes, I agree</button>
-        </div>
-      </div>
-    </div>
-</div>
 <script>
     $(document).on('click',	'#become-vendor', function(){
-        if($(this).is(":checked")) 
-        {   
-            $('#terms-modal').modal('show');
-        }
-    });
-    $(document).on('click',	'.discard' ,function(){
-        $('#become-vendor').prop('checked', false)
-    });
-    $(document).on('click',	'.agree' ,function(){
-        $('#terms-modal').modal('toggle');
-        $('#apply-for-vendor').val(1);
-        $('#profile-submit-button').trigger('click');
-        $('#profile-submit-button').attr('disabled', 'disabled');
-        $('#profile-submit-button').text('submiting...');
+        $(this).addClass('disabled');
+        $(this).text('Redirecting to terms page ...')
     });
 </script>
 @endsection
