@@ -76,7 +76,7 @@
             @include('user.lessee.docusign.become-vendor-terms')
             @endif
             <div class="col-xs-12 col-md-6 mt-4">
-                <h4>Do you want to sell your domain, click on become vendor</h4>
+                <h4>Become a vendor to lease or sell your domains by marking the checkbox.</h4>
             </div>
             <div class="col-xs-12 col-md-6 mt-4">
                 <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="btn btn-primary btn-sm btn-block text-center">Become Vendor</a>
