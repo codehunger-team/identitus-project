@@ -15,23 +15,19 @@
         // Called when the user has previously agreed OR has just successfully completed the agreement AND response has been successfully stored
         onAgreed: function (agreementData) {
             if (mustAgree) {
-                domainName = "{{$domainName}}";
-                var url = '{{ route("ajax.add.to.cart", ":domainName") }}';
-                url = url.replace(':domainName', domainName);
+                var url = '{{ route("user.update") }}';
                 axios({
-                    method: 'GET',
+                    method: 'POST',
                     url: url,
+                    data: {
+                        is_vendor: 'yes',
+                    }
                 })
                 setTimeout(function () {
-                    var url = '{{ route("checkout") }}';
-                    window.location.href = url;
+                    window.location.reload();
                 }, 6000);
             }
         },
     }, '#ds-clickwrap')
-
-    $(document).ready(function(){
-        $('.lease-now').attr('disabled', true)
-        $('.lease-now').text('Redirecting you to cart ....');
-    });
+    
 </script>

@@ -16,6 +16,7 @@ trait DocusignTrait {
 
     public function docusignClickWrap($domain)
     {   
+        // dd($domain);
         $accountsApi = $this->accountsApi();
         # Build the display settings
         $displaySettings = new DisplaySettings(
@@ -30,17 +31,27 @@ trait DocusignTrait {
                 'document_display' => 'document'
             ]
         );
-        # Read the PDF from the disk
-        # The exception will be raised if the file doesn't exist
-        $lessorID = Domain::where('domain', $domain)->pluck('user_id')->first();
 
-        $filename = 'pdf/contract_' . $lessorID . '.pdf';
+        if(str_contains($domain,'.pdf')) {
+            $filename = $domain;
+            $demo_docs_path = public_path().'/'.'pdf/'.$domain;
+            $content_bytes = file_get_contents($demo_docs_path);
 
-        $demo_docs_path = Storage::disk('public')->path($filename);
-        $content_bytes = file_get_contents($demo_docs_path);
+            $base64_file_content = base64_encode($content_bytes);
 
-        $base64_file_content = base64_encode($content_bytes);
+        } else {
+              # Read the PDF from the disk
+            # The exception will be raised if the file doesn't exist
+            $lessorID = Domain::where('domain', $domain)->pluck('user_id')->first();
 
+            $filename = 'pdf/contract_' . $lessorID . '.pdf';
+
+            $demo_docs_path = Storage::disk('public')->path($filename);
+            $content_bytes = file_get_contents($demo_docs_path);
+
+            $base64_file_content = base64_encode($content_bytes);
+        }
+      
         # Build array of documents.
         $documents = [
             new Document([  # create the DocuSign document object
@@ -50,7 +61,7 @@ trait DocusignTrait {
                 'order' => '1'
             ])
         ];
-        
+
         # Build ClickwrapRequest
         $clickwrap = new ClickwrapRequest(
             [
@@ -74,7 +85,6 @@ trait DocusignTrait {
             'clientUserId' => rand(1111111111, 9999999999),
             'created_time' => $response['created_time'],
         ];
-
         return $params;
     }
 
