@@ -58,7 +58,7 @@ class FrontController extends Controller
 
         if ($request->has('keyword')) {
             $autoKeyword = trim(strip_tags($request->get('keyword')));
-            $autoSearch = "<script>$(function() { $( '#ajax-search-form' ).trigger('submit'); });</script>";
+            $autoSearch = "<script>$(#sbAjaxSearch).trigger('click');</script>";
         }
 
         // show view
@@ -80,7 +80,11 @@ class FrontController extends Controller
     public function domain_filtering(Request $request)
     {
         $filters = $request->filters;
-        $domains = Domain::where('domain_status', 'AVAILABLE')
+        $dataTableSorting = $request->order[0];
+        $domains = Domain::with('contract')->where('domain_status', 'AVAILABLE')
+            ->when(isset($dataTableSorting) && $dataTableSorting['column'] == '2', function ($query) use ($dataTableSorting) {
+                $query->orderBy('pricing', $dataTableSorting['dir']);
+            })
             ->when(isset($filters['keyword']) && $filters['keyword'] != null, function ($query) use ($filters) {
                 if ($filters['keyword_placement'] == 'contains') {
                     $query->where('domain', 'like', '%' . $filters['keyword'] . '%');
@@ -89,7 +93,7 @@ class FrontController extends Controller
                     $query->where('domain', 'like', $filters['keyword'] . '%');
                 }
                 if ($filters['keyword_placement'] == 'ends_with') {
-                    $query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%'.$filters['keyword'].'"');
+                    $query->whereRaw('SUBSTRING_INDEX(domain, ".", 1) like "%' . $filters['keyword'] . '"');
                 }
             })
             ->when(isset($filters['category']) && $filters['category'] != null, function ($query) use ($filters) {
@@ -116,12 +120,14 @@ class FrontController extends Controller
             });
         return DataTables::of($domains)
             ->addIndexColumn()
-            ->addColumn('monthly_lease', function ($query) {
-                if (isset($query->contract->period_payment)) {
-                    return $query->contract->period_payment;
-                } else {
-                    return 'Not Available';
-                }
+            ->addColumn('pricing', function ($query) {
+                return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_blank">$' . $query->pricing . '</a>';
+            })
+            ->editColumn('contract.period_payment', function ($query) {
+                return '<a href="' . route('review.terms', $query->domain) . '" target="_blank">$' . $query->contract->period_payment . '</a>';
+            })
+            ->editColumn('domain', function ($query) {
+                return '<a href="' . route('domain.details', $query->domain) . '" target="_blank">' . $query->domain . '</a>';
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
@@ -131,7 +137,7 @@ class FrontController extends Controller
                 $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
                 return $action . '</ul> </div>';
             })
-            ->rawColumns(['options', 'monthly_lease'])
+            ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
             ->make(true);
     }
 
@@ -197,9 +203,11 @@ class FrontController extends Controller
     public function domainInfo($domain)
     {
         $domain = Domain::where('domain', $domain)->firstOrFail();
-        $category = Category::where('id', $domain->category)->firstOrfail();
+        $category = Category::where('id', $domain->category)->first();
         $registrar = Registrar::where('id', $domain->registrar_id)->first();
-
+        if (!isset($category)) {
+            $category = 'Not Found';
+        }
         $no1   = rand(1, 5);
         $no2   = rand(1, 5);
         $total = $no1 + $no2;
@@ -281,7 +289,8 @@ class FrontController extends Controller
     {
         try {
             $request->validate(['keyword' => 'required']);
-            $domains = Domain::select('id', 'domain')->where('domain', 'like', '%' . $request->keyword . '%')->take(10)->get();
+            $domains = Domain::where('domain_status', 'AVAILABLE')
+                ->where('domain', 'like', '%' . $request->keyword . '%')->take(10)->get();
             return response()->json(['success' => true, 'data' => $domains, 'message' => 'Domain Data Fetched Successfully']);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

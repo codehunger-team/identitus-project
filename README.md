@@ -21,6 +21,10 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Node version manager (NVM)
+* Our node version is locked via the .nvmrc file in the project root
+* Installation links and instructions for nvm are here: https://github.com/nvm-sh/nvm
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
@@ -60,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Project-specific notes
+
+## `deploy/post-merge-run-dev` script
+
+This script prunes existing site artifacts and builds new ones based upon the current contents of the work tree, just like will be done when deployments are made to the web servers with the exception that some caching features are not enabled so as not to interfere with development and debugging. 
+
+## git hooks
+
+The deploy directory contains a script named `sethooks.sh`. This script creates 3 git hooks: post-merge, post-checkout, and pre-commit. The "post-" scripts run the `deploy/post-merge-run-dev` script after a merge or checkout operation. The pre-commit script prevents you from committing changes on the main branch, which is a protected branch.

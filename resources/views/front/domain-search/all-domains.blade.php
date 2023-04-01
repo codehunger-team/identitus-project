@@ -14,10 +14,10 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 mx-auto">
-            <form method="POST" action="{{route('ajax.domainfiltering')}}" id="ajax-search-form">
+            <form id="ajax-search-form">
                 <div class="col-12-sm">
                     <div class="form-group">
-                        <input class="form-control" name="keyword" placeholder="Enter Domain Name Or Keyword">
+                    <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
                     </div>
                 </div>
                 <div class="form-group row my-2">
@@ -137,8 +137,8 @@
                         <thead>
                             <tr>
                                 <th>Domain</th>
-                                <th>Monthly Lease</th>
-                                <th>Purchase Price</th>
+                                <th>Monthly Lease $</th>
+                                <th>Purchase Price $</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -149,6 +149,15 @@
         </div>
     </div>
 </div>
+
+<div class="container main-bottom">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="text-center">If you did not find the domain you want, let us help. <a href="mailto:info@identitius.com"><u>Click here to contact us</u></a>.</h4>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 @include('front.domain-search.domain-search-script')
 @endpush

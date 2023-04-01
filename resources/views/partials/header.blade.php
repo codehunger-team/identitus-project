@@ -32,6 +32,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180909623-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -43,4 +44,8 @@
         gtag('js', new Date());
         gtag('config', 'UA-180909623-1');
     </script>
+
+    <!-- Lucky Orange -->
+    <script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=4d201ef8"></script>
+
 </head>

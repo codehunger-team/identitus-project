@@ -29,8 +29,8 @@
                     name: "domain"
                 },
                 {
-                    data: "monthly_lease",
-                    name: "monthly_lease"
+                    data: "contract.period_payment",
+                    name: "contract.period_payment"
                 },
                 {
                     data: "pricing",

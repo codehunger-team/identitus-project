@@ -9,7 +9,8 @@
         @if( session()->has('message') AND session()->has('message_type') )
                 @include('components.sweet-alert')
         @endif
-        <h4 class="text-center text-muted">This domain is available for purchase.</h4>
+        <h3 class="text-center text-muted">This domain name is available to rent or purchase.</h3>
+        <p class="text-center text-muted">If you know someone that might want to rent or purchase this domain name, <a href="mailto:info@identitius.com"><u>let us know</u></a>. We offer referral fees.</p>
     </div>
 </div>
 <div class="container">
@@ -18,7 +19,7 @@
         <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <h2>LEASE NOW</h2>
+                    <h2>RENT NOW</h2>
                             <h3>
                                 @if(! isset($domain->contract->period_payment))
                                     Unavailable      
@@ -26,7 +27,7 @@
                                 {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->contract->period_payment, 0) }}
                                 @endif
                             </h3>
-                            <h5 class="text-muted">The checkout process is very quick and easy. Grab it before anyone else!</h5>
+                            <h5 class="text-muted">Secure the domain with an option to buy it by renting now.</h5>
                         <a class="btn btn-success btn-block @if(! isset($domain->contract->period_payment))  disabled @endif"
                             href="{{route('review.terms',$domain->domain)}}">Lease Now</a>
                 </div>           
@@ -44,7 +45,7 @@
                             {{ App\Models\Option::get_option( 'currency_symbol' ) . number_format($domain->pricing, 0) }}
                         @endif
                         </h3>
-                    <h5 class="text-muted">The checkout process is very quick and easy. Grab it before anyone else!</h5>
+                    <h5 class="text-muted">Forget renting, just buy the domain and own it now!</h5>
                     <a class="btn btn-success btn-block"
                     href="{{route('ajax.add-to-cart.buy',$domain->domain)}}">Buy Now</a>
                 </div>
@@ -63,17 +64,17 @@
             <table class="table table-bordered table-responsive">
                 <tr>
                     <th class="theading">Registered On</th>
-                    <td>{{ date('jS F Y', strtotime($domain->reg_date) ) }}</td>
+                    <td>{{ date('jS F Y', strtotime($domain->reg_date) ) ?? ''}}</td>
                     <th class="theading">Registrar</th>
                     <td>{{ $registrar->registrar }}</td>
                 </tr>
                 <tr>
                     <th class="theading">Domain Age</th>
-                    <td>@if( $domain->domain_age != 0 ) {{ $domain->domain_age }} Years Old @else Less than 1
+                    <td>@if( $domain->domain_age != 0 ) {{ $domain->domain_age ?? ''}} Years Old @else Less than 1
                         Year Old @endif</td>
                     <th class="theading">Domain Category</th>
                     <td>
-                        {{ $category->catname }}
+                        {{ $category->catname ?? ''}}
                     </td>
                 </tr>
                 <tr>

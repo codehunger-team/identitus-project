@@ -49,26 +49,39 @@
                 <input type="text" class="form-control" name="zip" placeholder="ZIP" value="{{$user->zip ?? ''}}">
             </div>
             @if($user->is_vendor == 'no' || empty($user->is_vendor))
-            <div class="col-xs-12 col-md-6">
-                <label for="gracePeriod">Become Vendor</label>
-                <select name="is_vendor" id="cars" class="form-control">
+            {{-- <div class="col-xs-12 col-md-6">
+                <label for="Become Vendor">Become Vendor</label>
+                <select name="is_vendor" id="apply-for-vendor" class="form-control">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select>
-            </div>
-            <div class="col-xs-12 col-md-6">
+            </div> --}}
+            <div class="col-xs-12 col-md-4">
                 <label>Old Password</label>
                 <input type="password" class="form-control" name="old_password" placeholder="**********">
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
                 <label>New Password</label>
                 <input type="password" class="form-control" id="new_password" name="new_password" placeholder="**********">
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-4">
                 <label>Confirm New Password</label>
                 <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="**********">
                 <span id='message'></span>
             </div>
+            @if(Session::has('docusign'))
+            @php
+            $clickwrap = Session::get('docusign');
+            @endphp
+            @include('user.lessee.docusign.become-vendor-terms')
+            @endif
+            <div class="col-xs-12 col-md-6 mt-4">
+                <h4>Become a vendor to lease or sell your domains by marking the checkbox.</h4>
+            </div>
+            <div class="col-xs-12 col-md-6 mt-4">
+                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="btn btn-primary btn-sm btn-block text-center">Become Vendor</a>
+            </div>
+            
             @else  
             <div class="col-xs-12 col-md-4">
                 <label>Old Password</label>
@@ -86,8 +99,14 @@
             @endif
             {{-- <p>You are about to make a public offer by setting your domain lease terms, and are agreeing to Identitius Terms of Use, and making a legal offer that another party may accept and execute. We want our market to function with as little friction as possible, and request that you honor your public offer if accepted by another party. </p> --}}
             <div class="col-xs-12 col-md-6" style="margin-top:2%">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" id="profile-submit-button">Submit</button>
             </div>
         </div>
 </form>
+<script>
+    $(document).on('click',	'#become-vendor', function(){
+        $(this).addClass('disabled');
+        $(this).text('Redirecting to terms page ...')
+    });
+</script>
 @endsection
