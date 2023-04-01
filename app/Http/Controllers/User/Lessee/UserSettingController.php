@@ -31,7 +31,7 @@ class UserSettingController extends Controller
 
         if (isset($userData['is_vendor'])) {
             \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
-                $m->from('noreply@identitus.com', \App\Models\Option::get_option('site_title'));
+                $m->from('info@identitus.com', \App\Models\Option::get_option('site_title'));
                 $m->to(\App\Models\Option::get_option('admin_email'))->subject('Applied for vendor');
             });
 
