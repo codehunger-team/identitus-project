@@ -17,9 +17,12 @@ function getCurrentDateTime() {
 
 function docusignHourDifference() {
 	$toDate = Option::where('name','docusign_auth_code')->pluck('updated_at')->first();
-	$to = Carbon::createFromFormat('Y-m-d H:s:i', $toDate);
-	$from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
-	return $to->diffInHours($from);
+	if(isset($toDate)) {
+		$to = Carbon::createFromFormat('Y-m-d H:s:i', $toDate);
+		$from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+		return $to->diffInHours($from);
+	}
+	return false;
 }
 
 function changeDateFormat($date) {
