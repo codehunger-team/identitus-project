@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center vh-100">
-        <div class="col-md-8">
-            <div class="card m-auto">
+        <div class="col-md-8 my-auto">
+            <div class="card">
                 <div class="card-header bg-primary text-light">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
@@ -13,7 +13,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-0 mt-2">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Reset Password') }}
