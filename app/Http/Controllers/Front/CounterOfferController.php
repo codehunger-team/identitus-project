@@ -93,11 +93,11 @@ class CounterOfferController extends Controller
         if (Auth::user()->is_vendor == 'yes') {
             $lesseeId = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessor_id' => null])->first()->lessee_id;
             $toEmail = User::find($lesseeId)->email;
-            $data['from_email'] = Auth::user()->email;
+            $data['from_email'] = 'info@identitius.com';
         } else {
             $lessorId = CounterOffer::where(['domain_name' => $data['domain_name'], 'lessee_id' => null])->first()->lessor_id;
             $toEmail = User::find($lessorId)->email;
-            $data['from_email'] = Auth::user()->email;
+            $data['from_email'] = 'info@identitius.com';
         }
 
         try {
@@ -192,10 +192,9 @@ class CounterOfferController extends Controller
             $contract = Contract::where('contract_id', $data['contract_id'])->first();
             $data['domain_name'] = $contract->domain->domain;
             $data['lessee_id'] = Auth::user()->id;
-            $data['from_email'] = Auth::user()->email;
+            $data['from_email'] = 'info@identitius.com';
             $vendorEmail = User::where('id', $data['lessor_id'])->pluck('email')->first();
-
-            Mail::to($vendorEmail)->later(now()->addMinutes(1), new DomainReviewTerm($data));
+            Mail::to($vendorEmail)->send(new DomainReviewTerm($data));
             Session::flash('success', 'We have informed the owner regarding your price...');
             $isCounterOffer = CounterOffer::where('domain_name',$data['domain_name'])->where('lessee_id',Auth::user()->id)->first();
             if ($isCounterOffer) {
@@ -206,6 +205,7 @@ class CounterOfferController extends Controller
             }
             return response()->json(['success' => true]);
         } catch (Exception $e) {
+            dd($e);
             \Log::critical($e->getFile() . $e->getLine() . $e->getMessage());
         }
     }
@@ -242,7 +242,7 @@ class CounterOfferController extends Controller
 
             $updateCounter['lease_total'] = $updateCounter['first_payment'] + ($updateCounter['number_of_periods'] * $updateCounter['period_payment']);
             
-            $updateCounter['from_email'] = Auth::user()->email;
+            $updateCounter['from_email'] = 'info@identitius.com';
             
             $updateCounter['domain_name'] = $counterOffer->domain_name;
 

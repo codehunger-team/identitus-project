@@ -28,7 +28,7 @@ class UserSettingController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         
         $userData = $request->all();
-
+        dd($userData);
         if (isset($userData['is_vendor'])) {
             \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
                 $m->from('info@identitus.com', \App\Models\Option::get_option('site_title'));
