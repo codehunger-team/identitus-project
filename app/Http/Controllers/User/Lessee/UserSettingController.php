@@ -15,6 +15,7 @@ use App\Models\Dns;
 use App\Models\User;
 use App\Models\Domain;
 use Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UserSettingController extends Controller
@@ -23,54 +24,58 @@ class UserSettingController extends Controller
      *  Use to update user details
      */
     public function userUpdate(Request $request)
-    {
-
-        $user = User::findOrFail(Auth::user()->id);
+    { 
+        try {
+            $user = User::findOrFail(Auth::user()->id);
         
-        $userData = $request->all();
-        dd($userData);
-        if (isset($userData['is_vendor'])) {
-            \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
-                $m->from('info@identitus.com', \App\Models\Option::get_option('site_title'));
-                $m->to(\App\Models\Option::get_option('admin_email'))->subject('Applied for vendor');
-            });
-
-            $userData['is_vendor'] = 'pending';
-        } else {
-            $userData['is_vendor'] = $user->is_vendor;
-        }
-        
-        if (!empty($userData['old_password'])) {
-            if (Hash::check($userData['old_password'], $user->password)) {
-                $user->fill([
-                    'password' => Hash::make($userData['new_password']),
-                    'name' => $userData['name'],
-                    'email' => $userData['email'],
-                    'phone' => $userData['phone'],
-                    'company' => $userData['company'],
-                    'country' => $userData['country'],
-                    'state' => $userData['state'],
-                    'city' => $userData['city'],
-                    'street_1' => $userData['street_1'],
-                    'street_2' => $userData['street_2'],
-                    'zip' => $userData['zip'],
-                    'is_vendor' => $userData['is_vendor'],
-                ])->save();
-
-                $request->session()->flash('msg', 'Your profile has been updated');
+            $userData = $request->all();
+            if (isset($userData['is_vendor'])) {
+                \Mail::send('emails.apply-for-vendor', ['user' => $user], function ($m) use ($user) {
+                    $m->from('info@identitus.com', \App\Models\Option::get_option('site_title'));
+                    $m->to(\App\Models\Option::get_option('admin_email'))->subject('Applied for vendor');
+                });
+    
+                $userData['is_vendor'] = 'pending';
             } else {
-                $request->session()->flash('msg', 'Password does not match');
+                $userData['is_vendor'] = $user->is_vendor;
             }
-        } else {
-
-            $request->session()->flash('msg', 'Your profile has been updated');
-            if (isset($userData['is_vendor']) && $userData['is_vendor'] == 'pending') {
-                $request->session()->flash('msg', 'Thank for applying, Will back you soon !');
+            
+            if (!empty($userData['old_password'])) {
+                if (Hash::check($userData['old_password'], $user->password)) {
+                    $user->fill([
+                        'password' => Hash::make($userData['new_password']),
+                        'name' => $userData['name'],
+                        'email' => $userData['email'],
+                        'phone' => $userData['phone'],
+                        'company' => $userData['company'],
+                        'country' => $userData['country'],
+                        'state' => $userData['state'],
+                        'city' => $userData['city'],
+                        'street_1' => $userData['street_1'],
+                        'street_2' => $userData['street_2'],
+                        'zip' => $userData['zip'],
+                        'is_vendor' => $userData['is_vendor'],
+                    ])->save();
+    
+                    $request->session()->flash('msg', 'Your profile has been updated');
+                } else {
+                    $request->session()->flash('msg', 'Password does not match');
+                }
+            } else {
+    
+                $request->session()->flash('msg', 'Your profile has been updated');
+                if (isset($userData['is_vendor']) && $userData['is_vendor'] == 'pending') {
+                    $request->session()->flash('msg', 'Thank for applying, Will back you soon !');
+                }
+                $user->fill($userData)->save();
             }
-            $user->fill($userData)->save();
+    
+            return redirect()->back();
+        } catch (\Exception $e) { 
+            Log::info($e->getMessage());
         }
 
-        return redirect()->back();
+       
     }
 
     /**
