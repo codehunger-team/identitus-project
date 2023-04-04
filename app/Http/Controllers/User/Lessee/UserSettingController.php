@@ -39,7 +39,7 @@ class UserSettingController extends Controller
             } else {
                 $userData['is_vendor'] = $user->is_vendor;
             }
-            
+            Log::info($userData);
             if (!empty($userData['old_password'])) {
                 if (Hash::check($userData['old_password'], $user->password)) {
                     $user->fill([
@@ -67,6 +67,7 @@ class UserSettingController extends Controller
                 if (isset($userData['is_vendor']) && $userData['is_vendor'] == 'pending') {
                     $request->session()->flash('msg', 'Thank for applying, Will back you soon !');
                 }
+                Log::info($userData);
                 $user->fill($userData)->save();
             }
     
