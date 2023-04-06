@@ -64,10 +64,11 @@ import {
     faUser,
     faUsers,
     faSort,
+    faIndustry
 
 } from '@fortawesome/free-solid-svg-icons';
 // add the imported icons to the library
-library.add(faBars, faSearch, faCommentAlt, faEye, faChevronLeft, faChevronRight, faFacebook, faTwitter, faLinkedin, faYoutube, faBolt, faDownload, faArrowCircleRight, faBook, faChartPie, faMoneyBillWave, faShoppingCart, faHandHoldingUsd, faColumns, faGlobe, faCalculator, faClipboardList, faRocket, faMeteor, faList, faClock, faSignOutAlt, faCog, faCalendarDay, faCalendar, faUpload, faStickyNote, faCompass, faEdit, faTrash, faUserCircle, faCreditCard, faPowerOff, faUniversity, faBan, faDollarSign, faPlug, faTimes, faSignInAlt, faMinus, faUser, faUsers, faSort);
+library.add(faBars, faSearch, faCommentAlt, faEye, faChevronLeft, faChevronRight, faFacebook, faTwitter, faLinkedin, faYoutube, faBolt, faDownload, faArrowCircleRight, faBook, faChartPie, faMoneyBillWave, faShoppingCart, faHandHoldingUsd, faColumns, faGlobe, faCalculator, faClipboardList, faRocket, faMeteor, faList, faClock, faSignOutAlt, faCog, faCalendarDay, faCalendar, faUpload, faStickyNote, faCompass, faEdit, faTrash, faUserCircle, faCreditCard, faPowerOff, faUniversity, faBan, faDollarSign, faPlug, faTimes, faSignInAlt, faMinus, faUser, faUsers, faSort,faIndustry);
 
 // tell FontAwesome to watch the DOM and add the SVGs when it detects icon markup
 dom.watch();
