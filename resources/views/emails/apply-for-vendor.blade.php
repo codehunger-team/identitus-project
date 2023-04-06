@@ -13,7 +13,7 @@ Hi {{ $user->name }}, is want to become vendor!
 @endsection
 
 @section('intro_message')
-	<h3>User with the following details wants to become vendor</p>
+	<h3>The user with the following details has applied to be a vendor</p>
 	<p> Name : {{ $user->name }}</p>
 	<p> Email : {{ $user->email }}</p>
 	<p> Street 1 : {{ $user->street_1 }}</p>
