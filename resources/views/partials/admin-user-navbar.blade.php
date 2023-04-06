@@ -107,6 +107,11 @@
                 <span class="side-text">Lease(s)</span></a>
         </li>
 
+        <li @if(isset($active) AND ($active=='become-vendor' )) class="active" @endif>
+            <a href="{{route('user.become.vendor')}}"><i class="fa fa-industry" aria-hidden="true"></i>
+                <span class="side-text">Become Vendor</span></a>
+        </li>
+
         <hr>
         <!-- Functions as Lessor/Seller -->
         @if (Auth::user()->is_vendor == 'yes')

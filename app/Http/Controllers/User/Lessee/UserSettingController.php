@@ -244,4 +244,13 @@ class UserSettingController extends Controller
         $contractPath = Storage::disk('public')->path($filename);
         return view('user.lessee.view-contract',compact('domainId'))->render();
     }
+
+    /**
+     * this function is used to proceed user
+     * to the next step
+     */
+    public function becomeVendor()
+    {
+        return view('user.lessee.become-vendor');
+    }
 }

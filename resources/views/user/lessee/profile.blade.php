@@ -69,19 +69,6 @@
                 <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="**********">
                 <span id='message'></span>
             </div>
-            @if(Session::has('docusign'))
-            @php
-            $clickwrap = Session::get('docusign');
-            @endphp
-            @include('user.lessee.docusign.become-vendor-terms')
-            @endif
-            <div class="col-xs-12 col-md-6 mt-4">
-                <h4>Become a vendor to lease or sell your domains click on become vendor.</h4>
-            </div>
-            <div class="col-xs-12 col-md-6 mt-4">
-                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="btn btn-primary btn-sm btn-block text-center">Become Vendor</a>
-            </div>
-            
             @else  
             <div class="col-xs-12 col-md-4">
                 <label>Old Password</label>
@@ -103,10 +90,5 @@
             </div>
         </div>
 </form>
-<script>
-    $(document).on('click',	'#become-vendor', function(){
-        $(this).addClass('disabled');
-        $(this).text('Redirecting to terms page ...')
-    });
-</script>
+
 @endsection
