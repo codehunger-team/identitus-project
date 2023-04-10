@@ -28,7 +28,7 @@ class CheckoutController extends Controller
             $order = new \App\Models\Order;
             $order->customer = $user->name;
             $order->email = $user->email;
-            $order->total = \Cart::getTotal();
+            $order->total = \Cart::getTotal() * 2.9 /100 + 0.30;
             $order->order_contents = \Cart::getContent();
             $order->payment_type = 'Stripe';
             $order->order_status = 'Paid';
@@ -148,7 +148,7 @@ class CheckoutController extends Controller
                     $totalSellerWise[$sellerID] = array_sum($sellerValue);
                 }
     
-                $amount = \Cart::getTotal();
+                $amount = \Cart::getTotal() * 2.9 /100 + 0.30;
                 $amount *= 100;
                 $amount = (int) $amount;
     
