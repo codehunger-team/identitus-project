@@ -10,15 +10,17 @@
                 <thead>
                     <tr>
                         <th>Domain</th>
-                        <th>Purchase Type</th>
-                        <th class="text-center">Price</th>
+                        <th >Purchase Type</th>
+                        <th class="align-middle">Price</th>
 
                     </tr>
-                </thead>@if( \Cart::getContent()->count() )
+                </thead>
+                @if( \Cart::getContent()->count() )
                 @php
                     $cart = \Cart::getContent(true);    
                 @endphp
-                <tbody>@foreach( $cart as $domain )
+                <tbody>
+                @foreach( $cart as $domain )
                     <tr>
                         <td class="text-primary align-middle">
                             <a href="{{route('ajax.remove.to.cart',$domain->id)}}" type="link"><svg
@@ -41,12 +43,20 @@
                     </tr>@endforeach
                     <tr>
                         <td colspan="1">
-                            <h3>Total</h3>
+                            {{-- <h3>Total</h3> --}}
                         </td>
-                        <td class="text-center">
-                            <h3>
-                                <strong>{{ App\Models\Option::get_option( 'currency_symbol' ) .  number_format(\Cart::getTotal()) }}</strong>
-                            </h3>
+                        <td class="align-middle">
+                            <h4>Bill Detail</h4>
+                           
+                        </td>
+                        @php
+                            $stripeFee = \Cart::getTotal() * 2.9 /100 + 0.30;
+                            $grandTotal = $stripeFee + \Cart::getTotal();
+                        @endphp
+                        <td>
+                                <strong>Sub Total:</strong>  {{ App\Models\Option::get_option( 'currency_symbol' ) . \Cart::getTotal() }} </br>
+                                <strong>Card Transaction Fee:</strong>{{ App\Models\Option::get_option( 'currency_symbol' ) . $stripeFee }}  </br>
+                                <strong>Grand Total:</strong> {{ App\Models\Option::get_option( 'currency_symbol' ) .$grandTotal }} </br>
                         </td>
                     </tr>
                 </tbody>@else
