@@ -13,7 +13,7 @@ Congrats! You Have Been Approved For Vendor
 @endsection
 
 @section('intro_message')
-	<p>You are now our vendor, now you can add your own domain</p>
+	<p>You are now a vendor on Identitius. Please login and begin adding your domains today!</p>
 @endsection
 
 @section('mail_content')
