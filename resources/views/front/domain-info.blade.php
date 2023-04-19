@@ -78,7 +78,7 @@
                     </td>
                     <th class="theading">Registrant Country</th>
                     <td>
-                        {{ $whois['registrant_country'] }}
+                        {{ $whois['registrant_country'] ?? 'N/A' }}
                     </td>
                 </tr>
                 <tr>
