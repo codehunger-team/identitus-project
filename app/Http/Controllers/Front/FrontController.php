@@ -15,6 +15,7 @@ use Validator;
 use App\Http\Controllers\Admin\DocusignController;
 use Exception;
 use Yajra\DataTables\Facades\DataTables;
+use App\Services\WhoisService;
 
 class FrontController extends Controller
 {
@@ -203,6 +204,7 @@ class FrontController extends Controller
     public function domainInfo($domain)
     {
         $domain = Domain::where('domain', $domain)->firstOrFail();
+        $whois = (new WhoisService())->domainWhois($domain->domain);
         $category = Category::where('id', $domain->category)->first();
         $registrar = Registrar::where('id', $domain->registrar_id)->first();
         if (!isset($category)) {
@@ -216,6 +218,7 @@ class FrontController extends Controller
 
         return view('front.domain-info')
             ->with('domain', $domain)
+            ->with('whois', $whois)
             ->with('no1', $no1)
             ->with('no2', $no2)
             ->with('total', $total)
