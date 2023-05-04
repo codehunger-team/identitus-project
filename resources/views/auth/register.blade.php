@@ -1,12 +1,18 @@
 @extends('layouts.app')
 @section('content')
+@if(Session::has('docusign'))
+    @php
+        $clickwrap = Session::get('docusign');
+    @endphp
+        @include('user.lessee.docusign.become-vendor-terms')
+@endif
 <div class="container mt-6">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header bg-primary text-light">{{ __('Register') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return makeSearch()">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-6 mb-2">
@@ -32,7 +38,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group mb6">
                                     <label for="phone">Phone</label>
-                                        <input type="number" id="phone" name="phone" class="form-control  @error('phone') is-invalid @enderror" autofocus required value="{{old('phone') ?? ''}}">
+                                        <input type="text" onKeyPress="if(this.value.length==10) return false;" name="phone" class="form-control  @error('phone') is-invalid @enderror" autofocus required value="{{old('phone') ?? ''}}">
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -139,13 +145,19 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" onChange="checkPasswordMatch();" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <div id="divCheckPasswordMatch">
                             </div>
                         </div>
                         <div class="text-center mb-0 mt-3">
-                            <button type="submit" class="btn btn-block w-25 btn-primary">
+                            <button type="submit" class="btn btn-block w-25 btn-primary register-submit-button">
                                 {{ __('Register') }}
                             </button>
+                            <div  class="form-text">
+                                <b>Note: On the click of register button, will show our terms and conditions , only after accepting the terms, we will create your account.</b> 
+                              </div>
+                            <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="d-none">{{ __('Register') }}</a>
+                            
                         </div>
                     </form>
                 </div>
@@ -153,4 +165,41 @@
         </div>
     </div>
 </div>
+<script>
+    function makeSearch() {
+        $("#become-vendor")[0].click();
+        $('.register-submit-button').addClass('disabled');
+        $('.register-submit-button').text('Redirecting to terms page ...');
+    }
+    function checkPasswordMatch()
+    {
+        var password = $("#password").val();
+        var confirmPassword = $("#password-confirm").val();
+        var regularExpression  = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9_])/;
+       
+        if(confirmPassword.length < 8  && !regularExpression.test(confirmPassword) ) {
+            $("#divCheckPasswordMatch").html("Password guidelines doesn't match");
+            $('#divCheckPasswordMatch').addClass('text-danger');
+            $('#divCheckPasswordMatch').removeClass('text-success');
+            $('.register-submit-button').addClass('disabled');
+        } else {
+            if (password != confirmPassword) {
+                $("#divCheckPasswordMatch").html("Passwords do not match!");
+                $('#divCheckPasswordMatch').addClass('text-danger');
+                $('#divCheckPasswordMatch').removeClass('text-success');
+                $('.register-submit-button').addClass('disabled');
+            }   else {
+                $("#divCheckPasswordMatch").html("Passwords match.");
+                $('.register-submit-button').removeClass('disabled');
+                $('#divCheckPasswordMatch').addClass('text-success');
+                $('#divCheckPasswordMatch').removeClass('text-danger');
+            }
+        }
+      
+    }
+        
+    $(document).ready(function () {
+        $("#password-confirm").keyup(checkPasswordMatch);
+    });
+</script>
 @endsection
