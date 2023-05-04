@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,17 +55,17 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed',Password::min(8)
-            ->mixedCase()
-            ->numbers()
-            ->symbols()
-            ->uncompromised(),],
-            'phone' => ['required','numeric','digits:10'],
+            'password' => ['required', 'string', 'min:8', 'confirmed', Password::min(8)
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised(),],
+            'phone' => ['required', 'numeric', 'digits:10'],
             'country' => ['required'],
             'state' => ['required'],
             'city' => ['required'],
             'street_1' => ['required'],
-            'zip'=>['required'],
+            'zip' => ['required'],
         ]);
     }
 
@@ -88,4 +90,21 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Check if user account exists
+     * @method POST /register/check-if-account-exists
+     * @param Request $request
+     * @return JSON
+     */
+
+    public function checkIfAccountExists(Request $request)
+    {
+        try {
+            $request->validate(['email' => 'required|email']);
+            $exists = User::where('email', $request->email)->exists();
+            return response()->json(['success' => true, 'exists' => $exists]);
+        } catch (Exception $e) {
+            return response()->json(['success' => true, 'message' => $e->getMessage()], 422);
+        }
+    }
 }

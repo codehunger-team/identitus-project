@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ReviewController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\DocusignController;
 use App\Http\Controllers\Front\EnquiryController;
 use App\Http\Controllers\Front\CounterOfferController;
+use App\Http\Controllers\Front\FrontPageController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -30,6 +32,8 @@ Route::get('/', function () {
 Route::get('domain-typeahead', [FrontController::class, 'domainSearchTypeahead'])->name('domain.search.typeahead');
 
 Auth::routes(['verify' => true]);
+
+Route::post('/register/check-if-account-exists', [RegisterController::class, 'checkIfAccountExists'])->name('register.check.account');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -67,6 +71,11 @@ Route::get('privacy-policy', [FrontController::class, 'privacy'])->name('privacy
 Route::get('cookie-policy', [FrontController::class, 'cookie'])->name('cookie');
 Route::get('disclaimer', [FrontController::class, 'disclaimer'])->name('disclaimer');
 Route::get('ccpa-do-not-sell', [FrontController::class, 'ccpa'])->name('ccpa');
+
+// Static Pages
+Route::get('/fees', [FrontPageController::class, 'feesPage'])->name('fees');
+Route::get('/domain-owners', [FrontPageController::class, 'domainOwners'])->name('domain.owners');
+Route::get('/domain-leases', [FrontPageController::class, 'domainLessees'])->name('domain.leases');
 
 //Docusign
 Route::get('docusign', [DocusignController::class, 'index'])->name('docusign');

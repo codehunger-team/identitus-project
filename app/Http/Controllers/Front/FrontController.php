@@ -7,15 +7,15 @@ use App\Models\Category;
 use App\Models\Domain;
 use App\Models\Registrar;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Session;
-use Validator;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\DocusignController;
 use Exception;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\WhoisService;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
