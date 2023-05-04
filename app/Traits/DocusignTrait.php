@@ -16,7 +16,6 @@ trait DocusignTrait {
 
     public function docusignClickWrap($domain)
     {   
-        // dd($domain);
         $accountsApi = $this->accountsApi();
         # Build the display settings
         $displaySettings = new DisplaySettings(
