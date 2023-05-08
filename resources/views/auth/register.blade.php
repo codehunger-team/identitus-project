@@ -12,7 +12,7 @@ $clickwrap = Session::get('docusign');
             <div class="card">
                 <div class="card-header bg-primary text-light">{{ __('Register') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" onsubmit="return makeSearch()">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-6 mb-2">
@@ -169,11 +169,13 @@ $clickwrap = Session::get('docusign');
 @endsection
 @push('scripts')
 <script>
-    function makeSearch() {
-        $("#become-vendor")[0].click();
-        $('.register-submit-button').addClass('disabled');
-        $('.register-submit-button').text('Redirecting to terms page ...');
-    }
+    // function validate() {
+    //     console.log($('#register-form').formSerialize());
+    //     $("#become-vendor")[0].click();
+    //     $('.register-submit-button').addClass('disabled');
+    //     $('.register-submit-button').text('Redirecting to terms page ...');
+    //     return false;
+    // }
 
     function checkPasswordMatch() {
         var password = $("#password").val();
