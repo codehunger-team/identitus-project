@@ -23,21 +23,20 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180909623-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180909623-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-    gtag('js', new Date());
-    gtag('config', 'UA-180909623-1');
-</script>
+        gtag('js', new Date());
+        gtag('config', 'UA-180909623-1');
+    </script>
 
-<!-- Lucky Orange -->
-<script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=4d201ef8"></script>
-@stack('scripts')
+    <!-- Lucky Orange -->
+    <script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=4d201ef8"></script>
 
 </html>
