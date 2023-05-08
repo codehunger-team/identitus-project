@@ -37,4 +37,15 @@ class FrontPageController extends Controller
     {
         return view('front.domain_leases');
     }
+
+    /**
+     * Return the TOS Page
+     * @method GET
+     * @return Renderable
+     */
+
+    public function termsConditions()
+    {
+        return view('front.terms_conditions');
+    }
 }
