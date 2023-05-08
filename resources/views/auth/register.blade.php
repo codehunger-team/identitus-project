@@ -155,10 +155,9 @@ $clickwrap = Session::get('docusign');
                                     {{ __('Register') }}
                                 </button>
                                 <div class="form-text">
-                                    <b>Note: On the click of register button, will show our terms and conditions , only after accepting the terms, we will create your account.</b>
+                                    <b>Note: On the click of register button, will show our terms and conditions , only after accepting the terms, we will create your account. You can read our <a style="color:blue" href="{{ route('term.conditions') }}">Terms and Conditions</a>.</b>
                                 </div>
                                 <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="d-none">{{ __('Register') }}</a>
-
                             </div>
                     </form>
                 </div>
