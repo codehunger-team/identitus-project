@@ -25,9 +25,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [FrontPageController::class, 'home']);
 
 Route::get('domain-typeahead', [FrontController::class, 'domainSearchTypeahead'])->name('domain.search.typeahead');
 
