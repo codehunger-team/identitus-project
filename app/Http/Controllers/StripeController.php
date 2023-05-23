@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Lessor;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -29,7 +29,6 @@ class StripeController extends Controller
     public function stripeConnectRedirect(Request $request)
     {   
         $userId = $this->authID();
-
         try {
 			$response = \Stripe\OAuth::token([
                 'grant_type' => 'authorization_code',
@@ -83,9 +82,10 @@ class StripeController extends Controller
 
         $connected_account_id = $response->stripe_user_id;
 
-        User::where('id',$this->authID())->update(['stripe_account_id'=>$connected_account_id]);
+		 User::where('id',$this->authID())->update(['stripe_account_id'=>$connected_account_id]);       
         $request->session()->flash('msg', 'Your account has been connected');
-        return redirect()->back();
+         return redirect()->back();
+		
     }
 
     /**
@@ -96,8 +96,9 @@ class StripeController extends Controller
     {   
         $stripe_client_id = env('STRIPE_CLIENT_ID');
         $stripe_account_id =  User::where('id',$this->authID())->first()->stripe_account_id;
+     
         try {
-			\Stripe\OAuth::deauthorize([
+			\Stripe\OAuth::deauthorize([ 
                 'client_id' => $stripe_client_id,
                 'stripe_user_id' => $stripe_account_id,
               ]);
