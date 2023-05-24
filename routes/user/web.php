@@ -5,7 +5,7 @@ use App\Http\Controllers\User\Lessee\UserSettingController;
 use App\Http\Controllers\User\Lessor\DomainController;
 use App\Http\Controllers\User\Lessor\LeaseController;
 use App\Http\Controllers\User\Lessor\LessorController;
-use App\Http\Controllers\User\Lessor\StripeController;
+use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\Lessor\OrderController;
 
 /*
@@ -33,9 +33,14 @@ Route::prefix('user')->middleware('auth','verified')->group(function () {
     Route::get('view-order/{domain}', [UserSettingController::class, 'view_order'])->name('view.order');
     Route::get('view-terms/{id}', [UserSettingController::class, 'viewTerms'])->name('view.terms');
     Route::get('logout', [UserSettingController::class, 'logout'])->name('user.logout');
+
+    //  these StripeController routes are neither lessee routes nor lessor routes
+    Route::get('/stripe-connect/redirect', [StripeController::class, 'stripeConnectRedirect'])->name('user.stripe-connect.redirect');
+    Route::get('stripe-connect/revoke', [StripeController::class, 'revokeStripe'])->name('user.revoke.stripe');
+    Route::get('/stripe-connect', [StripeController::class, 'stripeConnect'])->name('user.stripe-connect');
+   
 });
-
-
+ 
 //lessor routes
 Route::prefix('user')->middleware('auth','vendorApproval','verified')->group(function () {
     Route::get('view-dns/{id}', [LessorController::class, 'viewDns'])->name('view.dns');
@@ -59,9 +64,8 @@ Route::prefix('user')->middleware('auth','vendorApproval','verified')->group(fun
     Route::get('seller-view-orders/{id}', [OrderController::class, 'userSellerViewOrders'])->name('user.view.orders');
     Route::get('destroy-order/{id}', [OrderController::class, 'destroyOrder'])->name('user.destroy.order');
 
-    Route::get('stripe-connect', [StripeController::class, 'stripeConnect'])->name('user.stripe-connect');
-    Route::get('stripe-connect/redirect', [StripeController::class, 'stripeConnectRedirect'])->name('user.stripe-connect.redirect');
-    Route::get('stripe-connect/revoke', [StripeController::class, 'revokeStripe'])->name('user.revoke.stripe');
-
+   
+   
     Route::get('close/negotiation/{domain}',[DomainController::class, 'close_negotiation'])->name('close.negotiation');
 });
+
