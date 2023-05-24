@@ -17,9 +17,11 @@ use App\Models\Domain;
 use Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\AuthTrait;
 
 class UserSettingController extends Controller
 {
+    use AuthTrait;
     /**
      *  Use to update user details
      */
@@ -251,6 +253,8 @@ class UserSettingController extends Controller
      */
     public function becomeVendor()
     {
-        return view('user.lessee.become-vendor');
+        
+        $stripe_account_id =  User::where('id',$this->authID())->first()->stripe_account_id;
+        return view('user.lessee.become-vendor', compact('stripe_account_id'));
     }
 }
