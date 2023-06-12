@@ -21,7 +21,6 @@ class FrontPageController extends Controller
         if ($diff_in_hours > 7) {
             $docusign->refreshToken();
         }
-
         return view('welcome');
     }
 
