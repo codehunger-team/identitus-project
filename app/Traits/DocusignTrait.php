@@ -61,7 +61,7 @@ trait DocusignTrait {
             ])
         ];
 
-        # Build ClickwrapRequest
+        # Build ClickwrapRequest 
         $clickwrap = new ClickwrapRequest(
             [
                 'clickwrap_name' => $filename,
@@ -70,15 +70,15 @@ trait DocusignTrait {
                 'require_reacceptance' => true
             ]
         );
-
-        $clickwrap =  $accountsApi->createClickwrap(env('DOCUSIGN_ACCOUNT_ID'), $clickwrap);
+        
+        $clickwrap =  $accountsApi->createClickwrap(Option::getDeCryptOption('docusign_account_id'), $clickwrap);
 
         $clickwrap_request = new ClickwrapRequest(['status' => 'active']);
 
-        $response = $accountsApi->updateClickwrapVersion(env('DOCUSIGN_ACCOUNT_ID'), $clickwrap['clickwrap_id'], '1', $clickwrap_request);
+        $response = $accountsApi->updateClickwrapVersion(Option::getDeCryptOption('docusign_account_id'), $clickwrap['clickwrap_id'], '1', $clickwrap_request);
 
         $params = [
-            'accountId' => env('DOCUSIGN_ACCOUNT_ID'),
+            'accountId' => Option::getDeCryptOption('docusign_account_id'),
             'clickwrapId' => $clickwrap['clickwrap_id'],
             'environment' => 'https://demo.docusign.net',
             'clientUserId' => rand(1111111111, 9999999999),

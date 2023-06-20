@@ -33,7 +33,7 @@ class DocusignController extends Controller
             $params = [
                 'response_type' => 'code',
                 'scope' => "signature click.manage",
-                'client_id' => env('DOCUSIGN_CLIENT_ID'),
+                'client_id' => Option::getDeCryptOption('docusign_client_id'),
                 'redirect_uri' => route('admin.docusign.callback'),
             ];
             $queryBuild = http_build_query($params);
@@ -119,8 +119,8 @@ class DocusignController extends Controller
      */
     public function getSecretKey()
     {
-        $client_id = env('DOCUSIGN_CLIENT_ID');
-        $client_secret = env('DOCUSIGN_CLIENT_SECRET');
+        $client_id = Option::getDeCryptOption('docusign_client_id');
+        $client_secret = Option::getDeCryptOption('docusign_client_secret');
         return "Basic " . utf8_decode(base64_encode("{$client_id}:{$client_secret}"));
     }
 
