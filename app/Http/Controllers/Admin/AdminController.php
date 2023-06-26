@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 class AdminController extends Controller
 {
@@ -248,9 +249,14 @@ class AdminController extends Controller
 
     //configuration show
     public function configuration_show()
-    {
+    { 
         $options = request()->except('_token', 'sb_settings');
+      
         // save options
+        $options['docusign_account_id'] = Crypt::encryptString($options['docusign_account_id']);
+        $options['docusign_client_id'] = Crypt::encryptString($options['docusign_client_id']);
+        $options['docusign_client_secret'] = Crypt::encryptString($options['docusign_client_secret']);
+
         foreach ($options as $name => $value) {
             Option::update_option($name, $value);
         }

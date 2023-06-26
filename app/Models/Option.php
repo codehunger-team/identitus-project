@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Option extends Model
 {
@@ -22,6 +23,12 @@ class Option extends Model
     // get an option
     public static function get_option( $name ) {
         return self::where('name', $name)->pluck('value')->first();
+    }
+    
+     // get an encrypt option
+    public static function getDeCryptOption( $name) {
+        return Crypt::decryptString(self::where('name', $name)->pluck('value')->first());
+        
     }
 
     // delete an option
