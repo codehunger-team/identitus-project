@@ -22,8 +22,8 @@
                 <h2>For the Domain Owner - Lessor:</h2>
                 <p>Domain owners / lessors on Identitius are subject to the following fees:</p>
                 <ul>
-                    <li><strong>Commission on Rents Received:</strong> Domain owners pay a 10% commission on domains pointed at their respective Identitius.com page and a 20% commission on domains not.</li>
-                    <li><strong>Commission on Domain Sales:</strong> In the event of a domain sale, domain owners pay a 10% commission on domains pointed at their respective Identitius.com page and a 20% commission on domains not.</li>
+                    <li><strong>Commission on Rents Received:</strong> Domain owners pay a 10% commission on domains pointed at their respective Identitius.com page and a 20% commission on domains that are not.</li>
+                    <li><strong>Commission on Domain Sales:</strong> In the event of a domain sale, domain owners pay a 10% commission on domains pointed at their respective Identitius.com page and a 20% commission on domains that are not.</li>
                     <li><strong>All payment processing fees are charged to the customer seperately and passed on directly to the payment processing company: Stripe.
                 </ul>
 
