@@ -28,7 +28,7 @@
                     <a class="nav-link" href="{{route('domain.owners')}}">Domain Owners</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('domain.leases')}}">Domains Leases</a>
+                    <a class="nav-link" href="{{route('domain.renters')}}">Domain Renters</a>
                 </li>
 
                 <li class="nav-item" href="">

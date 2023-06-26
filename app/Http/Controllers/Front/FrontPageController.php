@@ -45,14 +45,14 @@ class FrontPageController extends Controller
         return view('front.domain_owners');
     }
     /**
-     * Return the Domain Leases Page
-     * @method GET /domain-leases
+     * Return the Domain Reners Page
+     * @method GET /domain-renters
      * @return Renderable
      */
 
     public function domainLessees()
     {
-        return view('front.domain_leases');
+        return view('front.domain_renters');
     }
 
     /**
