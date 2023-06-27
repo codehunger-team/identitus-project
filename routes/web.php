@@ -74,7 +74,7 @@ Route::get('ccpa-do-not-sell', [FrontController::class, 'ccpa'])->name('ccpa');
 // Static Pages
 Route::get('/fees', [FrontPageController::class, 'feesPage'])->name('fees');
 Route::get('/domain-owners', [FrontPageController::class, 'domainOwners'])->name('domain.owners');
-Route::get('/domain-leases', [FrontPageController::class, 'domainLessees'])->name('domain.renters');
+Route::get('/domain-renters', [FrontPageController::class, 'domainLessees'])->name('domain.renters');
 Route::get('/terms-and-conditions', [FrontPageController::class, 'termsConditions'])->name('term.conditions');
 
 //Docusign
