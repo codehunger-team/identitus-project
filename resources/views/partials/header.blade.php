@@ -8,7 +8,7 @@
     <meta name="description" content="Domains for adoption">
     <meta name="keywords" content="domains">
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> -->
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
