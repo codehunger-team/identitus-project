@@ -43,6 +43,7 @@ class SchedulePaymentCron extends Command
     public function handle()
     {
         try {
+            Log::info('Starting DocusignKeyUpdate command.');
             $todayTime = \Carbon\Carbon::now()->format('Y-m-d H:i');
 
             $contracts = Contract::get();
