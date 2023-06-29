@@ -14,7 +14,7 @@ class DocusignKeyUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'updateDocusignKey:cron';
 
     /**
      * The console command description.
