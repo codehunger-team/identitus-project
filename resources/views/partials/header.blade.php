@@ -4,9 +4,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Identitius') }}</title>
-    <meta name="description" content="Domains for adoption">
-    <meta name="keywords" content="domains">
+    <title>Identitius: The Domain Name Leasing and Rental Marketplace</title>
+    <meta name="description" content="Identitius: The Domain Name Leasing and Rental Marketplace">
+    <meta name="keywords" content="domain name lease, lease domain name, rent domain names, lease domain">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- Styles -->
