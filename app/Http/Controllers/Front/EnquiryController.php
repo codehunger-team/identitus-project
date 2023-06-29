@@ -43,8 +43,11 @@ class EnquiryController extends Controller
                ]);
                $recaptchaResponse = $response->json();
                if ($recaptchaResponse['success'] == true) {
-                    Contact::create($data);
-                    Mail::to('admin@identitus.com')->send(new CustomerEnquiry($data));
+                    // Contact::create($data);
+                    $data['from_email'] = 'info@identitius.com';
+                    $data['customer_email'] = $data['email'];
+                    unset($data['email']);
+                    Mail::to('info@identitius.com')->send(new CustomerEnquiry($data));
                     //  dispatch(new SendEmailJob($data));
                     $message = [
                          'success' => true,

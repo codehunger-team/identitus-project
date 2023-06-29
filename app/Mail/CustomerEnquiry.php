@@ -34,7 +34,7 @@ class CustomerEnquiry extends Mailable
     public function build()
     {   
         $data = $this->data;
-        return $this->from($data['email'])
+        return $this->from($data['from_email'])
         ->subject('Customer Enquiry')
         ->markdown('emails.enquiry-email',compact('data'));
     }
