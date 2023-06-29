@@ -6,7 +6,7 @@ Customer Details
 @component('mail::table')
 | Name       | Email         | Message  |
 | ------------- |:-------------:| --------:|
-| {{$data['name']}}     | {{$data['email']}}      | {{$data['message']}}      |
+| {{$data['name']}}     | {{$data['customer_email']}}      | {{$data['message']}}      |
 
 @endcomponent
 
