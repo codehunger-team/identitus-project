@@ -81,13 +81,15 @@
 				{{ $d->number_of_periods }}
             </td>
 
-            @foreach($gracePeriod as $key => $gracePeriodValue)
+            <td>5</td>
+            {{-- @foreach($gracePeriod as $key => $gracePeriodValue)
                 @if($gracePeriodValue->id == $d->grace_period_id)
                     <td>
                         {{ $gracePeriodValue->grace_period }}
                     </td>
+                @else
                 @endif
-            @endforeach
+            @endforeach --}}
             <td>
                 <div class="btn-group">                     
                     <a class="btn btn-primary btn-xs" href="{{url('/admin/set-terms',$d->domain)}}">
