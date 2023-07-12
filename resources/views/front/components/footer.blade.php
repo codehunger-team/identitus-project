@@ -33,7 +33,10 @@
                         </li>
                         <li>
                             <a href="#" onclick="window.displayPreferenceModal();return false;" id="termly-consent-preferences">Consent Preferences</a>
-                        </li>                      
+                        </li>
+                        <li>
+                            <a href="/sitemap.xml">Sitemap</a>
+                        </li>                  
                     </ul>
                 </div>
                 <div class="col-lg-4 col-sm-12">

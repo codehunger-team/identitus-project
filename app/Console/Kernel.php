@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SchedulePaymentCron::class,
+        Commands\DocusignKeyUpdate::class,
     ];
 
     /**
@@ -24,7 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('SchedulePayment:cron')->everyMinute();
+        $schedule->command('SchedulePayment:cron')->everyFiveMinutes();
+        $schedule->command('updateDocusignKey:cron')->hourly(7);
     }
 
     /**
