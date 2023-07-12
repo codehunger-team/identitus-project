@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('seo_title') Cart - {!! \App\Models\Option::get_option('seo_title') !!} @endsection
+@section('seo')
+<link rel="canonical" href="{{url('domains')}}" />
+@endsection
 @section('content')
 <div class="container">
     <div class="row" style="margin-top:8%">

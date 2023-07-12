@@ -17,7 +17,7 @@
 <hr />
 <script>
     $(document).on('click','.connect-doc',function(){
-        $('.connect-doc').attr('disabled',true)
+        // $('.connect-doc').attr('disabled',true)
         $(this).text('connecting...');
     });
 </script>
