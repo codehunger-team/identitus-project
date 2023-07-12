@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('seo')
+<link rel="canonical" href="{{url('ccpa-do-not-sell')}}" />
+@endsection
 @section('content')
     <div class="container">
         <div class="row mt-6">

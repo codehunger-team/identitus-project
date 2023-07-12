@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('seo')
+<link rel="canonical" href="{{url('domains')}}" />
+@endsection
 @section('content')
     <div class="container">
         <div class="row mt-6">
