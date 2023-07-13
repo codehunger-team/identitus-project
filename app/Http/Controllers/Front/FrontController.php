@@ -122,13 +122,13 @@ class FrontController extends Controller
         return DataTables::of($domains)
             ->addIndexColumn()
             ->addColumn('pricing', function ($query) {
-                return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_blank">$' . $query->pricing . '</a>';
+                return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '>$' . $query->pricing . '</a>';
             })
             ->editColumn('contract.period_payment', function ($query) {
-                return '<a href="' . route('review.terms', $query->domain) . '" target="_blank">$' . $query->contract->period_payment . '</a>';
+                return '<a href="' . route('review.terms', $query->domain) . '>$' . $query->contract->period_payment . '</a>';
             })
             ->editColumn('domain', function ($query) {
-                return '<a href="' . route('domain.details', $query->domain) . '" target="_blank">' . $query->domain . '</a>';
+                return '<a href="' . route('domain.details', $query->domain) . '>' . $query->domain . '</a>';
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
