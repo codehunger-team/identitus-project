@@ -31,6 +31,9 @@ composer install
 echo "Running php artisan clear-compiled ... "
 php artisan clear-compiled
 
+echo "Running php artisan cache:clear ... "
+php artisan cache:clear
+
 # Recreate boostrap/cache/compiled.php
 echo "Running php artisan optimize ... "
 php artisan optimize
