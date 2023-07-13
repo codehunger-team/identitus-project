@@ -34,6 +34,12 @@ php artisan clear-compiled
 echo "Running php artisan cache:clear ... "
 php artisan cache:clear
 
+echo "Running npm ci ... "
+npm ci
+
+echo "Running npm run prod ... "
+npm run prod
+
 # Recreate boostrap/cache/compiled.php
 echo "Running php artisan optimize ... "
 php artisan optimize
@@ -45,10 +51,4 @@ if [[ $SKIP_ARTISAN_MIGRATE != Y ]]; then
 else
     echo "Skipping php artisan migrate."
 fi
-
-echo "Running npm ci ... "
-npm ci
-
-echo "Running npm run prod ... "
-npm run prod
 
