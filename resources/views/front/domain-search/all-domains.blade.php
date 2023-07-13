@@ -7,7 +7,7 @@
 <div class="container main-top">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="text-center">Find Your Domain Filter</h1>
+            <h1 class="text-center">Find the Perfect Domain</h1>
         </div>
     </div>
 </div>
@@ -153,7 +153,7 @@
 <div class="container main-bottom">
     <div class="row">
         <div class="col-sm-12">
-            <h4 class="text-center">If you did not find the domain you want, let us help. <a href="mailto:info@identitius.com"><u>Click here to contact us</u></a>.</h4>
+            <h4 class="text-center">Didn't find the perfect domain? Let us help. <a href="mailto:info@identitius.com"><u>Click here to contact us</u></a>.</h4>
         </div>
     </div>
 </div>
