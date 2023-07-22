@@ -1,12 +1,22 @@
 <head>
+    @php 
+      $domainLastPart = request()->segment(count(request()->segments()));
+      $domain = App\Models\Domain::where('domain',$domainLastPart)->first();
+    @endphp
+  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Identitius: The Domain Name Leasing and Rental Marketplace</title>
-    <meta name="description" content="Identitius: The Domain Name Leasing and Rental Marketplace">
-    <meta name="keywords" content="domain name lease, lease domain name, rent domain names, lease domain">
+    @if(isset($domain))
+        <title>{{$domain->domain ?? 'Identitius: The Domain Name Leasing and Rental Marketplace'}}</title>
+        <meta name="description" content="{!!$domain->short_description ?? 'Identitius: The Domain Name Leasing and Rental Marketplace'!!}">
+        <meta name="keywords" content="{!!$domain->tags ?? 'domain name lease, lease domain name, rent domain names, lease domain'!!}">
+    @else
+        <title>Identitius: The Domain Name Leasing and Rental Marketplace</title>
+        <meta name="description" content="Identitius: The Domain Name Leasing and Rental Marketplace">
+        <meta name="keywords" content="domain name lease, lease domain name, rent domain names, lease domain">
+    @endif
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- Styles -->
