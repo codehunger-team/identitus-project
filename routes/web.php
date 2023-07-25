@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\DocusignController;
 use App\Http\Controllers\Front\EnquiryController;
 use App\Http\Controllers\Front\CounterOfferController;
 use App\Http\Controllers\Front\FrontPageController;
+use App\Http\Controllers\Front\SiteMapController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -85,7 +86,14 @@ Route::get('sign/document/{domain}', [DocusignController::class, 'signDocument']
 //Enquiry Controller
 Route::post('send/enquiry', [EnquiryController::class, 'sendEnquiry'])->name('send.enquiry');
 
+//site Map Routes
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::get('/page-sitemap.xml', [SitemapController::class, 'pageSitemap']);
+Route::get('/domain-sitemap.xml', [SitemapController::class, 'domainSitemap']);
+
 //domain Filter
 Route::get('domains', [FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
 Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
+
+
