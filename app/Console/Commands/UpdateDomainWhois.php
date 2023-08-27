@@ -54,15 +54,6 @@ class UpdateDomainWhois extends Command
             foreach ($domains as $domain) {
                 $whois = (new WhoisService())->domainWhois($domain['domain']);
                 if (isset($whois['domain'])) {
-                    dd([
-                        'domain_id' => $domain['id'],
-                        'registered_on' => isset($whois['created_date']) ? $whois['created_date'] : null,
-                        'registrar' => isset($whois['registrar']) ? $whois['registrar'] : null,
-                        'domain_age' => isset($whois['created_date']) ? Domain::computeAge($whois['created_date'], date('Y-m-d')) : null,
-                        'registrant_country' => isset($whois['registrant_country']) ? $whois['registrant_country'] : null,
-                        'nameservers' => isset($whois['nameservers']) ? json_encode($whois['nameservers']) : null,
-                        'raw_response' => json_encode($whois),
-                    ]);
                     DomainWhois::updateOrCreate(['domain_id' => $domain['id']], [
                         'domain_id' => $domain['id'],
                         'registered_on' => isset($domain['created_date']) ? $domain['created_date'] : null,
