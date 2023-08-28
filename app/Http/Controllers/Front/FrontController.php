@@ -204,7 +204,7 @@ class FrontController extends Controller
     public function domainInfo($domain)
     {
         $domain = Domain::where('domain', $domain)->firstOrFail();
-        $whois = (new WhoisService())->domainWhois($domain->domain);
+        $whois = (new WhoisService())->domainWhois($domain);
         $category = Category::where('id', $domain->category)->first();
         $registrar = Registrar::where('id', $domain->registrar_id)->first();
         if (!isset($category)) {
