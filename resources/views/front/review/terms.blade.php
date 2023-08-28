@@ -157,7 +157,8 @@
         @include('front.components.review-term-counter-modal')
     </div>
 </div>
-
+@endsection
+@push('scripts')
 <script>
     // edit counter modal code
     $(document).on('click', '.edit-lease-counter', function () {
@@ -244,11 +245,5 @@
         });
         return false;
     });
-
-    $(document).on('click', '.css-103txop', function () {
-        console.log('hello');
-        alert('hy');
-    });
-
 </script>
-@endsection
+@endpush
