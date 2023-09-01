@@ -150,14 +150,20 @@ $clickwrap = Session::get('docusign');
                                 <div id="divCheckPasswordMatch">
                                 </div>
                             </div>
+                            <div class="form-text">
+                                    <br>
+                                    <b>Note: Please read our <a style="color:blue" href="{{ route('membership') }}">Membership Agreement</a> and our <a style="color:blue" href="{{ route('tos') }}">Terms of Service</a>. When you click on the button below to register and create a new account, you are agreeing to our <a style="color:blue" href="{{ route('membership') }}">Membership Agreement</a> and our <a style="color:blue" href="{{ route('tos') }}">Terms of Service</a>.</b>
+                                    <br>
+                            </div>
                             <div class="text-center mb-0 mt-3">
-                                <button type="submit" class="btn btn-block w-25 btn-primary register-submit-button">
-                                    {{ __('Register') }}
+                                <button type="submit" class="btn btn-block w-50 btn-primary register-submit-button">
+                                    {{ __('I certify that I have fully read, understand and accept the Identitius Membership Agreement and Terms of Service.') }}
                                 </button>
                                 <div class="form-text">
                                     <b>Note: On the click of register button, will show our terms and conditions , only after accepting the terms, we will create your account. You can read our <a style="color:blue" href="{{ route('term.conditions') }}">Terms and Conditions</a>.</b>
                                 </div>
-                                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="d-none">{{ __('Register') }}</a>
+<!--                                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="d-none">{{ __('Register') }}</a>
+                                <a href="{{route('sign.document','terms.pdf')}}" id="become-vendor" class="d-none">{{ __('<a style="color:blue" href="{{ route('tos') }}">'tos') }}</a>    -->
                             </div>
                     </form>
                 </div>

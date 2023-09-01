@@ -66,6 +66,7 @@ Route::get('checkout/success/{id}', [CheckoutController::class, 'success'])->nam
 //Standard pages
 Route::get('about', [FrontController::class, 'about'])->name('about');
 Route::get('q-and-a', [FrontController::class, 'qa'])->name('qa');
+Route::get('membership', [FrontController::class, 'membership'])->name('membership');
 Route::get('tos', [FrontController::class, 'tos'])->name('tos');
 Route::get('privacy-policy', [FrontController::class, 'privacy'])->name('privacy');
 Route::get('cookie-policy', [FrontController::class, 'cookie'])->name('cookie');
@@ -76,7 +77,6 @@ Route::get('ccpa-do-not-sell', [FrontController::class, 'ccpa'])->name('ccpa');
 Route::get('/fees', [FrontPageController::class, 'feesPage'])->name('fees');
 Route::get('/domain-owners', [FrontPageController::class, 'domainOwners'])->name('domain.owners');
 Route::get('/domain-renters', [FrontPageController::class, 'domainLessees'])->name('domain.renters');
-Route::get('/terms-and-conditions', [FrontPageController::class, 'termsConditions'])->name('term.conditions');
 
 //Docusign
 Route::get('docusign', [DocusignController::class, 'index'])->name('docusign');

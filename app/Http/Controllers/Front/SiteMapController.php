@@ -23,7 +23,6 @@ class SiteMapController extends Controller
         'https://www.identitius.com/disclaimer',
         'https://www.identitius.com/ccpa-do-not-sell',
         'https://www.identitius.com/password/reset',
-        'https://www.identitius.com/terms-and-conditions',
     ];
 
 

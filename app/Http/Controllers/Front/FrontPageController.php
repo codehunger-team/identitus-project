@@ -65,4 +65,15 @@ class FrontPageController extends Controller
     {
         return view('front.terms_conditions');
     }
+
+    /**
+     * Return the Membershipo Agreement Page
+     * @method GET
+     * @return Renderable
+     */
+
+     public function membership()
+     {
+         return view('front.membership_agreement');
+     }
 }

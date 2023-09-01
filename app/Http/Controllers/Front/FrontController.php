@@ -238,6 +238,17 @@ class FrontController extends Controller
     }
 
     /**
+     * Display the Membership Agreement Page
+     * @method GET /membership
+     * @return Renderable
+     */
+
+     public function membership()
+     {
+         return view('front.membership');
+     }
+
+    /**
      * Display the Privacy Policy Page
      * @method GET /privacy-policy
      * @return Renderable
