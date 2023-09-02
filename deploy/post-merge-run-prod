@@ -22,7 +22,12 @@ fi
 set -e
 
 echo "Updating npm ..."
-npm install -g npm
+if [ -f ".npmrc" ] ; then
+    NPMVERSION=$(cat .npmrc)
+else
+    NPMVERSION="latest"
+fi
+npm install -g npm@${NPMVERSION}
 
 echo "Running composer install (root) ..."
 composer install
