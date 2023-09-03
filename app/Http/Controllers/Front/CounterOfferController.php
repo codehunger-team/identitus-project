@@ -195,7 +195,7 @@ class CounterOfferController extends Controller
             $data['from_email'] = 'info@identitius.com';
             $vendorEmail = User::where('id', $data['lessor_id'])->pluck('email')->first();
             Mail::to($vendorEmail)->send(new DomainReviewTerm($data));
-            Session::flash('success', 'We have informed the owner regarding your price...');
+            Session::flash('success', 'We sent an email to the Lessor with your suggested changes.');
             $isCounterOffer = CounterOffer::where('domain_name',$data['domain_name'])->where('lessee_id',Auth::user()->id)->first();
             if ($isCounterOffer) {
                 $isCounterOffer->update($data);

@@ -17,6 +17,10 @@
                     </h1>
                     <ul class="nav navbar-nav">
                         <li>
+                            <a href="/membership">Membership Agreement</a>
+                        </li>
+                        <li>
+                        <li>
                             <a href="/tos">Terms of Service</a>
                         </li>
                         <li>
