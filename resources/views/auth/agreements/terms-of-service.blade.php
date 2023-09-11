@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Terms of Service</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="rejectAgreement('close-tos')" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="member-reject-button" onclick="rejectAgreement()" data-bs-dismiss="modal">No, I don't</button>
+                <button type="button" class="btn btn-secondary" id="member-reject-button" onclick="rejectAgreement('close-tos')" data-bs-dismiss="modal">No, I don't</button>
                 <button type="button" class="btn btn-primary" id="member-accept-button" onclick="closeTheModal()">Yes, I Agree</button>
             </div>
         </div>
