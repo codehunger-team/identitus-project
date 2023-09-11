@@ -12,7 +12,7 @@ $clickwrap = Session::get('docusign');
             <div class="card">
                 <div class="card-header bg-primary text-light">{{ __('Register') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return validate()">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-6 mb-2">
@@ -150,8 +150,17 @@ $clickwrap = Session::get('docusign');
                                 <div id="divCheckPasswordMatch">
                                 </div>
                             </div>
+                            <div class="col-md-6 mt-2">
+                                <input class="form-check-input" type="checkbox" onclick="readTheAgreement('agreement')" value="" id="agreement-checkbox" data-bs-toggle="modal"> Please tick to agree our membership agreement
+                            </div>
+                            <div class="col-md-6 mt-2">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <input class="form-check-input" type="checkbox" onclick="readTheAgreement('tos')" value="" id="tos-checkbox"> Please tick  to agree our Terms of Service
+                            </div>
                             <div class="text-center mb-0 mt-3">
                                 <div class="form-text">
+                                   
                                         <br>
                                         <p><b>Please read!</b> When you click on the button below to register and create a new account, you are agreeing to our <a style="color:blue" href="{{ route('membership') }}">Membership Agreement</a> and our <a style="color:blue" href="{{ route('tos') }}">Terms of Service</a>.
                                         <br>
@@ -168,17 +177,46 @@ $clickwrap = Session::get('docusign');
         </div>
     </div>
 </div>
+@include('auth.agreements.membership')
+@include('auth.agreements.terms-of-service')
 @endsection
 @push('scripts')
 <script>
-    // function validate() {
-    //     console.log($('#register-form').formSerialize());
-    //     $("#become-vendor")[0].click();
-    //     $('.register-submit-button').addClass('disabled');
-    //     $('.register-submit-button').text('Redirecting to terms page ...');
-    //     return false;
-    // }
+    
+    function validate() {
+        if($("#agreement-checkbox").prop('checked') != true){ 
+            alert("Please tick out the agreement");
+            return false;
+        }
+    }
 
+    function rejectAgreement() {
+        $('#agreement-checkbox').prop('checked', false); // Unchecks it
+    }
+    function closeTheModal() {
+        $('#agreement-popup').modal('hide');
+    }
+    function readTheAgreement(type) {
+        switch(type) {
+            case 'tos':
+                if($("#tos-checkbox").prop('checked') == true){
+                    $('#tos-popup').modal('show');
+                } else {
+                    $('#agreement-popup').modal('hide');
+                }
+                break;
+            case 'agreement':
+                if($("#agreement-checkbox").prop('checked') == true){
+                    $('#agreement-popup').modal('show');
+                } else {
+                    $('#agreement-popup').modal('hide');
+                }
+                break;
+            default:
+                // code block
+        }
+        
+    }
     function checkPasswordMatch() {
         var password = $("#password").val();
         var confirmPassword = $("#password-confirm").val();
