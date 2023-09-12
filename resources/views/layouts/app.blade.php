@@ -12,7 +12,7 @@
             @yield('content')
         </main>
     </div>
-    @include('front.components.sweet-alert')
+   
     @include('front.components.cart-popup')
     @include('front.components.footer')
     @include('partials.global-js')
@@ -22,6 +22,7 @@
 <!-- End termly.io Scripts -->
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+@include('front.components.sweet-alert')
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180909623-1"></script>
