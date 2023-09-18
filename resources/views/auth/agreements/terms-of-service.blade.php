@@ -1,6 +1,6 @@
-<!---modal popup ------------>
+<!--- Termy Modal Popup ------------>
 <div class="modal fade" id="tos-popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Terms of Service</h5>
@@ -9,18 +9,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 mx-auto">
-                        <p>
-                            <div name="termly-embed" data-id="003bc7d0-817f-4528-9353-8cbbf031dee6" data-type="iframe"></div>
-                            <script type="text/javascript">(function(d, s, id) {
-                                var js, tjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s); js.id = id;
-                                js.src = "https://app.termly.io/embed-policy.min.js";
-                                tjs.parentNode.insertBefore(js, tjs);
-                                }(document, 'script', 'termly-jssdk'));
-                            </script>
-                        </p>
-                    </div>  
+                        <div name="termly-embed" data-id="003bc7d0-817f-4528-9353-8cbbf031dee6" data-type="iframe"></div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -30,4 +20,17 @@
         </div>
     </div>
 </div>
-<!--------------------------------------->
+@push('scripts')
+<script>
+    function loadTermlyPolicy() {
+        (function(d, s, id) {
+            var js, tjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://app.termly.io/embed-policy.min.js";
+            tjs.parentNode.insertBefore(js, tjs);
+        }(document, 'script', 'termly-jssdk'));
+    }
+</script>
+@endpush
