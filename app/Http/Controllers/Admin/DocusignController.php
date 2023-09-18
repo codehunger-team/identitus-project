@@ -19,7 +19,7 @@ class DocusignController extends Controller
     public function index()
     {
         return view('admin.docusign.index')
-        ->with('active', 'docusign');
+            ->with('active', 'docusign');
     }
 
     /**
@@ -156,19 +156,18 @@ class DocusignController extends Controller
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             $result = curl_exec($ch);
-            
+
             if (curl_errno($ch)) {
                 echo 'Error:' . curl_error($ch);
             }
             curl_close($ch);
-            
+
             $decodedData = json_decode($result);
             // if ($diff_in_days > 28) {
             //     Option::where('name', 'docusign_refresh_code')->update(['value' => $decodedData->refresh_token]);
             // }
             Option::where('name', 'docusign_auth_code')->update(['value' => $decodedData->access_token]);
             Option::where('name', 'docusign_refresh_code')->update(['value' => $decodedData->refresh_token]);
-
         } catch (Exception $e) {
             return redirect()->back()->with('msg', $e->getMessage());
         }

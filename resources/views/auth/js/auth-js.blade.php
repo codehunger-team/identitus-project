@@ -28,6 +28,7 @@
             case 'tos':
                 if ($("#tos-checkbox").prop('checked') == true) {
                     $('#tos-popup').modal('show');
+                    loadTermlyPolicy();
                 } else {
                     $('#agreement-popup').modal('hide');
                 }
