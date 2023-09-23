@@ -49,4 +49,27 @@ class UserController extends Controller
             return back()->with('msg', 'User Successfully Unapproved');
         }
     }
+
+    /**
+     * this function will create user
+     * 
+     * @method GET /admin/user/create
+     * @return render view
+     */
+    public function create_user()
+    {
+        return view('admin.user.create');
+    }
+
+    /**
+     * this function will create user
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @method GET /admin/user/store
+     * @return render view
+     */
+    public function store_user(Request $request)
+    {
+        dd($request->all());
+    }
 }

@@ -102,6 +102,8 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
 
     //admin user route
     Route::get('users',[UserController::class, 'registered_user_list'])->name('admin.users');
+    Route::get('user/create',[UserController::class, 'create_user'])->name('admin.user.create');
+    Route::post('user/store',[UserController::class, 'store_user'])->name('admin.user.store');
     Route::get('remove-user/{id}',[UserController::class, 'remove_users'])->name('admin.remove.user');
     Route::get('approve-user-vendor/{id}',[UserController::class, 'approve_user_vendor'])->name('admin.approval.vendor');
     Route::post('vendor-approval',[UserController::class, 'vendor_approval'])->name('admin.vendor.approval');

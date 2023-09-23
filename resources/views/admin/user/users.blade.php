@@ -1,7 +1,14 @@
 @extends('admin.base')
 
 @section('section_title')
-	<strong>Registered Users</strong>
+<div class="row">
+	<div class="col-sm-6">
+		<strong>Registered Users</strong>
+	</div>
+	<div class="col-sm-6">
+		<a class="btn btn-primary float-right" href="{{route('admin.user.create')}}">Add New User</a>
+	</div>
+</div>
 @endsection
 
 @section('section_body')
