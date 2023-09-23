@@ -56,6 +56,13 @@
             $(".customer-form-value").attr("disabled", true);
             $(".admin-form-value").attr("disabled", false);
         } else if(selectedUser == 'customer') {
+            $('.user-heading').html('Customer')
+            $('.admin-form').addClass('d-none');
+            $('.customer-form').removeClass('d-none');
+            $(".admin-form-value").attr("disabled", true);
+            $(".customer-form-value").attr("disabled", false);
+        } else if(selectedUser == 'vendor') {
+            $('.user-heading').html('Vendor')
             $('.admin-form').addClass('d-none');
             $('.customer-form').removeClass('d-none');
             $(".admin-form-value").attr("disabled", true);

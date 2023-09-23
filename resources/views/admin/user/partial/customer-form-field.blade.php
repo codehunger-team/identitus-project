@@ -1,7 +1,7 @@
 <div class="card border-0 p-3 shadow my-3 customer-form">
     <div class="row">
         <div class="card-header border-0 bg-white mb-3">
-            <h4 class="text-muted">Customer</h4>
+            <h4 class="text-muted user-heading">Customer</h4>
         </div>
         <div class="col-md-6">
             <dl>

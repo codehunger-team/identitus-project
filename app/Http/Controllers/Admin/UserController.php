@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -70,6 +71,27 @@ class UserController extends Controller
      */
     public function store_user(Request $request)
     {
-        dd($request->all());
+        if ($request->selected_user == 'admin') {
+            $data = $request->all();
+            $data['admin'] = '1';
+            $data['email_verified_at'] = date('Y-m-d H:i:s');
+            $data['password'] = Hash::make($request->password);
+            User::create($data);
+            return back()->with('msg', 'Admin User Successfully Created');
+        }
+        else if ($request->selected_user == 'customer') {
+            $data = $request->all();
+            $data['password'] = Hash::make($request->password);
+            User::create($data);
+            return back()->with('msg', 'Customer Successfully Created');
+
+        }  else if ($request->selected_user == 'vendor') {
+            $data = $request->all();
+            $data['is_vendor'] = 'yes';
+            $data['password'] = Hash::make($request->password);
+            User::create($data);
+            return back()->with('msg', 'Vendor Successfully Created');
+        }
+        
     }
 }
