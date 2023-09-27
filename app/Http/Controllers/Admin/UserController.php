@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use Exception;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -78,20 +82,65 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
             User::create($data);
             return back()->with('msg', 'Admin User Successfully Created');
-        }
-        else if ($request->selected_user == 'customer') {
+        } else if ($request->selected_user == 'customer') {
             $data = $request->all();
             $data['password'] = Hash::make($request->password);
             User::create($data);
             return back()->with('msg', 'Customer Successfully Created');
-
-        }  else if ($request->selected_user == 'vendor') {
+        } else if ($request->selected_user == 'vendor') {
             $data = $request->all();
             $data['is_vendor'] = 'yes';
             $data['password'] = Hash::make($request->password);
             User::create($data);
             return back()->with('msg', 'Vendor Successfully Created');
         }
-        
+    }
+
+    /**
+     * Edit the user
+     * @method GET /admin/user/edit/{user}
+     * @param User $user
+     * @return Renderable|RedirectResponse
+     */
+
+    public function editUser(User $user): Renderable | RedirectResponse
+    {
+        try {
+            //dd($user);
+            return view('admin.user.edit', compact('user'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit the user
+     * @method POST /admin/user/update/{user}
+     * @param User $user
+     * @param UserUpdateRequest $request
+     * @return RedirectResponse
+     */
+
+    public function updateUser(User $user, UserUpdateRequest $request): RedirectResponse
+    {
+        try {
+            if ($request->user_type == 'admin') {
+                $user->update($request->only('name', 'email'));
+                $user->update(['admin' => 1]);
+            } elseif ($request->user_type == 'vendor') {
+                $user->update($request->only('name', 'email', 'phone', 'company', 'country', 'state', 'city', 'street_1', 'street_2', 'zip'));
+                $user->update(['admin' => 0, 'is_vendor' => 'yes']);
+            } elseif ($request->user_type == 'user') {
+                $user->update($request->only('name', 'email', 'phone', 'company', 'country', 'state', 'city', 'street_1', 'street_2', 'zip'));
+                $user->update(['admin' => 0, 'is_vendor' => 'no']);
+            }
+            if ($request->has('password') && $request->password != null) {
+                $user->update(['password' => Hash::make($request->password)]);
+            }
+            return redirect()->route('admin.users')->with('success', 'User Updated Successfully');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

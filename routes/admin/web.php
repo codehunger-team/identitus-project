@@ -25,10 +25,10 @@ use App\Http\Controllers\Admin\EnquiryController;
 |
  */
 
-Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
+Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     //Dashboard Route
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    
+
     //order route
     Route::get('admin/view-order/{order}', [AdminController::class, 'view_order'])->name('admin.view.order');
     Route::get('admin/delete-order/{order}', [AdminController::class, 'delete_order'])->name('admin.delete.order');
@@ -101,35 +101,37 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::get('navigation-ajax-sort', [AdminController::class, 'navigation_ajax_sort'])->name('admin.ajax.sort.navigation');
 
     //admin user route
-    Route::get('users',[UserController::class, 'registered_user_list'])->name('admin.users');
-    Route::get('user/create',[UserController::class, 'create_user'])->name('admin.user.create');
-    Route::post('user/store',[UserController::class, 'store_user'])->name('admin.user.store');
-    Route::get('remove-user/{id}',[UserController::class, 'remove_users'])->name('admin.remove.user');
-    Route::get('approve-user-vendor/{id}',[UserController::class, 'approve_user_vendor'])->name('admin.approval.vendor');
-    Route::post('vendor-approval',[UserController::class, 'vendor_approval'])->name('admin.vendor.approval');
+    Route::get('users', [UserController::class, 'registered_user_list'])->name('admin.users');
+    Route::get('user/create', [UserController::class, 'create_user'])->name('admin.user.create');
+    Route::post('user/store', [UserController::class, 'store_user'])->name('admin.user.store');
+    Route::get('user/edit/{user}', [UserController::class, 'editUser'])->name('admin.user.edit');
+    Route::post('user/update/{user}', [UserController::class, 'updateUser'])->name('admin.user.update');
+    Route::get('remove-user/{id}', [UserController::class, 'remove_users'])->name('admin.remove.user');
+    Route::get('approve-user-vendor/{id}', [UserController::class, 'approve_user_vendor'])->name('admin.approval.vendor');
+    Route::post('vendor-approval', [UserController::class, 'vendor_approval'])->name('admin.vendor.approval');
 
     //configuration route
     Route::get('configuration', [AdminController::class, 'configuration_overview'])->name('admin.configuration');
     Route::post('configuration', [AdminController::class, 'configuration_show'])->name('admin.show.configuration');
-    
+
     //logout
     Route::any('logout', [AdminController::class, 'logout'])->name('admin.logout');
 
     //set Dns admin.nameserver.store
-    Route::get('set-dns/{id}',[DnsController::class, 'set_dns'])->name('admin.nameserver.set');
-    Route::get('view-dns/{id}',[DnsController::class, 'view_dns'])->name('admin.nameserver.view');
-    Route::post('store-dns',[DnsController::class, 'store_dns'])->name('admin.nameserver.store');
+    Route::get('set-dns/{id}', [DnsController::class, 'set_dns'])->name('admin.nameserver.set');
+    Route::get('view-dns/{id}', [DnsController::class, 'view_dns'])->name('admin.nameserver.view');
+    Route::post('store-dns', [DnsController::class, 'store_dns'])->name('admin.nameserver.store');
 
     // Release Lessor Payment
-    Route::get('/release-payment/{id}',[PaymentController::class, 'release_payment'])->name('admin.release.payment');
+    Route::get('/release-payment/{id}', [PaymentController::class, 'release_payment'])->name('admin.release.payment');
 
     //Docusign
-    Route::get('docusign',[DocusignController::class,'index'])->name('admin.docusign');
-    Route::get('docusign/connect',[DocusignController::class,'connect'])->name('admin.connect.docusign');
-    Route::get('docusign/revoke',[DocusignController::class,'revoke'])->name('admin.revoke.docusign');
+    Route::get('docusign', [DocusignController::class, 'index'])->name('admin.docusign');
+    Route::get('docusign/connect', [DocusignController::class, 'connect'])->name('admin.connect.docusign');
+    Route::get('docusign/revoke', [DocusignController::class, 'revoke'])->name('admin.revoke.docusign');
 
     //Customer Enquiry
-    Route::get('customer/enquiry',[EnquiryController::class,'index'])->name('admin.customer.enquiry');
+    Route::get('customer/enquiry', [EnquiryController::class, 'index'])->name('admin.customer.enquiry');
 });
 
-Route::get('admin/docusign/callback',[DocusignController::class,'callback'])->name('admin.docusign.callback');
+Route::get('admin/docusign/callback', [DocusignController::class, 'callback'])->name('admin.docusign.callback');
