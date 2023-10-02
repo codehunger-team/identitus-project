@@ -16,4 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 mix.copyDirectory('resources/images', 'public/images');
 mix.copyDirectory('resources/js/extrajs', 'public/js');
+mix.copyDirectory('resources/manifest', 'public');
 mix.copyDirectory('resources/pdf-data', 'public');
