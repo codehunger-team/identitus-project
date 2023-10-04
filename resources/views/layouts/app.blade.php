@@ -27,11 +27,6 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180909623-1"></script>
 <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/worker.js', {
-            scope: '/'
-        });
-    }
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
