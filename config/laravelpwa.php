@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name' => 'LaravelPWA',
+    'name' => env('APP_NAME', 'Identitus'),
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
+        'name' => env('APP_NAME', 'Identitus'),
         'short_name' => 'PWA',
         'start_url' => '/',
         'background_color' => '#ffffff',
@@ -59,8 +59,8 @@ return [
         ],
         'shortcuts' => [
             [
-                'name' => 'Shortcut Link 1',
-                'description' => 'Shortcut Link 1 Description',
+                'name' => env('APP_NAME', 'Identitus'),
+                'description' => env('APP_NAME', 'Identitus'),
                 'url' => '/shortcutlink1',
                 'icons' => [
                     "src" => "/images/icons/icon-72x72.png",
@@ -68,8 +68,8 @@ return [
                 ]
             ],
             [
-                'name' => 'Shortcut Link 2',
-                'description' => 'Shortcut Link 2 Description',
+                'name' => env('APP_NAME', 'Identitus'),
+                'description' => env('APP_NAME', 'Identitus'),
                 'url' => '/shortcutlink2'
             ]
         ],
