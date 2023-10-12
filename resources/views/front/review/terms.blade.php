@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <div class="col">
                 {{--            Number Percentage--}}
                 <label for="annualTowardsPurchase">Percent (%) Towards Purchase</label>
@@ -133,7 +133,7 @@
                     </select>
                 </div>
             </div>
-        </div>
+        </div> -->
         <p>By clicking 'Review Lease' the basic lease and option terms above will be added to the full lease and
             option to purchase agreement below for your detailed review and digital signature. This is the surest
             and fastest path to a agreeable lease contract between you and the Domain Lessor. If you prefer to
