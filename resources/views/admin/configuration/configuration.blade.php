@@ -435,7 +435,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <dl>
-                        <dt>Docusign Base URL</dt>
+                        <dt>Account Base URI</dt>
                         <dd>
                             <textarea name="docusign_base_url" class="form-control" rows="1">{!! App\Models\Option::get_option('docusign_base_url') !!}</textarea>
                         </dd>
@@ -444,7 +444,7 @@
 
                 <div class="col-md-6">
                     <dl>
-                        <dt>Docusign Account ID</dt>
+                        <dt>API Account ID</dt>
                         <dd>
                             <textarea name="docusign_account_id" class="form-control" rows="1">{!! App\Models\Option::get_option('docusign_account_id') !!}</textarea>
 
@@ -454,7 +454,7 @@
 
                 <div class="col-md-6">
                     <dl>
-                        <dt>Docusign Client ID</dt>
+                        <dt>Integration Key</dt>
                         <dd>
                             <textarea name="docusign_client_id" class="form-control" rows="1">{!! App\Models\Option::get_option('docusign_client_id') !!}</textarea>
 
@@ -464,7 +464,7 @@
 
                 <div class="col-md-6">
                     <dl>
-                        <dt>Docusign Client Secret</dt>
+                        <dt>Secret Key(s)</dt>
                         <dd>
                             <textarea name="docusign_client_secret" class="form-control" rows="1">{!! App\Models\Option::get_option('docusign_client_secret') !!}</textarea>
                         </dd>
