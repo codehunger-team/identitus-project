@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\DocusignController;
+use App\Models\Contract;
 use Exception;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\WhoisService;
@@ -309,6 +310,15 @@ class FrontController extends Controller
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
+    }
+
+    public function fix_contract_issue()
+    {
+        $domains = Domain::get();
+        foreach($domains as $domain) {
+            Contract::where('domain_id',$domain->id)->update(['lessor_id' => $domain->user_id]);
+        }
+        dd('all contract updated');
     }
     
 }
