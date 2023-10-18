@@ -95,7 +95,7 @@ Route::get('/domain-sitemap.xml', [SitemapController::class, 'domainSitemap']);
 Route::get('domains', [FrontController::class, 'all_domains'])->name('domains');
 Route::post('ajax/domain_filtering', [FrontController::class, 'domain_filtering'])->name('ajax.domainfiltering');
 
-Route::get('fix-contract-issue', [FrontController::class, 'fix_contract_issue'])->name('domains');
+Route::get('fix-contract-issue', [FrontController::class, 'fix_contract_issue'])->name('fix-contract-issue');
 
 Route::get('{domain}', [FrontController::class, 'domainInfo'])->name('domain.details');
 
