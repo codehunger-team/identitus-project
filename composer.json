@@ -2,7 +2,19 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "repositories": {
+        "blog": {
+            "type": "path",
+            "url": "packages/codehunger/blog",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
@@ -23,7 +35,8 @@
         "laravel/ui": "^3.2",
         "silviolleite/laravelpwa": "^2.0",
         "stripe/stripe-php": "^7.77",
-        "yajra/laravel-datatables": "9.0"
+        "yajra/laravel-datatables": "9.0",
+        "codehunger/blog": "@dev"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

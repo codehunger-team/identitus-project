@@ -28,8 +28,7 @@
             </a>
         </li>
         <li @if(isset($active) AND ($active=='categories' )) class="active" @endif>
-            <a href="{{route('admin.category')}}" class="nav-link text-white"><i class="fa fa-list"
-                    aria-hidden="true"></i>
+            <a href="{{route('admin.category')}}" class="nav-link text-white"><i class="fa fa-list" aria-hidden="true"></i>
                 <span class="side-text">Categories</span>
             </a>
         </li>
@@ -61,6 +60,12 @@
             <a href="{{route('admin.users')}}" class="nav-link text-white">
                 <i class="fas fa-users"></i>
                 <span class="side-text">Users</span>
+            </a>
+        </li>
+        <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
+            <a href="{{route('blog.index')}}" class="nav-link text-white">
+                <i class="fas fa-users"></i>
+                <span class="side-text">Blog</span>
             </a>
         </li>
         <li @if(isset($active) AND ($active=='docusign' )) class="active" @endif>
@@ -98,8 +103,7 @@
 
         <!-- Functions as Lessee/Buyer -->
         <li @if(isset($active) AND ($active=='orders' )) class="active" @endif>
-            <a href="{{route('user.orders')}}"><i class="fa fa-shopping-cart "></i> <span
-                    class="side-text">Orders</span></a>
+            <a href="{{route('user.orders')}}"><i class="fa fa-shopping-cart "></i> <span class="side-text">Orders</span></a>
         </li>
 
         <li @if(isset($active) AND ($active=='rental-agreement' )) class="active" @endif>
@@ -119,25 +123,23 @@
 
         <!-- These three menu items need to be user.specific -->
         <li @if(isset($active) AND ($active=='seller-order' )) class="active" @endif>
-            <a href="{{route('user.seller.orders')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span
-                    class="side-text">Sales</span></a>
+            <a href="{{route('user.seller.orders')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="side-text">Sales</span></a>
         </li>
         <li @if(isset($active) AND ($active=='domains' )) class="active" @endif>
             <a href="{{route('user.domains')}}"><i class="fa fa-globe"></i>
                 <span class="side-text">Domains</span></a>
         </li>
         <li @if(isset($active) AND ($active=='active-lease' )) class="active" @endif>
-            <a href="{{route('user.active.lease')}}"><i class="fa fa-dollar-sign" aria-hidden="true"></i> <span
-                    class="side-text">Active Lease(s)</span></a>
+            <a href="{{route('user.active.lease')}}"><i class="fa fa-dollar-sign" aria-hidden="true"></i> <span class="side-text">Active Lease(s)</span></a>
         </li>
         <li @if(isset($active) AND ($active=='inactive-lease' )) class="active" @endif>
             <a href="{{route('user.inactive.lease')}}">
                 <i class="fa fa-ban" aria-hidden="true"></i> <span class="side-text">Inactive Lease(s)</span></a>
         </li>
-{{--        <li @if(isset($active) AND ($active=='bank-details' )) class="active" @endif>--}}
-{{--            <a href="{{route('user.stripe-connect')}}">--}}
-{{--                <i class="fa fa-university" aria-hidden="true"></i> <span class="side-text">Connect Stripe</span></a>--}}
-{{--        </li>--}}
+        {{-- <li @if(isset($active) AND ($active=='bank-details' )) class="active" @endif>--}}
+        {{-- <a href="{{route('user.stripe-connect')}}">--}}
+        {{-- <i class="fa fa-university" aria-hidden="true"></i> <span class="side-text">Connect Stripe</span></a>--}}
+        {{-- </li>--}}
         @endif
         <li>
             <a href="{{route('user.logout')}}"><i class="fa fa-power-off"></i> <span class="side-text">Log

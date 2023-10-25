@@ -15,6 +15,7 @@
 
     @include('front.components.cart-popup')
     @include('front.components.footer')
+    @extends('front.components.mobile-footer')
     @include('partials.global-js')
 </body>
 <!-- termly.io Scripts -->
