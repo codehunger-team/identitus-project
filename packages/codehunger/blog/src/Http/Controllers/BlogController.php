@@ -12,6 +12,7 @@ use Codehunger\Blog\Entities\Category;
 use Codehunger\Blog\Entities\SubCategory;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -62,11 +63,15 @@ class BlogController extends Controller
     {
         try {
             $validator = $this->validateInputs($request);
-            Blog::create($validator->safe()->only([
+            $blog = Blog::create($validator->safe()->only([
                 'name', 'slug', 'status', 'description', 'blog_category_id', 'subcategory_id', 'required',
                 'meta_title', 'meta_description', 'meta_keywords'
             ]));
-            return redirect()->route('blog.index')->with('success', __('knowledgebase::lang.knowledgebase_created'));
+            if ($request->hasFile('featured_image')) {
+                $path = $request->featured_image->store('blog_images', 'public');
+                $blog->update(['featured_image' => 'storage/' . $path]);
+            }
+            return redirect()->route('admin.blog.index')->with('msg', "Blog Successfully Created");
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->withInput()->with('error', $e->getMessage());
@@ -102,9 +107,14 @@ class BlogController extends Controller
             $blog->update($validator->safe()->only([
                 'name', 'slug', 'status', 'description', 'blog_category_id', 'subcategory_id', 'required',
             ]));
-            return redirect()->route('blog.index')->with('success', 'Blog Details Updated Successfully');
+            if ($request->hasFile('featured_image')) {
+                @unlink(public_path($blog->featured_image));
+                $path = $request->featured_image->store('blog_images', 'public');
+                $blog->update(['featured_image' => 'storage/' . $path]);
+            }
+            return redirect()->route('admin.blog.index')->with('msg', 'Blog Details Updated Successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('msg', $e->getMessage());
         }
     }
 
@@ -118,7 +128,7 @@ class BlogController extends Controller
     {
         $blog->delete();
         return redirect()->route('knowledgebase.index')
-            ->with('success', 'Blog Name Deleted Successfully');
+            ->with('msg', 'Blog Name Deleted Successfully');
     }
 
     /**
@@ -164,6 +174,7 @@ class BlogController extends Controller
             'blog_category_id' => 'required',
             'subcategory_id' => 'required',
             'status' => 'required',
+            'featured_image' => 'sometimes|image',
             'meta_title' => 'sometimes',
             'meta_description' => 'sometimes',
             'meta_keywords' => 'sometimes',

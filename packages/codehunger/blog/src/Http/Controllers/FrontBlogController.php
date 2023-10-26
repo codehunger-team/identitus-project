@@ -31,21 +31,21 @@ class FrontBlogController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @method GET /knowledgebase/
+     * @method GET /blog/
      * @return Renderable
      */
 
     public function index()
     {
-        $knowledgebases = SubCategory::with('knowledgebase')->get();
-        $popularKnowledgebases = $this->getPopularKnowledgebases();
-        $recentKnowledgebases = Blog::select('name', 'slug')->take(7)->get();
-        return view('blog::frontpage.index', compact('knowledgebases', 'popularKnowledgebases', 'recentKnowledgebases'));
+        $blogs = Blog::with('blogCategory')->get();
+        $popularBlogs = $this->getPopularBlogs();
+        $recentBlogs = Blog::select('name', 'slug')->take(7)->get();
+        return view('blog::frontpage.index', compact('blogs', 'popularBlogs', 'recentBlogs'));
     }
 
     /**
      * This function is used to show the Knowledgebase article
-     * @method GET /knowledgebase/{slug}
+     * @method GET /blog/{slug}
      * @return Renderable
      */
 
@@ -53,12 +53,9 @@ class FrontBlogController extends Controller
     {
         try {
             $fullSlug = $category . '/' . $subCategory . '/' . $slug;
-            $article = Blog::where('slug', $fullSlug)->withCount('views')->firstOrFail();
-            $article->load('category');
-            [$categories, $recentKnowledgebases, $popularKnowledgebases] = $this->getSidebarItems();
-            $reactions = $this->getReactions($article['id']);
-            $this->registerView($article['id']);
-            return view('knowledgebase::frontpage.article', compact('article', 'categories', 'recentKnowledgebases', 'popularKnowledgebases', 'reactions'));
+            $blog = Blog::with('blogCategory')->where('slug', $fullSlug)->withCount('views')->firstOrFail();
+            $recentBlogs = Blog::with('blogCategory')->take(5)->get();
+            return view('blog::frontpage.article', compact('blog', 'recentBlogs'));
         } catch (Exception $e) {
             abort(404);
         }
@@ -126,10 +123,11 @@ class FrontBlogController extends Controller
         try {
             $slugToWord = Str::title(str_replace('-', ' ', $category));
             $category = BlogCategory::where('name', 'like', '%' . $slugToWord . '%')->first();
-            $articles = $category->knowledgebase()->withCount('views')->paginate(5);
-            [$subcategories, $recentKnowledgebases, $popularKnowledgebases] = $this->getCategorySidebarItems();
-            return view('knowledgebase::frontpage.category-show', compact('category', 'articles', 'subcategories', 'recentKnowledgebases', 'popularKnowledgebases'));
+            $blogs = $category->blog()->paginate(5);
+            $recentBlogs = Blog::with('blogCategory')->take(5)->get();
+            return view('blog::frontpage.category-show', compact('category', 'blogs', 'recentBlogs'));
         } catch (Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

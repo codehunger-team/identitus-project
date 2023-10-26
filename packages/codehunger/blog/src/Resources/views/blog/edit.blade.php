@@ -6,10 +6,10 @@
 <div class="app-main__inner">
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto ms-auto text-end mt-n1">
-            <a class="btn btn-primary" href="{{ route('blog.index') }}">Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.blog.index') }}">Back</a>
         </div>
     </div>
-    <form id="knowledgebase_form" action="{{ route('blog.update', $blog->id) }}" method="POST" class="needs-validation" novalidate>
+    <form enctype="multipart/form-data" id="knowledgebase_form" action="{{ route('admin.blog.update', $blog->id) }}" method="POST" class="needs-validation" novalidate>
         @csrf
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -86,6 +86,25 @@
                             </div>
                             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-header">
+                <span class="card-title">Featured Image</span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Featured Image:</label>
+                            <input type="file" name="featured_image" class="form-control" accept="image/*">
+                            @error('featured_image') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img width="300" src="{{ url($blog->featured_image) }}" class="featured-image">
                     </div>
                 </div>
             </div>

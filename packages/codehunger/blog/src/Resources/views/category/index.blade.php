@@ -55,12 +55,12 @@
 <script>
     var categoryDeleteTitle = "Delete Blog Category?";
     var categoryDeleteText = "Once Deleted, All Related Data Will Be Deleted!";
-    var categoryDeleteUrl = "{{route('blog.category.destroy', ':id')}}";
+    var categoryDeleteUrl = "{{route('admin.blog.category.destroy', ':id')}}";
     var categoryDeleteSuccess = "Blog Category Deleted Successfully";
     var categoryDeleteError = "Error Deleting Blog Category";
     var categoryNotDeleted = "Blog Category Not Deleted";
-    var categoryEditUrl = "{{route('blog.category.edit', ':id')}}";
-    var categoryUpdateUrl = "{{route('blog.category.update', ':id')}}";
+    var categoryEditUrl = "{{route('admin.blog.category.edit', ':id')}}";
+    var categoryUpdateUrl = "{{route('admin.blog.category.update', ':id')}}";
 </script>
 <script>
     $(document).on('click', '.delete-category', function() {

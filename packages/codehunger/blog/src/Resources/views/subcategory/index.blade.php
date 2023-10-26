@@ -58,12 +58,12 @@
 <script>
     var subcategoryDeleteTitle = "Select Blog Sub-Category";
     subcategoryDeleteText = "Once Deleted, All Related Data Will Be Deleted";
-    var subcategoryDeleteUrl = "{{route('subcategory.destroy', ':id')}}";
+    var subcategoryDeleteUrl = "{{route('admin.subcategory.destroy', ':id')}}";
     var subcategoryDeleteSuccess = "Blog Sub-Category Deleted";
     var subcategoryDeleteError = "Error Deleting Blog Sub-Category";
     var subcategoryNotDeleted = "Blog Sub-Category Not Deleted";
-    var subcategoryEditUrl = "{{route('subcategory.edit', ':id')}}";
-    var subcategoryUpdateUrl = "{{route('subcategory.update', ':id')}}";
+    var subcategoryEditUrl = "{{route('admin.subcategory.edit', ':id')}}";
+    var subcategoryUpdateUrl = "{{route('admin.subcategory.update', ':id')}}";
 </script>
 <script>
     $(document).on('click', '.delete-subcategory', function() {

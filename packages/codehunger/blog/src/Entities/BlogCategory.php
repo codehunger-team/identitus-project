@@ -5,6 +5,7 @@ namespace Codehunger\Blog\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Codehunger\Blog\Entities\SubCategory;
+use Codehunger\Blog\Entities\Blog;
 
 class BlogCategory extends Model
 {
@@ -20,26 +21,12 @@ class BlogCategory extends Model
         return $this->hasMany(SubCategory::class);
     }
 
-    public function department()
-    {
-        return $this->belongsToMany('Modules\Department\Entities\Department');
-    }
-
-    /**
-     * Get records associated to tickets
-     */
-
-    public function tickets()
-    {
-        return $this->hasMany('Modules\Ticketfields\Entities\Ticket');
-    }
-
     /**
      * This function is used to get the Knowledgebase Articles
      */
 
-    public function knowledgebase()
+    public function blog()
     {
-        return $this->hasMany('Modules\Knowledgebase\Entities\Knowledgebase', 'category_id');
+        return $this->hasMany(Blog::class, 'blog_category_id');
     }
 }

@@ -1,13 +1,13 @@
 @push('scripts')
 <script>
-    var knowledgebaseGetSubcategoryUrl = "{{ route('blog.getsubcategory') }}";
+    var knowledgebaseGetSubcategoryUrl = "{{ route('admin.blog.getsubcategory') }}";
     var quillplaceholder = 'Enter';
     var selectCategorySubCategoryWarning = "Please Select Blog Category and Sub Category!"
-    var slugUrl = "{{ route('blog.slug.create') }}";
-    var slugCheckUrl = "{{ route('blog.slug.check') }}";
+    var slugUrl = "{{ route('admin.blog.slug.create') }}";
+    var slugCheckUrl = "{{ route('admin.blog.slug.check') }}";
     var knowledgebaseTitle = "{{__('global-lang.are-you-sure')}}";
     var knowledgebaseText = "{{__('knowledgebase::lang.knowledgebase_delete_warning')}}";
-    var knowledgebaseUrl = "{{route('blog.destroy', ':id')}}";
+    var knowledgebaseUrl = "{{route('admin.blog.destroy', ':id')}}";
     var knowledgebaseSuccess = "{{__('knowledgebase::lang.knowledgebase_deleted')}}";
     var knowledgebaseError = "{{__('global-lang.something-went-wrong')}}";
     var knowledgebaseNotDeleted = "{{__('knowledgebase::lang.knowledgebase_not_deleted')}}";

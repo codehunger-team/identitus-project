@@ -74,10 +74,10 @@ trait ArticlesTrait
 
     /**
      * This function is used to get the latest sidebar items
-     * @return Knowledgebases
+     * @return Blog
      */
 
-    public function getPopularKnowledgebases()
+    public function getPopularBlogs()
     {
         try {
             $stats = [];

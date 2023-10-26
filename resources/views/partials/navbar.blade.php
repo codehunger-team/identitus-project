@@ -30,6 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('domain.renters')}}">Domain Renters</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('blog.index')}}">Blog</a>
+                </li>
 
                 <li class="nav-item" href="">
                     <a class="nav-link" href="{{route('qa')}}">Q&As</a>

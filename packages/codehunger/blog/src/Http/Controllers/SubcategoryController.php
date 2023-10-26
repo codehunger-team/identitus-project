@@ -46,7 +46,7 @@ class SubcategoryController extends Controller
     {
         $validator = $this->validateInputs($request);
         SubCategory::create($validator->validated());
-        return redirect()->route('subcategory.index')->with('success', __('knowledgebase::lang.knowledgebase_sub_category_created'));
+        return redirect()->route('admin.subcategory.index')->with('msg', "Blog Sub-Category Successfully Created");
     }
 
     /**
@@ -73,7 +73,7 @@ class SubcategoryController extends Controller
 
         $validator = $this->validateInputs($request);
         $subcategory->update($validator->validated());
-        return redirect()->route('subcategory.index')->with('success', __('knowledgebase::lang.knowledgebase_sub_category_updated'));
+        return redirect()->route('admin.subcategory.index')->with('msg', "Blog Sub-Category Successfully Created");
     }
 
     /**
@@ -101,8 +101,8 @@ class SubcategoryController extends Controller
             'blog_category_id' => 'required|integer|exists:blog_categories,id'
         ]);
 
-        if($validator->fails()){
-            abort(redirect()->back()->with('error', $validator->errors()->first()));
+        if ($validator->fails()) {
+            abort(redirect()->back()->with('msg', $validator->errors()->first()));
         }
 
         return $validator;

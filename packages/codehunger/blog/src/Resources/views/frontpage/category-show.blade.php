@@ -1,43 +1,39 @@
-@extends('front.app')
-@section('title', $category['name'])
-@push('metadata')
-<meta name="title" content="{{ $category['name'] }}">
-<meta name="description" content="{{ substr($category['description'], 0, 160) }}">
-@endpush
+@extends('layouts.app')
+@section('seo_title', $category['name'])
 @section('content')
-<div class="content article mx-4">
+<div class="content article mt-6 px-5">
     <div class="row">
-        <div class="header-text">
-            <h1>{{ __('knowledgebase::lang.knowledgebase') }}</h1>
-        </div>
         <div class="section1">
             <h3 class="text-primary">{{ $category['name'] }}</h3>
         </div>
         <div class="col-xl-8">
-            @foreach($articles as $article)
-            <div class="card mb-2 mt-4">
-                <div class="card-body mt-3">
-                    <h3 class="ms-2"><a class="text-decoration-none"
-                            href="{{ route('frontknowledgebase.slug.maker', $article['slug']) }}">{{ $article['name'] }}</a>
-                    </h3>
-                    <div class="article-meta">
-                        <span><i class="fa fa-clock text-muted mr-0"></i>
-                            {{ date('h:i A', strtotime($article['created_at'])) }}</span>
-                        <span><i class="fa fa-calendar text-muted"></i>
-                            {{ date('d-m-Y', strtotime($article['created_at'])) }}</span>
-                        <span><i class="fa fa-eye text-muted"></i> {{ $article['views_count'] }}</span>
+            @foreach($blogs as $blog)
+            <div class="col-md-6 mb-2">
+                <div class="card">
+                    @if($blog->featured_image != null)
+                    <a href="{{ route('frontknowledgebase.slug.maker', $blog->slug) }}">
+                        <img src="{{ url($blog->featured_image) }}" class="card-img-top" alt="{{ $blog->name }}">
+                    </a>
+                    @endif
+                    <div class="card-title p-2 h3">
+                        <a href="{{ route('frontknowledgebase.slug.maker', $blog->slug) }}">
+                            {{ $blog->name }}
+                        </a>
                     </div>
-                    <div class="mt-3">
-                        {!! substr($article['description'], 0, 200) !!}
+                    <div class="card-subtitle p-2 h6">
+                        <i class="fa fa-folder text-muted mr-0"></i> <a class="text-primary" href="{{ route('frontknowledgebase.category.show', strtolower($blog['blogCategory']['name'])) }}">{{ $blog['blogCategory']['name'] }}</a> | <i class="fa fa-clock text-muted mr-0"></i> {{ date('M d y', strtotime($blog->created_at)) }}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{!! substr($blog->description, 0, 25) !!}</p>
                     </div>
                 </div>
             </div>
             @endforeach
             <div class="text-center">
-                {!! $articles->links() !!}
+                {!! $blogs->links() !!}
             </div>
         </div>
-        @include('knowledgebase::frontpage.templates.category-sidebar')
+        @include('blog::frontpage.templates.sidebar')
     </div>
 </div>
 @endsection

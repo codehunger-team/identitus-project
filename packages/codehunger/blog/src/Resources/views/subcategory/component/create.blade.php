@@ -1,7 +1,7 @@
 <!-- Knowledgebase Category Create -->
 <div class="modal fade" id="knowledgebaseSubCategoryCreateModal" tabindex="-1" aria-labelledby="knowledgebaseSubCategoryCreateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form method="POST" action="{{ route('subcategory.store') }}" class="needs-validation" novalidate>
+        <form method="POST" action="{{ route('admin.subcategory.store') }}" class="needs-validation" novalidate>
             @csrf
             <div class="modal-content">
                 <div class="modal-header">

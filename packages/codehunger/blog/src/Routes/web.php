@@ -19,36 +19,36 @@ use Codehunger\Blog\Http\Controllers\SubcategoryController;
 */
 
 Route::group(['middleware' => ['web', 'auth', 'isAdmin'], 'prefix' => 'admin/blog'], function () {
-    Route::get('/', [BlogController::class, 'index'])->name('blog.index');
-    Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
-    Route::post('blog/getsubcategory', [BlogController::class, 'getsubcategory'])->name('blog.getsubcategory');
-    Route::post('/store', [BlogController::class, 'store'])->name('blog.store');
-    Route::get('/edit/{blog}', [BlogController::class, 'edit'])->name('blog.edit');
-    Route::post('/update/{blog}', [BlogController::class, 'update'])->name('blog.update');
-    Route::post('/delete/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
-    Route::post('create-slug', [BlogSlugController::class, 'createSlug'])->name('blog.slug.create');
-    Route::post('check-slug', [BlogSlugController::class, 'checkAvailability'])->name('blog.slug.check');
+    Route::get('/', [BlogController::class, 'index'])->name('admin.blog.index');
+    Route::get('/create', [BlogController::class, 'create'])->name('admin.blog.create');
+    Route::post('blog/getsubcategory', [BlogController::class, 'getsubcategory'])->name('admin.blog.getsubcategory');
+    Route::post('/store', [BlogController::class, 'store'])->name('admin.blog.store');
+    Route::get('/edit/{blog}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+    Route::post('/update/{blog}', [BlogController::class, 'update'])->name('admin.blog.update');
+    Route::post('/delete/{blog}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
+    Route::post('create-slug', [BlogSlugController::class, 'createSlug'])->name('admin.blog.slug.create');
+    Route::post('check-slug', [BlogSlugController::class, 'checkAvailability'])->name('admin.blog.slug.check');
 });
 
 Route::group(['middleware' => ['web', 'auth', 'isAdmin'], 'prefix' => 'admin/blog/category'], function () {
-    Route::get('/', [BlogCategoryController::class, 'index'])->name('blog.category.index');
-    Route::post('/store', [BlogCategoryController::class, 'store'])->name('blog.category.store');
-    Route::post('/edit/{category}', [BlogCategoryController::class, 'edit'])->name('blog.category.edit');
-    Route::post('/update/{category}', [BlogCategoryController::class, 'update'])->name('blog.category.update');
-    Route::post('/delete/{category}', [BlogCategoryController::class, 'destroy'])->name('blog.category.destroy');
+    Route::get('/', [BlogCategoryController::class, 'index'])->name('admin.blog.category.index');
+    Route::post('/store', [BlogCategoryController::class, 'store'])->name('admin.blog.category.store');
+    Route::post('/edit/{category}', [BlogCategoryController::class, 'edit'])->name('admin.blog.category.edit');
+    Route::post('/update/{category}', [BlogCategoryController::class, 'update'])->name('admin.blog.category.update');
+    Route::post('/delete/{category}', [BlogCategoryController::class, 'destroy'])->name('admin.blog.category.destroy');
 });
 
 Route::group(['middleware' => ['web', 'auth', 'isAdmin'], 'prefix' => 'admin/subcategory'], function () {
-    Route::get('/', [SubcategoryController::class, 'index'])->name('subcategory.index');
-    Route::post('/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
-    Route::post('/update/{subcategory}', [SubcategoryController::class, 'update'])->name('subcategory.update');
-    Route::get('/edit/{subcategory}', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
-    Route::post('/delete/{subcategory}', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
+    Route::get('/', [SubcategoryController::class, 'index'])->name('admin.subcategory.index');
+    Route::post('/store', [SubcategoryController::class, 'store'])->name('admin.subcategory.store');
+    Route::post('/update/{subcategory}', [SubcategoryController::class, 'update'])->name('admin.subcategory.update');
+    Route::get('/edit/{subcategory}', [SubcategoryController::class, 'edit'])->name('admin.subcategory.edit');
+    Route::post('/delete/{subcategory}', [SubcategoryController::class, 'destroy'])->name('admin.subcategory.destroy');
 });
 
 /* ----- This route group is used for front Knowledgebase ----- */
 Route::prefix('blog')->group(function () {
-    Route::get('/', [FrontBlogController::class, 'index'])->name('frontknowledgebase.index');
+    Route::get('/', [FrontBlogController::class, 'index'])->name('blog.index');
     Route::get('/{category}/{subcategory}/{slug}', [FrontBlogController::class, 'articleShow'])->name('frontknowledgebase.article.show');
     Route::get('/{fullslug}', function () {
     })->name('frontknowledgebase.slug.maker');

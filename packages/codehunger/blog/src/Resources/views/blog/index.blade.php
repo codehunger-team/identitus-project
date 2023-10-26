@@ -6,9 +6,9 @@
 <div class="app-main__inner">
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto ms-auto text-end mt-n1">
-            <a class="btn btn-primary" href="{{ route('blog.create') }}">+ Create Blog</a>
-            <a class="btn btn-primary" href="{{ route('blog.category.index') }}">Blog Category</a>
-            <a class="btn btn-primary" href="{{ route('subcategory.index') }}">Blog Sub-Category</a>
+            <a class="btn btn-primary" href="{{ route('admin.blog.create') }}">+ Create Blog</a>
+            <a class="btn btn-primary" href="{{ route('admin.blog.category.index') }}">Blog Category</a>
+            <a class="btn btn-primary" href="{{ route('admin.subcategory.index') }}">Blog Sub-Category</a>
         </div>
     </div>
     <div class="row">
@@ -40,7 +40,7 @@
                                         <a target="_blank" class="btn btn-primary btn-shadow me-2" href="{{ route('frontknowledgebase.slug.maker', $blog->slug) }}">
                                             <i class="fa fa-eye" aria-hidden="true" title="{{ __('global-lang.view') }}"></i>
                                         </a>
-                                        <a class="btn btn-primary btn-shadow me-2" href="{{ route('blog.edit', $blog->id) }}">
+                                        <a class="btn btn-primary btn-shadow me-2" href="{{ route('admin.blog.edit', $blog->id) }}">
                                             <i class="fa fa-fw" aria-hidden="true" title="{{ __('global-lang.edit') }}"></i>
                                         </a>
                                         <a href="javascript:void(0)" id="{{ $blog->id }}" class="delete-knowledgebase btn btn-danger">
