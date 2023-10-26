@@ -17,7 +17,7 @@
             <form id="ajax-search-form">
                 <div class="col-12-sm">
                     <div class="form-group">
-                    <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
+                        <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
                     </div>
                 </div>
                 <div class="form-group row my-2">
@@ -137,8 +137,6 @@
                         <thead>
                             <tr>
                                 <th>Domain</th>
-                                <th>Monthly Lease $</th>
-                                <th>Purchase Price $</th>
                                 <th>Options</th>
                             </tr>
                         </thead>

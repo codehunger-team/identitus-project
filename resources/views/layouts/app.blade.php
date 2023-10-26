@@ -8,7 +8,7 @@
         @include('partials.navbar')
         @yield('hero')
 
-        <main class="py-4">
+        <main class="py-4" style="margin-top: 70px">
             @yield('content')
         </main>
     </div>

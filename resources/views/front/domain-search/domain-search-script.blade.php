@@ -29,14 +29,6 @@
                     name: "domain"
                 },
                 {
-                    data: "contract.period_payment",
-                    name: "contract.period_payment"
-                },
-                {
-                    data: "pricing",
-                    name: "pricing"
-                },
-                {
                     data: "options",
                     name: "options"
                 },

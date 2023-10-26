@@ -122,14 +122,11 @@ class FrontController extends Controller
             });
         return DataTables::of($domains)
             ->addIndexColumn()
-            ->addColumn('pricing', function ($query) {
-                return '<a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_self">$' . $query->pricing . '</a>';
-            })
-            ->editColumn('contract.period_payment', function ($query) {
-                return '<a href="' . route('review.terms', $query->domain) . '" target="_self">$' . $query->contract->period_payment . '</a>';
-            })
             ->editColumn('domain', function ($query) {
-                return '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
+                $monthly = '<a class="d-block" href="' . route('review.terms', $query->domain) . '" target="_self"><span class="badge bg-primary">Monthly Lease: $' . $query->contract->period_payment . '</span></a>';
+                $price = '<a class="d-block" href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_self"><span class="badge bg-primary">Purchase Price: $' . $query->pricing . '</span></a>';
+                $domain = '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
+                return $domain . '<div>' . $monthly . $price . '</div>';
             })
             ->addColumn('options', function ($query) {
                 $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
@@ -137,6 +134,7 @@ class FrontController extends Controller
                     $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
                 };
                 $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
+                $action .= '<li><a href="' . route('domain.details', $query->domain) . '" class="dropdown-item">Details</a></li>';
                 return $action . '</ul> </div>';
             })
             ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
@@ -244,10 +242,10 @@ class FrontController extends Controller
      * @return Renderable
      */
 
-     public function membership()
-     {
-         return view('front.membership');
-     }
+    public function membership()
+    {
+        return view('front.membership');
+    }
 
     /**
      * Display the Privacy Policy Page
@@ -315,10 +313,9 @@ class FrontController extends Controller
     public function fix_contract_issue()
     {
         $domains = Domain::get();
-        foreach($domains as $domain) {
-            Contract::where('domain_id',$domain->id)->update(['lessor_id' => $domain->user_id]);
+        foreach ($domains as $domain) {
+            Contract::where('domain_id', $domain->id)->update(['lessor_id' => $domain->user_id]);
         }
         dd('all contract updated');
     }
-    
 }
