@@ -62,7 +62,7 @@
                 <span class="side-text">Users</span>
             </a>
         </li>
-        <li @if(isset($active) AND ($active=='user' )) class="active" @endif>
+        <li @if(isset($active) AND ($active=='blog' )) class="active" @endif>
             <a href="{{route('admin.blog.index')}}" class="nav-link text-white">
                 <i class="fas fa-users"></i>
                 <span class="side-text">Blog</span>
@@ -84,6 +84,11 @@
             <a href="{{route('admin.configuration')}}" class="nav-link text-white">
                 <i class="fa fa-cog"></i>
                 <span class="side-text">Configuration</span></a>
+        </li>
+        <li @if(isset($active) AND ($active=='pwaconfig' )) class="active" @endif>
+            <a href="{{route('admin.pwa.configuration')}}" class="nav-link text-white">
+                <i class="fa fa-cog"></i>
+                <span class="side-text">PWA Config</span></a>
         </li>
         <li>
             <a href="{{route('admin.logout')}}" class="nav-link text-white">

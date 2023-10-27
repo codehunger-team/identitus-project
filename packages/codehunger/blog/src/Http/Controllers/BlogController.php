@@ -36,8 +36,9 @@ class BlogController extends Controller
 
     public function index()
     {
+        $active = 'blog';
         $blogs = Blog::orderBy('id', 'DESC')->get();
-        return view('blog::blog.index', compact('blogs'));
+        return view('blog::blog.index', compact('blogs', 'active'));
     }
 
     /**
@@ -48,8 +49,9 @@ class BlogController extends Controller
 
     public function create()
     {
+        $active = 'blog';
         $categories = BlogCategory::get();
-        return view('blog::blog.create', compact('categories'));
+        return view('blog::blog.create', compact('categories', 'active'));
     }
 
     /**
@@ -87,9 +89,10 @@ class BlogController extends Controller
 
     public function edit(Blog $blog)
     {
+        $active = 'blog';
         $categories = BlogCategory::get();
         $subcategories = Subcategory::where('blog_category_id', $blog->blog_category_id)->get(["name", "id"]);
-        return view('blog::blog.edit', compact('subcategories', 'categories', 'blog'));
+        return view('blog::blog.edit', compact('subcategories', 'categories', 'blog', 'active'));
     }
 
     /**

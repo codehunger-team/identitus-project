@@ -30,9 +30,10 @@ class SubcategoryController extends Controller
 
     public function index()
     {
+        $active = 'blog';
         $categories = BlogCategory::get();
         $subCategories = SubCategory::get();
-        return view('blog::subcategory.index', compact('subCategories', 'categories'));
+        return view('blog::subcategory.index', compact('subCategories', 'categories', 'active'));
     }
 
     /**

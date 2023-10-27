@@ -42,3 +42,8 @@ function getConfig()
 {
 	return 123;
 }
+
+function getOption($key)
+{
+	return Option::get_option($key);
+}

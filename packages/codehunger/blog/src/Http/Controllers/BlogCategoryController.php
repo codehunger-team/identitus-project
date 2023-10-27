@@ -31,8 +31,9 @@ class BlogCategoryController extends Controller
 
     public function index()
     {
+        $active = 'blog';
         $categories = BlogCategory::get();
-        return view('blog::category.index', compact('categories'));
+        return view('blog::category.index', compact('categories', 'active'));
     }
 
     /**
