@@ -64,7 +64,7 @@
         </li>
         <li @if(isset($active) AND ($active=='blog' )) class="active" @endif>
             <a href="{{route('admin.blog.index')}}" class="nav-link text-white">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-newspaper"></i>
                 <span class="side-text">Blog</span>
             </a>
         </li>

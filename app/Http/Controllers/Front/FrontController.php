@@ -17,6 +17,8 @@ use Exception;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\WhoisService;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Agent\Facades;
+use Jenssegers\Agent\Facades\Agent;
 
 class FrontController extends Controller
 {
@@ -120,25 +122,50 @@ class FrontController extends Controller
                     $query->whereBetween('period_payment', [$filters['monthly_price_from'], $filters['monthly_price_to']]);
                 });
             });
-        return DataTables::of($domains)
-            ->addIndexColumn()
-            ->editColumn('domain', function ($query) {
-                $monthly = '<a class="d-block" href="' . route('review.terms', $query->domain) . '" target="_self"><span class="badge bg-primary">Monthly Lease: $' . $query->contract->period_payment . '</span></a>';
-                $price = '<a class="d-block" href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_self"><span class="badge bg-primary">Purchase Price: $' . $query->pricing . '</span></a>';
-                $domain = '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
-                return $domain . '<div>' . $monthly . $price . '</div>';
-            })
-            ->addColumn('options', function ($query) {
-                $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
-                if (isset($query->contract->period_payment)) {
-                    $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
-                };
-                $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
-                $action .= '<li><a href="' . route('domain.details', $query->domain) . '" class="dropdown-item">Details</a></li>';
-                return $action . '</ul> </div>';
-            })
-            ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
-            ->make(true);
+        if (Agent::isMobile()) {
+            return DataTables::of($domains)
+                ->addIndexColumn()
+                ->editColumn('domain', function ($query) {
+                    $monthly = '<a class="d-block" href="' . route('review.terms', $query->domain) . '" target="_self"><span class="badge bg-primary">Monthly Lease: $' . $query->contract->period_payment . '</span></a>';
+                    $price = '<a class="d-block" href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_self"><span class="badge bg-primary">Purchase Price: $' . $query->pricing . '</span></a>';
+                    $domain = '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
+                    return $domain . '<div>' . $monthly . $price . '</div>';
+                })
+                ->addColumn('options', function ($query) {
+                    $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
+                    if (isset($query->contract->period_payment)) {
+                        $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
+                    };
+                    $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
+                    $action .= '<li><a href="' . route('domain.details', $query->domain) . '" class="dropdown-item">Details</a></li>';
+                    return $action . '</ul> </div>';
+                })
+                ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
+                ->make(true);
+        } else {
+            return DataTables::of($domains)
+                ->addIndexColumn()
+                ->addColumn('pricing', function ($query) {
+                    return '<a class="desktop-dt" href="' . route('ajax.add-to-cart.buy', $query->domain) . '" target="_self">$' . $query->pricing . '</a>';
+                })
+                ->editColumn('contract.period_payment', function ($query) {
+                    return '<a class="desktop-dt" href="' . route('review.terms', $query->domain) . '" target="_self">$' . $query->contract->period_payment . '</a>';
+                })
+                ->editColumn('domain', function ($query) {
+                    return '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
+                })
+                ->addColumn('options', function ($query) {
+                    $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
+                    if (isset($query->contract->period_payment)) {
+                        $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
+                    };
+                    $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
+                    $action .= '<li><a href="' . route('domain.details', $query->domain) . '" class="dropdown-item">Details</a></li>';
+                    return $action . '</ul> </div>';
+                })
+                ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
+                ->make(true);
+        }
     }
 
     /**

@@ -7,6 +7,9 @@
             <div class="card mt-4">
                 <div class="card-body mt-3">
                     <div class="row">
+                        <div class="col-md-12">
+                            <img width="100%" src="{{ url($blog['featured_image']) }}" alt="{{ $blog['name'] }}" class="image-responsive">
+                        </div>
                         <div class="col-md-9">
                             <h2>{{ $blog['name'] }}</h2>
                         </div>
