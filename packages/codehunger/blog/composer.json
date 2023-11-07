@@ -1,0 +1,22 @@
+{
+    "name": "codehunger/blog",
+    "description": "Blog Knowledgebase For Website",
+    "authors": [
+        {
+            "name": "Sachin Bharmoria"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Codehunger\\Blog\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codehunger\\Blog\\BlogServiceProvider"
+            ]
+        }
+    }
+}
