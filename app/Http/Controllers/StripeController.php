@@ -17,7 +17,7 @@ class StripeController extends Controller
      */
     public function stripeConnect()
     {   
-        $active = 'stripe-connect';
+        $active = 'stripe-connect'; 
         $stripe_account_id =  User::where('id',$this->authID())->first()->stripe_account_id;
         return view('user.lessor.stripe.connect',compact('stripe_account_id','active'));
     }
@@ -34,7 +34,7 @@ class StripeController extends Controller
                 'grant_type' => 'authorization_code',
                 'code' => $request->code,
                 ]);
-			// Use Stripe's library to make requests...
+			// Use Stripe's library to make requests from stripe...
 		  } catch(\Stripe\Exception\CardException $e) {
               			// Since it's a decline, \Stripe\Exception\CardException will be caught;
 			$request->session()->flash('msg', $e->getError()->error_description);
