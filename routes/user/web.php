@@ -5,7 +5,7 @@ use App\Http\Controllers\User\Lessee\UserSettingController;
 use App\Http\Controllers\User\Lessor\DomainController;
 use App\Http\Controllers\User\Lessor\LeaseController;
 use App\Http\Controllers\User\Lessor\LessorController;
-use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\User\Lessor\OrderController;
 
 /*

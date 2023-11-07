@@ -29,13 +29,16 @@
                     name: "domain"
                 },
                 {
+                    className: "desktop-dt",
                     data: "contract.period_payment",
                     name: "contract.period_payment"
                 },
                 {
+                    className: "desktop-dt",
                     data: "pricing",
                     name: "pricing"
                 },
+
                 {
                     data: "options",
                     name: "options"

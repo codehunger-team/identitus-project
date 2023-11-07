@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('seo_title') Domains List - {!! \App\Models\Option::get_option('seo_title') !!} @endsection
+@push('styles')
+<style>
+    @media (max-width: 767px) {
+        .desktop-dt {
+            display: none;
+        }
+    }
+</style>
+@endpush
 @section('content')
 
 {!! $autoSearch !!}
@@ -17,7 +26,7 @@
             <form id="ajax-search-form">
                 <div class="col-12-sm">
                     <div class="form-group">
-                    <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
+                        <input class="form-control" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Enter Domain Name Or Keyword">
                     </div>
                 </div>
                 <div class="form-group row my-2">
@@ -137,8 +146,8 @@
                         <thead>
                             <tr>
                                 <th>Domain</th>
-                                <th>Monthly Lease $</th>
-                                <th>Purchase Price $</th>
+                                <th class="desktop-dt">Monthly Lease $</th>
+                                <th class="desktop-dt">Purchase Price $</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
