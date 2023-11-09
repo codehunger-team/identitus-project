@@ -90,8 +90,7 @@ trait ArticlesTrait
             }
             arsort($stats);
             $firstFiveKnowledgebases = array_keys(array_slice($stats, 0, 4, true));
-            $whereInOrder = implode(',', $firstFiveKnowledgebases);
-            return Blog::select('name', 'slug')->whereIn('id', $firstFiveKnowledgebases)->orderByRaw(DB::raw("FIELD(id, $whereInOrder)"))->get();
+            return Blog::select('name', 'slug')->whereIn('id', $firstFiveKnowledgebases)->whereIn('id', $firstFiveKnowledgebases)->get();
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
