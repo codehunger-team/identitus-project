@@ -7,9 +7,7 @@ require('./morris');
 require('./custom');
 
 import 'select2/dist/css/select2.css';
-require('./quill.js');
 
-window.Quill = require('Quill');
 import {
     library,
     dom
