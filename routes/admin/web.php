@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DocusignController;
 use App\Http\Controllers\Admin\EnquiryController;
+use App\Http\Controllers\PwaConfigurationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +114,9 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     //configuration route
     Route::get('configuration', [AdminController::class, 'configuration_overview'])->name('admin.configuration');
     Route::post('configuration', [AdminController::class, 'configuration_show'])->name('admin.show.configuration');
+    //pwa configuration route
+    Route::get('pwa-configuration', [PwaConfigurationController::class, 'show'])->name('admin.pwa.configuration');
+    Route::post('pwa-configuration', [PwaConfigurationController::class, 'store'])->name('admin.save.pwa.configuration');
 
     //logout
     Route::any('logout', [AdminController::class, 'logout'])->name('admin.logout');

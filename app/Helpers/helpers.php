@@ -1,23 +1,26 @@
 <?php
+
 use \Carbon\Carbon;
 use App\Models\Option;
 // get domain extension from full url
-function get_domain_extension( $domain ) {
+function get_domain_extension($domain)
+{
 
 	$parts = explode('.', $domain);
 
-	return '.' . strtolower( end( $parts ));
-
+	return '.' . strtolower(end($parts));
 }
 //get the current dat time
-function getCurrentDateTime() {
+function getCurrentDateTime()
+{
 	$mytime = Carbon::now();
-    return $mytime->toDateTimeString();
+	return $mytime->toDateTimeString();
 }
 
-function docusignHourDifference() {
-	$toDate = Option::where('name','docusign_auth_code')->pluck('updated_at')->first();
-	if(isset($toDate)) {
+function docusignHourDifference()
+{
+	$toDate = Option::where('name', 'docusign_auth_code')->pluck('updated_at')->first();
+	if (isset($toDate)) {
 		$to = Carbon::createFromFormat('Y-m-d H:s:i', $toDate);
 		$from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 		return $to->diffInHours($from);
@@ -25,11 +28,22 @@ function docusignHourDifference() {
 	return false;
 }
 
-function changeDateFormat($date) {
+function changeDateFormat($date)
+{
 	return date("F d, Y h:i a", strtotime($date));
-
 }
 
-function formatMobileNumber($formattedNumber) {
+function formatMobileNumber($formattedNumber)
+{
 	return preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $formattedNumber);
+}
+
+function getConfig()
+{
+	return 123;
+}
+
+function getOption($key)
+{
+	return Option::get_option($key);
 }

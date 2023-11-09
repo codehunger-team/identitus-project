@@ -1,6 +1,6 @@
 @extends('layouts.app')
+@section('seo_title') Domains List - {!! \App\Models\Option::get_option('seo_title') !!} @endsection
 @section('content')
-
 <div class="container">
     <div class="section-title">
         <h1 class="text-center">
@@ -53,52 +53,50 @@
 </div>
 
 <div class="container-white">
-    <div class="row mt-4">
-        @if(isset($whois['domain']))
-        <div class="col-lg-8 col-md-12 col-sm-12 mx-auto my-4">
-            <div class="text-center">
-                <h2 class="my-4">Summary</h2>
-            </div>
-            <table class="table table-bordered table-responsive">
-                <tr>
-                    <th class="theading">Registered On</th>
-                    <td>{{ $whois['created_date'] }}</td>
-                    <th class="theading">Registrar</th>
-                    <td>{{ $whois['registrar'] }}</td>
-                </tr>
-                <tr>
-                    <th class="theading">Domain Age</th>
-                    <td>
-                        @php
-                        $created = new DateTime($whois['created_date']);
-                        $now = new DateTime(date('Y-m-d'));
-                        $diff = $now->diff($created);
-                        echo $diff->y . ' Years';
-                        @endphp
-                    </td>
-                    <th class="theading">Registrant Country</th>
-                    <td>
-                        {{ $whois['registrant_country'] ?? 'N/A' }}
-                    </td>
-                </tr>
-                <tr>
-                    <th class="theading">Nameservers</th>
-                    <td>
-                        <ul>
-                            @foreach($whois['nameservers'] as $nameserver)
-                            <li>{{ $nameserver }}</li>
-                            @endforeach
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <div class="col-sm-12">{!! $domain->description !!}</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        @endif
+    @if(isset($whois['domain']))
+    <div class="text-center">
+        <h2 class="my-4">Summary</h2>
     </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th class="theading">Registered On</th>
+                <td>{{ $whois['created_date'] }}</td>
+                <th class="theading">Registrar</th>
+                <td>{{ $whois['registrar'] }}</td>
+            </tr>
+            <tr>
+                <th class="theading">Domain Age</th>
+                <td>
+                    @php
+                    $created = new DateTime($whois['created_date']);
+                    $now = new DateTime(date('Y-m-d'));
+                    $diff = $now->diff($created);
+                    echo $diff->y . ' Years';
+                    @endphp
+                </td>
+                <th class="theading">Registrant Country</th>
+                <td>
+                    {{ $whois['registrant_country'] ?? 'N/A' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="theading">Nameservers</th>
+                <td>
+                    <ul>
+                        @foreach($whois['nameservers'] as $nameserver)
+                        <li>{{ $nameserver }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="col-sm-12">{!! $domain->description !!}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @endif
 </div>
 @endsection
