@@ -6,6 +6,8 @@
 <div class="app-main__inner">
     <div class="row mb-2 mb-xl-3">
         <div class="col-auto ms-auto text-end mt-n1">
+            <a class="btn btn-primary" href="{{ route('admin.blog.index') }}">Blog</a>
+            <a class="btn btn-primary" href="{{ route('admin.subcategory.index') }}">Blog Sub-Category</a>
             <button type="button" data-bs-toggle="modal" data-bs-target="#knowledgebaseCategoryCreateModal" class="render-create btn btn-primary btn-shadow">
                 + Create Blog Category</button>
         </div>
