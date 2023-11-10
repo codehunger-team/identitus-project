@@ -5,6 +5,7 @@ require('./datetimepicker');
 require('select2');
 require('./morris');
 require('./custom');
+require('./quill.js');
 
 import 'select2/dist/css/select2.css';
 
