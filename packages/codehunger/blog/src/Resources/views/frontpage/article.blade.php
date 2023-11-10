@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('seo_title', $blog['name'])
 @section('content')
-<div class="content article mt-2 px-5" data-article="{{ $blog['id'] }}">
+<div class="content article mt-2 px-2" data-article="{{ $blog['id'] }}">
     <div class="row">
         <div class="col-xl-8">
             <div class="card mt-4">

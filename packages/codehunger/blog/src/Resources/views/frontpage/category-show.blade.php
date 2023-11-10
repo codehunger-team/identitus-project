@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('seo_title', $category['name'])
 @section('content')
-<div class="content article mt-2 px-5">
+<div class="content article mt-2 px-2">
     <div class="row">
         <div class="section1">
             <h3 class="text-primary">{{ $category['name'] }}</h3>
