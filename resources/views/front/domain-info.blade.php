@@ -51,51 +51,39 @@
         </div>
     </div>
 </div>
-
-<div class="container-white">
+<div class="container p-3">
     @if(isset($whois['domain']))
     <div class="text-center">
         <h2 class="my-4">Summary</h2>
     </div>
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th class="theading">Registered On</th>
-                <td>{{ $whois['created_date'] }}</td>
-                <th class="theading">Registrar</th>
-                <td>{{ $whois['registrar'] }}</td>
-            </tr>
-            <tr>
-                <th class="theading">Domain Age</th>
-                <td>
-                    @php
-                    $created = new DateTime($whois['created_date']);
-                    $now = new DateTime(date('Y-m-d'));
-                    $diff = $now->diff($created);
-                    echo $diff->y . ' Years';
-                    @endphp
-                </td>
-                <th class="theading">Registrant Country</th>
-                <td>
-                    {{ $whois['registrant_country'] ?? 'N/A' }}
-                </td>
-            </tr>
-            <tr>
-                <th class="theading">Nameservers</th>
-                <td>
-                    <ul>
-                        @foreach($whois['nameservers'] as $nameserver)
-                        <li>{{ $nameserver }}</li>
-                        @endforeach
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div class="col-sm-12">{!! $domain->description !!}</div>
-                </td>
-            </tr>
-        </table>
+    <div class="row p-3">
+        <div class="col-md-3 mb-3">
+            <span class="fw-bold">Registered On: </span>
+            <span class="float-end">{{ $whois['created_date'] }}</span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <span class="fw-bold">Domain Age: </span>
+            <span class="float-end">
+                @php
+                $created = new DateTime($whois['created_date']);
+                $now = new DateTime(date('Y-m-d'));
+                $diff = $now->diff($created);
+                echo $diff->y . ' Years';
+                @endphp
+            </span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <span class="fw-bold">Nameservers: </span>
+            <span class="float-end">@foreach($whois['nameservers'] as $nameserver) <li>{{ $nameserver }}</li> @endforeach</span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <span class="fw-bold">Registrar: </span>
+            <span class="float-end">{{ $whois['registrar'] }}</span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <span class="fw-bold">Registrant Country: </span>
+            <span class="float-end">{{ $whois['registrant_country'] ?? 'N/A' }}</span>
+        </div>
     </div>
     @endif
 </div>

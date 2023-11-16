@@ -148,7 +148,7 @@
                                 <th>Domain</th>
                                 <th class="desktop-dt">Monthly Lease $</th>
                                 <th class="desktop-dt">Purchase Price $</th>
-                                <th>Options</th>
+                                <th class="desktop-dt">Options</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

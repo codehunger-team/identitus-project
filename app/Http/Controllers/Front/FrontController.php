@@ -132,13 +132,7 @@ class FrontController extends Controller
                     return $domain . '<div>' . $monthly . $price . '</div>';
                 })
                 ->addColumn('options', function ($query) {
-                    $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
-                    if (isset($query->contract->period_payment)) {
-                        $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
-                    };
-                    $action .=  '<li><a href="' . route('ajax.add-to-cart.buy', $query->domain) . '" class="dropdown-item">Buy Now</a></li>';
-                    $action .= '<li><a href="' . route('domain.details', $query->domain) . '" class="dropdown-item">Details</a></li>';
-                    return $action . '</ul> </div>';
+                    return '';
                 })
                 ->rawColumns(['options', 'monthly_lease', 'domain', 'pricing', 'contract.period_payment'])
                 ->make(true);
@@ -155,7 +149,7 @@ class FrontController extends Controller
                     return '<a href="' . route('domain.details', $query->domain) . '" target="_self">' . $query->domain . '</a>';
                 })
                 ->addColumn('options', function ($query) {
-                    $action = '<div class="dropdown"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
+                    $action = '<div class="dropdown desktop-dt"> <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="buy" data-bs-toggle="dropdown" aria-expanded="false"> Get </a> <ul class="dropdown-menu" aria-labelledby="buy">';
                     if (isset($query->contract->period_payment)) {
                         $action .= '<li><a href="' . route('review.terms', $query->domain) . '" class="dropdown-item">Lease Now</a></li>';
                     };

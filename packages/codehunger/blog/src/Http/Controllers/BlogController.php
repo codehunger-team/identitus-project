@@ -75,7 +75,6 @@ class BlogController extends Controller
             }
             return redirect()->route('admin.blog.index')->with('msg', "Blog Successfully Created");
         } catch (Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }

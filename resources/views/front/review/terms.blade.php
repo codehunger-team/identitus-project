@@ -3,6 +3,27 @@
 @section('seo_desc'){{$domain->short_description ?? ''}}@endsection
 @section('seo_title') {{$domainName ?? ''}} - {!! \App\Models\Option::get_option('seo_title') !!}
 @endsection
+@push('styles')
+<style>
+    @media (max-width: 767px) {
+        .desktop-dt {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .width-50 {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    .width-50 {
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
+@endpush
 @section('content')
 <div class="container">
     <div class="section-title">
@@ -14,146 +35,100 @@
         @include('front.review.docusign')
         @endif
         <h4 class="text-center text-muted">The primary lease terms for...</h4>
-
         <!-- Depending upon how this is handled, this page can be a form with changable fields or simply a static page to review. -->
-
         <h2 class="mb-10 text-center" style="margin-bottom:5%">{{$domainName ?? ''}}</h2>
         <div class="alert alert-success alert-block" role="alert" style="display: none;" id="main">
             <button class="close" data-dismiss="alert"></button>
             Profile updated successfully.
         </div>
-        <div class="form-group row">
-            <div class="col">
-                {{--            Currency field--}}
-                <label for="firstPayment">First Payment ($)</label>
-                <div class="input-group mb-2">
-                    <input type="number" class="form-control" id="firstPayment" placeholder="First Payment"
-                        value="{{$contracts->first_payment ?? ''}}" readonly>
-                </div>
-            </div>
-            <div class="col">
-                {{--            Currency field--}}
-                <label for="periodPayments">Period Payments ($)</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" placeholder="$500" readonly
-                        value="{{$contracts->period_payment ?? ''}}">
-                </div>
-            </div>
-            <div class="col">
-                <label for="periodPayments">Period Type</label>
-                <div class="input-group mb-2">
-                    <select class="form-control" disabled>
-                        @if(count($periods))
-                        @foreach($periods as $p)
-                        <option value="{{$p->id}}" @if($contracts->period_type_id == $p->id) selected
-                            @endif>{{$p->period_type}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-            <div class="col-1">
-                <label for="periods">Periods</label>
-                <div class="input-group mb-2">
-                    <input type="number" class="form-control" id="periods" placeholder="Periods" readonly
-                        value="{{$contracts->number_of_periods ?? ''}}">
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col">
-                {{--            Currency field--}}
-                <label for="optionPurchasePrice">Option Purchase Price ($)</label>
-                <div class="input-group mb-2">
-                    <input type="number" class="form-control" id="optionPurchasePrice" placeholder="$50,000" readonly
-                        value="{{$contracts->option_price ?? ''}}">
-                </div>
-            </div>
-            <div class="col">
-                {{-- Date Field, can be dropdown, must include time. (full timestamp)--}}
-                <label for="optionPurchasePrice">Option Expiration</label>
-                <div class="input-group mb-2">
-                    <select class="form-control" disabled>
-                        @if(count($options))
-                        @foreach($options as $o)
-                        <option value={{$o->id}} @if($contracts->option_expiration == $o->id) selected
-                            @endif>{{$o->option_expiration}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                {{--Auto-calculates based on terms. (No. of periods x rate per period.)--}}
-                <label for="leaseTotal">Lease Total ($)</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="leaseTotal" placeholder="Lease Total" readonly
-                        value="{{$leasetotal ?? ''}}">
-                </div>
+        <div class="card width-50">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>First Payment ($)</td>
+                        <td>{{$contracts->first_payment ?? ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>Period Payment ($)</td>
+                        <td>{{$contracts->period_payment ?? ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>Period Type</td>
+                        <td>
+                            @if(count($periods))
+                            @foreach($periods as $p)
+                            @if($contracts->period_type_id == $p->id)
+                            {{ $p->period_type }}
+                            @endif
+                            @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Periods</td>
+                        <td>
+                            {{ $contracts->number_of_periods ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Option Purchase Price ($)</td>
+                        <td>
+                            {{ $contracts->option_price ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Option Expiration</td>
+                        <td>
+                            @if(count($options))
+                            @foreach($options as $o)
+                            @if($contracts->option_expiration == $o->id)
+                            {{ $o->option_expiration }}
+                            @endif
+                            @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lease Total ($)</td>
+                        <td>
+                            {{ $leasetotal ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lease Start</td>
+                        <td>
+                            {{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($getCurrentDateTime) ?? ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lease End</td>
+                        <td>
+                            {{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($endOfLease) ?? ''}}
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col">
-                {{--            Date/timestamp of the desired start. This is when the lease will actually start and the lessee will have DNS control.--}}
-                <label for="leaseTotal">Lease Start</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="leaseStart" placeholder="Lease Start Date and Time"
-                        readonly
-                        value="{{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($getCurrentDateTime) ?? ''}}">
-                </div>
-            </div>
-            <div class="col">
-                {{--            Auto-calculated based on terms. (Start time, period type, number of periods.)--}}
-                <label for="leaseTotal">Lease End</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" readonly id="leaseEnd" placeholder="Lease End Date and Time"
-                        value="{{app('App\Helpers\DateTimeHelper')->ConvertIntoUTC($endOfLease) ?? ''}}">
-                </div>
-            </div>
-        </div>
-        <!-- <div class="form-group row">
-            <div class="col">
-                {{--            Number Percentage--}}
-                <label for="annualTowardsPurchase">Percent (%) Towards Purchase</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="annualTowardsPurchase" placeholder="3%" readonly
-                        value="{{$contracts->accural_rate ?? ''}}">
-                </div>
-            </div>
-            <div class="col">
-                <label for="gracePeriod">Grace Period</label>
-                <div class="input-group mb-2">
-                    <select class="form-control" disabled>
-                        @if(count($graces))
-                        @foreach($graces as $g)
-                        <option value={{$g->id}} @if($contracts->grace_period_id == $g->id) selected
-                            @endif>{{$g->grace_period}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-        </div> -->
         <p>By clicking 'Review Lease' the basic lease and option terms above will be added to the full lease and
             option to purchase agreement below for your detailed review and digital signature. This is the surest
             and fastest path to a agreeable lease contract between you and the Domain Lessor. If you prefer to
             negotiate these terms with the Lessor, <a href="#">you may attempt to do so here</a>, but please be
             aware that the Lessor may withdraw their original offer to lease.</p>
-        @if(Auth::check())
+        <div class="text-center">
+            @if(Auth::check())
 
-        <a href="{{route('sign.document',$domainName)}}"><button
-                class="btn btn-primary btn-block text-center ml-2 mb-4 mt-5 w-30 lease-now">Lease Now</button></a>&nbsp;
+            <a href="{{route('sign.document',$domainName)}}"><button class="btn btn-primary btn-block text-center ml-2 mb-4 mt-5 w-30 lease-now">Lease Now</button></a>&nbsp;
 
-        <a href="javascript:void(0)">
-            @if($isAlreadyCounterOffered != 1)
-                <button class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5 w-30"
-                    id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter Lease
+            <a href="javascript:void(0)">
+                @if($isAlreadyCounterOffered != 1)
+                <button class="btn btn-primary edit-lease-counter btn-block text-white text-center mb-4 mt-5" id="{{$contracts->contract_id}}" data-bs-toggle="modal" data-bs-target="#counterModal">Counter Lease
                 </button>
+                @endif
+            </a>
+            @else
+            <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
             @endif
-        </a>
-        @else
-        <a href="{{route('login')}}" class="btn btn-primary"> Login to Lease</a>
-        @endif
+        </div>
         @include('front.components.review-term-counter-modal')
     </div>
 </div>
@@ -161,7 +136,7 @@
 @push('scripts')
 <script>
     // edit counter modal code
-    $(document).on('click', '.edit-lease-counter', function () {
+    $(document).on('click', '.edit-lease-counter', function() {
         id = $(this).attr('id');
         var url = '{{ route("edit.counter", ":id") }}';
         url = url.replace(':id', id);
@@ -182,17 +157,17 @@
             });
     });
 
-    $(document).on('click', '.lease-now', function () {
+    $(document).on('click', '.lease-now', function() {
         $('.lease-now').attr('disabled', true)
         $(this).text('Redirecting you to docusign ....');
     });
-    $(document).on('click', '.lease-counter', function () {
+    $(document).on('click', '.lease-counter', function() {
         $('.lease-now').attr('disabled', true)
         $(this).text('Sending mail to the owner ....');
     });
 
     //count offer form sumission
-    $('#counter-form-submit').on('click', function (e) {
+    $('#counter-form-submit').on('click', function(e) {
         e.preventDefault();
         $('#counter-form-submit').attr('disabled', true);
         $('#first-payment-error').html("");
@@ -203,7 +178,7 @@
             type: "POST",
             url: "{{ route('counter') }}",
             data: $('form.counter-form').serialize(),
-            success: function (response) {
+            success: function(response) {
                 if (response.errors) {
                     if (response.errors.first_payment) {
                         $('#first-payment-error').html(response.errors.first_payment[0]);
@@ -239,7 +214,7 @@
                     location.reload();
                 }
             },
-            error: function () {
+            error: function() {
                 location.reload();
             }
         });
